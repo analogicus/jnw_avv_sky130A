@@ -1,2 +1,10 @@
 source ../tech/xschem/xschemrc
+set intuitive_interface 1
+## swap w and W keybinds; Always specify Shift for capital letters
+set replace_key(Shift-W) w
+set replace_key(w) Shift-W
+
+set replace_key(Shift-I) i
+set replace_key(i) Shift-I
+
 append XSCHEM_LIBRARY_PATH :../design
