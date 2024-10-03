@@ -1,10 +1,20 @@
 source ../tech/xschem/xschemrc
 set intuitive_interface 1
+set autotrim_wires 1
 ## swap w and W keybinds; Always specify Shift for capital letters
 set replace_key(Shift-W) w
 set replace_key(w) Shift-W
 
+## Insert object: i, Decend to symbol: Shift-I
 set replace_key(Shift-I) i
 set replace_key(i) Shift-I
+
+## Rotate: r, Start rect: Shift-R
+set replace_key(Shift-R) r
+set replace_key(r) Shift-R
+
+## Vertical flip selected objects: v, Constrained vertical move/copy of objects: V
+set replace_key(Shift-R) r
+set replace_key(r) Shift-R
 
 append XSCHEM_LIBRARY_PATH :../design
