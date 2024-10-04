@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
@@ -56,9 +56,9 @@ lab=vdd}
 N 2440 -950 2440 -850 {
 lab=#net7}
 N 2490 -810 2560 -810 {
-lab=vdd}
+lab=vref}
 N 2560 -810 2560 -540 {
-lab=vdd}
+lab=vref}
 N 2280 -590 2280 -540 {
 lab=#net8}
 N 2110 -590 2110 -540 {
@@ -226,14 +226,13 @@ lab=#net16}
 N 1300 -520 1350 -520 {
 lab=#net16}
 N 2560 -810 2590 -810 {
-lab=vdd}
+lab=vref}
 C {devices/ipin.sym} 650 -800 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 650 -780 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 650 -760 0 0 {name=p3 lab=pwrup_1v8
 }
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 1420 -810 0 0 {name=x1 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 990 -960 0 0 {name=x2 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 1610 -540 1 0 {name=x4 }
 C {devices/lab_wire.sym} 1800 -120 0 0 {name=p4 sig_type=std_logic lab=vss
 }
@@ -327,3 +326,4 @@ C {devices/lab_wire.sym} 1040 -360 0 0 {name=p29 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 1180 -400 1 0 {name=x19 }
 C {devices/ipin.sym} 2590 -810 2 0 {name=p30 lab=vref}
+C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 990 -960 0 0 {name=x2 }
