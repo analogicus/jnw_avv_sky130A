@@ -1,4 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
+v {xschem version=3.4.6RC file_version=1.2
 }
 G {}
 K {}
@@ -8,8 +8,6 @@ E {}
 N 680 -540 820 -540 {
 lab=#net1}
 N 540 -540 540 -460 {
-lab=#net1}
-N 820 -540 820 -460 {
 lab=#net1}
 N 680 -570 680 -540 {
 lab=#net1}
@@ -96,7 +94,7 @@ lab=vss}
 N 280 -690 280 -280 {
 lab=#net4}
 N 1080 -480 1080 -280 {
-lab=vss}
+lab=vout}
 N 980 -250 1040 -250 {
 lab=#net3}
 N 280 -690 340 -690 {
@@ -109,11 +107,11 @@ N 340 -750 1040 -750 {
 lab=#net4}
 N 320 -750 340 -750 {
 lab=#net4}
-N 280 -820 280 -780 {
+N 280 -820 280 -750 {
 lab=vdd}
 N 280 -820 1080 -820 {
 lab=vdd}
-N 1080 -820 1080 -780 {
+N 1080 -820 1080 -750 {
 lab=vdd}
 N 240 -820 280 -820 {
 lab=vdd}
@@ -122,9 +120,11 @@ lab=vss}
 N 240 -160 280 -160 {
 lab=vss}
 N 1080 -720 1080 -480 {
-lab=vss}
+lab=vout}
 N 1080 -480 1150 -480 {
-lab=vss}
+lab=vout}
+N 820 -540 820 -460 {
+lab=#net1}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
@@ -147,5 +147,4 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 320 -250 0 1 {name=x6 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1040 -250 0 0 {name=x7 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 1040 -750 0 0 {name=x8 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 320 -750 0 1 {name=x9 }
-C {devices/ipin.sym} 1150 -480 2 0 {name=p7 lab=vout
-}
+C {devices/opin.sym} 1150 -480 0 0 {name=p7 lab=vout}
