@@ -20,7 +20,7 @@ lab=vss}
 N 460 -460 500 -460 {
 lab=vip}
 N 860 -460 900 -460 {
-lab=vin}
+lab=vip}
 N 540 -430 540 -340 {
 lab=#net2}
 N 460 -340 460 -300 {
@@ -123,8 +123,11 @@ N 1080 -720 1080 -480 {
 lab=vout}
 N 1080 -480 1150 -480 {
 lab=vout}
+<<<<<<< HEAD
 N 820 -540 820 -460 {
 lab=#net1}
+=======
+>>>>>>> e8659d1d68add5bba0157effa4af2ded6016ea6f
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
@@ -135,9 +138,9 @@ C {devices/ipin.sym} 680 -660 1 0 {name=p1 lab=itail
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 640 -600 0 0 {name=x1 }
 C {devices/lab_wire.sym} 620 -600 0 0 {name=p4 sig_type=std_logic lab=vss}
-C {devices/ipin.sym} 460 -460 0 0 {name=p5 lab=vip
+C {devices/ipin.sym} 460 -460 0 0 {name=p5 lab=vin
 }
-C {devices/ipin.sym} 900 -460 2 0 {name=p6 lab=vin
+C {devices/ipin.sym} 900 -460 2 0 {name=p6 lab=vip
 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 420 -250 0 0 {name=x2 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 640 -270 0 1 {name=x3 }
