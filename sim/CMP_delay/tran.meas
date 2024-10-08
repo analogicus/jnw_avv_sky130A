@@ -1,0 +1,12 @@
+* Measure CMP
+.control
+
+load {cicname}.raw
+
+echo "MEAS_START"
+
+meas tran vout_switch WHEN v(vout)=vin CROSS=LAST
+meas tran 
+
+echo "MEAS_END"
+.endc
