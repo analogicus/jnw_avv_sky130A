@@ -5,8 +5,7 @@ load {cicname}.raw
 
 echo "MEAS_START"
 
-meas tran vout_switch WHEN v(vout)=vin CROSS=LAST
-meas tran 
+meas dc offset WHEN v(vout)=vin CROSS=LAST
 
 echo "MEAS_END"
 .endc

@@ -25,7 +25,7 @@
 VSS     VSS   0     dc 0
 VDD     VDD   VSS   dc 3
 Vip     vip   VSS  pwl 0 0 100n 0 100001p 3 200n 3
-Vin     vin   vout  dc 0
+Vin     vin   VSS   dc 1.5
 Itail   VDD   itail dc 12.5u
 
 *-----------------------------------------------------------------
