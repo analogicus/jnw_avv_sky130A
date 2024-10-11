@@ -24,7 +24,7 @@
 *-----------------------------------------------------------------
 VSS     VSS   0     dc 0
 VDD     VDD   VSS   dc 3
-Vip     Vip   VSS   pwl 0 1.48 2 1.52
+Vip     Vip   VSS   pwl 0 1.48 2000m 1.52
 *Vip     Vip   VSS   dc 0
 Vin     vin   VSS   dc 1.5
 Itail   VDD   itail dc 12.5u
@@ -51,7 +51,7 @@ unset askquit
 
 optran 0 0 0 1n 1u 0
 
-tran 5m 2
+tran 5m 2000m
 *dc Vip 1.48 1.52 0.0001
 write 
 quit
