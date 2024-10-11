@@ -5,7 +5,8 @@ load {cicname}.raw
 
 echo "MEAS_START"
 
-meas dc offset WHEN v(vout)=vin CROSS=LAST
+meas tran crossing find vip WHEN v(vout)=vin CROSS=LAST
+*meas dc offset par('v(vout)') WHEN v(vout)=vin
 
 echo "MEAS_END"
 .endc

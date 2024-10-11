@@ -1,2 +1,2 @@
-*Automatic generated instance fron ../../tech/scripts/genxdut CMP
-XDUT vdd itail vout vin vip vss  CMP
+*Automatic generated instance fron ../../tech/scripts/genxdut CMP_v2
+XDUT vss vdd itail vin vip vout  CMP_v2
