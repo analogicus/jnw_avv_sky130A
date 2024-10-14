@@ -1,0 +1,13 @@
+* Measure CMP
+.control
+
+load {cicname}.raw
+
+echo "MEAS_START"
+let vi=v(vip)-v(vin)
+meas tran first_offset find vi WHEN v(vout)=0.9 CROSS=1
+meas tran second_offset find vi WHEN v(vout)=0.9 CROSS=2
+*meas dc offset par('v(vout)') WHEN v(vout)=vin
+
+echo "MEAS_END"
+.endc
