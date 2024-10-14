@@ -23,11 +23,12 @@
 * FORCE
 *-----------------------------------------------------------------
 VSS     VSS   0     dc 0
-VDD     VDD   VSS   dc 3
-Vip     Vip   VSS   pwl 0 1.48 2000m 1.52
+VDD     VDD   VSS   dc 1.8
 *Vip     Vip   VSS   dc 0
-Vin     vin   VSS   dc 1.5
-Itail   VDD   itail dc 12.5u
+Vip     vip   VSS   pwl 0 0.89 1000m 0.91 2000m 0.89
+Vin     vin   VSS   pwl 0 0.91 1000m 0.89 2000m 0.91
+*Vin     vin   VSS   dc 0.9
+Itail   itail VSS   dc 12.5u
 
 *-----------------------------------------------------------------
 * DUT
@@ -51,8 +52,8 @@ unset askquit
 
 optran 0 0 0 1n 1u 0
 
-tran 5m 2000m
-*dc Vip 1.48 1.52 0.0001
+tran 1m 2000m
+*dc Vip 1.49 1.51 0.001
 write 
 quit
 
