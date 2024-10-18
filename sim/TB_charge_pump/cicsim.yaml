@@ -1,0 +1,6 @@
+corner:
+  Lay: ''
+  Sch: ''
+ngspice:
+  library: JNW_AVV_130A
+  cell: TB_charge_pump

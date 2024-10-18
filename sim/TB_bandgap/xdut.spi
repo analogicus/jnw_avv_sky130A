@@ -1,0 +1,2 @@
+*Automatic generated instance fron ../../tech/scripts/genxdut TB_bandgap
+XDUT vdd vss vref src snk PA PB PC PD PI1 PI2 PII2 PII1 cmp  TB_bandgap

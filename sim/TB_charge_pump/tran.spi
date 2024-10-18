@@ -3,9 +3,9 @@
 * Include
 *----------------------------------------------------------------
 #ifdef Lay
-.include ../../../work/lpe/TB_bandgap_lpe.spi
+.include ../../../work/lpe/TB_charge_pump_lpe.spi
 #else
-.include ../../../work/xsch/TB_bandgap.spice
+.include ../../../work/xsch/TB_charge_pump.spice
 #endif
 
 *-----------------------------------------------------------------
@@ -17,10 +17,8 @@
 * PARAMETERS
 *-----------------------------------------------------------------
 .param TRF = 10p
-.param AVDD = {vdda}
 
-.param Vhigh = 1.8
-.param Vlow = 0
+.param AVDD = {vdda}
 
 *-----------------------------------------------------------------
 * FORCE
@@ -28,23 +26,11 @@
 VSS  VSS  0     dc 0
 VDD  vdd  VSS   dc 1.8
 
-Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5 
-Vsnk  snk  VSS   pulse 1.8 0 0 2n 2n 50u 100u 5 
+*Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5 
+*Vsnk  snk  VSS   pulse 1.8 0 0 2n 2n 50u 100u 5 
 
-VPA   PA   VSS   dc 0          
-VPB   PB   VSS   dc 0          
-VPC   PC   VSS   dc 0          
-VPD   PD   VSS   dc 0          
-VPI2  PI2  VSS   dc 1.8           
-VPII2 PII2 PII1  dc 0             
-
-* Pulse train and single pulse:
-*VPI1  PI1  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5           
-*VPI1  PI1  VSS   pulse 0 1.8 100u 2n 2n 50u 100u 1
-VPI1  PI1  VSS   dc 1.8           
-
-
-VPII1 PII1 VSS   dc 0
+Vsrc  src  VSS dc 1.8
+Vsnk  snk  VSS dc 0
 
 *-----------------------------------------------------------------
 * DUT
@@ -69,7 +55,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 1u 500u
+tran 10m 500m
 write
 quit
 

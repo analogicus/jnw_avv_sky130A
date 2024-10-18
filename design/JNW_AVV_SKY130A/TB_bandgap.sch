@@ -8,17 +8,17 @@ E {}
 N 1230 -400 1270 -400 {
 lab=vref}
 N 1230 -320 1360 -320 {
-lab=#net1}
+lab=vn}
 N 1360 -370 1360 -320 {
-lab=#net1}
+lab=vn}
 N 1360 -370 1420 -370 {
-lab=#net1}
+lab=vn}
 N 1230 -480 1360 -480 {
-lab=#net2}
+lab=vp}
 N 1360 -480 1360 -430 {
-lab=#net2}
+lab=vp}
 N 1360 -430 1420 -430 {
-lab=#net2}
+lab=vp}
 N 1220 -730 1260 -730 {
 lab=vctrl}
 N 930 -480 970 -480 {
@@ -76,11 +76,11 @@ lab=vss}
 N 1470 -670 1500 -670 {
 lab=vss}
 N 1480 -550 1480 -510 {
-lab=#net3}
+lab=#net1}
 N 1400 -550 1480 -550 {
-lab=#net3}
+lab=#net1}
 N 1400 -550 1400 -530 {
-lab=#net3}
+lab=#net1}
 N 1400 -480 1400 -470 {
 lab=vss}
 N 1370 -470 1400 -470 {
@@ -114,8 +114,8 @@ C {devices/lab_wire.sym} 1400 -470 0 0 {name=p16 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 990 -710 0 0 {name=p17 sig_type=std_logic lab=nbias}
 C {devices/lab_wire.sym} 990 -750 0 0 {name=p18 sig_type=std_logic lab=pbias}
 C {devices/opin.sym} 1270 -400 0 0 {name=p19 lab=vref}
-C {devices/ipin.sym} 1000 -780 0 0 {name=p1 lab=vss}
-C {devices/ipin.sym} 1000 -680 0 0 {name=p20 lab=vss}
+C {devices/ipin.sym} 1000 -780 0 0 {name=p1 lab=src}
+C {devices/ipin.sym} 1000 -680 0 0 {name=p20 lab=snk}
 C {devices/ipin.sym} 970 -460 0 0 {name=p21 lab=PA}
 C {devices/ipin.sym} 970 -440 0 0 {name=p22 lab=PB}
 C {devices/ipin.sym} 970 -420 0 0 {name=p23 lab=PC}
@@ -125,3 +125,5 @@ C {devices/ipin.sym} 970 -360 0 0 {name=p26 lab=PI2}
 C {devices/ipin.sym} 970 -320 0 0 {name=p27 lab=PII2}
 C {devices/ipin.sym} 970 -340 0 0 {name=p28 lab=PII1}
 C {devices/opin.sym} 1680 -400 0 0 {name=p29 lab=cmp}
+C {devices/lab_wire.sym} 1320 -480 0 0 {name=p30 sig_type=std_logic lab=vp}
+C {devices/lab_wire.sym} 1320 -320 0 0 {name=p31 sig_type=std_logic lab=vn}
