@@ -28,8 +28,8 @@
 VSS  VSS  0     dc 0
 VDD  vdd  VSS   dc 1.8
 
-Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5 
-Vsnk  snk  VSS   pulse 1.8 0 0 2n 2n 50u 100u 5 
+Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3 
+Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3
 
 VPA   PA   VSS   dc 0          
 VPB   PB   VSS   dc 0          
@@ -69,7 +69,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 1u 500u
+tran 100n 30u
 write
 quit
 

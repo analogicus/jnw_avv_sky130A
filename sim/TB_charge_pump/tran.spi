@@ -26,11 +26,11 @@
 VSS  VSS  0     dc 0
 VDD  vdd  VSS   dc 1.8
 
-*Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5 
-*Vsnk  snk  VSS   pulse 1.8 0 0 2n 2n 50u 100u 5 
+Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3 
+Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3
 
-Vsrc  src  VSS dc 1.8
-Vsnk  snk  VSS dc 0
+*Vsrc  src  VSS dc 0
+*Vsnk  snk  VSS dc 0
 
 *-----------------------------------------------------------------
 * DUT
@@ -55,7 +55,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 10m 500m
+tran 100n 30u
 write
 quit
 

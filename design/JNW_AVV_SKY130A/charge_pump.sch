@@ -54,10 +54,10 @@ C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 400 -380 0 0 {name=x1 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 400 -590 0 0 {name=x2 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_4C1F2.sym} 400 -220 0 0 {name=x3 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 400 -40 0 0 {name=x4 }
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 600 -190 0 0 {name=x5 }
-C {devices/vsource.sym} 440 -130 0 0 {name=V1 value=3 savecurrent=false}
-C {devices/vsource.sym} 440 -490 0 0 {name=V2 value=3 savecurrent=false}
+C {devices/vsource.sym} 440 -130 0 0 {name=V1 value=0 savecurrent=false}
+C {devices/vsource.sym} 440 -490 0 0 {name=V2 value=0 savecurrent=false}
 C {devices/ipin.sym} 350 -40 0 0 {name=p6 lab=nbias
 }
 C {devices/ipin.sym} 350 -590 0 0 {name=p7 lab=pbias
 }
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 600 -190 0 0 {name=x5[2:0]}
