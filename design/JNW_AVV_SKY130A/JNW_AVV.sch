@@ -132,11 +132,11 @@ lab=#net6}
 N 810 -450 870 -450 {
 lab=#net6}
 N 600 -450 650 -450 {
-lab=vn}
+lab=vp}
 N 650 -450 650 -350 {
-lab=vn}
+lab=vp}
 N 650 -450 710 -450 {
-lab=vn}
+lab=vp}
 N 870 -460 870 -450 {
 lab=#net6}
 N 780 -630 840 -630 {
@@ -162,6 +162,8 @@ lab=vss}
 N 1410 -120 1610 -120 {
 lab=vss}
 N 1180 -200 1180 -120 {
+lab=vss}
+N 1070 -120 1180 -120 {
 lab=vss}
 N 880 -200 880 -120 {
 lab=vss}
@@ -197,9 +199,15 @@ N 990 -450 990 -400 {
 lab=#net6}
 N 1070 -450 1070 -400 {
 lab=#net6}
-N 1070 -120 1180 -120 {
+N 880 -120 990 -120 {
+lab=vss}
+N 1070 -320 1070 -120 {
+lab=vss}
+N 990 -120 1070 -120 {
 lab=vss}
 N 1010 -360 1160 -360 {
+lab=vss}
+N 990 -320 990 -120 {
 lab=vss}
 N 1180 -440 1180 -400 {
 lab=#net6}
@@ -223,20 +231,6 @@ N 1630 -960 1630 -930 {
 lab=PA}
 N 1480 -930 1630 -930 {
 lab=PA}
-N 990 -320 990 -270 {
-lab=#net8}
-N 1070 -320 1070 -270 {
-lab=#net9}
-N 1010 -230 1050 -230 {
-lab=vss}
-N 990 -190 990 -120 {
-lab=vss}
-N 880 -120 990 -120 {
-lab=vss}
-N 1070 -190 1070 -120 {
-lab=vss}
-N 990 -120 1070 -120 {
-lab=vss}
 C {devices/ipin.sym} 650 -800 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 650 -780 0 0 {name=p2 lab=vss
 }
@@ -329,7 +323,3 @@ C {devices/ipin.sym} 1350 -520 2 0 {name=p34 lab=PI1}
 C {devices/opin.sym} 2590 -810 0 0 {name=p3 lab=vref}
 C {devices/opin.sym} 1460 -450 0 0 {name=p21 lab=vp}
 C {devices/opin.sym} 600 -450 2 0 {name=p22 lab=vn}
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 990 -270 3 1 {name=x20 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 1070 -270 1 0 {name=x21 }
-C {devices/lab_wire.sym} 1040 -230 0 0 {name=p30 sig_type=std_logic lab=vss
-}

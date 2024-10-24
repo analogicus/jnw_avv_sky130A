@@ -21,6 +21,8 @@
 
 .param Vhigh = 1.8
 .param Vlow = 0
+.param low_th = 0.1
+.param high_th = 1.7
 
 *-----------------------------------------------------------------
 * FORCE
@@ -28,23 +30,32 @@
 VSS  VSS  0     dc 0
 VDD  vdd  VSS   dc 1.8
 
-Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3 
-Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3
+Vsrc  src  cmp   dc 0    
+Vsnk  snk  cmp   dc 0   
+
+*Vsrc  src  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3 
+*Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 5u 10u 3
 
 VPA   PA   VSS   dc 0          
 VPB   PB   VSS   dc 0          
 VPC   PC   VSS   dc 0          
 VPD   PD   VSS   dc 0          
-VPI2  PI2  VSS   dc 1.8           
-VPII2 PII2 PII1  dc 0             
 
 * Pulse train and single pulse:
 *VPI1  PI1  VSS   pulse 0 1.8 0 2n 2n 50u 100u 5           
 *VPI1  PI1  VSS   pulse 0 1.8 100u 2n 2n 50u 100u 1
-VPI1  PI1  VSS   dc 1.8           
+
+*VPI1  PI1  VSS   dc 1.8           
+*VPI2  PI2  VSS   dc 1.8           
+
+BPI1  PI1  VSS   V = V(cmp) < {low_th} ? {Vlow} :
+    + V(cmp) > {high_th} ? {Vhigh}
+BPI2  PI2  VSS   V = V(cmp) < {low_th} ? {Vlow} :
+    + V(cmp) > {high_th} ? {Vhigh} : V(cmp)
 
 
 VPII1 PII1 VSS   dc 0
+VPII2 PII2 PII1  dc 0             
 
 *-----------------------------------------------------------------
 * DUT
@@ -69,7 +80,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 100n 30u
+tran 1000n 30u
 write
 quit
 

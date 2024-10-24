@@ -94,8 +94,8 @@ C {JNW_AVV_SKY130A/JNW_AVV.sym} 1100 -400 0 0 {name=x2}
 C {JNW_AVV_SKY130A/charge_pump.sym} 930 -590 0 0 {name=x3}
 C {devices/lab_wire.sym} 960 -480 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 1260 -730 0 0 {name=p3 sig_type=std_logic lab=vctrl}
-C {devices/ipin.sym} 750 -680 0 0 {name=p4 lab=vdd}
-C {devices/ipin.sym} 750 -660 0 0 {name=p5 lab=vss}
+C {devices/ipin.sym} 1000 -950 0 0 {name=p4 lab=vdd}
+C {devices/ipin.sym} 1000 -930 0 0 {name=p5 lab=vss}
 C {devices/lab_wire.sym} 1100 -560 0 0 {name=p6 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1530 -510 0 0 {name=p7 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1100 -850 0 0 {name=p8 sig_type=std_logic lab=vdd}
