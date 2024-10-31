@@ -13,10 +13,18 @@ OPT=
 
 
 
+netlist1:
+	make netlist
+	-rm tmpDig.so
+	-rm -rf tmpDig_obj_dir
+	ngspice vlnggen ../../rtl/tmpDig.v
+	perl ../../tech/script/gensvinst ../../rtl/tmpDig.v tmpDig
+
+
 test:
 	${MAKE} typical OPT="Debug"
 
-typical: netlist
+typical: netlist1
 	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 slow: netlist
