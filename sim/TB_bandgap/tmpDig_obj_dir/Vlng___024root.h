@@ -29,14 +29,21 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     VL_OUT8(snk,0,0);
     VL_OUT8(rst,0,0);
     VL_OUT8(valid,0,0);
+    CData/*2:0*/ tmpDig__DOT__state;
+    CData/*5:0*/ tmpDig__DOT__count;
+    CData/*0:0*/ tmpDig__DOT__cmpEvent;
+    CData/*0:0*/ tmpDig__DOT__outNxt;
+    CData/*0:0*/ tmpDig__DOT__Hnxt;
+    CData/*0:0*/ tmpDig__DOT__prevCmp;
+    CData/*2:0*/ __Vdly__tmpDig__DOT__state;
     CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;
     CData/*0:0*/ __VactDidInit;
     CData/*0:0*/ __VactContinue;
     IData/*31:0*/ __VactIterCount;
-    VlTriggerVec<2> __VactTriggered;
-    VlTriggerVec<2> __VnbaTriggered;
+    VlTriggerVec<3> __VactTriggered;
+    VlTriggerVec<3> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     Vlng__Syms* const vlSymsp;
