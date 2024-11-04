@@ -1,26 +1,14 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
 V {}
 S {}
 E {}
-N 410 -410 410 -390 {
-lab=#net1}
-N 410 -500 410 -470 {
+N 410 -410 460 -410 {
 lab=vdd}
-N 410 -500 460 -500 {
+N 460 -410 460 -380 {
 lab=vdd}
-N 460 -500 460 -380 {
-lab=vdd}
-N 50 -330 50 -310 {
-lab=vdd}
-N 20 -330 50 -330 {
-lab=vdd}
-N 50 -250 50 -230 {
-lab=gnd}
-N 20 -230 50 -230 {
-lab=gnd}
 N 460 -180 460 -160 {
 lab=gnd}
 N 420 -160 460 -160 {
@@ -29,36 +17,48 @@ N 300 -310 350 -310 {
 lab=vip}
 N 300 -250 350 -250 {
 lab=vin}
-N 120 -330 120 -310 {
-lab=vin}
-N 90 -330 120 -330 {
-lab=vin}
-N 190 -330 190 -310 {
-lab=vip}
-N 160 -330 190 -330 {
-lab=vip}
-N 120 -250 120 -230 {
-lab=gnd}
-N 50 -230 120 -230 {
-lab=gnd}
-N 190 -250 190 -230 {
-lab=gnd}
-N 120 -230 190 -230 {
-lab=gnd}
 N 610 -280 650 -280 {
 lab=vout}
-C {devices/isource.sym} 410 -440 0 1 {name=I0 value=12.5u}
-C {devices/lab_wire.sym} 450 -500 0 0 {name=p1 sig_type=std_logic lab=vdd}
-C {devices/vsource.sym} 50 -280 0 0 {name=V1 value=3 savecurrent=false}
-C {devices/lab_wire.sym} 50 -330 0 0 {name=p2 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 50 -230 0 0 {name=p3 sig_type=std_logic lab=gnd}
+N 590 -430 680 -430 {
+lab=nbias}
+N 680 -430 680 -410 {
+lab=nbias}
+N 680 -380 680 -330 {
+lab=vss}
+N 650 -760 680 -760 {
+lab=vdd}
+N 740 -530 740 -330 {
+lab=vss}
+N 680 -330 740 -330 {
+lab=vss}
+N 680 -490 680 -430 {
+lab=nbias}
+N 700 -530 740 -530 {
+lab=vss}
+N 740 -610 740 -530 {
+lab=vss}
+N 700 -610 740 -610 {
+lab=vss}
+N 740 -690 740 -610 {
+lab=vss}
+N 700 -690 740 -690 {
+lab=vss}
+N 680 -760 680 -730 {
+lab=vdd}
+N 590 -430 590 -380 {
+lab=nbias}
+N 590 -380 640 -380 {
+lab=nbias}
+C {devices/lab_wire.sym} 450 -410 0 0 {name=p1 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 450 -160 0 0 {name=p4 sig_type=std_logic lab=gnd}
 C {devices/lab_wire.sym} 330 -310 0 0 {name=p5 sig_type=std_logic lab=vip}
 C {devices/lab_wire.sym} 330 -250 0 0 {name=p6 sig_type=std_logic lab=vin}
-C {devices/vsource.sym} 190 -280 0 0 {name=V2 value="pwl 0 0 500n 3" savecurrent=false}
-C {devices/vsource.sym} 120 -280 0 0 {name=V3 value=1.5 savecurrent=false}
-C {devices/lab_wire.sym} 190 -330 0 0 {name=p7 sig_type=std_logic lab=vip}
-C {devices/lab_wire.sym} 120 -330 0 0 {name=p8 sig_type=std_logic lab=vin}
-C {devices/code_shown.sym} 60 -440 0 0 {name=s1 only_toplevel=false value=".tran 1n 500n"}
 C {devices/lab_wire.sym} 650 -280 0 0 {name=p9 sig_type=std_logic lab=vout}
 C {JNW_AVV_SKY130A/CMP.sym} 280 -140 0 0 {name=x1}
+C {devices/lab_wire.sym} 680 -760 0 0 {name=p34 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 730 -330 0 0 {name=p35 sig_type=std_logic lab=vss}
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 680 -490 3 0 {name=x31 }
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 640 -380 0 0 {name=x28 }
+C {devices/lab_wire.sym} 650 -430 0 0 {name=p12 sig_type=std_logic lab=nbias}
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 680 -570 3 0 {name=x5 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 680 -650 3 0 {name=x6 }

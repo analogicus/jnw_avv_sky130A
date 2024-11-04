@@ -19,7 +19,8 @@ module tmpDig (
     output logic snk,
 
     output logic rst,
-    output logic valid
+    output logic valid,
+    output logic preChrg
     );
 
 
@@ -28,7 +29,9 @@ parameter   PRECHARGE=0,
             BIGDIODE=2,
             HCHARGE=3,
             LCHARGE=4,
-            OUTPUT=5;
+            OUTPUT=5,
+            BLANK1=6,
+            BLANK2=7;
 
 logic [2:0] state;
 logic [5:0] count;
@@ -44,30 +47,28 @@ always_ff @(posedge clk or posedge reset) begin
         rst <= 1'b0;
 end
 
-// Mulig problem med løsning som dette er at det kan bli delay på en
-// klokkeperiode fra når FSMen bytter state til når snk og src blir oppdatert
-always_ff @(cmp or posedge clk) begin
-    if (state == BIGDIODE && cmp != prevCmp) begin
-        cmpEvent <= 1;
-    end
-    else if (state == BIGDIODE) begin
-        cmpEvent <= 0;
-        if (cmp) begin
-            snk <= 1;
-            src <= 1;
-        end
-        else begin
-            snk <= 0;
-            src <= 0;
-        end
-    end
-    else begin
-        cmpEvent <= 0;
-        snk <= 0;
-        src <= 1;
-    end
-    prevCmp <= cmp;
-end
+// always_ff @(cmp or posedge clk) begin
+//     if (state == BIGDIODE && cmp != prevCmp) begin
+//         cmpEvent <= 1;
+//     end else if (state == BIGDIODE) begin
+//         cmpEvent <= 0;
+//         if (cmp) begin
+//             snk <= 1;
+//             src <= 1;
+//         end
+//         else begin
+//             snk <= 0;
+//             src <= 0;
+//         end
+//     end else begin
+//         cmpEvent <= 0;
+//         snk <= 0;
+//         src <= 1;
+//     end
+//     prevCmp <= cmp;
+// end
+
+
 
 always_ff @(posedge clk) begin
     if (rst) begin
@@ -76,7 +77,7 @@ always_ff @(posedge clk) begin
     else begin
         case(state)
             OUTPUT: begin
-                if (count > 3 && cmpEvent) begin
+                if (count > 3) begin
                     count <= 0;
                     PD <= 0;
                     PII1 <= 0;
@@ -92,9 +93,7 @@ always_ff @(posedge clk) begin
             end
 
             BIGDIODE: begin
-                if(cmpEvent) begin
-                    PI1 <= 0;
-                    PI2 <= 0;
+                if (cmp != prevCmp) begin
                     if (Hnxt) begin
                         Hnxt <= 0;
                         state <= HCHARGE;
@@ -103,15 +102,23 @@ always_ff @(posedge clk) begin
                         Hnxt <= 1;
                         state <= LCHARGE;
                     end
+
+                end else begin
+                    src <= 0;
+                    snk <= 0;
+                    src <= 1;
+                    snk <= 1;
                 end
-                else begin
-                    PI1 <= 1;
-                    PI2 <= 1;
-                    state <= BIGDIODE;
-                end
+
+                // else begin
+                //     PI1 <= 1;
+                //     PI2 <= 1;
+                //     state <= BIGDIODE;
+                // end
             end
 
             DIODE: begin
+                preChrg <= 0;
                 if(count > 3) begin
                     count <= 0;
                     PII1 <= 0;
@@ -169,6 +176,8 @@ always_ff @(posedge clk) begin
             end
 
             PRECHARGE: begin
+                preChrg <= 1;
+                count <= 0;
                 PII1 <= 0;
                 PII2 <= 0;
                 PI1 <= 0;
@@ -188,7 +197,6 @@ end
 
 initial begin
     state = PRECHARGE;
-    count = 0;
     src = 1;
     snk = 0;
 end

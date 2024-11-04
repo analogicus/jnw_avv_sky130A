@@ -24,6 +24,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , snk{vlSymsp->TOP.snk}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
+    , preChrg{vlSymsp->TOP.preChrg}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

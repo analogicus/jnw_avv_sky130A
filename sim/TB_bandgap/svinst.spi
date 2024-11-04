@@ -15,6 +15,7 @@ adut [clk
 + snk
 + rst
 + valid
++ preChrg
 + ] null dut
 .model dut d_cosim simulation="../tmpDig.so" delay=10p
 
@@ -36,6 +37,7 @@ Rsvi11 src 0 1G
 Rsvi12 snk 0 1G
 Rsvi13 rst 0 1G
 Rsvi14 valid 0 1G
+Rsvi15 preChrg 0 1G
 
 .save v(PI1)
 
@@ -60,4 +62,6 @@ Rsvi14 valid 0 1G
 .save v(rst)
 
 .save v(valid)
+
+.save v(preChrg)
 
