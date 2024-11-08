@@ -15,12 +15,13 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , PI1{vlSymsp->TOP.PI1}
     , PI2{vlSymsp->TOP.PI2}
     , PII1{vlSymsp->TOP.PII1}
+    , dummy{vlSymsp->TOP.dummy}
     , PII2{vlSymsp->TOP.PII2}
     , PA{vlSymsp->TOP.PA}
     , PB{vlSymsp->TOP.PB}
     , PC{vlSymsp->TOP.PC}
     , PD{vlSymsp->TOP.PD}
-    , src{vlSymsp->TOP.src}
+    , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}

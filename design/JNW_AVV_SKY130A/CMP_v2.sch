@@ -91,30 +91,15 @@ N 680 -820 680 -600 {
 lab=vdd}
 N 280 -820 680 -820 {
 lab=vdd}
-N 1270 -620 1320 -620 {
-lab=itail}
-N 1270 -620 1270 -570 {
-lab=itail}
-N 1270 -570 1360 -570 {
-lab=itail}
-N 1360 -570 1360 -510 {
-lab=itail}
-N 1360 -590 1360 -570 {
-lab=itail}
-N 1360 -820 1360 -650 {
-lab=vdd}
-N 1080 -820 1360 -820 {
-lab=vdd}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 500 -460 0 0 {name=x1[3:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 860 -460 0 1 {name=x2[3:0]}
-C {devices/ipin.sym} 1360 -510 3 0 {name=p1 lab=itail
+C {devices/ipin.sym} 740 -600 2 0 {name=p1 lab=pbias
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -600 0 1 {name=x1 }
-C {devices/lab_wire.sym} 740 -600 0 1 {name=p4 sig_type=std_logic lab=itail}
 C {devices/ipin.sym} 460 -460 0 0 {name=p5 lab=vin
 }
 C {devices/ipin.sym} 900 -460 2 0 {name=p6 lab=vip
@@ -126,4 +111,3 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1040 -250 0 0 {name=x7 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 1040 -750 0 0 {name=x8 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 320 -750 0 1 {name=x9 }
 C {devices/opin.sym} 1150 -480 0 0 {name=p7 lab=vout}
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 1320 -620 0 0 {name=x3 }
