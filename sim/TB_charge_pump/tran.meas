@@ -9,7 +9,7 @@ echo "MEAS_START"
 *meas tran first_offset find vi WHEN v(vout)=0.9 CROSS=1
 *meas tran second_offset find vi WHEN v(vout)=0.9 CROSS=2
 
-meas tran t_rise WHEN v(vctrl) = 1.75 CROSS = 1
+*meas tran t_rise WHEN v(vctrl) = 1.75 CROSS = 1
 
 echo "MEAS_END"
 .endc

@@ -65,6 +65,9 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(reset)
 .save v(rst)
 .save v(cmp)
+.save v(xdut.x3.snk_gate)
+.save v(xdut.x3.src_n_gate)
+.save v(xdut.x3.and_input)
 
 
 *----------------------------------------------------------------
@@ -84,7 +87,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 100n 2000n
+tran 500n 6000n
 write
 quit
 

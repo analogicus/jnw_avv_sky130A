@@ -91,7 +91,7 @@ always_ff @(posedge clk) begin
             end
 
             DIODE: begin
-                if(count > 1) begin
+                if(count > 0) begin
                     count <= 0;
                     PII2 <= 0;
                     state <= BLANKDIODE;
@@ -116,15 +116,24 @@ always_ff @(posedge clk) begin
             end
 
             BIGDIODE: begin
-                if(count > 1) begin
+                if(count > 0) begin
                     count <= 0;
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
+                    src_n <= 1;
+                    snk <= 0;
                 end else begin
                     count <= count + 1;
                     state <= BIGDIODE;
                     PI2 <= 1;
+                    if (cmp) begin
+                        src_n <= 1;
+                        snk <= ~snk;
+                    end else begin
+                        src_n <= ~src_n;
+                        snk <= 0;
+                    end
                 end
             end
         endcase

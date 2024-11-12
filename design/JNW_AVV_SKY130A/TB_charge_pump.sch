@@ -12,7 +12,7 @@ lab=nbias}
 N 110 -130 160 -130 {
 lab=snk}
 N 110 -230 160 -230 {
-lab=src}
+lab=src_n}
 N 380 -180 420 -180 {
 lab=vctrl}
 N 260 -320 260 -290 {
@@ -69,12 +69,13 @@ N 560 -50 610 -50 {
 lab=nbias}
 N 870 -50 870 0 {
 lab=vss}
+N 380 -240 410 -240 {
+lab=preChrg}
 C {JNW_AVV_SKY130A/charge_pump.sym} 90 -40 0 0 {name=x1}
 C {devices/lab_wire.sym} 150 -200 0 0 {name=p1 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 150 -160 0 0 {name=p2 sig_type=std_logic lab=nbias}
-C {devices/ipin.sym} 110 -230 0 0 {name=p3 lab=src}
+C {devices/ipin.sym} 110 -230 0 0 {name=p3 lab=src_n}
 C {devices/ipin.sym} 110 -130 0 0 {name=p4 lab=snk}
-C {devices/ipin.sym} 420 -180 2 0 {name=p5 lab=vctrl}
 C {devices/ipin.sym} 260 -320 0 0 {name=p6 lab=vdd}
 C {devices/ipin.sym} 260 -40 0 0 {name=p7 lab=vss}
 C {devices/lab_wire.sym} 830 -160 0 0 {name=p32 sig_type=std_logic lab=pbias}
@@ -89,3 +90,5 @@ C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 830 -220 0 0 {name=x2 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 650 -160 3 0 {name=x26 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 650 -240 3 0 {name=x27 }
 C {JNW_TR_SKY130A/JNWTR_RPPO8.sym} 650 -320 3 0 {name=x11 }
+C {devices/ipin.sym} 410 -240 2 0 {name=p8 lab=preChrg}
+C {devices/opin.sym} 420 -180 2 1 {name=p5 lab=vctrl}
