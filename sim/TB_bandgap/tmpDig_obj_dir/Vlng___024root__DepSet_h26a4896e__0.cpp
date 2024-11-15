@@ -106,11 +106,11 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             __Vdly__tmpDig__DOT__count = (0x3fU & ((IData)(1U) 
                                                    + (IData)(vlSelfRef.tmpDig__DOT__count)));
             if (vlSelfRef.cmp) {
-                __Vdly__snk = (1U & (~ (IData)(vlSelfRef.snk)));
-                __Vdly__src_n = 1U;
-            } else {
                 __Vdly__src_n = (1U & (~ (IData)(vlSelfRef.src_n)));
                 __Vdly__snk = 0U;
+            } else {
+                __Vdly__snk = (1U & (~ (IData)(vlSelfRef.snk)));
+                __Vdly__src_n = 1U;
             }
             __Vdly__tmpDig__DOT__state = 2U;
             vlSelfRef.PI2 = 1U;

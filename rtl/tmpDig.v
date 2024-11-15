@@ -128,11 +128,11 @@ always_ff @(posedge clk) begin
                     state <= BIGDIODE;
                     PI2 <= 1;
                     if (cmp) begin
-                        src_n <= 1;
-                        snk <= ~snk;
-                    end else begin
                         src_n <= ~src_n;
                         snk <= 0;
+                    end else begin
+                        src_n <= 1;
+                        snk <= ~snk;
                     end
                 end
             end
