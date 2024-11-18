@@ -201,8 +201,6 @@ N 1390 -1690 1390 -1660 {
 lab=PA}
 N 1240 -1660 1390 -1660 {
 lab=PA}
-N 740 -1100 740 -1080 {
-lab=#net7}
 N 510 -1360 600 -1360 {
 lab=PII1}
 N 360 -1790 400 -1790 {
@@ -217,35 +215,11 @@ N 940 -1170 950 -1170 {
 lab=#net6}
 N 640 -190 640 -170 {
 lab=vss}
-N 820 -770 820 -740 {
-lab=#net8}
 N 820 -330 820 -50 {
 lab=vss}
-N 820 -870 820 -850 {
-lab=#net6}
-N 820 -990 820 -960 {
-lab=#net6}
-N 820 -660 820 -640 {
-lab=#net9}
 N 820 -560 820 -540 {
-lab=#net10}
-N 820 -1100 870 -1100 {
-lab=#net6}
-N 870 -1100 870 -990 {
-lab=#net6}
-N 820 -990 870 -990 {
-lab=#net6}
-N 870 -990 870 -870 {
-lab=#net6}
-N 820 -870 870 -870 {
-lab=#net6}
-N 820 -1000 820 -990 {
-lab=#net6}
-N 820 -880 820 -870 {
-lab=#net6}
-N 820 -1100 820 -1080 {
-lab=#net6}
-N 820 -1180 820 -1100 {
+lab=#net8}
+N 820 -1180 820 -640 {
 lab=#net6}
 N 820 -1180 930 -1180 {
 lab=#net6}
@@ -255,31 +229,9 @@ N 820 -50 940 -50 {
 lab=vss}
 N 800 -50 820 -50 {
 lab=vss}
-N 740 -770 740 -740 {
-lab=#net11}
-N 740 -870 740 -850 {
-lab=#net7}
-N 740 -990 740 -960 {
-lab=#net7}
-N 740 -660 740 -640 {
-lab=#net12}
 N 740 -560 740 -540 {
-lab=#net13}
-N 690 -1100 740 -1100 {
-lab=#net7}
-N 690 -1100 690 -990 {
-lab=#net7}
-N 690 -990 740 -990 {
-lab=#net7}
-N 690 -990 690 -870 {
-lab=#net7}
-N 690 -870 740 -870 {
-lab=#net7}
-N 740 -1000 740 -990 {
-lab=#net7}
-N 740 -880 740 -870 {
-lab=#net7}
-N 740 -1180 740 -1100 {
+lab=#net9}
+N 740 -1180 740 -640 {
 lab=#net7}
 N 740 -460 740 -50 {
 lab=vss}
@@ -296,7 +248,7 @@ lab=#net6}
 N 930 -1170 940 -1170 {
 lab=#net6}
 N 940 -290 940 -250 {
-lab=#net14}
+lab=#net10}
 N 760 -1040 760 -50 {
 lab=vss}
 N 740 -50 760 -50 {
@@ -393,15 +345,7 @@ C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[10:0]}
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2040 -1210 0 0 {name=x2[10:0]}
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2320 -1210 0 0 {name=x3[10:0]}
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 820 -540 1 0 {name=x9 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 820 -960 1 0 {name=x10 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 820 -1080 1 0 {name=x14 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 820 -640 1 0 {name=x16 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 820 -740 1 0 {name=x18 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 820 -850 1 0 {name=x19 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 740 -540 3 1 {name=x20 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 740 -960 3 1 {name=x21 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 740 -1080 3 1 {name=x22 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 740 -640 3 1 {name=x23 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 740 -740 3 1 {name=x24 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 740 -850 3 1 {name=x25 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 940 -370 1 0 {name=x8 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 820 -640 1 0 {name=x10 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 740 -560 3 0 {name=x14 }

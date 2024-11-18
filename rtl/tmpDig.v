@@ -123,7 +123,7 @@ always_ff @(posedge clk) begin
                     afterBlank <= BLANKDIODE;
                     src_n <= 1;
                     snk <= 0;
-                end else begin
+                end else if (count < 3) begin
                     count <= count + 1;
                     state <= BIGDIODE;
                     PI2 <= 1;
@@ -134,6 +134,9 @@ always_ff @(posedge clk) begin
                         src_n <= 1;
                         snk <= ~snk;
                     end
+                end
+                else begin
+                    count <= count + 1;
                 end
             end
         endcase
