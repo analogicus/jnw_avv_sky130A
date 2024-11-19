@@ -70,7 +70,7 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x3.and_input)
 .save i(xdut.v_nbias)
 .save i(xdut.v_pbias)
-
+.save i(xdut.x2.vipmos)
 *----------------------------------------------------------------
 * NGSPICE control
 *----------------------------------------------------------------
@@ -88,7 +88,9 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 1000n 20000n
+tran 1000n 30000n
+*dc TEMP -40 125 1
+
 write
 quit
 

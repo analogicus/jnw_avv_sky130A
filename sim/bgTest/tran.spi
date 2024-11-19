@@ -47,6 +47,7 @@ VDD  VDD  VSS   dc 1.8
 .save v(vp)
 .save v(vn)
 .save v(xdut.vctrl)
+.save v(VBE)
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -60,8 +61,8 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-dc TEMP -40 125 1
-*tran 1n 1u
+*dc TEMP -40 125 1
+tran 10n 10u
 write
 quit
 

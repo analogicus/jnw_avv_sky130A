@@ -90,6 +90,11 @@ always_ff @(posedge clk) begin
                 end
             end
 
+
+
+            // Setter setuptid til 30 sykluser på vn.
+            // Må implementere outout mode. 
+
             DIODE: begin
                 if(count > 0) begin
                     count <= 0;
@@ -100,6 +105,12 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
+                    if (!setupDone) begin
+                        setupCount <= setupCount + 1;
+                        if (setupCount == 30) begin
+                            setupDone <= 1;
+                        end
+                    end
                 end
             end
 
@@ -115,8 +126,13 @@ always_ff @(posedge clk) begin
                 end
             end
 
+            // If setupDone, begynn med output.
+            // Må finne ut av hvordan jeg skal velge hvilken state
+            // jeg skal gå til når setupDone.
+            // Må også undersøe linje 140 og 139, trenger jeg de?
+
             BIGDIODE: begin
-                if(count > 0) begin
+                if(count > 2) begin
                     count <= 0;
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
