@@ -39,8 +39,8 @@ logic [2:0] afterBlank;
 logic [5:0] count;
 logic [5:0] setupCount;
 logic       cmpEvent;
-logic       outNxt;
-logic       Hnxt;
+logic       Hcharged;
+logic       Lcharged;
 logic       prevCmp;
 logic       setupDone;
 
@@ -69,16 +69,21 @@ always_ff @(posedge clk) begin
                 PC <= 0;
                 PD <= 0;
                 snk <= 0;
-                src_n <= 1;
+                src_n <= 0;
                 valid <= 0;
-                outNxt <= 0;
-                Hnxt <= 1;
+                Hcharged <= 0;
+                Lcharged <= 0;
                 state <= BLANKDIODE;
                 afterBlank <= DIODE;
             end
 
             BLANKDIODE: begin
                 preChrg <= 0;
+                count <= 0;
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
                 if (afterBlank == DIODE) begin
                     PII1 <= 1;
                 end else begin
@@ -92,12 +97,10 @@ always_ff @(posedge clk) begin
 
 
 
-            // Setter setuptid til 30 sykluser på vn.
-            // Må implementere outout mode. 
+            // Setter setuptid til 15 sykluser på vn.
 
             DIODE: begin
                 if(count > 0) begin
-                    count <= 0;
                     PII2 <= 0;
                     state <= BLANKDIODE;
                     afterBlank <= BLANKBIGDIODE;
@@ -107,7 +110,7 @@ always_ff @(posedge clk) begin
                     PII2 <= 1;
                     if (!setupDone) begin
                         setupCount <= setupCount + 1;
-                        if (setupCount == 30) begin
+                        if (setupCount == 20) begin
                             setupDone <= 1;
                         end
                     end
@@ -115,6 +118,11 @@ always_ff @(posedge clk) begin
             end
 
             BLANKBIGDIODE: begin
+                count <= 0;
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
                 if (afterBlank == BIGDIODE) begin
                     PI1 <= 1;
                 end else begin
@@ -129,32 +137,77 @@ always_ff @(posedge clk) begin
             // If setupDone, begynn med output.
             // Må finne ut av hvordan jeg skal velge hvilken state
             // jeg skal gå til når setupDone.
-            // Må også undersøe linje 140 og 139, trenger jeg de?
+            // Er noe trøbbel i BIGDIODE, jeg burde ikke trenge å resete
+            // count på linje 149. Når setupDone tror jeg ikke cmp har
+            // gain til å få gode nok digitale signaler.
 
             BIGDIODE: begin
-                if(count > 2) begin
-                    count <= 0;
+                if(count > 2 && !setupDone) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                    src_n <= 1;
-                    snk <= 0;
-                end else if (count < 3) begin
+                end else if (count > 2 && setupDone) begin
+                    count <= 0;
+                    PI2 <= 0;
+                    if (cmp && !Hcharged) begin
+                        state <= BLANKBIGDIODE;
+                        afterBlank <= HCHARGE;
+                    end else if (!cmp && !Lcharged) begin
+                        state <= BLANKBIGDIODE;
+                        afterBlank <= LCHARGE;
+                    end else if (cmp) begin
+                        src_n <= ~src_n;
+                    end else if (!cmp) begin
+                        snk <= ~snk;
+                    end
+
+                end else begin
                     count <= count + 1;
                     state <= BIGDIODE;
                     PI2 <= 1;
                     if (cmp) begin
                         src_n <= ~src_n;
-                        snk <= 0;
                     end else begin
-                        src_n <= 1;
                         snk <= ~snk;
                     end
                 end
-                else begin
-                    count <= count + 1;
+            end
+
+            HCHARGE: begin
+                PA <= 1;
+                PB <= 1;
+                if (Lcharged == 1) begin
+                    state <= OUTPUT;
+                end else begin
+                    Hcharged <= 1;
+                    state <= BLANKBIGDIODE;
+                    afterBlank <= BIGDIODE;
                 end
             end
+
+            LCHARGE: begin
+                PA <= 1;
+                PC <= 1;
+                if (Hcharged == 1) begin
+                    state <= OUTPUT;
+                end else begin
+                    Lcharged <= 1;
+                    state <= BLANKBIGDIODE;
+                    afterBlank <= BIGDIODE;
+                end
+            end
+
+            OUTPUT: begin
+                Lcharged <= 0;
+                Hcharged <= 0;
+                PA <= 0;
+                PB <= 1;
+                PC <= 1;
+                PD <= 1;
+                state <= BLANKDIODE;
+                afterBlank <= DIODE;
+            end
+
         endcase
     end
 end

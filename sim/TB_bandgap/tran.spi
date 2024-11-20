@@ -11,7 +11,7 @@
 *-----------------------------------------------------------------
 * OPTIONS
 *-----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-15 reltol=1e-3
+.option TNOM=-40 GMIN=1e-15 reltol=1e-3
 
 *-----------------------------------------------------------------
 * PARAMETERS
@@ -71,6 +71,11 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save i(xdut.v_nbias)
 .save i(xdut.v_pbias)
 .save i(xdut.x2.vipmos)
+.save v(xdut.x2.Hcharge)
+.save v(xdut.x2.Lcharge)
+.save v(xdut.x2.outRes)
+
+
 *----------------------------------------------------------------
 * NGSPICE control
 *----------------------------------------------------------------
@@ -88,7 +93,7 @@ unset askquit
 optran 0 0 0 1n 1u 0
 
 
-tran 1000n 30000n
+tran 1000n 50000n
 *dc TEMP -40 125 1
 
 write

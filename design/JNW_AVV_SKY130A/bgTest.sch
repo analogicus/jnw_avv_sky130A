@@ -332,7 +332,7 @@ C {devices/lab_wire.sym} 1250 -700 0 0 {name=p16 sig_type=std_logic lab=vss
 C {devices/opin.sym} 1230 -890 0 0 {name=p17 lab=VBE}
 C {sky130_fd_pr/pnp_05v5.sym} 1220 -790 0 1 {name=Q3
 model=pnp_05v5_W3p40L3p40
-m=8
+m=1
 spiceprefix=X
 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 500 -670 1 0 {name=x9 }

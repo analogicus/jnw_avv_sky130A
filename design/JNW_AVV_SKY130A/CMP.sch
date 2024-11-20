@@ -5,13 +5,9 @@ K {}
 V {}
 S {}
 E {}
-N 680 -540 820 -540 {
+N 600 -570 600 -540 {
 lab=#net1}
-N 680 -570 680 -540 {
-lab=#net1}
-N 540 -540 680 -540 {
-lab=#net1}
-N 720 -600 750 -600 {
+N 640 -600 670 -600 {
 lab=pbias}
 N 460 -460 500 -460 {
 lab=vin}
@@ -105,8 +101,6 @@ N 320 -750 340 -750 {
 lab=#net4}
 N 280 -820 280 -750 {
 lab=vdd}
-N 680 -820 1080 -820 {
-lab=vdd}
 N 1080 -820 1080 -750 {
 lab=vdd}
 N 240 -820 280 -820 {
@@ -119,25 +113,33 @@ N 1080 -720 1080 -480 {
 lab=vout}
 N 1080 -480 1150 -480 {
 lab=vout}
-N 680 -820 680 -600 {
-lab=vdd}
-N 280 -820 680 -820 {
+N 600 -820 600 -600 {
 lab=vdd}
 N 540 -540 540 -490 {
 lab=#net1}
 N 820 -540 820 -490 {
 lab=#net1}
 N 540 -460 820 -460 {
-lab=#net5}
+lab=vdd}
+N 540 -540 600 -540 {
+lab=#net1}
+N 280 -820 600 -820 {
+lab=vdd}
+N 600 -540 820 -540 {
+lab=#net1}
+N 600 -820 1080 -820 {
+lab=vdd}
+N 670 -620 670 -600 {
+lab=pbias}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 500 -460 0 0 {name=x1[3:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 860 -460 0 1 {name=x2[3:0]}
-C {devices/ipin.sym} 750 -600 2 0 {name=p1 lab=pbias
+C {devices/ipin.sym} 670 -620 1 0 {name=p1 lab=pbias
 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -600 0 1 {name=x1 }
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 640 -600 0 1 {name=x1}
 C {devices/ipin.sym} 460 -460 0 0 {name=p5 lab=vin
 }
 C {devices/ipin.sym} 900 -460 2 0 {name=p6 lab=vip
