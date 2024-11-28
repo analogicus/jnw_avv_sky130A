@@ -189,7 +189,6 @@ C {devices/lab_wire.sym} 365 -170 0 1 {name=p23 sig_type=std_logic lab=vdd}
 C {JNW_AVV_SKY130A/xor.sym} -10 -380 0 0 {name=x6}
 C {JNW_AVV_SKY130A/xor.sym} -130 -200 0 0 {name=x7}
 C {devices/lab_wire.sym} -185 -190 0 0 {name=p24 sig_type=std_logic lab=xor_in_snk}
-C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 400 -590 0 0 {name=x1 }
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 680 -250 1 0 {name=x2 }
 C {devices/lab_wire.sym} 945 -560 0 1 {name=p17 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 625 -160 0 0 {name=p25 sig_type=std_logic lab=vss}
@@ -201,3 +200,4 @@ C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 850 -900 3 0 {name=x9 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 760 -350 3 0 {name=x11 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 850 -1000 3 0 {name=x17 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 720 -350 3 0 {name=x18 }
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 400 -590 0 0 {name=x1 }

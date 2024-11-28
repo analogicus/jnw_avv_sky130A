@@ -42,7 +42,7 @@ logic       cmpEvent;
 logic       Hcharged;
 logic       Lcharged;
 logic       prevCmp;
-logic [3:0] setupDone;
+logic [4:0] setupDone;
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -191,7 +191,7 @@ always_ff @(posedge clk) begin
             end
 
             OUTPUT: begin
-                if (setupDone < 15) begin
+                if (setupDone < 31) begin
                     setupDone <= setupDone + 1;
                     PA <= 1;
                     state <= OUTPUT;

@@ -351,9 +351,9 @@ C {devices/lab_wire.sym} 1020 -1330 0 0 {name=p20 sig_type=std_logic lab=vdd
 
 }
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 1120 -1180 0 1 {name=x13 }
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1020 0 0 {name=x14[3:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1020 0 0 {name=x14[10:0]}
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 460 -1180 0 0 {name=x17 }
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1020 0 1 {name=x18[3:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1020 0 1 {name=x18[10:0]}
 C {sky130_fd_pr/pnp_05v5.sym} 960 -520 0 1 {name=Q1
 model=pnp_05v5_W3p40L3p40
 m=8
@@ -394,9 +394,9 @@ C {devices/ipin.sym} 450 -1250 0 0 {name=p29 lab=PII2}
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 490 -1690 3 1 {name=x15 }
 C {devices/lab_wire.sym} 450 -1610 0 1 {name=p30 sig_type=std_logic lab=vss
 }
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[15:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2040 -1210 0 0 {name=x2[15:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2320 -1210 0 0 {name=x3[15:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[25:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2040 -1210 0 0 {name=x2[25:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2320 -1210 0 0 {name=x3[25:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 750 -1690 0 0 {name=x9 }
 C {devices/vsource.sym} 790 -1610 0 0 {name=vipmos value=0 savecurrent=true}
 C {devices/vsource.sym} 940 -1120 0 0 {name=vibigdiode value=0 savecurrent=true}
