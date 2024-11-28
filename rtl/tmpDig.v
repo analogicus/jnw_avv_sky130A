@@ -42,7 +42,7 @@ logic       cmpEvent;
 logic       Hcharged;
 logic       Lcharged;
 logic       prevCmp;
-logic       setupDone;
+logic [3:0] setupDone;
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -64,10 +64,10 @@ always_ff @(posedge clk) begin
                 PII2 <= 0;
                 PI1 <= 0;
                 PI2 <= 0;
-                PA <= 0;
-                PB <= 0;
-                PC <= 0;
-                PD <= 0;
+                PA <= 1;
+                PB <= 1;
+                PC <= 1;
+                PD <= 1;
                 snk <= 0;
                 src_n <= 0;
                 valid <= 0;
@@ -108,7 +108,7 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
-                    if (!setupDone) begin
+                    if (setupDone == 0) begin
                         setupCount <= setupCount + 1;
                         if (setupCount == 20) begin
                             setupDone <= 1;
@@ -134,25 +134,18 @@ always_ff @(posedge clk) begin
                 end
             end
 
-            // If setupDone, begynn med output.
-            // Må finne ut av hvordan jeg skal velge hvilken state
-            // jeg skal gå til når setupDone.
-            // Er noe trøbbel i BIGDIODE, jeg burde ikke trenge å resete
-            // count på linje 149. Når setupDone tror jeg ikke cmp har
-            // gain til å få gode nok digitale signaler.
-
             BIGDIODE: begin
-                if(count > 2 && !setupDone) begin
+                if(count > 1 && setupDone == 0) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                end else if (count > 2 && setupDone) begin
-                    count <= 0;
-                    PI2 <= 0;
+                end else if (count > 1 && setupDone > 0) begin
                     if (cmp && !Hcharged) begin
+                        PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= HCHARGE;
                     end else if (!cmp && !Lcharged) begin
+                        PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= LCHARGE;
                     end else if (cmp) begin
@@ -198,14 +191,20 @@ always_ff @(posedge clk) begin
             end
 
             OUTPUT: begin
-                Lcharged <= 0;
-                Hcharged <= 0;
-                PA <= 0;
+                if (setupDone < 15) begin
+                    setupDone <= setupDone + 1;
+                    PA <= 1;
+                    state <= OUTPUT;
+                end else begin
+                    PA <= 0;
+                    state <= BLANKDIODE;
+                    afterBlank <= DIODE;
+                end
                 PB <= 1;
                 PC <= 1;
                 PD <= 1;
-                state <= BLANKDIODE;
-                afterBlank <= DIODE;
+                Lcharged <= 0;
+                Hcharged <= 0;
             end
 
         endcase

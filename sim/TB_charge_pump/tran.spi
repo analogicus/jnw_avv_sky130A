@@ -26,9 +26,10 @@
 VSS  VSS  0     dc 0
 VDD  vdd  VSS   dc 1.8
 
-Vsrc  src_n  VSS   pulse 0 1.8 0 2n 2n 50n 100n 7
-Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 50n 100n 7
-VpreChrg preChrg VSS dc 0
+Vsrc  src_n  VSS   dc 0
+Vsnk  snk    VSS   pwl 0 0 50n 0 51n 1.8 75n 1.8 76n 0 100n 0 101n 1.8 125n 1.8 126n 0
+VpreChrg preChrg VSS pwl 0 1.8 24n 1.8 25n 0
+* Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 25n 50n 15
 
 *Vsrc  src  VSS dc 0
 *Vsnk  snk  VSS dc 0
@@ -51,8 +52,8 @@ VpreChrg preChrg VSS dc 0
 .save v(preChrg)
 .save v(xdut.x1.snk_gate)
 .save v(xdut.x1.src_n_gate)
-.save v(xdut.x1.and_input)
-
+.save v(xdut.x1.xor_in_src)
+.save v(xdut.x1.xor_in_snk)
 
 *----------------------------------------------------------------
 * NGSPICE control

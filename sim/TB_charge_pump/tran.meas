@@ -11,5 +11,12 @@ echo "MEAS_START"
 
 *meas tran t_rise WHEN v(vctrl) = 1.75 CROSS = 1
 
+meas tran t_rise WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 5
+meas tran t_fall WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 6
+* meas tran cross WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 8
+let tran pulse_time = t_fall - t_rise
+echo "Pulse time = $pulse_time"
+
+
 echo "MEAS_END"
 .endc

@@ -26,6 +26,9 @@
 VSS  VSS  0     dc 0
 VDD  VDD  VSS   dc 1.8
 
+VA  A  0  pwl 0 0 50n 0 51n 1.8 150n 1.8 151n 0
+VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
+
 
 
 *-----------------------------------------------------------------
@@ -48,6 +51,9 @@ VDD  VDD  VSS   dc 1.8
 .save v(vn)
 .save v(xdut.vctrl)
 .save v(VBE)
+.save v(A)
+.save v(B)
+.save v(xdut.y)
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -62,7 +68,7 @@ optran 0 0 0 1n 1u 0
 
 
 *dc TEMP -40 125 1
-tran 10n 10u
+tran 1n 300n
 write
 quit
 

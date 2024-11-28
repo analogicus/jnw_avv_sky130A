@@ -1,0 +1,4 @@
+
+clock_period: 50e-9
+nbpt: 9*(8+5+2)
+temp_sweep: -25 0 25 50 75 100
