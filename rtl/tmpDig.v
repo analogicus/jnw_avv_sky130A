@@ -38,10 +38,8 @@ logic [2:0] state;
 logic [2:0] afterBlank;
 logic [5:0] count;
 logic [5:0] setupCount;
-logic       cmpEvent;
 logic       Hcharged;
 logic       Lcharged;
-logic       prevCmp;
 logic [4:0] setupDone;
 
 always_ff @(posedge clk or posedge reset) begin
@@ -108,12 +106,6 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
-                    if (setupDone == 0) begin
-                        setupCount <= setupCount + 1;
-                        if (setupCount == 20) begin
-                            setupDone <= 1;
-                        end
-                    end
                 end
             end
 
@@ -140,19 +132,15 @@ always_ff @(posedge clk) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
                 end else if (count > 1 && setupDone > 0) begin
-                    if (cmp && !Hcharged) begin
+                    if (cmp) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= HCHARGE;
-                    end else if (!cmp && !Lcharged) begin
+                    end else if (!cmp) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= LCHARGE;
-                    end else if (cmp) begin
-                        src_n <= ~src_n;
-                    end else if (!cmp) begin
-                        snk <= ~snk;
-                    end
+                    end 
 
                 end else begin
                     count <= count + 1;
@@ -160,7 +148,13 @@ always_ff @(posedge clk) begin
                     PI2 <= 1;
                     if (cmp) begin
                         src_n <= ~src_n;
-                    end else begin
+                    end else if (!cmp) begin
+                        if (setupDone == 0) begin
+                            setupCount <= setupCount + 1;
+                            if (setupCount == 5) begin
+                                setupDone <= 1;
+                            end
+                        end
                         snk <= ~snk;
                     end
                 end

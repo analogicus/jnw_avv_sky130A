@@ -8,10 +8,13 @@
 .include ../../../work/xsch/TB_bandgap.spice
 #endif
 
+* .model swmod1 sw(Ron=1m Roff=1Meg Vthresh=0.9V)
+
+
 *-----------------------------------------------------------------
 * OPTIONS
 *-----------------------------------------------------------------
-.option GMIN=1e-15 reltol=1e-3
+.option GMIN=1e-15 reltol=1e-3 TNOM=30
 
 *-----------------------------------------------------------------
 * PARAMETERS
@@ -98,12 +101,12 @@ optran 0 0 0 100p 1u 0
 set fend = .raw
 
 
-tran 1000n 30000n
+tran 100n 70000n
 
-* foreach vtemp {-25 0 25 50 75 100}
+* foreach vtemp -40 -30 -20 -10 0 10 20 30 40 50 60 70 80 90 100 110 120 125
 *   option temp=$vtemp
-*   tran 1000n 30000n
-*   write {cicname}_$vtemp$fend
+*   tran 1000n 60000n
+*   write {cicname}_$vtemp
 * end
 
 

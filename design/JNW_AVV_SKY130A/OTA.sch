@@ -5,65 +5,54 @@ K {}
 V {}
 S {}
 E {}
-N 490 -630 490 -550 {
-lab=#net1}
-N 630 -660 630 -630 {
-lab=#net1}
-N 630 -630 770 -630 {
-lab=#net1}
-N 410 -550 450 -550 {
-lab=#net2}
-N 810 -550 850 -550 {
+N 360 -150 380 -150 {
+lab=vout}
+N 360 -150 360 -130 {
+lab=vout}
+N 130 -150 130 -130 {
+lab=vip}
+N 210 -150 210 -130 {
+lab=vdd}
+N 280 -150 280 -130 {
 lab=vin}
-N 490 -420 490 -370 {
-lab=#net3}
-N 770 -450 770 -370 {
-lab=vout}
-N 490 -250 770 -250 {
+N 130 -70 130 -50 {
 lab=vss}
-N 770 -340 770 -250 {
+N 90 -50 130 -50 {
 lab=vss}
-N 490 -340 490 -250 {
+N 210 -70 210 -50 {
 lab=vss}
-N 420 -250 490 -250 {
+N 130 -50 210 -50 {
 lab=vss}
-N 770 -630 770 -550 {
-lab=#net1}
-N 490 -630 630 -630 {
-lab=#net1}
-N 670 -690 690 -690 {
-lab=pbias}
-N 630 -790 630 -690 {
-lab=vdd}
-N 530 -790 630 -790 {
-lab=vdd}
-N 620 -340 730 -340 {
-lab=#net3}
-N 620 -420 620 -340 {
-lab=#net3}
-N 490 -420 620 -420 {
-lab=#net3}
-N 490 -520 490 -420 {
-lab=#net3}
-N 530 -340 620 -340 {
-lab=#net3}
-N 770 -520 770 -450 {
-lab=vout}
-N 770 -450 840 -450 {
-lab=vout}
-C {devices/ipin.sym} 420 -250 0 0 {name=p2 lab=vss
+N 280 -50 360 -50 {
+lab=vss}
+N 280 -70 280 -50 {
+lab=vss}
+N 210 -50 280 -50 {
+lab=vss}
+N 360 -70 360 -50 {
+lab=vss}
+C {devices/ipin.sym} 90 -50 0 0 {name=p2 lab=vss
 }
-C {devices/ipin.sym} 530 -790 0 0 {name=p3 lab=vdd
+C {devices/ipin.sym} 210 -150 0 0 {name=p3 lab=vdd
 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 450 -550 0 0 {name=x1[3:0]}
-C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 810 -550 0 1 {name=x2[3:0]}
-C {devices/ipin.sym} 690 -690 2 0 {name=p1 lab=pbias
+C {devices/ipin.sym} 280 -150 0 0 {name=p5 lab=vin
 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 670 -690 0 1 {name=x1 }
-C {devices/ipin.sym} 850 -550 2 0 {name=p5 lab=vin
+C {devices/ipin.sym} 130 -150 0 0 {name=p6 lab=vip
 }
-C {devices/ipin.sym} 410 -550 0 0 {name=p6 lab=vip
-}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 730 -340 0 0 {name=x2 }
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 530 -340 0 1 {name=x5 }
-C {devices/opin.sym} 840 -450 0 0 {name=p7 lab=vout}
+C {devices/opin.sym} 380 -150 0 0 {name=p7 lab=vout}
+C {devices/bsource.sym} 360 -100 0 0 {name=B1 VAR=V FUNC="(1 + tanh(-1000000*(v(vip) -v(vin) )))/2*v(vdd)"}
+C {devices/res.sym} 130 -100 0 0 {name=R1
+value=100M
+footprint=1206
+device=resistor
+m=1}
+C {devices/res.sym} 210 -100 0 0 {name=R2
+value=100M
+footprint=1206
+device=resistor
+m=1}
+C {devices/res.sym} 280 -100 0 0 {name=R3
+value=100M
+footprint=1206
+device=resistor
+m=1}
