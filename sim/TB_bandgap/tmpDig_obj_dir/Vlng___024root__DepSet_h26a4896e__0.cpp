@@ -35,7 +35,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__0\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Init
-    CData/*2:0*/ __Vdly__tmpDig__DOT__state;
+    CData/*3:0*/ __Vdly__tmpDig__DOT__state;
     __Vdly__tmpDig__DOT__state = 0;
     CData/*5:0*/ __Vdly__tmpDig__DOT__count;
     __Vdly__tmpDig__DOT__count = 0;
@@ -47,7 +47,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     __Vdly__tmpDig__DOT__Hcharged = 0;
     CData/*0:0*/ __Vdly__tmpDig__DOT__Lcharged;
     __Vdly__tmpDig__DOT__Lcharged = 0;
-    CData/*2:0*/ __Vdly__tmpDig__DOT__afterBlank;
+    CData/*3:0*/ __Vdly__tmpDig__DOT__afterBlank;
     __Vdly__tmpDig__DOT__afterBlank = 0;
     CData/*5:0*/ __Vdly__tmpDig__DOT__setupCount;
     __Vdly__tmpDig__DOT__setupCount = 0;
@@ -121,18 +121,20 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             vlSelfRef.PB = 0U;
             vlSelfRef.PC = 0U;
             vlSelfRef.PD = 0U;
+            __Vdly__snk = 0U;
+            __Vdly__src_n = 0U;
             vlSelfRef.PI1 = (2U == (IData)(vlSelfRef.tmpDig__DOT__afterBlank));
             __Vdly__tmpDig__DOT__state = vlSelfRef.tmpDig__DOT__afterBlank;
             if ((6U == (IData)(vlSelfRef.tmpDig__DOT__afterBlank))) {
                 __Vdly__tmpDig__DOT__afterBlank = 1U;
             }
         } else if ((2U == (IData)(vlSelfRef.tmpDig__DOT__state))) {
-            if (((1U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
+            if (((4U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
                  & (0U == (IData)(vlSelfRef.tmpDig__DOT__setupDone)))) {
                 vlSelfRef.PI2 = 0U;
                 __Vdly__tmpDig__DOT__state = 7U;
                 __Vdly__tmpDig__DOT__afterBlank = 6U;
-            } else if (((1U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
+            } else if (((4U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
                         & (0U < (IData)(vlSelfRef.tmpDig__DOT__setupDone)))) {
                 if (vlSelfRef.cmp) {
                     vlSelfRef.PI2 = 0U;

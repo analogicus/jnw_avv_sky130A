@@ -14,7 +14,7 @@
 *-----------------------------------------------------------------
 * OPTIONS
 *-----------------------------------------------------------------
-.option GMIN=1e-15 reltol=1e-3 TNOM=30
+.option GMIN=1e-15 TNOM=-10
 
 *-----------------------------------------------------------------
 * PARAMETERS
@@ -96,17 +96,17 @@ pre_set auto_bridge_d_out =
 
 unset askquit
 
-optran 0 0 0 100p 1u 0
+optran 0 0 0 50p 100n 0
 
 set fend = .raw
 
 
-tran 100n 70000n
+tran 70n 120000n
 
 * foreach vtemp -40 -30 -20 -10 0 10 20 30 40 50 60 70 80 90 100 110 120 125
 *   option temp=$vtemp
 *   tran 1000n 60000n
-*   write {cicname}_$vtemp
+*   write {cicname}_$vtemp$fend
 * end
 
 

@@ -19,58 +19,68 @@ N 260 -320 260 -290 {
 lab=vdd}
 N 260 -70 260 -40 {
 lab=vss}
-N 560 -100 650 -100 {
-lab=nbias}
-N 650 -100 650 -80 {
-lab=nbias}
-N 870 -160 870 -80 {
-lab=pbias}
-N 870 -190 870 -160 {
-lab=pbias}
-N 780 -160 870 -160 {
-lab=pbias}
-N 780 -220 780 -160 {
-lab=pbias}
-N 780 -220 830 -220 {
-lab=pbias}
-N 870 -280 870 -220 {
-lab=vdd}
-N 650 -50 650 0 {
-lab=vss}
-N 620 -430 650 -430 {
-lab=vdd}
-N 710 -200 710 0 {
-lab=vss}
-N 650 0 710 0 {
-lab=vss}
-N 650 -160 650 -100 {
-lab=nbias}
-N 670 -200 710 -200 {
-lab=vss}
-N 710 -280 710 -200 {
-lab=vss}
-N 670 -280 710 -280 {
-lab=vss}
-N 710 -360 710 -280 {
-lab=vss}
-N 670 -360 710 -360 {
-lab=vss}
-N 650 -430 650 -400 {
-lab=vdd}
-N 780 -50 830 -50 {
-lab=nbias}
-N 710 0 870 0 {
-lab=vss}
-N 840 -280 870 -280 {
-lab=vdd}
-N 560 -100 560 -50 {
-lab=nbias}
-N 560 -50 610 -50 {
-lab=nbias}
-N 870 -50 870 0 {
-lab=vss}
 N 380 -240 410 -240 {
 lab=preChrg}
+N 700 -150 790 -150 {
+lab=nbias}
+N 700 -150 700 -130 {
+lab=nbias}
+N 910 -290 910 -260 {
+lab=pbias}
+N 820 -260 910 -260 {
+lab=pbias}
+N 820 -320 820 -260 {
+lab=pbias}
+N 820 -320 870 -320 {
+lab=pbias}
+N 910 -380 910 -320 {
+lab=vdd}
+N 700 -100 700 -50 {
+lab=vss}
+N 640 -300 640 -50 {
+lab=vss}
+N 640 -50 700 -50 {
+lab=vss}
+N 640 -300 680 -300 {
+lab=vss}
+N 880 -380 910 -380 {
+lab=vdd}
+N 790 -150 790 -100 {
+lab=nbias}
+N 740 -100 790 -100 {
+lab=nbias}
+N 910 -100 910 -50 {
+lab=vss}
+N 790 -100 870 -100 {
+lab=nbias}
+N 700 -50 910 -50 {
+lab=vss}
+N 700 -260 700 -240 {
+lab=#net1}
+N 700 -180 700 -150 {
+lab=nbias}
+N 910 -260 910 -230 {
+lab=pbias}
+N 910 -170 910 -130 {
+lab=#net2}
+N 640 -380 640 -300 {
+lab=vss}
+N 640 -460 680 -460 {
+lab=vss}
+N 640 -380 680 -380 {
+lab=vss}
+N 640 -460 640 -380 {
+lab=vss}
+N 640 -540 640 -460 {
+lab=vss}
+N 640 -540 680 -540 {
+lab=vss}
+N 640 -620 640 -540 {
+lab=vss}
+N 640 -620 680 -620 {
+lab=vss}
+N 700 -700 700 -660 {
+lab=vdd}
 C {JNW_AVV_SKY130A/charge_pump.sym} 90 -40 0 0 {name=x1}
 C {devices/lab_wire.sym} 150 -200 0 0 {name=p1 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 150 -160 0 0 {name=p2 sig_type=std_logic lab=nbias}
@@ -78,17 +88,20 @@ C {devices/ipin.sym} 110 -230 0 0 {name=p3 lab=src_n}
 C {devices/ipin.sym} 110 -130 0 0 {name=p4 lab=snk}
 C {devices/ipin.sym} 260 -320 0 0 {name=p6 lab=vdd}
 C {devices/ipin.sym} 260 -40 0 0 {name=p7 lab=vss}
-C {devices/lab_wire.sym} 830 -160 0 0 {name=p32 sig_type=std_logic lab=pbias}
-C {devices/lab_wire.sym} 650 -430 0 0 {name=p34 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 700 0 0 0 {name=p35 sig_type=std_logic lab=vss}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 610 -50 0 0 {name=x28 }
-C {devices/lab_wire.sym} 620 -100 0 0 {name=p12 sig_type=std_logic lab=nbias}
-C {devices/lab_wire.sym} 870 -280 0 0 {name=p13 sig_type=std_logic lab=vdd}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 830 -50 0 0 {name=x4 }
-C {devices/lab_wire.sym} 820 -50 0 0 {name=p14 sig_type=std_logic lab=nbias}
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 830 -220 0 0 {name=x2 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 650 -160 3 0 {name=x26 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 650 -240 3 0 {name=x27 }
-C {JNW_TR_SKY130A/JNWTR_RPPO8.sym} 650 -320 3 0 {name=x11 }
 C {devices/ipin.sym} 410 -240 2 0 {name=p8 lab=preChrg}
 C {devices/opin.sym} 420 -180 2 1 {name=p5 lab=vctrl}
+C {devices/lab_wire.sym} 870 -260 0 0 {name=p32 sig_type=std_logic lab=pbias}
+C {devices/lab_wire.sym} 700 -700 0 1 {name=p34 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 790 -50 0 1 {name=p35 sig_type=std_logic lab=vss}
+C {JNW_ATR_SKY130A/JNWATR_PCH_8C5F0.sym} 870 -320 0 0 {name=x7 }
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 740 -100 0 1 {name=x28 }
+C {devices/lab_wire.sym} 910 -380 0 0 {name=p13 sig_type=std_logic lab=vdd}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 870 -100 0 0 {name=x4 }
+C {devices/lab_wire.sym} 850 -100 0 0 {name=p14 sig_type=std_logic lab=nbias}
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 700 -260 1 1 {name=x26 }
+C {devices/vsource.sym} 700 -210 0 0 {name=v_nbias value=0 savecurrent=true}
+C {devices/vsource.sym} 910 -200 0 0 {name=v_pbias value=0 savecurrent=true}
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 700 -340 1 1 {name=x5 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 700 -420 1 1 {name=x6 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 700 -500 1 1 {name=x8 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 700 -580 1 1 {name=x9 }
