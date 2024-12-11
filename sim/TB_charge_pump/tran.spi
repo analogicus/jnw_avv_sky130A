@@ -11,33 +11,30 @@
 *-----------------------------------------------------------------
 * OPTIONS
 *-----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-15 reltol=1e-3
+.option TNOM=20 GMIN=1e-15
 
-*-----------------------------------------------------------------
-* PARAMETERS
-*-----------------------------------------------------------------
 .param TRF = 10p
-
-.param AVDD = {vdda}
+.param AVDD = {1.8}
+.param PERIOD_CLK = {50e-9}
+.param PW_CLK = PERIOD_CLK/2
+.param T_START = PERIOD_CLK*4
+.param T_RESET = {T_START + PERIOD_CLK + PW_CLK}
+.param T_RESET_F = {T_RESET + 1n}
+.param nbpt = 9*(8+5+2)
 
 *-----------------------------------------------------------------
 * FORCE
 *-----------------------------------------------------------------
-VSS  VSS  0     dc 0
-VDD  vdd  VSS   dc 1.8
-
-Vsrc  src_n  VSS   dc 0
-Vsnk  snk    VSS   pwl 0 0 50n 0 51n 1.8 75n 1.8 76n 0 100n 0 101n 1.8 125n 1.8 126n 0
-VpreChrg preChrg VSS pwl 0 1.8 24n 1.8 25n 0
-* Vsnk  snk  VSS   pulse 0 1.8 0 2n 2n 25n 50n 15
-
-*Vsrc  src  VSS dc 0
-*Vsnk  snk  VSS dc 0
+VSS  VSS    0   dc 0
+VDD  vdd    0   dc 1.8
+VRST reset  0   dc 0
+VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
 
 *-----------------------------------------------------------------
 * DUT
 *-----------------------------------------------------------------
 .include ../xdut.spi
+.include ../svinst.spi
 
 *----------------------------------------------------------------
 * PROBE
@@ -51,9 +48,13 @@ VpreChrg preChrg VSS pwl 0 1.8 24n 1.8 25n 0
 .save v(xdut.nbias)
 .save v(preChrg)
 .save v(xdut.x1.snk_gate)
-.save v(xdut.x1.src_n_gate)
-.save v(xdut.x1.xor_in_src)
-.save v(xdut.x1.xor_in_snk)
+.save v(xdut.x1.src_gate_n)
+.save v(xdut.x1.src_cap)
+.save v(xdut.x1.snk_cap)
+.save i(xdut.x1.v_isrc)
+.save i(xdut.x1.v_isnk)
+.save v(xdut.x1.Vpre)
+.save i(xdut.x1.v_iPreCharge)
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -62,11 +63,17 @@ VpreChrg preChrg VSS pwl 0 1.8 24n 1.8 25n 0
 set num_threads=8
 set color0=white
 set color1=black
+
+*- Override the default digital output bridge.
+pre_set auto_bridge_d_out =
+     + ( ".model auto_dac dac_bridge(out_low = 0.0 out_high = 1.8)"
+     +   "auto_bridge%d [ %s ] [ %s ] auto_dac" )
+
 unset askquit
 
 optran 0 0 0 1n 1u 0
 
-tran 2n 2u
+tran 100n 3u
 write
 quit
 

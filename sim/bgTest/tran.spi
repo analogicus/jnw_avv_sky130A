@@ -68,7 +68,17 @@ optran 0 0 0 1n 1u 0
 
 
 *dc TEMP -40 125 1
-tran 1n 300n
+set fend = .raw
+
+
+foreach vtemp -40 -39 -38 -37 -36 -34 -32 -30 -28 -26 -24 -22 -20 -18 -16 -14 -12 -10 -8 -6
+  option temp=$vtemp
+  tran 10n 500n
+  write {cicname}_$vtemp$fend
+end
+
+*tran 1n 300n
+
 write
 quit
 

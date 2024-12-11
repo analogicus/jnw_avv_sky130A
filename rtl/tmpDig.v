@@ -21,7 +21,8 @@ module tmpDig (
 
     output logic rst,
     output logic valid,
-    output logic preChrg
+    output logic preChrg,
+    output logic setupBias
     );
 
 
@@ -392,23 +393,30 @@ always_ff @(posedge clk) begin
     else begin
         case(state)
             PRECHARGE: begin
+                if (count > 10) begin
+                    state <= BLANKDIODE;
+                    afterBlank <= DIODE;
+                    count <= 0;
+                    preChrg <= 0;
+                end
+                else begin
+                    count <= count + 1;
+                end
                 preChrg <= 1;
-                count <= 0;
+                setupBias <= 1;
                 PII1 <= 0;
                 PII2 <= 0;
                 PI1 <= 0;
                 PI2 <= 0;
-                PA <= 1;
-                PB <= 1;
-                PC <= 1;
-                PD <= 1;
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
                 snk <= 0;
                 src_n <= 0;
                 valid <= 0;
                 Hcharged <= 0;
                 Lcharged <= 0;
-                state <= BLANKDIODE;
-                afterBlank <= DIODE;
             end
 
             BLANKDIODE: begin
@@ -470,15 +478,19 @@ always_ff @(posedge clk) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
                 end else if (count > 4 && setupDone > 0) begin
-                    if (cmp) begin
+                     if (cmp && !Hcharged) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= HCHARGE;
-                    end else if (!cmp) begin
+                    end else if (!cmp && !Lcharged) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= LCHARGE;
-                    end 
+                    end else if (cmp) begin
+                        src_n <= ~src_n;
+                    end else if (!cmp) begin
+                        snk <= ~snk;
+                    end
 
                 end else begin
                     count <= count + 1;
@@ -491,6 +503,7 @@ always_ff @(posedge clk) begin
                             setupCount <= setupCount + 1;
                             if (setupCount == 5) begin
                                 setupDone <= 1;
+                                setupBias <= 0;
                             end
                         end
                         snk <= ~snk;

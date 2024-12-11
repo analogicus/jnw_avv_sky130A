@@ -5,17 +5,19 @@ load {cicname}.raw
 
 echo "MEAS_START"
 
-*let vi=v(vip)-v(vin)
-*meas tran first_offset find vi WHEN v(vout)=0.9 CROSS=1
-*meas tran second_offset find vi WHEN v(vout)=0.9 CROSS=2
+meas tran src_pulsetime1 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 1 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 1
+meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 2 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 2
+meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 3 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 3
+meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 4 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 4
 
-*meas tran t_rise WHEN v(vctrl) = 1.75 CROSS = 1
+meas tran snk_pulsetime1 trig v(xdut.x1.snk_gate) val = 0.9  rise = 1 targ v(xdut.x1.snk_gate) val = 0.9 fall = 1
+meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 2 targ v(xdut.x1.snk_gate) val = 0.9 fall = 2
+meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 3 targ v(xdut.x1.snk_gate) val = 0.9 fall = 3
+meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 4 targ v(xdut.x1.snk_gate) val = 0.9 fall = 4
 
-meas tran t_rise WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 5
-meas tran t_fall WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 6
-* meas tran cross WHEN v(xdut.x1.src_n_gate) = 0.9 CROSS = 8
-let tran pulse_time = t_fall - t_rise
-echo "Pulse time = $pulse_time"
+
+
+*let tran pulse_time = t_fall - t_rise
 
 
 echo "MEAS_END"
