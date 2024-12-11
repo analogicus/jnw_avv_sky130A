@@ -1,0 +1,29 @@
+*Automatic generated instance fron ../../tech/scripts/genxdut chargePump
+adut [clk
++ reset
++ ]
++ [src_n
++ snk
++ rst
++ preChrg
++ ] null dut
+.model dut d_cosim simulation="../chargePump.so" delay=10p
+
+* Inputs
+Rsvi0 clk 0 1G
+Rsvi1 reset 0 1G
+
+* Outputs
+Rsvi2 src_n 0 1G
+Rsvi3 snk 0 1G
+Rsvi4 rst 0 1G
+Rsvi5 preChrg 0 1G
+
+.save v(src_n)
+
+.save v(snk)
+
+.save v(rst)
+
+.save v(preChrg)
+

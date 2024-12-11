@@ -12,11 +12,18 @@ LIB =JNW_AVV_130A
 OPT=
 
 
+netlist1:
+	make netlist
+	-rm chargePump.so
+	-rm -rf chargePump_obj_dir
+	ngspice vlnggen ../../rtl/chargePump.v
+	perl ../../tech/script/gensvinst ../../rtl/chargePump.v chargePump
+
 
 test:
 	${MAKE} typical OPT="Debug"
 
-typical: netlist
+typical: netlist1
 	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 slow: netlist

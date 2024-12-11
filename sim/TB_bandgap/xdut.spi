@@ -1,2 +1,2 @@
 *Automatic generated instance fron ../../tech/scripts/genxdut TB_bandgap
-XDUT vdd vss vref src_n snk PA PB PC PD PI1 PI2 PII1 cmp preChrg dummy PII2  TB_bandgap
+XDUT setupBias vdd vss preChrg src_n snk PA PB PC PD vref cmp PI1 PI2 PII1 dummy PII2  TB_bandgap

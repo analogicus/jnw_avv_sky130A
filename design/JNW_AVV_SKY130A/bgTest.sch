@@ -338,7 +338,7 @@ C {devices/lab_wire.sym} 1110 -700 0 0 {name=p16 sig_type=std_logic lab=vss
 C {devices/opin.sym} 1090 -890 0 0 {name=p17 lab=VBE}
 C {sky130_fd_pr/pnp_05v5.sym} 1080 -790 0 1 {name=Q3
 model=pnp_05v5_W3p40L3p40
-m=1
+m=8
 spiceprefix=X
 }
 C {devices/ipin.sym} 1310 -1080 0 0 {name=p18 lab=B}

@@ -26,6 +26,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
     , preChrg{vlSymsp->TOP.preChrg}
+    , setupBias{vlSymsp->TOP.setupBias}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
