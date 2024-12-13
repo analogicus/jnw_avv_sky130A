@@ -51,7 +51,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     __Vdly__tmpDig__DOT__Lcharged = 0;
     CData/*5:0*/ __Vdly__tmpDig__DOT__setupCount;
     __Vdly__tmpDig__DOT__setupCount = 0;
-    CData/*4:0*/ __Vdly__tmpDig__DOT__setupDone;
+    CData/*5:0*/ __Vdly__tmpDig__DOT__setupDone;
     __Vdly__tmpDig__DOT__setupDone = 0;
     // Body
     __Vdly__tmpDig__DOT__setupDone = vlSelfRef.tmpDig__DOT__setupDone;
@@ -83,22 +83,22 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 __Vdly__tmpDig__DOT__count = (0x3fU 
                                               & ((IData)(1U) 
                                                  + (IData)(vlSelfRef.tmpDig__DOT__count)));
+                vlSelfRef.preChrg = 1U;
+                vlSelfRef.setupBias = 1U;
             }
-            vlSelfRef.setupBias = 1U;
-            vlSelfRef.PII1 = 0U;
-            vlSelfRef.PII2 = 0U;
-            vlSelfRef.PI1 = 0U;
             vlSelfRef.PI2 = 0U;
+            vlSelfRef.PII2 = 0U;
+            vlSelfRef.PII1 = 0U;
+            vlSelfRef.PI1 = 0U;
             vlSelfRef.PA = 0U;
-            vlSelfRef.PB = 0U;
-            vlSelfRef.PC = 0U;
-            vlSelfRef.PD = 0U;
+            vlSelfRef.PB = 1U;
+            vlSelfRef.PC = 1U;
+            vlSelfRef.PD = 1U;
             __Vdly__snk = 0U;
             __Vdly__src_n = 0U;
             vlSelfRef.valid = 0U;
             __Vdly__tmpDig__DOT__Hcharged = 0U;
             __Vdly__tmpDig__DOT__Lcharged = 0U;
-            vlSelfRef.preChrg = 1U;
         } else if ((6U == (IData)(vlSelfRef.tmpDig__DOT__state))) {
             __Vdly__tmpDig__DOT__count = 0U;
             vlSelfRef.preChrg = 0U;
@@ -200,8 +200,8 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 __Vdly__tmpDig__DOT__afterBlank = 2U;
             }
         } else {
-            if ((0x1fU > (IData)(vlSelfRef.tmpDig__DOT__setupDone))) {
-                __Vdly__tmpDig__DOT__setupDone = (0x1fU 
+            if ((0x3fU > (IData)(vlSelfRef.tmpDig__DOT__setupDone))) {
+                __Vdly__tmpDig__DOT__setupDone = (0x3fU 
                                                   & ((IData)(1U) 
                                                      + (IData)(vlSelfRef.tmpDig__DOT__setupDone)));
                 vlSelfRef.PA = 1U;
