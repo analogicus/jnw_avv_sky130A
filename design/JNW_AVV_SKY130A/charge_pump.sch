@@ -189,16 +189,14 @@ N 880 -1010 880 -980 {
 lab=#net8}
 N 880 -770 880 -720 {
 lab=Vpre}
-N 880 -900 880 -870 {
-lab=#net9}
-N 880 -790 880 -770 {
+N 880 -900 880 -770 {
 lab=Vpre}
 N 260 -300 260 -290 {
 lab=vctrl}
 N 260 -600 440 -600 {
-lab=#net10}
+lab=#net9}
 N 440 -640 440 -600 {
-lab=#net10}
+lab=#net9}
 N 260 180 400 180 {
 lab=vss}
 N -30 180 260 180 {
@@ -208,21 +206,21 @@ lab=vdd}
 N 260 -380 440 -380 {
 lab=vdd}
 N 260 -540 260 -410 {
-lab=#net11}
+lab=#net10}
 N 340 -250 370 -250 {
 lab=vdd}
 N 260 -200 370 -200 {
 lab=vss}
 N 260 -70 260 30 {
-lab=#net12}
+lab=#net11}
 N 370 -170 370 -70 {
-lab=#net12}
+lab=#net11}
 N 260 -70 370 -70 {
-lab=#net12}
+lab=#net11}
 N 260 -170 260 -70 {
-lab=#net12}
+lab=#net11}
 N 440 -600 440 -410 {
-lab=#net10}
+lab=#net9}
 C {devices/ipin.sym} 320 -830 0 0 {name=p1 lab=vdd}
 C {devices/opin.sym} 820 -300 0 0 {name=p2 lab=vctrl}
 C {devices/ipin.sym} -30 180 0 0 {name=p3 lab=vss
@@ -294,7 +292,6 @@ C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -720 1 0 {name=x8 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1090 1 0 {name=x9 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1200 1 0 {name=x11 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -980 1 0 {name=x13 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -870 1 0 {name=x14 }
 C {devices/vsource.sym} 260 -260 0 0 {name=V_isnk_drain value=0 savecurrent=true}
 C {devices/vsource.sym} 260 -570 0 0 {name=V_isrc_source value=0 savecurrent=true}
 C {devices/lab_wire.sym} 405 -250 0 1 {name=p32 sig_type=std_logic lab=vdd}

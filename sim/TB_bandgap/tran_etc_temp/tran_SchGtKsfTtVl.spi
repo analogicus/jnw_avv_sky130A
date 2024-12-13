@@ -32,7 +32,7 @@
 * OPTIONS
 *-----------------------------------------------------------------
 .option GMIN=1e-15 TNOM=25 
-.option TEMP=-6
+* .option TEMP=25
 
 *-----------------------------------------------------------------
 * PARAMETERS
@@ -119,16 +119,17 @@ pre_set auto_bridge_d_out =
 
 unset askquit
 
-optran 0 0 0 200p 1u 0
+optran 0 0 0 100p 1.5u 0
+
 
 set fend = .raw
 
 
 * tran 70n 40u
 
-foreach vtemp -40 0 40 80 120
+foreach vtemp -40 20 80 125
   option temp=$vtemp
-  tran 1000n 80u
+  tran 1000n 60u
   write tran_SchGtKsfTtVl_$vtemp$fend
 end
 
