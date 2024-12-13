@@ -1,0 +1,583 @@
+Warning: Optran step size potentially too large.
+
+Note: Compatibility modes selected: hs a
+
+
+Circuit: * measure tb_bandgap
+
+Loading raw data file ("tran_SchGtKssTtVl.raw") ...
+done.
+Title:  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:29:59  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran1 (Transient Analysis)
+Date: Thu Dec 12 18:29:59  2024
+
+    i(v.xdut.v_nbias)   : current, real, 98957 long
+    i(v.xdut.v_pbias)   : current, real, 98957 long
+    i(v.xdut.x2.vibigdiode): current, real, 98957 long
+    i(v.xdut.x2.victat1): current, real, 98957 long
+    i(v.xdut.x2.victat2): current, real, 98957 long
+    i(v.xdut.x2.vidiode): current, real, 98957 long
+    i(v.xdut.x2.vipmos) : current, real, 98957 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98957 long
+    i(v.xdut.x3.v_isnk) : current, real, 98957 long
+    i(v.xdut.x3.v_isrc) : current, real, 98957 long
+    time                : time, real, 98957 long [default scale]
+    v(clk)              : voltage, real, 98957 long
+    v(cmp)              : voltage, real, 98957 long
+    v(dummy)            : voltage, real, 98957 long
+    v(pa)               : voltage, real, 98957 long
+    v(pb)               : voltage, real, 98957 long
+    v(pc)               : voltage, real, 98957 long
+    v(pd)               : voltage, real, 98957 long
+    v(pi1)              : voltage, real, 98957 long
+    v(pi2)              : voltage, real, 98957 long
+    v(pii1)             : voltage, real, 98957 long
+    v(pii2)             : voltage, real, 98957 long
+    v(prechrg)          : voltage, real, 98957 long
+    v(reset)            : voltage, real, 98957 long
+    v(rst)              : voltage, real, 98957 long
+    v(setupbias)        : voltage, real, 98957 long
+    v(snk)              : voltage, real, 98957 long
+    v(src_n)            : voltage, real, 98957 long
+    v(valid)            : voltage, real, 98957 long
+    v(vdd)              : voltage, real, 98957 long
+    v(vref)             : voltage, real, 98957 long
+    v(vss)              : voltage, real, 98957 long
+    v(xdut.nbias)       : voltage, real, 98957 long
+    v(xdut.pbias)       : voltage, real, 98957 long
+    v(xdut.vctrl)       : voltage, real, 98957 long
+    v(xdut.vn)          : voltage, real, 98957 long
+    v(xdut.vp)          : voltage, real, 98957 long
+    v(xdut.x2.hcharge)  : voltage, real, 98957 long
+    v(xdut.x2.lcharge)  : voltage, real, 98957 long
+    v(xdut.x2.outres)   : voltage, real, 98957 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98957 long
+    v(xdut.x3.snk_gate) : voltage, real, 98957 long
+    v(xdut.x3.src_cap)  : voltage, real, 98957 long
+    v(xdut.x3.src_gate_n): voltage, real, 98957 long
+    v(xdut.x3.vpre)     : voltage, real, 98957 long
+MEAS_START
+tran_SchGtKssTtVl
+Loading raw data file ("tran_SchGtKssTtVl_-40.raw") ...
+done.
+Title:  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:03:52  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran2 (Transient Analysis)
+Date: Thu Dec 12 18:03:52  2024
+
+    i(v.xdut.v_nbias)   : current, real, 98631 long
+    i(v.xdut.v_pbias)   : current, real, 98631 long
+    i(v.xdut.x2.vibigdiode): current, real, 98631 long
+    i(v.xdut.x2.victat1): current, real, 98631 long
+    i(v.xdut.x2.victat2): current, real, 98631 long
+    i(v.xdut.x2.vidiode): current, real, 98631 long
+    i(v.xdut.x2.vipmos) : current, real, 98631 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98631 long
+    i(v.xdut.x3.v_isnk) : current, real, 98631 long
+    i(v.xdut.x3.v_isrc) : current, real, 98631 long
+    time                : time, real, 98631 long [default scale]
+    v(clk)              : voltage, real, 98631 long
+    v(cmp)              : voltage, real, 98631 long
+    v(dummy)            : voltage, real, 98631 long
+    v(pa)               : voltage, real, 98631 long
+    v(pb)               : voltage, real, 98631 long
+    v(pc)               : voltage, real, 98631 long
+    v(pd)               : voltage, real, 98631 long
+    v(pi1)              : voltage, real, 98631 long
+    v(pi2)              : voltage, real, 98631 long
+    v(pii1)             : vtran_SchGtKssTtVl_-20.raw: No such file or directory
+oltage, real, 98631 long
+    v(pii2)             : voltage, real, 98631 long
+    v(prechrg)          : voltage, real, 98631 long
+    v(reset)            : voltage, real, 98631 long
+    v(rst)              : voltage, real, 98631 long
+    v(setupbias)        : voltage, real, 98631 long
+    v(snk)              : voltage, real, 98631 long
+    v(src_n)            : voltage, real, 98631 long
+    v(valid)            : voltage, real, 98631 long
+    v(vdd)              : voltage, real, 98631 long
+    v(vref)             : voltage, real, 98631 long
+    v(vss)              : voltage, real, 98631 long
+    v(xdut.nbias)       : voltage, real, 98631 long
+    v(xdut.pbias)       : voltage, real, 98631 long
+    v(xdut.vctrl)       : voltage, real, 98631 long
+    v(xdut.vn)          : voltage, real, 98631 long
+    v(xdut.vp)          : voltage, real, 98631 long
+    v(xdut.x2.hcharge)  : voltage, real, 98631 long
+    v(xdut.x2.lcharge)  : voltage, real, 98631 long
+    v(xdut.x2.outres)   : voltage, real, 98631 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98631 long
+    v(xdut.x3.snk_gate) : voltage, real, 98631 long
+    v(xdut.x3.src_cap)  : voltage, real, 98631 long
+    v(xdut.x3.src_gate_n): voltage, real, 98631 long
+    v(xdut.x3.vpre)     : voltage, real, 98631 long
+vref_-40            =  5.992552e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_-20.raw") ...
+no data read.
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran2 (Transient Analysis)
+Date: Thu Dec 12 18:03:52  2024
+
+    i(v.xdut.v_nbias)   : current, real, 98631 long
+    i(v.xdut.v_pbias)   : current, real, 98631 long
+    i(v.xdut.x2.vibigdiode): current, real, 98631 long
+    i(v.xdut.x2.victat1): current, real, 98631 long
+    i(v.xdut.x2.victat2): current, real, 98631 long
+    i(v.xdut.x2.vidiode): current, real, 98631 long
+    i(v.xdut.x2.vipmos) : current, real, 98631 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98631 long
+    i(v.xdut.x3.v_isnk) : current, real, 98631 long
+    i(v.xdut.x3.v_isrc) : current, real, 98631 long
+    time                : time, real, 98631 long [default scale]
+    v(clk)              : voltage, real, 98631 long
+    v(cmp)              : voltage, real, 98631 long
+    v(dummy)            : voltage, real, 98631 long
+    v(pa)               : voltage, real, 98631 long
+    v(pb)               : voltage, real, 98631 long
+    v(pc)               : voltage, real, 98631 long
+    v(pd)               : voltage, real, 98631 long
+    v(pi1)              : voltage, real, 98631 long
+    v(pi2)              : voltage, real, 98631 long
+    v(pii1)             : voltage, real, 98631 long
+    v(pii2)             : voltage, real, 98631 long
+    v(prechrg)          : voltage, real, 98631 long
+    v(reset)            : voltage, real, 98631 long
+    v(rst)              : voltage, real, 98631 long
+    v(setupbias)        : voltage, real, 98631 long
+    v(snk)              : voltage, real, 98631 long
+    v(src_n)            : voltage, real, 98631 long
+    v(valid)            : voltage, real, 98631 long
+    v(vdd)              : voltage, real, 98631 long
+    v(vref)             : voltage, real, 98631 long
+    v(vss)              : voltage, real, 98631 long
+    v(xdut.nbias)       : voltage, real, 98631 long
+    v(xdut.pbias)       : voltage, real, 98631 long
+    v(xdut.vctrl)       : voltage, real, 98631 long
+    v(xdut.vn)          : voltage, real, 98631 long
+    v(xdut.vp)          : voltage, real, 98631 long
+    v(xdut.x2.hcharge)  : voltage, real, 98631 long
+    v(xdut.x2.lcharge)  : voltage, real, 98631 long
+    v(xdut.x2.outres)   : voltage, real, 98631 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98631 long
+    v(xdut.x3.snk_gate) : voltage, real, 98631 long
+    v(xdut.x3.src_cap)  : voltage, real, 98631 long
+    v(xdut.x3.src_gate_n): voltage, real, 98631 long
+    v(xdut.x3.vpre)     : voltage, real, 98631 long
+    vref_-40            : notype, real, 1 long
+vref_-20            =  5.992552e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_0.raw") ...
+done.
+Title:tran_SchGtKssTtVl_20.raw: No such file or directory
+  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:19:53  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran4 (Transient Analysis)
+Date: Thu Dec 12 18:19:53  2024
+
+    i(v.xdut.v_nbias)   : current, real, 99017 long
+    i(v.xdut.v_pbias)   : current, real, 99017 long
+    i(v.xdut.x2.vibigdiode): current, real, 99017 long
+    i(v.xdut.x2.victat1): current, real, 99017 long
+    i(v.xdut.x2.victat2): current, real, 99017 long
+    i(v.xdut.x2.vidiode): current, real, 99017 long
+    i(v.xdut.x2.vipmos) : current, real, 99017 long
+    i(v.xdut.x3.v_iprecharge): current, real, 99017 long
+    i(v.xdut.x3.v_isnk) : current, real, 99017 long
+    i(v.xdut.x3.v_isrc) : current, real, 99017 long
+    time                : time, real, 99017 long [default scale]
+    v(clk)              : voltage, real, 99017 long
+    v(cmp)              : voltage, real, 99017 long
+    v(dummy)            : voltage, real, 99017 long
+    v(pa)               : voltage, real, 99017 long
+    v(pb)               : voltage, real, 99017 long
+    v(pc)               : voltage, real, 99017 long
+    v(pd)               : voltage, real, 99017 long
+    v(pi1)              : voltage, real, 99017 long
+    v(pi2)              : voltage, real, 99017 long
+    v(pii1)             : voltage, real, 99017 long
+    v(pii2)             : voltage, real, 99017 long
+    v(prechrg)          : voltage, real, 99017 long
+    v(reset)            : voltage, real, 99017 long
+    v(rst)              : voltage, real, 99017 long
+    v(setupbias)        : voltage, real, 99017 long
+    v(snk)              : voltage, real, 99017 long
+    v(src_n)            : voltage, real, 99017 long
+    v(valid)            : voltage, real, 99017 long
+    v(vdd)              : voltage, real, 99017 long
+    v(vref)             : voltage, real, 99017 long
+    v(vss)              : voltage, real, 99017 long
+    v(xdut.nbias)       : voltage, real, 99017 long
+    v(xdut.pbias)       : voltage, real, 99017 long
+    v(xdut.vctrl)       : voltage, real, 99017 long
+    v(xdut.vn)          : voltage, real, 99017 long
+    v(xdut.vp)          : voltage, real, 99017 long
+    v(xdut.x2.hcharge)  : voltage, real, 99017 long
+    v(xdut.x2.lcharge)  : voltage, real, 99017 long
+    v(xdut.x2.outres)   : voltage, real, 99017 long
+    v(xdut.x3.snk_cap)  : voltage, real, 99017 long
+    v(xdut.x3.snk_gate) : voltage, real, 99017 long
+    v(xdut.x3.src_cap)  : voltage, real, 99017 long
+    v(xdut.x3.src_gate_n): voltage, real, 99017 long
+    v(xdut.x3.vpre)     : voltage, real, 99017 long
+vref_0              =  5.971491e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_20.raw") ...
+no data read.
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran4 (Transient Analysis)
+Date: Thu Dec 12 18:19:53  2024
+
+    i(v.xdut.v_nbias)   : current, real, 99017 long
+    i(v.xdut.v_pbias)   : current, real, 99017 long
+    i(v.xdut.x2.vibigdiode): current, real, 99017 long
+    i(v.xdut.x2.victat1): current, real, 99017 long
+    i(v.xdut.x2.victat2): current, real, 99017 long
+    i(v.xdut.x2.vidiode): current, real, 99017 long
+    i(v.xdut.x2.vipmos) : current, real, 99017 long
+    i(v.xdut.x3.v_iprecharge): current, real, 99017 long
+    i(v.xdut.x3.v_isnk) : current, real, 99017 long
+    i(v.xdut.x3.v_isrc) : current, real, 99017 long
+    time                : time, real, 99017 long [default scale]
+    v(clk)              : voltage, real, 99017 long
+    v(cmp)              : voltage, real, 99017 long
+    v(dummy)            : voltage, real, 99017 long
+    v(pa)               : voltage, real, 99017 long
+    v(pb)               : voltage, real, 99017 long
+    v(pc)               : voltage, real, 99017 long
+    v(pd)               : voltage, real, 99017 long
+    v(pi1)              : voltage, real, 99017 long
+    v(pi2)              : voltage, real, 99017 long
+    v(pii1)             : voltage, real, 99017 long
+    v(pii2)             : voltage, real, 99017 long
+    v(prechrg)          : voltage, real, 99017 long
+    v(reset)            : voltage, real,tran_SchGtKssTtVl_60.raw: No such file or directory
+ 99017 long
+    v(rst)              : voltage, real, 99017 long
+    v(setupbias)        : voltage, real, 99017 long
+    v(snk)              : voltage, real, 99017 long
+    v(src_n)            : voltage, real, 99017 long
+    v(valid)            : voltage, real, 99017 long
+    v(vdd)              : voltage, real, 99017 long
+    v(vref)             : voltage, real, 99017 long
+    v(vss)              : voltage, real, 99017 long
+    v(xdut.nbias)       : voltage, real, 99017 long
+    v(xdut.pbias)       : voltage, real, 99017 long
+    v(xdut.vctrl)       : voltage, real, 99017 long
+    v(xdut.vn)          : voltage, real, 99017 long
+    v(xdut.vp)          : voltage, real, 99017 long
+    v(xdut.x2.hcharge)  : voltage, real, 99017 long
+    v(xdut.x2.lcharge)  : voltage, real, 99017 long
+    v(xdut.x2.outres)   : voltage, real, 99017 long
+    v(xdut.x3.snk_cap)  : voltage, real, 99017 long
+    v(xdut.x3.snk_gate) : voltage, real, 99017 long
+    v(xdut.x3.src_cap)  : voltage, real, 99017 long
+    v(xdut.x3.src_gate_n): voltage, real, 99017 long
+    v(xdut.x3.vpre)     : voltage, real, 99017 long
+    vref_0              : notype, real, 1 long
+vref_20             =  5.971491e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_40.raw") ...
+done.
+Title:  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:23:02  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran6 (Transient Analysis)
+Date: Thu Dec 12 18:23:02  2024
+
+    i(v.xdut.v_nbias)   : current, real, 99038 long
+    i(v.xdut.v_pbias)   : current, real, 99038 long
+    i(v.xdut.x2.vibigdiode): current, real, 99038 long
+    i(v.xdut.x2.victat1): current, real, 99038 long
+    i(v.xdut.x2.victat2): current, real, 99038 long
+    i(v.xdut.x2.vidiode): current, real, 99038 long
+    i(v.xdut.x2.vipmos) : current, real, 99038 long
+    i(v.xdut.x3.v_iprecharge): current, real, 99038 long
+    i(v.xdut.x3.v_isnk) : current, real, 99038 long
+    i(v.xdut.x3.v_isrc) : current, real, 99038 long
+    time                : time, real, 99038 long [default scale]
+    v(clk)              : voltage, real, 99038 long
+    v(cmp)              : voltage, real, 99038 long
+    v(dummy)            : voltage, real, 99038 long
+    v(pa)               : voltage, real, 99038 long
+    v(pb)               : voltage, real, 99038 long
+    v(pc)               : voltage, real, 99038 long
+    v(pd)               : voltage, real, 99038 long
+    v(pi1)              : voltage, real, 99038 long
+    v(pi2)              : voltage, real, 99038 long
+    v(pii1)             : voltage, real, 99038 long
+    v(pii2)             : voltage, real, 99038 long
+    v(prechrg)          : voltage, real, 99038 long
+    v(reset)            : voltage, real, 99038 long
+    v(rst)              : voltage, real, 99038 long
+    v(setupbias)        : voltage, real, 99038 long
+    v(snk)              : voltage, real, 99038 long
+    v(src_n)            : voltage, real, 99038 long
+    v(valid)            : voltage, real, 99038 long
+    v(vdd)              : voltage, real, 99038 long
+    v(vref)             : voltage, real, 99038 long
+    v(vss)              : voltage, real, 99038 long
+    v(xdut.nbias)       : voltage, real, 99038 long
+    v(xdut.pbias)       : voltage, real, 99038 long
+    v(xdut.vctrl)       : voltage, real, 99038 long
+    v(xdut.vn)          : voltage, real, 99038 long
+    v(xdut.vp)          : voltage, real, 99038 long
+    v(xdut.x2.hcharge)  : voltage, real, 99038 long
+    v(xdut.x2.lcharge)  : voltage, real, 99038 long
+    v(xdut.x2.outres)   : voltage, real, 99038 long
+    v(xdut.x3.snk_cap)  : voltage, real, 99038 long
+    v(xdut.x3.snk_gate) : voltage, real, 99038 long
+    v(xdut.x3.src_cap)  : voltage, real, 99038 long
+    v(xdut.x3.src_gate_n): voltage, real, 99038 long
+    v(xdut.x3.vpre)     : voltage, real, 99038 long
+vref_40             =  5.977975e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_60.raw") ...
+no data read.
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran6 (Transient Analysis)
+Date: Thu Dec 12 18:23:02  2024
+
+    i(v.xdut.v_nbias)   : current, real, 99038 long
+    i(v.xdut.v_pbias)   : current, real, 99038 long
+    i(v.xdut.x2.vibigdiode): current, real, 99038 long
+    i(v.xdut.x2.victat1): current, real, 99038 long
+    i(v.xdut.x2.victat2): current, real, 99038 long
+    i(v.xdut.x2.vidiode): current, real, 99038 long
+    i(v.xdut.x2.vipmos) : current, real, 99038 long
+    i(v.xdut.x3.v_iprecharge): current, real, 99038 long
+    i(v.xdut.x3.v_isnk) : current, real, 99038 long
+    i(v.xdut.x3.v_isrc) : current, real, 99038 long
+    time                : time, real, 99038 long [default scale]
+    v(clk)              : voltage, real, 99038 long
+    v(cmp)              : voltage, real, 99038 long
+    v(dummy)            : voltage, real, 99038 long
+    v(pa)               : voltage, real, 99038 long
+    v(pb)               : voltage, real, 99038 long
+    v(pc)               : voltage, real, 99038 long
+    v(pd)               : voltage, real, 99038 long
+    v(pi1)              : voltage, real, 99038 long
+    v(pi2)              : voltage, real, 99038 long
+    v(pii1)             : voltage, real, 99038 long
+    v(pii2)             : voltage, real, 99038 long
+    v(prechrg)          : voltage, real, 99038 long
+    v(reset)            : voltage, real, 99038 long
+    v(rst)              : voltage, real, 99038 long
+    v(setupbias)        : voltage, real, 99038 long
+    v(snk)              : voltage, real, 99038 long
+    v(src_n)            : voltage, real, 99038 long
+    v(valid)            : voltage, real, 99038 long
+    v(vdd)              : voltage, real, 99038 long
+    v(vref)             : voltage, real, 99038 long
+    v(vss)              : voltage, real, 99038 long
+    v(xdut.nbias)       : voltage, real, 99038 long
+    v(xdut.pbias)       : voltage, real, 99038 long
+    v(xdut.vctrl)       : voltage, real, 99038 long
+    v(xdut.vn)          : voltage, real, 99038 long
+    v(xdut.vp)          : voltage, real, 99038 long
+    v(xdut.x2.hcharge)  : voltage, real, 99038 long
+    v(xdut.x2.lcharge)  : voltage, real, 99038 long
+    v(xdut.x2.outres)   : voltage, real, 99038 long
+    v(xdut.x3.snk_cap)  : voltage, real, 99038 long
+    v(xdut.x3.snk_gate) : voltage, real, 99038 long
+    v(xdut.x3.src_cap)  : voltage, real, 99038 long
+    v(xdut.x3.src_gate_n): voltage, real, 99038 long
+    v(xdut.x3.vpre)     : voltage, real, 99038 long
+    vref_40             : notype, real, 1 long
+vref_60             =  5.977975e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_80.raw") ...
+done.
+Title:  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:26:46  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran8 (Transient Analysis)
+Date: Thu Dec 12 18:26:46  2024
+
+    i(v.xdut.v_nbias)   : current, real, 98512 long
+    i(v.xdut.v_pbias)   : current, real, 98512 long
+    i(v.xdut.x2.vibigdiode): current, real, 98512 long
+    i(v.xdut.x2.victat1): current, real, 98512 long
+    i(v.xdut.x2.victat2): current, real, 98512 long
+    i(v.xdut.x2.vidiode): current, real, 98512 long
+    i(v.xdut.x2.vipmos) : current, real, 98512 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98512 long
+    i(v.xdut.x3.v_isnk) : current, real, 98512 long
+    i(v.xdut.x3.v_isrc) : current, real, 98512 long
+    time                : time, real, 98512 long [default scale]
+    v(clk)              : voltage, real, 98512 long
+    v(cmp)              : voltage, real, 98512 long
+    v(dummy)            : voltage, real, 98512 long
+    v(pa)               : voltage, real, 98512 long
+    v(pb)               : voltage, real, 98512 long
+    v(pc)               : voltage, real, 98512 long
+    v(pd)               : voltage, real, 98512 long
+    v(pi1)              : voltage, real, 98512 long
+    v(pi2)              : voltage, real, 98512 long
+    v(pii1)             : voltage, real, 98512 long
+    v(pii2)             : voltage, real, 98512 long
+    v(prechrg)          : voltage, real, 98512 long
+    v(reset)            : voltage, real, 98512 long
+    v(rst)              : voltage, rtran_SchGtKssTtVl_100.raw: No such file or directory
+eal, 98512 long
+    v(setupbias)        : voltage, real, 98512 long
+    v(snk)              : voltage, real, 98512 long
+    v(src_n)            : voltage, real, 98512 long
+    v(valid)            : voltage, real, 98512 long
+    v(vdd)              : voltage, real, 98512 long
+    v(vref)             : voltage, real, 98512 long
+    v(vss)              : voltage, real, 98512 long
+    v(xdut.nbias)       : voltage, real, 98512 long
+    v(xdut.pbias)       : voltage, real, 98512 long
+    v(xdut.vctrl)       : voltage, real, 98512 long
+    v(xdut.vn)          : voltage, real, 98512 long
+    v(xdut.vp)          : voltage, real, 98512 long
+    v(xdut.x2.hcharge)  : voltage, real, 98512 long
+    v(xdut.x2.lcharge)  : voltage, real, 98512 long
+    v(xdut.x2.outres)   : voltage, real, 98512 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98512 long
+    v(xdut.x3.snk_gate) : voltage, real, 98512 long
+    v(xdut.x3.src_cap)  : voltage, real, 98512 long
+    v(xdut.x3.src_gate_n): voltage, real, 98512 long
+    v(xdut.x3.vpre)     : voltage, real, 98512 long
+vref_80             =  5.982711e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_100.raw") ...
+no data read.
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran8 (Transient Analysis)
+Date: Thu Dec 12 18:26:46  2024
+
+    i(v.xdut.v_nbias)   : current, real, 98512 long
+    i(v.xdut.v_pbias)   : current, real, 98512 long
+    i(v.xdut.x2.vibigdiode): current, real, 98512 long
+    i(v.xdut.x2.victat1): current, real, 98512 long
+    i(v.xdut.x2.victat2): current, real, 98512 long
+    i(v.xdut.x2.vidiode): current, real, 98512 long
+    i(v.xdut.x2.vipmos) : current, real, 98512 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98512 long
+    i(v.xdut.x3.v_isnk) : current, real, 98512 long
+    i(v.xdut.x3.v_isrc) : current, real, 98512 long
+    time                : time, real, 98512 long [default scale]
+    v(clk)              : voltage, real, 98512 long
+    v(cmp)              : voltage, real, 98512 long
+    v(dummy)            : voltage, real, 98512 long
+    v(pa)               : voltage, real, 98512 long
+    v(pb)               : voltage, real, 98512 long
+    v(pc)               : voltage, real, 98512 long
+    v(pd)               : voltage, real, 98512 long
+    v(pi1)              : voltage, real, 98512 long
+    v(pi2)              : voltage, real, 98512 long
+    v(pii1)             : voltage, real, 98512 long
+    v(pii2)             : voltage, real, 98512 long
+    v(prechrg)          : voltage, real, 98512 long
+    v(reset)            : voltage, real, 98512 long
+    v(rst)              : voltage, real, 98512 long
+    v(setupbias)        : voltage, real, 98512 long
+    v(snk)              : voltage, real, 98512 long
+    v(src_n)            : voltage, real, 98512 long
+    v(valid)            : voltage, real, 98512 long
+    v(vdd)              : voltage, real, 98512 long
+    v(vref)             : voltage, real, 98512 long
+    v(vss)              : voltage, real, 98512 long
+    v(xdut.nbias)       : voltage, real, 98512 long
+    v(xdut.pbias)       : voltage, real, 98512 long
+    v(xdut.vctrl)       : voltage, real, 98512 long
+    v(xdut.vn)          : voltage, real, 98512 long
+    v(xdut.vp)          : voltage, real, 98512 long
+    v(xdut.x2.hcharge)  : voltage, real, 98512 long
+    v(xdut.x2.lcharge)  : voltage, real, 98512 long
+    v(xdut.x2.outres)   : voltage, real, 98512 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98512 long
+    v(xdut.x3.snk_gate) : voltage, real, 98512 long
+    v(xdut.x3.src_cap)  : voltage, real, 98512 long
+    v(xdut.x3.src_gate_n): voltage, real, 98512 long
+    v(xdut.x3.vpre)     : voltage, real, 98512 long
+    vref_80             : notype, real, 1 long
+vref_100            =  5.982711e-01 from=  5.000000e-05 to=  6.900000e-05
+Loading raw data file ("tran_SchGtKssTtVl_120.raw") ...
+done.
+Title:  *cicsimgen tran
+Name: Transient Analysis
+Date: Thu Dec 12 18:29:59  2024
+
+Here are the vectors currently active:
+
+Title: *cicsimgen tran
+Name: tran10 (Transient Analysis)
+Date: Thu Dec 12 18:29:59  2024
+
+    i(v.xNote: No ".plot", ".print", or ".fourier" lines; no simulations run
+dut.v_nbias)   : current, real, 98957 long
+    i(v.xdut.v_pbias)   : current, real, 98957 long
+    i(v.xdut.x2.vibigdiode): current, real, 98957 long
+    i(v.xdut.x2.victat1): current, real, 98957 long
+    i(v.xdut.x2.victat2): current, real, 98957 long
+    i(v.xdut.x2.vidiode): current, real, 98957 long
+    i(v.xdut.x2.vipmos) : current, real, 98957 long
+    i(v.xdut.x3.v_iprecharge): current, real, 98957 long
+    i(v.xdut.x3.v_isnk) : current, real, 98957 long
+    i(v.xdut.x3.v_isrc) : current, real, 98957 long
+    time                : time, real, 98957 long [default scale]
+    v(clk)              : voltage, real, 98957 long
+    v(cmp)              : voltage, real, 98957 long
+    v(dummy)            : voltage, real, 98957 long
+    v(pa)               : voltage, real, 98957 long
+    v(pb)               : voltage, real, 98957 long
+    v(pc)               : voltage, real, 98957 long
+    v(pd)               : voltage, real, 98957 long
+    v(pi1)              : voltage, real, 98957 long
+    v(pi2)              : voltage, real, 98957 long
+    v(pii1)             : voltage, real, 98957 long
+    v(pii2)             : voltage, real, 98957 long
+    v(prechrg)          : voltage, real, 98957 long
+    v(reset)            : voltage, real, 98957 long
+    v(rst)              : voltage, real, 98957 long
+    v(setupbias)        : voltage, real, 98957 long
+    v(snk)              : voltage, real, 98957 long
+    v(src_n)            : voltage, real, 98957 long
+    v(valid)            : voltage, real, 98957 long
+    v(vdd)              : voltage, real, 98957 long
+    v(vref)             : voltage, real, 98957 long
+    v(vss)              : voltage, real, 98957 long
+    v(xdut.nbias)       : voltage, real, 98957 long
+    v(xdut.pbias)       : voltage, real, 98957 long
+    v(xdut.vctrl)       : voltage, real, 98957 long
+    v(xdut.vn)          : voltage, real, 98957 long
+    v(xdut.vp)          : voltage, real, 98957 long
+    v(xdut.x2.hcharge)  : voltage, real, 98957 long
+    v(xdut.x2.lcharge)  : voltage, real, 98957 long
+    v(xdut.x2.outres)   : voltage, real, 98957 long
+    v(xdut.x3.snk_cap)  : voltage, real, 98957 long
+    v(xdut.x3.snk_gate) : voltage, real, 98957 long
+    v(xdut.x3.src_cap)  : voltage, real, 98957 long
+    v(xdut.x3.src_gate_n): voltage, real, 98957 long
+    v(xdut.x3.vpre)     : voltage, real, 98957 long
+vref_120            =  5.957336e-01 from=  5.000000e-05 to=  6.900000e-05
+MEAS_END
+tran_SchGtKssTtVl

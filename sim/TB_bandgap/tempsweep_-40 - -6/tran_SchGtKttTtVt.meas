@@ -1,9 +1,0 @@
-* Measure TB_bandgap
-.control
-
-load tran_SchGtKttTtVt.raw
-
-echo "MEAS_START"
-
-echo "MEAS_END"
-.endc

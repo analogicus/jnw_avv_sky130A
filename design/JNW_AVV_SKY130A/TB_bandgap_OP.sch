@@ -13,22 +13,22 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.3070282e-05
-x2=1.7070283e-05
+x1=2.7281017e-05
+x2=2.7481017e-05
 divx=5
 subdivx=1
 xlabmag=1.0
 ylabmag=1.0
-node="vref PI2 PII2 PD
+node="vref
 xdut"
-color="4 12 8 7 5"
+color="4 12"
 dataset=-1
 unitx=1
 logx=0
 logy=0
 rainbow=0
 rawfile=/pri/alve/aicex/ip/jnw_avv_sky130A/sim/TB_bandgap/output_tran/tran_SchGtKttTtVt.raw
-autoload=1}
+autoload=0}
 N 220 -510 250 -510 {
 lab=setupBias}
 N 220 -490 250 -490 {
@@ -38,7 +38,7 @@ lab=PII2}
 N 220 -250 250 -250 {
 lab=dummy}
 N 220 -270 250 -270 {
-lab=PII2}
+lab=PII1}
 N 220 -290 250 -290 {
 lab=PI2}
 N 220 -310 250 -310 {
@@ -65,7 +65,7 @@ N 550 -490 580 -490 {
 lab=cmp}
 C {devices/launcher.sym} 520 -100 0 0 {name=h5
 descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVtdebug_-39.raw tran"
+tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKffTtVl.raw tran"
 }
 C {JNW_AVV_SKY130A/TB_bandgap.sym} 400 -370 0 0 {name=xdut}
 C {devices/lab_wire.sym} 220 -510 0 0 {name=p8 sig_type=std_logic lab=setupBias}
@@ -79,7 +79,7 @@ C {devices/lab_wire.sym} 220 -350 0 0 {name=p7 sig_type=std_logic lab=PC}
 C {devices/lab_wire.sym} 220 -310 0 0 {name=p9 sig_type=std_logic lab=PI1}
 C {devices/lab_wire.sym} 220 -330 0 0 {name=p10 sig_type=std_logic lab=PD}
 C {devices/lab_wire.sym} 220 -290 0 0 {name=p11 sig_type=std_logic lab=PI2}
-C {devices/lab_wire.sym} 220 -270 0 0 {name=p12 sig_type=std_logic lab=PII2}
+C {devices/lab_wire.sym} 220 -270 0 0 {name=p12 sig_type=std_logic lab=PII1}
 C {devices/lab_wire.sym} 220 -250 0 0 {name=p13 sig_type=std_logic lab=dummy}
 C {devices/lab_wire.sym} 220 -230 0 0 {name=p14 sig_type=std_logic lab=PII2}
 C {devices/lab_wire.sym} 220 -490 0 0 {name=p15 sig_type=std_logic lab=vdd}
