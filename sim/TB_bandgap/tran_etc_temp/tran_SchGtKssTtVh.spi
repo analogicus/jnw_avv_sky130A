@@ -18,7 +18,7 @@
 
 .lib "../../../tech/ngspice/temperature.spi" Tt
 
-.lib "../../../tech/ngspice/supply.spi" Vl
+.lib "../../../tech/ngspice/supply.spi" Vh
 
 *TB_SUN_TR_SKY130NM/TB_NCM
 *----------------------------------------------------------------
@@ -130,7 +130,7 @@ set fend = .raw
 foreach vtemp -40 20 80 125
   option temp=$vtemp
   tran 1000n 60u
-  write tran_SchGtKssTtVl_$vtemp$fend
+  write tran_SchGtKssTtVh_$vtemp$fend
 end
 
 * foreach vtemp -40 -39 -38 -37 -36 -34 -32 -30 -28 -26 -24 -22 -20 -18 -16 -14 -12 -10 -8 -6 -4 -2 0 20 40 50
@@ -138,7 +138,7 @@ end
 *   option temp=$vtemp
 *   option savecurrents
 *   tran 1000n 80u
-*   write tran_SchGtKssTtVl_debug_$vtemp$fend
+*   write tran_SchGtKssTtVh_debug_$vtemp$fend
 * end
 
 

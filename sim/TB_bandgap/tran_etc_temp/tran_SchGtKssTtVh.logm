@@ -5,17 +5,17 @@ Note: Compatibility modes selected: hs a
 
 Circuit: * measure tb_bandgap
 
-Loading raw data file ("tran_SchGtKssTtVl.raw") ...
+Loading raw data file ("tran_SchGtKssTtVh.raw") ...
 done.
 Title:  *cicsimgen tran
 Name: Transient Analysis
-Date: Fri Dec 13 16:26:22  2024
+Date: Fri Dec 13 17:19:05  2024
 
 Here are the vectors currently active:
 
 Title: *cicsimgen tran
 Name: tran1 (Transient Analysis)
-Date: Fri Dec 13 16:26:22  2024
+Date: Fri Dec 13 17:19:05  2024
 
     i(v.xdut.v_nbias)   : current, real, 73308 long
     i(v.xdut.v_pbias)   : current, real, 73308 long
@@ -65,17 +65,17 @@ Date: Fri Dec 13 16:26:22  2024
     v(xdut.x3.src_gate_n): voltage, real, 73308 long
     v(xdut.x3.vpre)     : voltage, real, 73308 long
 MEAS_START
-Loading raw data file ("tran_SchGtKssTtVl_-40.raw") ...
+Loading raw data file ("tran_SchGtKssTtVh_-40.raw") ...
 done.
 Title:  *cicsimgen tran
 Name: Transient Analysis
-Date: Fri Dec 13 16:14:19  2024
+Date: Fri Dec 13 17:07:35  2024
 
 Here are the vectors currently active:
 
 Title: *cicsimgen tran
 Name: tran2 (Transient Analysis)
-Date: Fri Dec 13 16:14:19  2024
+Date: Fri Dec 13 17:07:35  2024
 
     i(v.xdut.v_nbias)   : current, real, 73123 long
     i(v.xdut.v_pbias)   : current, real, 73123 long
@@ -125,17 +125,17 @@ Date: Fri Dec 13 16:14:19  2024
     v(xdut.x3.src_gate_n): voltage, real, 73123 long
     v(xdut.x3.vpre)     : voltage, real, 73123 long
 vref_-40            =  6.003500e-01 from=  5.500000e-05 to=  5.990000e-05
-Loading raw data file ("tran_SchGtKssTtVl_20.raw") ...
+Loading raw data file ("tran_SchGtKssTtVh_20.raw") ...
 done.
 Title:  *cicsimgen tran
 Name: Transient Analysis
-Date: Fri Dec 13 16:17:20  2024
+Date: Fri Dec 13 17:10:37  2024
 
 Here are the vectors currently active:
 
 Title: *cicsimgen tran
 Name: tran3 (Transient Analysis)
-Date: Fri Dec 13 16:17:20  2024
+Date: Fri Dec 13 17:10:37  2024
 
     i(v.xdut.v_nbias)   : current, real, 73931 long
     i(v.xdut.v_pbias)   : current, real, 73931 long
@@ -185,17 +185,17 @@ Date: Fri Dec 13 16:17:20  2024
     v(xdut.x3.src_gate_n): voltage, real, 73931 long
     v(xdut.x3.vpre)     : voltage, real, 73931 long
 vref_20             =  5.976095e-01 from=  5.500000e-05 to=  5.990000e-05
-Loading raw data file ("tran_SchGtKssTtVl_80.raw") ...
+Loading raw data file ("tran_SchGtKssTtVh_80.raw") ...
 done.
 Title:  *cicsimgen tran
 Name: Transient Analysis
-Date: Fri Dec 13 16:21:11  2024
+Date: Fri Dec 13 17:14:19  2024
 
 Here are the vectors currently active:
 
 Title: *cicsimgen tran
 Name: tran4 (Transient Analysis)
-Date: Fri Dec 13 16:21:11  2024
+Date: Fri Dec 13 17:14:19  2024
 
     i(v.xdut.v_nbias)   : current, real, 73183 long
     i(v.xdut.v_pbias)   : current, real, 73183 long
@@ -245,17 +245,17 @@ Date: Fri Dec 13 16:21:11  2024
     v(xdut.x3.src_gate_n): voltage, real, 73183 long
     v(xdut.x3.vpre)     : voltage, real, 73183 long
 vref_80             =  5.967947e-01 from=  5.500000e-05 to=  5.990000e-05
-Loading raw data file ("tran_SchGtKssTtVl_125.raw") ...
+Loading raw data file ("tran_SchGtKssTtVh_125.raw") ...
 done.
 Title:  *cicsimgen tran
 Name: Transient Analysis
-Date: Fri Dec 13 16:26:22  2024
+Date: Fri Dec 13 17:19:05  2024
 
 Here are the vectors currently active:
 
 Title: *cicsimgen tran
 Name: tran5 (Transient Analysis)
-Date: Fri Dec 13 16:26:22  2024
+Date: Fri Dec 13 17:19:05  2024
 
     i(v.xdut.v_nbias)   : current, real, 73308 long
     i(v.xdut.v_pbias)   : current, real, 73308 long
@@ -307,4 +307,4 @@ Date: Fri Dec 13 16:26:22  2024
     v(xdut.x3.vpre)     : voltage, real, 73308 long
 vref_125            =  5.958373e-01 from=  5.500000e-05 to=  5.990000e-05
 MEAS_END
-tran_SchGtKssTtVl
+tran_SchGtKssTtVh

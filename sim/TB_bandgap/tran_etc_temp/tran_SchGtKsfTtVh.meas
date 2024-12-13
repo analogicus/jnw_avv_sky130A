@@ -1,19 +1,19 @@
 * Measure TB_bandgap
 .control
 
-load tran_SchGtKssTtVl.raw
+load tran_SchGtKsfTtVh.raw
 
 echo "MEAS_START"
 
 set fend = .raw
 
 foreach vtemp -40 20 80 125
-load tran_SchGtKssTtVl_$vtemp$fend
+load tran_SchGtKsfTtVh_$vtemp$fend
 meas tran Vref_$vtemp avg v(vref) from=55u to=59.9u
 end
 
 echo "MEAS_END"
-echo tran_SchGtKssTtVl
+echo tran_SchGtKsfTtVh
 
 .endc
 
