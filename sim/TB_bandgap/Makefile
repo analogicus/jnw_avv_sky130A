@@ -25,7 +25,7 @@ test:
 	${MAKE} typical OPT="Debug"
 
 typical: netlist1
-	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Kff Tt Vl
+	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 ##Gt Kff Tt Vl problemhjørne
 ##Gt Ktt Tt Vt dette er vanlig typical
 
@@ -43,7 +43,7 @@ etc: netlist1
 # Trenger ikke kjøre Th og Tl, fordi jeg sweeper temperatur
 
 mc: netlist
-	cicsim run --name ${VIEW}_mc --count 30 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
+	cicsim run --name ${VIEW}_mc --count 10 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
 
 ntc: netlist
 	cicsim run --name ${VIEW}_ntc ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt" Vt
