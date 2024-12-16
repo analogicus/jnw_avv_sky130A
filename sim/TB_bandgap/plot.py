@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from cicsim import command as cm
 from cicsim import ngraw
+import yaml
 import sys
 import math
 import re

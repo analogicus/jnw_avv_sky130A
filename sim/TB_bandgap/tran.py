@@ -4,7 +4,7 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import *
+from plot import plotTempDependence, rawplot
 
 def calcPpm(yamlfile):
   # Read result yaml file
@@ -30,12 +30,10 @@ def calcPpm(yamlfile):
 
 def main(name):
 
-  rawplot(name + ".raw",'time',"v(vref),v(xdut.vn),v(xdut.vp)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
-  #plotTempDependence(name)
-  #calcPpm(name)
-  
+  #rawplot(name + ".raw",'time',"v(vref),v(xdut.vn),v(xdut.vp)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
+  plotTempDependence(name)  
   
   return
 
 
-main("tran_etc_temp/tran_SchGtKsfTtVh_20")
+main("output_tran/tran_SchGtKttTtVt")
