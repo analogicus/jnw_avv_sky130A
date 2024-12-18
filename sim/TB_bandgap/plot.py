@@ -54,11 +54,11 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
     else:
         ax.plot(x,y,label = label)
 
+    # ax.grid()
     ax.legend()
 
     if(ptype == ""):
         ax.set_ylabel(yname)
-    ax.grid()
     return (x,y)
 
 
@@ -97,7 +97,7 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
         plt.xlabel("Frequency [Hz]")
     elif(xname == "temperature"):
         plt.xlabel("Temperature [K]")
-
+    plt.grid()
     plt.ylabel("Voltage [V]")
     plt.tight_layout()
 
@@ -131,6 +131,7 @@ def plotTempDependence(yamlfile):
   sorted_temp = temp[sorted_keys]
   sorted_vref = vref[sorted_keys]
 
+  sorted_vref = sorted_vref - np.mean(sorted_vref)
 
   fig,ax = plt.subplots(figsize=(10,5))
   ax.set_xlabel("Temperature [C]")
@@ -138,7 +139,7 @@ def plotTempDependence(yamlfile):
   ax.plot(sorted_temp,sorted_vref,label="Vref")
   ax.grid()
   ax.legend()
-  ax.set_title("Vref vs Temperature")
+#   ax.set_title("Vref vs Temperature")
   plt.tight_layout()
   plt.show()
 
@@ -149,3 +150,9 @@ def plotTempDependence(yamlfile):
 
 #rawplot("tran_SchGtKttTtVt.raw","time", "v(vin),v(vip),v(vout)", ptype="same",fname="tran_SchGtKttTtVt.pdf")
 
+name = "output_tran/tran_SchGtKttTtVt_20"
+
+rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
+
+# plotTempDependence("output_mc2/tran_SchGtKttmmTtVt_2")
+plotTempDependence("output_tran_typ/tran_SchGtKttTtVt")
