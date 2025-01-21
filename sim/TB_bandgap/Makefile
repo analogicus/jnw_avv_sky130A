@@ -42,7 +42,7 @@ tfs: netlist
 	cicsim run --name ${VIEW}_tfs ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt,Th,Tl" "Vt,Vl,Vh"
 
 etc: netlist1
-	cicsim run --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Ksf" "Tt" "Vh" 
+	cicsim run --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh" 
 # Trenger ikke kjøre Th og Tl, fordi jeg sweeper temperatur
 # Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh"
 

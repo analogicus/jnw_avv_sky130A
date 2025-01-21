@@ -1,0 +1,23 @@
+* Measure TB_CMP
+.control
+
+load {cicname}.raw
+
+echo "MEAS_START"
+
+
+* Measure offset
+let vi=v(vip)-v(vin)
+meas tran fall_offset find vi WHEN v(cmp)=0.9 FALL=LAST
+meas tran rise_offset find vi WHEN v(cmp)=0.9 RISE=LAST
+* meas dc offset par('v(vout)') WHEN v(vout)=vin
+
+
+* Measure delay
+* meas tran vout_switch WHEN v(vout)=vin CROSS=LAST
+
+
+
+
+echo "MEAS_END"
+.endc

@@ -5,15 +5,15 @@ load {cicname}.raw
 
 echo "MEAS_START"
 
-meas tran src_pulsetime1 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 1 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 1
-meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 2 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 2
-meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 3 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 3
-meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 4 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 4
+* meas tran src_pulsetime1 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 1 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 1
+* meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 2 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 2
+* meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 3 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 3
+* meas tran src_pulsetime2 trig v(xdut.x1.src_gate_n) val = 0.9  fall = 4 targ v(xdut.x1.src_gate_n) val = 0.9 rise = 4
 
-meas tran snk_pulsetime1 trig v(xdut.x1.snk_gate) val = 0.9  rise = 1 targ v(xdut.x1.snk_gate) val = 0.9 fall = 1
-meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 2 targ v(xdut.x1.snk_gate) val = 0.9 fall = 2
-meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 3 targ v(xdut.x1.snk_gate) val = 0.9 fall = 3
-meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 4 targ v(xdut.x1.snk_gate) val = 0.9 fall = 4
+* meas tran snk_pulsetime1 trig v(xdut.x1.snk_gate) val = 0.9  rise = 1 targ v(xdut.x1.snk_gate) val = 0.9 fall = 1
+* meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 2 targ v(xdut.x1.snk_gate) val = 0.9 fall = 2
+* meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 3 targ v(xdut.x1.snk_gate) val = 0.9 fall = 3
+* meas tran snk_pulsetime2 trig v(xdut.x1.snk_gate) val = 0.9  rise = 4 targ v(xdut.x1.snk_gate) val = 0.9 fall = 4
 
 
 

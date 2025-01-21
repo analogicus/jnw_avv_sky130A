@@ -152,7 +152,7 @@ def plotTempDependence(yamlfile):
 
 name = "output_tran/tran_SchGtKttTtVt_20"
 
-rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
+# rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
 # plotTempDependence("output_mc2/tran_SchGtKttmmTtVt_2")
-plotTempDependence("output_tran_typ/tran_SchGtKttTtVt")
+# plotTempDependence("sim_results/tran_SchGtKttmmTtVt_4")

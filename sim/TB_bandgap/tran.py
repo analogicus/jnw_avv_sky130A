@@ -25,6 +25,10 @@ def calcPpm(yamlfile):
 
   ppm = round(((np.max(vref) - np.min(vref))/(np.mean(vref)*(np.max(temp)-np.min(temp)))) * 1e6, 2)
   # print(yamlfile + " Temperature constant: ",ppm, "ppm/C")
+  # print( yamlfile + " max: ", np.max(vref))
+  # print( yamlfile + " min: ", np.min(vref))
+  print( yamlfile + " mean: ", round((np.mean(vref))*1000))
+  # print( yamlfile + " delta ", round(np.max(vref) - np.min(vref), 5))
   return ppm
 
 
@@ -36,19 +40,20 @@ def main(name):
   if (0):  # Print TC of etc and typical corners
     # print("SchGtKffTtVl ppm: ", calcPpm(name + "SchGtKffTtVl"))  
     # print("SchGtKffTtVh ppm: ", calcPpm(name + "SchGtKffTtVh"))  
-    # print("SchGtKssTtVl ppm: ", calcPpm(name + "SchGtKssTtVl"))  
-    # print("SchGtKssTtVh ppm: ", calcPpm(name + "SchGtKssTtVh"))  
+    print("SchGtKssTtVl ppm: ", calcPpm(name + "SchGtKssTtVl"))  
+    print("SchGtKssTtVh ppm: ", calcPpm(name + "SchGtKssTtVh"))  
     # print("SchGtKfsTtVl ppm: ", calcPpm(name + "SchGtKfsTtVl"))  
     # print("SchGtKfsTtVh ppm: ", calcPpm(name + "SchGtKfsTtVh"))  
-    # print("SchGtKsfTtVl ppm: ", calcPpm(name + "SchGtKsfTtVl"))  
-    # print("SchGtKsfTtVh ppm: ", calcPpm(name + "SchGtKsfTtVh"))
+    print("SchGtKsfTtVl ppm: ", calcPpm(name + "SchGtKsfTtVl"))  
+    print("SchGtKsfTtVh ppm: ", calcPpm(name + "SchGtKsfTtVh"))
     print("SchGtKttTtVt ppm: ", calcPpm(name + "SchGtKttTtVt"))
-    # print("SchGtKttmmTtVt ppm: ", calcPpm(name + "SchGtKttmmTtVt"))  
-    # print("SchGtKttmmTtVt_1 ppm: ", calcPpm(name + "SchGtKttmmTtVt_1"))  
-    # print("SchGtKttmmTtVt_2 ppm: ", calcPpm(name + "SchGtKttmmTtVt_2"))
-    # print("SchGtKttmmTtVt_3 ppm: ", calcPpm(name + "SchGtKttmmTtVt_3"))
+    print("SchGtKttmmTtVt ppm: ", calcPpm(name + "SchGtKttmmTtVt"))  
+    print("SchGtKttmmTtVt_1 ppm: ", calcPpm(name + "SchGtKttmmTtVt_1"))  
+    print("SchGtKttmmTtVt_2 ppm: ", calcPpm(name + "SchGtKttmmTtVt_2"))
+    print("SchGtKttmmTtVt_3 ppm: ", calcPpm(name + "SchGtKttmmTtVt_3"))
+    print("SchGtKttmmTtVt_4 ppm: ", calcPpm(name + "SchGtKttmmTtVt_4"))
 
   return
 
 
-main("output_tran/tran_")
+main("sim_results/tran_")

@@ -1,10 +1,11 @@
+*TB_SUN_TR_SKY130NM/TB_NCM
 *----------------------------------------------------------------
 * Include
 *----------------------------------------------------------------
 #ifdef Lay
-.include ../../../work/lpe/CMP_lpe.spi
+.include ../../../work/lpe/TB_CMP_lpe.spi
 #else
-.include ../../../work/xsch/CMP_v2.spice
+.include ../../../work/xsch/TB_CMP.spice
 #endif
 
 *-----------------------------------------------------------------
@@ -17,18 +18,15 @@
 *-----------------------------------------------------------------
 .param TRF = 10p
 
-.param AVDD = {vdda}
+.param AVDD = {1.8}
 
 *-----------------------------------------------------------------
 * FORCE
 *-----------------------------------------------------------------
-VSS     VSS   0     dc 0
-VDD     VDD   VSS   dc 1.8
-*Vip     Vip   VSS   dc 0
-Vip     vip   VSS   pwl 0 0.89 1000m 0.91 2000m 0.89
-Vin     vin   VSS   pwl 0 0.91 1000m 0.89 2000m 0.91
-*Vin     vin   VSS   dc 0.9
-Itail   itail VSS   dc 12.5u
+VSS  VSS  0     dc 0
+VDD  VDD  VSS  pwl 0 0 10n {AVDD}
+Vip  vip   VSS   pwl 0 0.89 1000m 0.91 2000m 0.89 3000m 0.91 4000m 0.89
+Vin  vin   VSS   pwl 0 0.91 1000m 0.89 2000m 0.91 3000m 0.89 4000m 0.91
 
 *-----------------------------------------------------------------
 * DUT
@@ -38,7 +36,14 @@ Itail   itail VSS   dc 12.5u
 *----------------------------------------------------------------
 * PROBE
 *----------------------------------------------------------------
-.save all
+.save v(cmp)
+.save v(vip)
+.save v(vin)
+.save v(VDD)
+.save v(VSS)
+.save v(pbias)
+.save v(nbias)
+
 
 
 *----------------------------------------------------------------
@@ -52,9 +57,9 @@ unset askquit
 
 optran 0 0 0 1n 1u 0
 
-tran 1m 2000m
-*dc Vip 1.49 1.51 0.001
-write 
+
+tran 1m 4000m
+write
 quit
 
 
