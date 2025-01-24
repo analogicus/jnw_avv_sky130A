@@ -57,6 +57,9 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save i(xdut.x1.v_iPreCharge)
 .save v(clk)
 .save v(reset)
+.save v(Pbd)
+.save v(Pnbd)
+.save v(test)
 
 *----------------------------------------------------------------
 * NGSPICE control

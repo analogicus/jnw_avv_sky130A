@@ -15,19 +15,7 @@ N 350 -770 400 -770 {
 lab=pbias}
 N 190 140 220 140 {
 lab=nbias}
-N 600 -830 600 -675 {
-lab=vdd}
-N 720 -140 830 -140 {
-lab=preChrg}
-N 720 -110 750 -110 {
-lab=vdd}
-N 600 -110 630 -110 {
-lab=vss}
 N 880 -770 960 -770 {
-lab=Vpre}
-N 680 -90 680 -50 {
-lab=Vpre}
-N 650 -50 680 -50 {
 lab=Vpre}
 N 260 -350 260 -300 {
 lab=#net1}
@@ -191,42 +179,52 @@ N 440 -830 600 -830 {
 lab=vdd}
 N 260 -380 440 -380 {
 lab=vdd}
-N 260 -540 260 -410 {
-lab=#net11}
-N 340 -250 370 -250 {
-lab=vdd}
 N 260 -200 370 -200 {
 lab=vss}
 N 260 -70 260 30 {
-lab=#net12}
+lab=#net11}
 N 370 -170 370 -70 {
-lab=#net12}
+lab=#net11}
 N 260 -70 370 -70 {
-lab=#net12}
+lab=#net11}
 N 260 -170 260 -70 {
-lab=#net12}
+lab=#net11}
 N 440 -600 440 -410 {
 lab=#net10}
 N 600 -605 600 -540 {
-lab=#net13}
+lab=#net12}
 N 600 -480 600 -300 {
 lab=#net1}
 N 260 -300 600 -300 {
 lab=#net1}
-N 680 -210 680 -190 {
-lab=#net14}
-N 680 -300 680 -270 {
-lab=#net1}
-N 600 -300 680 -300 {
-lab=#net1}
-N 680 -300 750 -300 {
+N 670 -300 750 -300 {
 lab=#net1}
 N 810 -300 900 -300 {
 lab=vctrl}
 N 880 -900 880 -870 {
-lab=#net15}
+lab=#net13}
 N 880 -790 880 -770 {
 lab=Vpre}
+N 600 -710 600 -675 {
+lab=#net14}
+N 600 -830 600 -770 {
+lab=vdd}
+N 260 -600 260 -550 {
+lab=#net10}
+N 260 -490 260 -410 {
+lab=#net15}
+N 710 -90 800 -90 {
+lab=preChrg}
+N 655 -90 670 -90 {
+lab=vss}
+N 670 -60 670 -10 {
+lab=Vpre}
+N 635 -10 670 -10 {
+lab=Vpre}
+N 670 -300 670 -180 {
+lab=#net1}
+N 600 -300 670 -300 {
+lab=#net1}
 C {devices/ipin.sym} 320 -830 0 0 {name=p1 lab=vdd}
 C {devices/opin.sym} 900 -300 0 0 {name=p2 lab=vctrl}
 C {devices/ipin.sym} -30 180 0 0 {name=p3 lab=vss
@@ -236,17 +234,14 @@ C {devices/ipin.sym} 190 140 0 0 {name=p6 lab=nbias
 C {devices/ipin.sym} 350 -770 0 0 {name=p7 lab=pbias
 }
 C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 600 -615 0 0 {name=x5[30:0]}
-C {devices/ipin.sym} 830 -140 2 0 {name=p10 lab=preChrg
+C {devices/ipin.sym} 800 -90 2 0 {name=p10 lab=preChrg
 }
-C {devices/lab_wire.sym} 745 -110 0 0 {name=p8 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 895 -1250 0 1 {name=p19 sig_type=std_logic lab=vdd}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 220 140 0 0 {name=x4 }
 C {devices/lab_wire.sym} 285 -380 0 1 {name=p22 sig_type=std_logic lab=vdd}
-C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 680 -200 1 0 {name=x2 }
 C {devices/lab_wire.sym} 915 -410 0 1 {name=p17 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 625 -110 0 0 {name=p25 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 925 -770 0 1 {name=p13 sig_type=std_logic lab=Vpre}
-C {devices/lab_wire.sym} 675 -50 0 0 {name=p20 sig_type=std_logic lab=Vpre}
+C {devices/lab_wire.sym} 635 -10 0 0 {name=p20 sig_type=std_logic lab=Vpre}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 220 -380 0 0 {name=x12 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 220 -200 0 0 {name=x19 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 480 -380 0 1 {name=x21 }
@@ -299,9 +294,12 @@ C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1090 1 0 {name=x9 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1200 1 0 {name=x11 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -980 1 0 {name=x13 }
 C {devices/vsource.sym} 260 -260 0 0 {name=V_isnk_drain value=0 savecurrent=true}
-C {devices/vsource.sym} 260 -570 0 0 {name=V_isrc_source value=0 savecurrent=true}
+C {devices/vsource.sym} 260 -520 0 0 {name=V_isrc_source value=0 savecurrent=true}
 C {devices/lab_wire.sym} 405 -250 0 1 {name=p32 sig_type=std_logic lab=vdd}
-C {devices/vsource.sym} 600 -510 0 0 {name=V_icap value=0 savecurrent=true}
-C {devices/vsource.sym} 680 -240 0 0 {name=V_iprecharge1 value=0 savecurrent=true}
+C {devices/vsource.sym} 600 -510 0 0 {name=V_icap_bot value=0 savecurrent=true}
+C {devices/vsource.sym} 670 -150 0 0 {name=V_iprecharge1 value=0 savecurrent=true}
 C {devices/vsource.sym} 780 -300 1 0 {name=V_ipmosGate value=0 savecurrent=true}
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -870 1 0 {name=x14 }
+C {devices/vsource.sym} 600 -740 0 0 {name=V_icap_top value=0 savecurrent=true}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 710 -90 0 1 {name=x2 }
+C {devices/lab_wire.sym} 655 -90 0 0 {name=p8 sig_type=std_logic lab=vss}

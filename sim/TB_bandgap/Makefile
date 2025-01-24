@@ -26,11 +26,9 @@ test:
 
 typical: netlist1
 	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
-##Gt Kff Tt Vl problemhjørne
-##Gt Ktt Tt Vt dette er vanlig typical
 
 single: netlist1
-	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ksf Tt Vt
+	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt "Kfs,Ksf" Tt Vl
 
 slow: netlist
 	cicsim run --name ${VIEW}_slow ${TB} ${OPT} ${VIEW} Gt Kss "Th,Tl" Vl
@@ -44,7 +42,7 @@ tfs: netlist
 etc: netlist1
 	cicsim run --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh" 
 # Trenger ikke kjøre Th og Tl, fordi jeg sweeper temperatur
-# Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh"
+# Gt "Kss,Kff,Ksf,Kfs" "Th,Tl" "Vl,Vh"
 
 mc: netlist1
 	cicsim run --name ${VIEW}_mc --count 10 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"

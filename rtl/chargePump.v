@@ -7,6 +7,8 @@ module chargePump (
     output logic src_n,
     output logic snk,
 
+    output logic test,
+
     output logic rst,
     output logic preChrg
     );
@@ -19,6 +21,7 @@ parameter   SNK = 0,
 
 logic [3:0] state;
 logic [5:0] count;
+logic [5:0] count2;
 
 
 always_ff @(posedge clk or posedge reset) begin
@@ -30,7 +33,19 @@ end
 
 initial begin
     state = PRECHARGE;
+    test = 0;
 end
+
+always_ff @(posedge clk) begin
+    if (count2 > 10) begin
+        test <= ~test;
+        count2 <= 0;
+    end
+    else begin
+        count2 <= count2 + 1;
+    end
+end
+
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset) begin

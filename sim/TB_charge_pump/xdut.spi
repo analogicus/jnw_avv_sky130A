@@ -1,2 +1,2 @@
 *Automatic generated instance fron ../../tech/scripts/genxdut TB_charge_pump
-XDUT src_n snk vdd vss preChrg vctrl  TB_charge_pump
+XDUT src_n snk vdd vss preChrg vctrl Pbd Pnbd test  TB_charge_pump
