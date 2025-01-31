@@ -15,6 +15,8 @@ OPT=
 
 netlist1:
 	make netlist
+	-rm inouts.h
+	-rm inputs.h
 	-rm tmpDig.so
 	-rm -rf tmpDig_obj_dir
 	ngspice vlnggen ../../rtl/tmpDig.v

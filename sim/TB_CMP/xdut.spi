@@ -1,2 +1,2 @@
 *Automatic generated instance fron ../../tech/scripts/genxdut TB_CMP
-XDUT vdd vss vip vin cmp  TB_CMP
+XDUT vdd vss vip vin cmp cmp_p1 cmp_p2  TB_CMP

@@ -1,0 +1,19 @@
+*Automatic generated instance fron ../../tech/scripts/gensvinst cmpDig
+adut [clk
++ ]
++ [cmp_p1
++ cmp_p2
++ ] null dut
+.model dut d_cosim simulation="../cmpDig.so" delay=10p
+
+* Inputs
+Rsvi0 clk 0 1G
+
+* Outputs
+Rsvi1 cmp_p1 0 1G
+Rsvi2 cmp_p2 0 1G
+
+.save v(cmp_p1)
+
+.save v(cmp_p2)
+
