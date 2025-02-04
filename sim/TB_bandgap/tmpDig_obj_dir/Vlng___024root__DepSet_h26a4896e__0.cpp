@@ -63,6 +63,8 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     __Vdly__tmpDig__DOT__count = vlSelfRef.tmpDig__DOT__count;
     __Vdly__tmpDig__DOT__afterBlank = vlSelfRef.tmpDig__DOT__afterBlank;
     __Vdly__tmpDig__DOT__state = vlSelfRef.tmpDig__DOT__state;
+    vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
+    vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
     if (vlSelfRef.rst) {
         __Vdly__tmpDig__DOT__state = 0U;
     } else if (((((((((0U == (IData)(vlSelfRef.tmpDig__DOT__state)) 

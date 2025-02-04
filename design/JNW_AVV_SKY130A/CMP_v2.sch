@@ -5,9 +5,9 @@ K {}
 V {}
 S {}
 E {}
-N 680 -570 680 -540 {
+N 680 -600 680 -540 {
 lab=#net1}
-N 720 -600 770 -600 {
+N 720 -630 770 -630 {
 lab=pbias}
 N 460 -460 500 -460 {
 lab=ip}
@@ -109,7 +109,7 @@ N 1080 -680 1080 -480 {
 lab=#net4}
 N 1080 -480 1150 -480 {
 lab=#net4}
-N 680 -820 680 -600 {
+N 680 -820 680 -630 {
 lab=vdd}
 N 540 -540 540 -490 {
 lab=#net1}
@@ -151,16 +151,12 @@ N 940 -580 1000 -580 {
 lab=cmp_p2}
 N 1230 -480 1280 -480 {
 lab=#net7}
-N 1380 -480 1410 -480 {
-lab=vout}
 N 1330 -440 1330 -380 {
 lab=cmp_p1}
 N 210 -350 280 -350 {
 lab=#net6}
 N 80 -350 130 -350 {
 lab=#net8}
-N -50 -350 -20 -350 {
-lab=vout}
 N 30 -310 30 -250 {
 lab=cmp_p2}
 N 280 -660 280 -350 {
@@ -205,15 +201,19 @@ N -220 -590 -50 -590 {
 lab=vip}
 N -150 -640 -130 -640 {
 lab=vin}
+N -50 -350 -20 -350 {
+lab=vout}
+N 1380 -480 1430 -480 {
+lab=vout}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 500 -460 0 0 {name=x1[3:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 860 -460 0 1 {name=x2[3:0]}
-C {devices/ipin.sym} 770 -600 2 0 {name=p1 lab=pbias
+C {devices/ipin.sym} 770 -630 2 0 {name=p1 lab=pbias
 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -600 0 1 {name=x1}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -630 0 1 {name=x1}
 C {devices/ipin.sym} -150 -640 0 0 {name=p5 lab=vin
 }
 C {devices/ipin.sym} -240 -700 0 0 {name=p6 lab=vip
@@ -226,7 +226,7 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 320 -250 0 1 {name=x6 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1040 -250 0 0 {name=x7 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 1040 -750 0 0 {name=x8 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 320 -750 0 1 {name=x9 }
-C {devices/opin.sym} 1410 -480 0 0 {name=p7 lab=vout}
+C {devices/opin.sym} 1430 -480 0 0 {name=p7 lab=vout}
 C {devices/lab_wire.sym} 700 -460 0 0 {name=p4 sig_type=std_logic lab=vdd}
 C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 1150 -480 0 0 {name=x10 }
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 320 -660 2 1 {name=x11 }

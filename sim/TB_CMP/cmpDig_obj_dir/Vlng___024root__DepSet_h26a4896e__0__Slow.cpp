@@ -89,5 +89,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);
     vlSelf->cmp_p2 = VL_RAND_RESET_I(1);
+    vlSelf->sample = VL_RAND_RESET_I(1);
+    vlSelf->cmpDig__DOT__count = VL_RAND_RESET_I(4);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
 }

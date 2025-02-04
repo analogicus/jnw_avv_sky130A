@@ -30,9 +30,23 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__0\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
+    // Init
+    CData/*3:0*/ __Vdly__cmpDig__DOT__count;
+    __Vdly__cmpDig__DOT__count = 0;
     // Body
-    vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
-    vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
+    __Vdly__cmpDig__DOT__count = vlSelfRef.cmpDig__DOT__count;
+    if ((1U < (IData)(vlSelfRef.cmpDig__DOT__count))) {
+        vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
+        vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
+        __Vdly__cmpDig__DOT__count = 0U;
+        vlSelfRef.sample = 0U;
+    } else if ((0U < (IData)(vlSelfRef.cmpDig__DOT__count))) {
+        vlSelfRef.sample = 1U;
+    } else {
+        __Vdly__cmpDig__DOT__count = (0xfU & ((IData)(1U) 
+                                              + (IData)(vlSelfRef.cmpDig__DOT__count)));
+    }
+    vlSelfRef.cmpDig__DOT__count = __Vdly__cmpDig__DOT__count;
 }
 
 void Vlng___024root___eval_triggers__act(Vlng___024root* vlSelf);

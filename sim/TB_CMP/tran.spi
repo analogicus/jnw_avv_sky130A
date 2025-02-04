@@ -53,9 +53,11 @@ Vin  vin   VSS   pwl 0 0.91 1u 0.89 2u 0.91 3u 0.89 4u 0.91
 .save v(clk)
 .save v(xdut.x1.ip)
 .save v(xdut.x1.in)
-.save v(xdut.x2.cmp_p2)
+.save v(cmp_p2)
+.save v(cmp_p1)
 
-
+.save all
+.option savecurrents
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -73,6 +75,7 @@ pre_set auto_bridge_d_out =
 unset askquit
 
 optran 0 0 0 1n 1u 0
+op
 
 
 tran 1n 4u

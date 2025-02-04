@@ -19,6 +19,9 @@ module tmpDig (
     output logic src_n,
     output logic snk,
 
+    output logic cmp_p1,
+    output logic cmp_p2,
+
     output logic rst,
     output logic valid,
     output logic preChrg,
@@ -53,7 +56,17 @@ end
 
 initial begin
     state = PRECHARGE;
+    cmp_p1 = 1'b0;
+    cmp_p2 = 1'b1;
 end
+
+always_ff @(posedge clk) begin
+    cmp_p1 <= ~cmp_p1;
+    cmp_p2 <= ~cmp_p2;
+end
+
+
+
 
 
 always_ff @(posedge clk) begin
