@@ -1,4 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
+v {xschem version=3.4.6RC file_version=1.2
 }
 G {}
 K {}
@@ -309,3 +309,5 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1010 -480 0 1 {name=x11 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 830 -340 0 1 {name=x13 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 830 -840 0 1 {name=x22 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 930 -840 0 0 {name=x23 }
+C {devices/lab_wire.sym} 1430 -540 0 0 {name=p12 sig_type=std_logic lab=VinDrain}
+C {devices/lab_wire.sym} 1190 -540 0 1 {name=p13 sig_type=std_logic lab=VipDrain}

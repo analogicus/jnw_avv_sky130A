@@ -1,4 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
+v {xschem version=3.4.6RC file_version=1.2
 }
 G {}
 K {}
@@ -14,37 +14,37 @@ lab=ip}
 N 860 -460 900 -460 {
 lab=in}
 N 540 -430 540 -340 {
-lab=#net2}
+lab=VipDrain}
 N 460 -340 460 -300 {
-lab=#net2}
+lab=VipDrain}
 N 460 -340 540 -340 {
-lab=#net2}
+lab=VipDrain}
 N 540 -340 600 -340 {
-lab=#net2}
+lab=VipDrain}
 N 600 -340 600 -300 {
-lab=#net2}
+lab=VipDrain}
 N 820 -430 820 -340 {
-lab=#net3}
+lab=VinDrain}
 N 760 -340 760 -300 {
-lab=#net3}
+lab=VinDrain}
 N 760 -340 820 -340 {
-lab=#net3}
+lab=VinDrain}
 N 820 -340 900 -340 {
-lab=#net3}
+lab=VinDrain}
 N 900 -300 900 -280 {
-lab=#net3}
+lab=VinDrain}
 N 640 -270 660 -270 {
-lab=#net3}
+lab=VinDrain}
 N 660 -270 730 -340 {
-lab=#net3}
+lab=VinDrain}
 N 700 -270 720 -270 {
-lab=#net2}
+lab=VipDrain}
 N 630 -340 700 -270 {
-lab=#net2}
+lab=VipDrain}
 N 600 -340 630 -340 {
-lab=#net2}
+lab=VipDrain}
 N 730 -340 760 -340 {
-lab=#net3}
+lab=VinDrain}
 N 600 -270 600 -160 {
 lab=vss}
 N 760 -270 760 -160 {
@@ -62,39 +62,39 @@ lab=vss}
 N 460 -250 460 -160 {
 lab=vss}
 N 380 -250 420 -250 {
-lab=#net2}
+lab=VipDrain}
 N 380 -300 460 -300 {
-lab=#net2}
+lab=VipDrain}
 N 380 -300 380 -250 {
-lab=#net2}
+lab=VipDrain}
 N 320 -250 380 -250 {
-lab=#net2}
+lab=VipDrain}
 N 460 -300 460 -280 {
-lab=#net2}
+lab=VipDrain}
 N 980 -300 980 -250 {
-lab=#net3}
+lab=VinDrain}
 N 900 -300 980 -300 {
-lab=#net3}
+lab=VinDrain}
 N 900 -340 900 -300 {
-lab=#net3}
+lab=VinDrain}
 N 940 -250 980 -250 {
-lab=#net3}
+lab=VinDrain}
 N 280 -250 280 -160 {
 lab=vss}
 N 1080 -250 1080 -160 {
 lab=vss}
 N 1080 -480 1080 -280 {
-lab=#net4}
+lab=pre_vout}
 N 980 -250 1040 -250 {
-lab=#net3}
+lab=VinDrain}
 N 460 -750 460 -660 {
-lab=#net5}
+lab=#net2}
 N 280 -350 280 -280 {
-lab=#net6}
+lab=vout}
 N 920 -750 1040 -750 {
-lab=#net5}
+lab=#net2}
 N 320 -750 460 -750 {
-lab=#net5}
+lab=#net2}
 N 280 -820 280 -750 {
 lab=vdd}
 N 1080 -820 1080 -750 {
@@ -106,9 +106,9 @@ lab=vss}
 N 240 -160 280 -160 {
 lab=vss}
 N 1080 -680 1080 -480 {
-lab=#net4}
+lab=pre_vout}
 N 1080 -480 1150 -480 {
-lab=#net4}
+lab=pre_vout}
 N 680 -820 680 -630 {
 lab=vdd}
 N 540 -540 540 -490 {
@@ -126,21 +126,21 @@ lab=#net1}
 N 680 -820 1080 -820 {
 lab=vdd}
 N 280 -660 330 -660 {
-lab=#net6}
+lab=vout}
 N 280 -720 280 -660 {
-lab=#net6}
+lab=vout}
 N 430 -660 460 -660 {
-lab=#net5}
+lab=#net2}
 N 920 -680 950 -680 {
-lab=#net5}
+lab=#net2}
 N 920 -750 920 -680 {
-lab=#net5}
+lab=#net2}
 N 460 -750 920 -750 {
-lab=#net5}
+lab=#net2}
 N 1050 -680 1080 -680 {
-lab=#net4}
+lab=pre_vout}
 N 1080 -720 1080 -680 {
-lab=#net4}
+lab=pre_vout}
 N 380 -620 380 -560 {
 lab=cmp_p1}
 N 380 -560 450 -560 {
@@ -150,17 +150,17 @@ lab=cmp_p2}
 N 940 -580 1000 -580 {
 lab=cmp_p2}
 N 1230 -480 1280 -480 {
-lab=#net7}
+lab=#net3}
 N 1330 -440 1330 -380 {
 lab=cmp_p1}
 N 210 -350 280 -350 {
-lab=#net6}
+lab=vout}
 N 80 -350 130 -350 {
-lab=#net8}
+lab=#net4}
 N 30 -310 30 -250 {
 lab=cmp_p2}
 N 280 -660 280 -350 {
-lab=#net6}
+lab=vout}
 N 30 -250 90 -250 {
 lab=cmp_p2}
 N 1270 -380 1330 -380 {
@@ -265,3 +265,7 @@ C {devices/lab_wire.sym} 900 -460 0 1 {name=p35 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -50 -670 0 0 {name=p36 sig_type=std_logic lab=cmp_p1}
 C {devices/ipin.sym} 240 -930 0 0 {name=p11 lab=cmp_p2
 }
+C {devices/lab_wire.sym} 800 -340 0 0 {name=p12 sig_type=std_logic lab=VinDrain}
+C {devices/lab_wire.sym} 560 -340 0 1 {name=p13 sig_type=std_logic lab=VipDrain}
+C {devices/lab_wire.sym} 280 -420 0 1 {name=p37 sig_type=std_logic lab=pre_voutn}
+C {devices/lab_wire.sym} 1080 -500 0 0 {name=p38 sig_type=std_logic lab=pre_vout}

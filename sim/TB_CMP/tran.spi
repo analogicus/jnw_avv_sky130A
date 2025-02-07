@@ -55,9 +55,25 @@ Vin  vin   VSS   pwl 0 0.91 1u 0.89 2u 0.91 3u 0.89 4u 0.91
 .save v(xdut.x1.in)
 .save v(cmp_p2)
 .save v(cmp_p1)
+.save v(zero)
+.save v(xdut.x1.VipDrain)
+.save v(xdut.x1.VinDrain)
+.save v(xdut.x1.voutn)
+.save v(xdut.x1.zeroA)
+.save v(xdut.x1.zeroB)
+.save v(xdut.x1.zeroBN)
+.save v(xdut.x1.vzero_vip)
+.save v(xdut.x1.vzero_vin)
+.save v(xdut.x1.pre_vout)
+.save v(xdut.x1.pre_voutn)
+.save v(xdut.x1.vout)
+.save v(xdut.x1.voutn)
+.save v(xdut.vout)
 
-.save all
-.option savecurrents
+
+
+* .save all
+* .option savecurrents
 
 *----------------------------------------------------------------
 * NGSPICE control

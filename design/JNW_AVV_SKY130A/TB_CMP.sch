@@ -1,4 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
+v {xschem version=3.4.6RC file_version=1.2
 }
 G {}
 K {}
@@ -29,16 +29,16 @@ N 550 -450 550 -340 {
 lab=cmp_p2}
 N 550 -450 600 -450 {
 lab=cmp_p2}
+N 850 -140 890 -140 {
+lab=vss}
+N 810 -220 830 -220 {
+lab=sample}
 N 610 -280 830 -280 {
-lab=#net1}
+lab=vout}
 N 930 -280 1060 -280 {
 lab=cmp}
-N 880 -200 880 -140 {
+N 890 -190 890 -140 {
 lab=vss}
-N 840 -140 880 -140 {
-lab=vss}
-N 800 -240 830 -240 {
-lab=sample}
 C {devices/lab_wire.sym} 450 -410 0 0 {name=p1 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 450 -160 0 0 {name=p4 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 530 -170 0 1 {name=p2 sig_type=std_logic lab=pbias}
@@ -54,12 +54,14 @@ C {devices/lab_wire.sym} 930 -590 0 1 {name=p11 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 930 -510 0 1 {name=p12 sig_type=std_logic lab=nbias}
 C {devices/ipin.sym} 340 -510 0 0 {name=p13 lab=cmp_p1}
 C {devices/ipin.sym} 340 -530 0 0 {name=p14 lab=cmp_p2}
-C {devices/lab_wire.sym} 880 -320 0 0 {name=p15 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 840 -140 0 0 {name=p16 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 890 -310 0 0 {name=p15 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 850 -140 0 0 {name=p16 sig_type=std_logic lab=vss}
 C {devices/ipin.sym} 340 -590 0 0 {name=p17 lab=clk}
 C {devices/lab_wire.sym} 500 -450 0 0 {name=p28 sig_type=std_logic lab=cmp_p1}
 C {devices/lab_wire.sym} 550 -450 0 1 {name=p29 sig_type=std_logic lab=cmp_p2}
-C {devices/lab_wire.sym} 800 -240 0 0 {name=p23 sig_type=std_logic lab=sample}
-C {JNW_AVV_SKY130A/DFF.sym} 880 -260 0 0 {name=x3}
 C {devices/ipin.sym} 340 -490 0 0 {name=p18 lab=sample}
+C {devices/ipin.sym} 340 -470 0 0 {name=p19 lab=zero}
+C {devices/lab_wire.sym} 810 -220 0 0 {name=p20 sig_type=std_logic lab=sample}
 C {JNW_AVV_SKY130A/CMP_v2.sym} 340 -160 0 0 {name=x1}
+C {devices/lab_wire.sym} 730 -280 0 0 {name=p21 sig_type=std_logic lab=vout}
+C {JNW_TR_SKY130A/JNWTR_DFTSPCX1_CV.sym} 830 -220 0 0 {name=x3 }

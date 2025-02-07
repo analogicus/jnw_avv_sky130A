@@ -1,4 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
+v {xschem version=3.4.6RC file_version=1.2
 }
 G {}
 K {}
@@ -190,17 +190,17 @@ lab=vdd}
 N 1600 -1520 1710 -1520 {
 lab=vdd}
 N 1720 -1310 1780 -1310 {
-lab=#net7}
+lab=vzero_vin}
 N 1780 -1310 1780 -1270 {
-lab=#net7}
+lab=vzero_vin}
 N 1780 -1310 1840 -1310 {
-lab=#net7}
+lab=vzero_vin}
 N 1970 -1310 2020 -1310 {
-lab=#net8}
+lab=#net7}
 N 1970 -1310 1970 -1260 {
-lab=#net8}
+lab=#net7}
 N 1940 -1310 1970 -1310 {
-lab=#net8}
+lab=#net7}
 N 1970 -1230 1970 -1160 {
 lab=vss}
 N 1780 -1160 1970 -1160 {
@@ -210,17 +210,17 @@ lab=vss}
 N 1030 -1310 1080 -1310 {
 lab=vout}
 N 1420 -1310 1480 -1310 {
-lab=#net9}
+lab=vzero_vip}
 N 1420 -1310 1420 -1270 {
-lab=#net9}
+lab=vzero_vip}
 N 1360 -1310 1420 -1310 {
-lab=#net9}
+lab=vzero_vip}
 N 1180 -1310 1230 -1310 {
-lab=#net10}
+lab=#net8}
 N 1230 -1310 1230 -1260 {
-lab=#net10}
+lab=#net8}
 N 1230 -1310 1260 -1310 {
-lab=#net10}
+lab=#net8}
 N 1230 -1230 1230 -1160 {
 lab=vss}
 N 1230 -1160 1420 -1160 {
@@ -238,13 +238,13 @@ lab=VipDrain}
 N 1680 -1280 1680 -1160 {
 lab=VinDrain}
 N 1300 -1050 1380 -1050 {
-lab=#net11}
+lab=#net9}
 N 1460 -1050 1520 -1050 {
 lab=zeroA}
 N 1600 -1050 1660 -1050 {
-lab=#net12}
+lab=#net10}
 N 1740 -1050 1770 -1050 {
-lab=#net13}
+lab=#net11}
 N 1850 -1050 1940 -1050 {
 lab=zeroBN}
 N 2020 -1050 2070 -1050 {
@@ -297,7 +297,7 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1290 -520 0 1 {name=x11 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1110 -380 0 1 {name=x13 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 1110 -880 0 1 {name=x22 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 1210 -880 0 0 {name=x23 }
-C {devices/lab_wire.sym} 1720 -580 0 0 {name=p12 sig_type=std_logic lab=VinDrain}
+C {devices/lab_wire.sym} 1700 -580 0 0 {name=p12 sig_type=std_logic lab=VinDrain}
 C {devices/lab_wire.sym} 1480 -580 0 1 {name=p13 sig_type=std_logic lab=VipDrain}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 1480 -1310 0 0 {name=x12 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 1720 -1310 0 1 {name=x14 }
@@ -355,3 +355,5 @@ C {devices/lab_wire.sym} 1890 -1350 0 0 {name=p54 sig_type=std_logic lab=zeroA}
 C {devices/lab_wire.sym} 1310 -1350 0 1 {name=p55 sig_type=std_logic lab=zeroA}
 C {devices/lab_wire.sym} 2070 -1350 0 0 {name=p56 sig_type=std_logic lab=zeroB}
 C {devices/lab_wire.sym} 1130 -1350 0 1 {name=p57 sig_type=std_logic lab=zeroB}
+C {devices/lab_wire.sym} 1740 -1310 0 1 {name=p10 sig_type=std_logic lab=vzero_vin}
+C {devices/lab_wire.sym} 1470 -1310 0 0 {name=p58 sig_type=std_logic lab=vzero_vip}

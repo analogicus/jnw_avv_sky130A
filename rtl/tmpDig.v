@@ -21,6 +21,7 @@ module tmpDig (
 
     output logic cmp_p1,
     output logic cmp_p2,
+    output logic sample,
 
     output logic rst,
     output logic valid,
@@ -61,8 +62,17 @@ initial begin
 end
 
 always_ff @(posedge clk) begin
-    cmp_p1 <= ~cmp_p1;
-    cmp_p2 <= ~cmp_p2;
+    if(count > 1) begin
+        count <= 0;
+        cmp_p1 <= ~cmp_p1;
+        cmp_p2 <= ~cmp_p2;
+        sample <= 1'b0;
+    end else if(count > 0) begin
+        sample <= 1'b1;
+    end
+    else begin
+        count <= count + 1;
+    end
 end
 
 
