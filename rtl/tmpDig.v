@@ -43,6 +43,7 @@ parameter   PRECHARGE=0,
 logic [3:0] state;
 logic [3:0] afterBlank;
 logic [5:0] count;
+logic [5:0] chcount;
 logic [5:0] setupCount;
 logic       Hcharged;
 logic       Lcharged;
@@ -62,16 +63,18 @@ initial begin
 end
 
 always_ff @(posedge clk) begin
-    if(count > 1) begin
-        count <= 0;
+    if(chcount > 1) begin
+        chcount <= 0;
         cmp_p1 <= ~cmp_p1;
         cmp_p2 <= ~cmp_p2;
         sample <= 1'b0;
-    end else if(count > 0) begin
+    end else if(chcount > 0) begin
         sample <= 1'b1;
+        chcount <= chcount + 1;
     end
     else begin
-        count <= count + 1;
+        sample <= 1'b0;
+        chcount <= chcount + 1;
     end
 end
 
@@ -143,6 +146,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
+                    // cmp_p1 <= ~cmp_p1;
+                    // cmp_p2 <= ~cmp_p2;
                 end
             end
 

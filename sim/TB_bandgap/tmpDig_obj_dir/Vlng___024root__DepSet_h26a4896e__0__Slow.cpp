@@ -110,6 +110,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->snk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);
     vlSelf->cmp_p2 = VL_RAND_RESET_I(1);
+    vlSelf->sample = VL_RAND_RESET_I(1);
     vlSelf->rst = VL_RAND_RESET_I(1);
     vlSelf->valid = VL_RAND_RESET_I(1);
     vlSelf->preChrg = VL_RAND_RESET_I(1);
@@ -117,6 +118,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__state = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__afterBlank = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(6);
+    vlSelf->tmpDig__DOT__chcount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);

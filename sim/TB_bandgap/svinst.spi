@@ -16,6 +16,7 @@ adut [clk
 + snk
 + cmp_p1
 + cmp_p2
++ sample
 + rst
 + valid
 + preChrg
@@ -42,10 +43,11 @@ Rsvi12 src_n 0 1G
 Rsvi13 snk 0 1G
 Rsvi14 cmp_p1 0 1G
 Rsvi15 cmp_p2 0 1G
-Rsvi16 rst 0 1G
-Rsvi17 valid 0 1G
-Rsvi18 preChrg 0 1G
-Rsvi19 setupBias 0 1G
+Rsvi16 sample 0 1G
+Rsvi17 rst 0 1G
+Rsvi18 valid 0 1G
+Rsvi19 preChrg 0 1G
+Rsvi20 setupBias 0 1G
 
 .save v(PI1)
 
@@ -72,6 +74,8 @@ Rsvi19 setupBias 0 1G
 .save v(cmp_p1)
 
 .save v(cmp_p2)
+
+.save v(sample)
 
 .save v(rst)
 

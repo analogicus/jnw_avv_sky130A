@@ -12,6 +12,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
     , cmp_p2{vlSymsp->TOP.cmp_p2}
+    , zero{vlSymsp->TOP.zero}
     , sample{vlSymsp->TOP.sample}
     , rootp{&(vlSymsp->TOP)}
 {

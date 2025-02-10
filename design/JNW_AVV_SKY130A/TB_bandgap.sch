@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
@@ -65,8 +65,6 @@ N 980 -780 1000 -780 {
 lab=src_n}
 N 1220 -790 1240 -790 {
 lab=preChrg}
-N 1920 -390 1940 -390 {
-lab=cmp}
 N 940 -300 970 -300 {
 lab=PII2}
 N 1360 -480 1360 -420 {
@@ -97,6 +95,10 @@ N 1700 -390 1820 -390 {
 lab=#net1}
 N 1770 -350 1820 -350 {
 lab=sample}
+N 1920 -390 1970 -390 {
+lab=cmp}
+N 1920 -350 1940 -350 {
+lab=#net2}
 C {devices/lab_wire.sym} 960 -480 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 1260 -730 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 840 -810 0 0 {name=p4 lab=vdd}
@@ -119,7 +121,7 @@ C {devices/ipin.sym} 940 -400 0 0 {name=p24 lab=PD}
 C {devices/ipin.sym} 940 -380 0 0 {name=p25 lab=PI1}
 C {devices/ipin.sym} 940 -360 0 0 {name=p26 lab=PI2}
 C {devices/ipin.sym} 940 -340 0 0 {name=p28 lab=PII1}
-C {devices/opin.sym} 1940 -390 0 0 {name=p29 lab=cmp}
+C {devices/opin.sym} 1970 -390 0 0 {name=p29 lab=cmp}
 C {devices/lab_wire.sym} 1320 -480 0 0 {name=p30 sig_type=std_logic lab=vp}
 C {devices/lab_wire.sym} 1320 -320 0 0 {name=p31 sig_type=std_logic lab=vn}
 C {devices/lab_wire.sym} 1670 -290 0 0 {name=p33 sig_type=std_logic lab=pbias}
@@ -139,7 +141,9 @@ C {devices/lab_wire.sym} 1650 -480 0 1 {name=p35 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} 1610 -520 0 1 {name=p37 sig_type=std_logic lab=cmp_p1}
 C {devices/ipin.sym} 840 -850 0 0 {name=p38 lab=cmp_p1}
 C {devices/ipin.sym} 840 -830 0 0 {name=p39 lab=cmp_p2}
+C {devices/ipin.sym} 840 -870 0 0 {name=p40 lab=sample}
+C {devices/lab_wire.sym} 1820 -350 0 0 {name=p41 sig_type=std_logic lab=sample}
+C {devices/lab_wire.sym} 1490 -700 0 0 {name=p42 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 1490 -620 0 0 {name=p43 sig_type=std_logic lab=vss}
 C {JNW_AVV_SKY130A/CMP_v2.sym} 1430 -270 0 0 {name=x1}
 C {JNW_AVV_SKY130A/DFF.sym} 1870 -370 0 0 {name=x5}
-C {devices/ipin.sym} 840 -870 0 0 {name=p40 lab=sample}
-C {devices/lab_wire.sym} 1810 -350 0 0 {name=p41 sig_type=std_logic lab=sample}

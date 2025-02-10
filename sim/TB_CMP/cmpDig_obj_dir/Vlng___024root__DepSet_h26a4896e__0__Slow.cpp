@@ -32,6 +32,7 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     // Body
     vlSelfRef.cmp_p1 = 0U;
     vlSelfRef.cmp_p2 = 1U;
+    vlSelfRef.sample = 0U;
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_final(Vlng___024root* vlSelf) {
@@ -89,7 +90,8 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);
     vlSelf->cmp_p2 = VL_RAND_RESET_I(1);
+    vlSelf->zero = VL_RAND_RESET_I(1);
     vlSelf->sample = VL_RAND_RESET_I(1);
-    vlSelf->cmpDig__DOT__count = VL_RAND_RESET_I(4);
+    vlSelf->cmpDig__DOT__count = VL_RAND_RESET_I(6);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
 }

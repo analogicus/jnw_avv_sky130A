@@ -31,20 +31,23 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__0\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Init
-    CData/*3:0*/ __Vdly__cmpDig__DOT__count;
+    CData/*5:0*/ __Vdly__cmpDig__DOT__count;
     __Vdly__cmpDig__DOT__count = 0;
     // Body
     __Vdly__cmpDig__DOT__count = vlSelfRef.cmpDig__DOT__count;
-    if ((1U < (IData)(vlSelfRef.cmpDig__DOT__count))) {
+    if ((3U == (IData)(vlSelfRef.cmpDig__DOT__count))) {
         vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
         vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
         __Vdly__cmpDig__DOT__count = 0U;
         vlSelfRef.sample = 0U;
-    } else if ((0U < (IData)(vlSelfRef.cmpDig__DOT__count))) {
+    } else if ((1U == (IData)(vlSelfRef.cmpDig__DOT__count))) {
+        __Vdly__cmpDig__DOT__count = (0x3fU & ((IData)(1U) 
+                                               + (IData)(vlSelfRef.cmpDig__DOT__count)));
         vlSelfRef.sample = 1U;
     } else {
-        __Vdly__cmpDig__DOT__count = (0xfU & ((IData)(1U) 
-                                              + (IData)(vlSelfRef.cmpDig__DOT__count)));
+        __Vdly__cmpDig__DOT__count = (0x3fU & ((IData)(1U) 
+                                               + (IData)(vlSelfRef.cmpDig__DOT__count)));
+        vlSelfRef.sample = 0U;
     }
     vlSelfRef.cmpDig__DOT__count = __Vdly__cmpDig__DOT__count;
 }
