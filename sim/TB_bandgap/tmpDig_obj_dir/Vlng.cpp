@@ -84,7 +84,7 @@ void Vlng::eval_step() {
 bool Vlng::eventsPending() { return false; }
 
 uint64_t Vlng::nextTimeSlot() {
-    VL_FATAL_MT(__FILE__, __LINE__, "", "%Error: No delays in the design");
+    VL_FATAL_MT(__FILE__, __LINE__, "", "No delays in the design");
     return 0;
 }
 

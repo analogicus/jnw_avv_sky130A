@@ -1,4 +1,4 @@
-*Automatic generated instance fron ../../tech/scripts/gensvinst cmpDig
+*Automatic generated instance fron ../../tech/scripts/genxdut cmpDig
 adut [clk
 + ]
 + [cmp_p1

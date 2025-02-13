@@ -12,7 +12,7 @@ PERL = perl
 # Python3 executable (from $PYTHON3, defaults to 'python3' if not set)
 PYTHON3 = python3
 # Path to Verilator kit (from $VERILATOR_ROOT)
-VERILATOR_ROOT = /cad/gnu/oseda/verilator/master/share/verilator
+VERILATOR_ROOT = /usr/local/share/verilator
 # SystemC include directory with systemc.h (from $SYSTEMC_INCLUDE)
 SYSTEMC_INCLUDE ?= 
 # SystemC library directory with libsystemc.a (from $SYSTEMC_LIBDIR)
@@ -37,7 +37,7 @@ VM_PREFIX = Vlng
 VM_MODPREFIX = Vlng
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/cad/gnu/oseda/ngspice/master/share/ngspice/scripts/src \
+	-I/opt/eda/share/ngspice/scripts/src \
 	-fpic \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
@@ -50,7 +50,8 @@ VM_USER_CLASSES = \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	/cad/gnu/oseda/ngspice/master/share/ngspice/scripts/src \
+	.. \
+	../../../../../../../../opt/eda/share/ngspice/scripts/src \
 
 
 ### Default rules...
@@ -62,9 +63,9 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-verilator_main.o: /cad/gnu/oseda/ngspice/master/share/ngspice/scripts/src/verilator_main.cpp 
+verilator_main.o: /opt/eda/share/ngspice/scripts/src/verilator_main.cpp 
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST)  -c -o $@ $<
-verilator_shim.o: /cad/gnu/oseda/ngspice/master/share/ngspice/scripts/src/verilator_shim.cpp 
+verilator_shim.o: /opt/eda/share/ngspice/scripts/src/verilator_shim.cpp 
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST)  -c -o $@ $<
 
 ### Link rules... (from --exe)
