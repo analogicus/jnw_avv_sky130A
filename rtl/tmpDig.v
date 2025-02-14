@@ -62,20 +62,25 @@ initial begin
     cmp_p2 = 1'b1;
 end
 
+// always_ff @(posedge clk) begin
+//     if(chcount > 1) begin
+//         chcount <= 0;
+//         cmp_p1 <= ~cmp_p1;
+//         cmp_p2 <= ~cmp_p2;
+//         sample <= 1'b0;
+//     end else if(chcount > 0) begin
+//         sample <= 1'b1;
+//         chcount <= chcount + 1;
+//     end
+//     else begin
+//         sample <= 1'b0;
+//         chcount <= chcount + 1;
+//     end
+// end
+
 always_ff @(posedge clk) begin
-    if(chcount > 1) begin
-        chcount <= 0;
-        cmp_p1 <= ~cmp_p1;
-        cmp_p2 <= ~cmp_p2;
-        sample <= 1'b0;
-    end else if(chcount > 0) begin
-        sample <= 1'b1;
-        chcount <= chcount + 1;
-    end
-    else begin
-        sample <= 1'b0;
-        chcount <= chcount + 1;
-    end
+    cmp_p1 <= ~cmp_p1;
+    cmp_p2 <= ~cmp_p2;
 end
 
 

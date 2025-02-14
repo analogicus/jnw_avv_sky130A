@@ -10,8 +10,8 @@ set fend = .raw
 foreach vtemp 20
 * foreach vtemp -40 -30 -20 -10 0 10 20 30 40 50 60 70 80 90 100 110 120 125
 load {cicname}_$vtemp$fend
-meas tran Vref_$vtemp avg v(vref) from=50u to=59u
-meas tran ivdd_$vtemp avg i(vdd) from=50u to=59u
+meas tran Vref_$vtemp avg v(vref) from=70u to=89u
+meas tran ivdd_$vtemp avg i(vdd) from=70u to=89u
 end
 
 echo "MEAS_END"
