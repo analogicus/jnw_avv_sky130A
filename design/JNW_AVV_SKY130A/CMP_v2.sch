@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
@@ -170,11 +170,11 @@ lab=vout}
 N 1380 -480 1430 -480 {
 lab=vout}
 N -310 -760 -310 -530 {
-lab=#net5}
+lab=vip}
 N -310 -760 -230 -760 {
-lab=#net5}
+lab=vip}
 N -310 -530 -230 -530 {
-lab=#net5}
+lab=vip}
 N -40 -770 -40 -530 {
 lab=vin}
 N -40 -770 10 -770 {
@@ -202,7 +202,7 @@ C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 860 -460 0 1 {name=x2[3:0]}
 C {devices/ipin.sym} 770 -630 2 0 {name=p1 lab=pbias
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -630 0 1 {name=x1}
-C {devices/ipin.sym} -40 -640 0 0 {name=p5 lab=vin
+C {devices/ipin.sym} -40 -630 0 0 {name=p5 lab=vin
 }
 C {devices/ipin.sym} -310 -640 0 0 {name=p6 lab=vip
 }
@@ -241,8 +241,8 @@ C {devices/lab_wire.sym} 0 -310 0 0 {name=p25 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 0 -400 0 0 {name=p26 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 30 -250 0 1 {name=p27 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} -50 -350 0 0 {name=p28 sig_type=std_logic lab=vout}
-C {devices/lab_wire.sym} -130 -530 0 1 {name=p32 sig_type=std_logic lab=in}
-C {devices/lab_wire.sym} -130 -760 0 1 {name=p33 sig_type=std_logic lab=ip}
+C {devices/lab_wire.sym} -130 -530 0 0 {name=p32 sig_type=std_logic lab=in}
+C {devices/lab_wire.sym} -130 -760 0 0 {name=p33 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 460 -460 0 0 {name=p34 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 900 -460 0 1 {name=p35 sig_type=std_logic lab=in}
 C {devices/ipin.sym} 240 -930 0 0 {name=p11 lab=cmp_p2
@@ -263,7 +263,7 @@ C {devices/lab_wire.sym} -210 -710 2 1 {name=p40 sig_type=std_logic lab=vss}
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 120 -770 0 1 {name=x19 }
 C {devices/lab_wire.sym} 30 -810 2 1 {name=p41 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 30 -720 2 1 {name=p42 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 110 -530 0 1 {name=p43 sig_type=std_logic lab=ip}
-C {devices/lab_wire.sym} 110 -770 0 1 {name=p44 sig_type=std_logic lab=in}
+C {devices/lab_wire.sym} 110 -530 0 0 {name=p43 sig_type=std_logic lab=ip}
+C {devices/lab_wire.sym} 110 -770 0 0 {name=p44 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -80 -470 0 1 {name=p45 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} -80 -830 0 1 {name=p46 sig_type=std_logic lab=cmp_p1}

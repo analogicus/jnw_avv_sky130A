@@ -1,4 +1,4 @@
-*Automatic generated instance fron ../../tech/scripts/genxdut tmpDig
+*Automatic generated instance fron ../../tech/scripts/gensvinst tmpDig
 adut [clk
 + reset
 + cmp

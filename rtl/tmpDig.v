@@ -78,10 +78,10 @@ end
 //     end
 // end
 
-always_ff @(posedge clk) begin
-    cmp_p1 <= ~cmp_p1;
-    cmp_p2 <= ~cmp_p2;
-end
+// always_ff @(posedge clk) begin
+//     cmp_p1 <= ~cmp_p1;
+//     cmp_p2 <= ~cmp_p2;
+// end
 
 
 
@@ -151,8 +151,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
-                    // cmp_p1 <= ~cmp_p1;
-                    // cmp_p2 <= ~cmp_p2;
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
                 end
             end
 
@@ -176,12 +176,12 @@ always_ff @(posedge clk) begin
             end
 
             BIGDIODE: begin
-                if(count > 4 && setupDone == 0) begin
+                if(count > 6 && setupDone == 0) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                end else if (count > 4 && setupDone > 0) begin
-                     if (cmp && !Hcharged) begin
+                end else if (count > 2 && setupDone > 0) begin
+                    if (cmp && !Hcharged) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= HCHARGE;
@@ -194,6 +194,7 @@ always_ff @(posedge clk) begin
                     end else if (!cmp) begin
                         snk <= ~snk;
                     end
+
 
                 end else begin
                     count <= count + 1;

@@ -47,7 +47,7 @@ etc: netlist1
 # Gt "Kss,Kff,Ksf,Kfs" "Th,Tl" "Vl,Vh"
 
 mc: netlist1
-	cicsim run --name ${VIEW}_mc --count 10 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
+	cicsim run --name ${VIEW}_mc --count 30 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
 
 ntc: netlist
 	cicsim run --name ${VIEW}_ntc ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt" Vt

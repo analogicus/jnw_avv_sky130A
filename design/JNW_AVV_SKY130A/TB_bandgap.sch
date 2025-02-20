@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
@@ -91,10 +91,12 @@ N 1640 -480 1640 -450 {
 lab=cmp_p2}
 N 1640 -480 1710 -480 {
 lab=cmp_p2}
-N 1700 -390 1970 -390 {
-lab=cmp}
 N 1770 -350 1820 -350 {
 lab=sample}
+N 1700 -390 1970 -390 {
+lab=cmp}
+N 1920 -350 1960 -350 {
+lab=#net1}
 C {devices/lab_wire.sym} 960 -480 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 1260 -730 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 840 -810 0 0 {name=p4 lab=vdd}

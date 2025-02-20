@@ -4,32 +4,8 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import plotTempDependence, rawplot
+from plot import plotTempDependence, rawplot, calcPpm, calcVrefMean, calcVrefMaxMinDelta 
 
-def calcPpm(yamlfile):
-  # Read result yaml file
-  with open(yamlfile + ".yaml") as fi:
-    obj = yaml.safe_load(fi)
-
-  vref = np.array([])
-  temp = np.array([])
-  
-  
-  for key in obj:
-    if key.startswith("vref"):
-      vref = np.append(vref, obj[key])
-      temp = np.append(temp, int(key.split("_")[1]))
-  
-  # print(vref)
-  # print(temp)
-
-  ppm = round(((np.max(vref) - np.min(vref))/(np.mean(vref)*(np.max(temp)-np.min(temp)))) * 1e6, 2)
-  # print(yamlfile + " Temperature constant: ",ppm, "ppm/C")
-  # print( yamlfile + " max: ", np.max(vref))
-  # print( yamlfile + " min: ", np.min(vref))
-  print( yamlfile + " mean: ", round((np.mean(vref))*1000))
-  # print( yamlfile + " delta ", round(np.max(vref) - np.min(vref), 5))
-  return ppm
 
 
 def main(name):
@@ -38,22 +14,26 @@ def main(name):
   # plotTempDependence(name + "SchGtKttTtVt")
 
   if (0):  # Print TC of etc and typical corners
-    # print("SchGtKffTtVl ppm: ", calcPpm(name + "SchGtKffTtVl"))  
-    # print("SchGtKffTtVh ppm: ", calcPpm(name + "SchGtKffTtVh"))  
-    print("SchGtKssTtVl ppm: ", calcPpm(name + "SchGtKssTtVl"))  
-    print("SchGtKssTtVh ppm: ", calcPpm(name + "SchGtKssTtVh"))  
-    # print("SchGtKfsTtVl ppm: ", calcPpm(name + "SchGtKfsTtVl"))  
-    # print("SchGtKfsTtVh ppm: ", calcPpm(name + "SchGtKfsTtVh"))  
-    print("SchGtKsfTtVl ppm: ", calcPpm(name + "SchGtKsfTtVl"))  
-    print("SchGtKsfTtVh ppm: ", calcPpm(name + "SchGtKsfTtVh"))
-    print("SchGtKttTtVt ppm: ", calcPpm(name + "SchGtKttTtVt"))
-    print("SchGtKttmmTtVt ppm: ", calcPpm(name + "SchGtKttmmTtVt"))  
-    print("SchGtKttmmTtVt_1 ppm: ", calcPpm(name + "SchGtKttmmTtVt_1"))  
-    print("SchGtKttmmTtVt_2 ppm: ", calcPpm(name + "SchGtKttmmTtVt_2"))
-    print("SchGtKttmmTtVt_3 ppm: ", calcPpm(name + "SchGtKttmmTtVt_3"))
-    print("SchGtKttmmTtVt_4 ppm: ", calcPpm(name + "SchGtKttmmTtVt_4"))
-
+    # print("SchGtKffTtVl ppm and mean: ", calcPpm(name + "SchGtKffTtVl"), calcVrefMean(name + "SchGtKffTtVl"))
+    # print("SchGtKffTtVh ppm and mean: ", calcPpm(name + "SchGtKffTtVh"), calcVrefMean(name + "SchGtKffTtVh"))  
+    # print("SchGtKssTtVl ppm and mean: ", calcPpm(name + "SchGtKssTtVl"), calcVrefMean(name + "SchGtKssTtVl"))  
+    # print("SchGtKssTtVh ppm and mean: ", calcPpm(name + "SchGtKssTtVh"), calcVrefMean(name + "SchGtKssTtVh"))  
+    # print("SchGtKfsTtVl ppm and mean: ", calcPpm(name + "SchGtKfsTtVl"), calcVrefMean(name + "SchGtKfsTtVl"))  
+    # print("SchGtKfsTtVh ppm and mean: ", calcPpm(name + "SchGtKfsTtVh"), calcVrefMean(name + "SchGtKfsTtVh"))  
+    # print("SchGtKsfTtVl ppm and mean: ", calcPpm(name + "SchGtKsfTtVl"), calcVrefMean(name + "SchGtKsfTtVl"))  
+    # print("SchGtKsfTtVh ppm and mean: ", calcPpm(name + "SchGtKsfTtVh"), calcVrefMean(name + "SchGtKsfTtVh"))
+    # print("SchGtKttTtVt ppm and mean: ", calcPpm(name + "SchGtKttTtVt"), calcVrefMean(name + "SchGtKttTtVt"))
+    print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), calcVrefMean(name + "SchGtKttmmTtVt"))
+    # print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), calcVrefMean(name + "SchGtKttmmTtVt_1"))  
+    # print("SchGtKttmmTtVt_2 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_2"), calcVrefMean(name + "SchGtKttmmTtVt_2"))
+    # print("SchGtKttmmTtVt_3 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_3"), calcVrefMean(name + "SchGtKttmmTtVt_3"))
+    # print("SchGtKttmmTtVt_4 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_4"), calcVrefMean(name + "SchGtKttmmTtVt_4"))
+    # print("SchGtKttmmTtVt_5 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_5"), calcVrefMean(name + "SchGtKttmmTtVt_5"))  
+    # print("SchGtKttmmTtVt_6 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_6"), calcVrefMean(name + "SchGtKttmmTtVt_6"))
+    # print("SchGtKttmmTtVt_7 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_7"), calcVrefMean(name + "SchGtKttmmTtVt_7"))
+    # print("SchGtKttmmTtVt_8 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_8"), calcVrefMean(name + "SchGtKttmmTtVt_8"))
+    # print("SchGtKttmmTtVt_9 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_9"), calcVrefMean(name + "SchGtKttmmTtVt_9"))
   return
 
 
-main("sim_results/tran_")
+main("output_tran/tran_")
