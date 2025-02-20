@@ -12,11 +12,21 @@ LIB =JNW_AVV_SKY130A
 OPT=
 
 
+netlist1:
+	make netlist
+	-rm cmpDig.so
+	-rm -rf cmpDig_obj_dir
+	ngspice vlnggen ../../rtl/cmpDig.v
+	perl ../../tech/script/gensvinst ../../rtl/cmpDig.v cmpDig
+
+
+
+
 
 test:
 	${MAKE} typical OPT="Debug"
 
-typical: netlist
+typical: netlist1
 	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 slow: netlist
@@ -28,10 +38,10 @@ fast: netlist
 tfs: netlist
 	cicsim run --name ${VIEW}_tfs ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt,Th,Tl" "Vt,Vl,Vh"
 
-etc: netlist
+etc: netlist1
 	cicsim run --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Kss,Kff,Ksf,Kfs" "Th,Tl" "Vl,Vh"
 
-mc: netlist
+mc: netlist1
 	cicsim run --name ${VIEW}_mc --count 5 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
 
 ntc: netlist

@@ -7,10 +7,56 @@ import yaml
 import sys
 import math
 import re
+import os
+from matplotlib.ticker import MaxNLocator
 
 
 
+def calcPpm(yamlfile):
+    # Read result yaml file
+    with open(yamlfile + ".yaml") as fi:
+        obj = yaml.safe_load(fi)
 
+    vref = np.array([])
+    temp = np.array([])
+
+    for key in obj:
+        if key.startswith("vref"):
+            vref = np.append(vref, obj[key])
+            temp = np.append(temp, int(key.split("_")[1]))
+
+    ppm = round(((np.max(vref) - np.min(vref))/(np.mean(vref)*(np.max(temp)-np.min(temp)))) * 1e6, 2)
+    return ppm
+
+
+def calcVrefMean(yamlfile):
+    with open(yamlfile + ".yaml") as fi:
+        obj = yaml.safe_load(fi)
+
+    vref = np.array([])
+
+    for key in obj:
+        if key.startswith("vref"):
+            vref = np.append(vref, obj[key])
+  
+    mean = round((np.mean(vref))*1000, 1)
+    return mean
+
+
+def calcVrefMaxMinDelta(yamlfile):
+    with open(yamlfile + ".yaml") as fi:
+        obj = yaml.safe_load(fi)
+
+    vref = np.array([])
+
+    for key in obj:
+        if key.startswith("vref"):
+            vref = np.append(vref, obj[key])
+  
+    maxVref = np.max(vref)
+    minVref = np.min(vref)
+    delta = round(maxVref - minVref, 5)
+    return maxVref, minVref, delta
 
 
 def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
@@ -25,10 +71,11 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
 
     x = df[xname]
     y = df[yname]
-        
+    
+    # Adjust the number of samples to remove from plot
     if rmFirst:
-        x = x[65:].reset_index(drop=True)
-        y = y[65:].reset_index(drop=True)
+        x = x[500:].reset_index(drop=True)
+        y = y[500:].reset_index(drop=True)
     
     
     if label == "":
@@ -41,6 +88,8 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
         if label[0] == 'v':  # Check if the first character is 'v'
             label = label[0].upper() + label[1:]  # Capitalize it
 
+        # Er nok mulig å få subscrpit i label hvis jeg bruker noe som er brukt lengre nede: r'$\sigma$ = '
+        # r-en foran stringen gjør at du kan skrive i latex-format
 
     #- Plot
     if("logy" in ptype):
@@ -62,7 +111,6 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
     return (x,y)
 
 
-
 def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=False):
 
     dfs = ngraw.toDataFrames(ngraw.ngRawRead(fraw))
@@ -76,7 +124,7 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     if("," in yname):
         names = yname.split(",")
         if("same" in ptype):
-            f,axes = plt.subplots(1,1)
+            f,axes = plt.subplots(sharex=True, tight_layout=True, figsize=(8, 5))
         else:
             f,axes = plt.subplots(len(names),1,sharex=True)
 
@@ -88,7 +136,7 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     elif(axes is not None):
         plot(df,xname,yname,ptype,axes,label=" %s" %fraw)
     else:
-        f,axes = plt.subplots(1,1)
+        f,axes = plt.subplots(sharex=True, tight_layout=True, figsize=(8, 5))
         plot(df,xname,yname,ptype,axes,label=" %s" %fraw)
 
     if(xname == "time"):    
@@ -113,7 +161,6 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     plt.show()
 
 
-
 def plotTempDependence(yamlfile):
   # Read result yaml file
   with open(yamlfile + ".yaml") as fi:
@@ -131,28 +178,79 @@ def plotTempDependence(yamlfile):
   sorted_temp = temp[sorted_keys]
   sorted_vref = vref[sorted_keys]
 
-  sorted_vref = sorted_vref - np.mean(sorted_vref)
+  sorted_vref = (sorted_vref - np.mean(sorted_vref))*1000
 
   fig,ax = plt.subplots(figsize=(10,5))
   ax.set_xlabel("Temperature [C]")
-  ax.set_ylabel("Voltage [V]")
+  ax.set_ylabel("Voltage [mV]")
   ax.plot(sorted_temp,sorted_vref,label="Vref")
   ax.grid()
   ax.legend()
-#   ax.set_title("Vref vs Temperature")
+  ax.set_title("Temperature dependence of Vref")
   plt.tight_layout()
   plt.show()
 
-  # Save new yaml file
-  # with open(yamlfile,"w") as fo:
-  #   yaml.dump(obj,fo)
+
+def plotVrefDistribution(folder):
+    # Read result yaml file
+    vrefMean = np.array([])
+    total_points = 0
+    for file in os.scandir(folder):
+        if file.name.endswith(".yaml"):
+            mean = calcVrefMean(folder + "/" + file.name[:-5])
+            print(file.name, mean)
+            vrefMean = np.append(vrefMean, mean)
+            total_points += 1
+
+    std = round(np.std(vrefMean), 2)
+
+    fig,ax = plt.subplots(sharey=True,tight_layout=True,figsize=(7,5))
+    ax.hist(vrefMean, bins=10, edgecolor='black')
+    ax.set_title("Vref distribution")
+    ax.set_xlabel("Voltage [mV]")
+    ax.set_ylabel("Frequency")
+    ax.annotate(r'$\sigma$ = ' + str(std) + "mV", xy=(0.8, 0.9), xycoords='axes fraction',
+                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+    ax.annotate("Points: " + str(total_points), xy=(0.8, 0.8), xycoords='axes fraction',
+                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+    # ax.yaxis.grid(True)  
+    # ax.xaxis.grid(False) 
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    plt.show()
 
 
-#rawplot("tran_SchGtKttTtVt.raw","time", "v(vin),v(vip),v(vout)", ptype="same",fname="tran_SchGtKttTtVt.pdf")
+def plotPpmDistribution(folder):
+    # Read result yaml file
+    ppmValues = np.array([])
+    for file in os.scandir(folder):
+        if file.name.endswith(".yaml"):
+            ppm = calcPpm(folder + "/" + file.name[:-5])
+            # print(file.name, ppm)
+            if ppm < 70:
+                ppmValues = np.append(ppmValues, ppm)
+            else:
+                print("PPM value for file", file.name, "is over 70 and is discarded: ", ppm)
+
+    std = round(np.std(ppmValues), 2)
+    print("Standard deviation: ", std)
+
+    fig, ax = plt.subplots(sharey=True, tight_layout=True, figsize=(7, 5))
+    ax.hist(ppmValues, bins=10, edgecolor='black')
+    ax.set_title("PPM distribution")
+    ax.set_xlabel("PPM")
+    ax.set_ylabel("Frequency")
+    ax.annotate(r'$\sigma$ = ' + str(std) + " PPM", xy=(0.8, 0.9), xycoords='axes fraction',
+                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+    plt.show()
+
+
+plotVrefDistribution("sim_results/MC_20_feb_tempSweep")  
+# plotPpmDistribution("sim_results/MC_20_feb_tempSweep")  
+
 
 name = "output_tran/tran_SchGtKttTtVt_20"
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
-# plotTempDependence("output_mc2/tran_SchGtKttmmTtVt_2")
-# plotTempDependence("sim_results/tran_SchGtKttmmTtVt_4")
+# plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
+# plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")

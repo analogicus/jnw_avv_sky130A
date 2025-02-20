@@ -6,15 +6,15 @@ V {}
 S {}
 E {}
 B 2 670 -610 1470 -210 {flags=graph
-y1=-0.099999998
-y2=1.8999999
+y1=-0.30833332
+y2=1.6916666
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.994e-05
-x2=3.014e-05
+x1=8.0472632e-06
+x2=1.3247263e-05
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -63,9 +63,15 @@ N 550 -510 580 -510 {
 lab=vref}
 N 550 -490 580 -490 {
 lab=cmp}
+N 220 -210 250 -210 {
+lab=sample}
+N 220 -190 250 -190 {
+lab=cmp_p1}
+N 220 -170 250 -170 {
+lab=cmp_p2}
 C {devices/launcher.sym} 520 -100 0 0 {name=h5
 descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKffTtVt_debug_120.raw tran"
+tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVt.raw tran"
 }
 C {JNW_AVV_SKY130A/TB_bandgap.sym} 400 -370 0 0 {name=xdut}
 C {devices/lab_wire.sym} 220 -510 0 0 {name=p8 sig_type=std_logic lab=setupBias}
@@ -85,3 +91,6 @@ C {devices/lab_wire.sym} 220 -230 0 0 {name=p14 sig_type=std_logic lab=PII2}
 C {devices/lab_wire.sym} 220 -490 0 0 {name=p15 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 580 -510 0 1 {name=p16 sig_type=std_logic lab=vref}
 C {devices/lab_wire.sym} 580 -490 0 1 {name=p17 sig_type=std_logic lab=cmp}
+C {devices/lab_wire.sym} 220 -210 0 0 {name=p18 sig_type=std_logic lab=sample}
+C {devices/lab_wire.sym} 220 -190 0 0 {name=p19 sig_type=std_logic lab=cmp_p1}
+C {devices/lab_wire.sym} 220 -170 0 0 {name=p20 sig_type=std_logic lab=cmp_p2}

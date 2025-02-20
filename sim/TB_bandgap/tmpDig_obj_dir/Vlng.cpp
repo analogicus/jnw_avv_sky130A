@@ -23,6 +23,9 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , PD{vlSymsp->TOP.PD}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
+    , cmp_p1{vlSymsp->TOP.cmp_p1}
+    , cmp_p2{vlSymsp->TOP.cmp_p2}
+    , sample{vlSymsp->TOP.sample}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
     , preChrg{vlSymsp->TOP.preChrg}

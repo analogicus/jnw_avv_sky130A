@@ -120,6 +120,8 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 __Vdly__tmpDig__DOT__count = (0x3fU 
                                               & ((IData)(1U) 
                                                  + (IData)(vlSelfRef.tmpDig__DOT__count)));
+                vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
+                vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
                 __Vdly__tmpDig__DOT__state = 1U;
                 vlSelfRef.PII2 = 1U;
             }
@@ -137,12 +139,12 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 __Vdly__tmpDig__DOT__afterBlank = 1U;
             }
         } else if ((2U == (IData)(vlSelfRef.tmpDig__DOT__state))) {
-            if (((4U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
+            if (((6U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
                  & (0U == (IData)(vlSelfRef.tmpDig__DOT__setupDone)))) {
                 vlSelfRef.PI2 = 0U;
                 __Vdly__tmpDig__DOT__state = 7U;
                 __Vdly__tmpDig__DOT__afterBlank = 6U;
-            } else if (((4U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
+            } else if (((2U < (IData)(vlSelfRef.tmpDig__DOT__count)) 
                         & (0U < (IData)(vlSelfRef.tmpDig__DOT__setupDone)))) {
                 if (((IData)(vlSelfRef.cmp) & (~ (IData)(vlSelfRef.tmpDig__DOT__Hcharged)))) {
                     vlSelfRef.PI2 = 0U;

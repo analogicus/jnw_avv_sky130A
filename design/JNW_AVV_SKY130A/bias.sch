@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {}
@@ -48,7 +48,7 @@ lab=vss}
 N -40 -430 -40 -390 {
 lab=vdd}
 N -40 20 -40 30 {
-lab=#net2}
+lab=tg_bot}
 N 70 -110 170 -110 {
 lab=vdd}
 N 70 -140 130 -140 {
@@ -66,13 +66,13 @@ lab=vss}
 N -40 220 170 220 {
 lab=vss}
 N 30 -90 30 20 {
-lab=#net2}
+lab=tg_bot}
 N -40 20 30 20 {
-lab=#net2}
+lab=tg_bot}
 N -40 10 -40 20 {
-lab=#net2}
+lab=tg_bot}
 N 30 -310 30 -190 {
-lab=#net3}
+lab=tg_top}
 N -100 -270 -60 -270 {
 lab=vss}
 N -100 -350 -100 -270 {
@@ -99,3 +99,5 @@ C {devices/ipin.sym} -320 -330 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} -320 -300 0 0 {name=p2 lab=vss}
 C {devices/opin.sym} 260 -350 0 0 {name=p3 lab=pbias}
 C {devices/opin.sym} 260 -320 0 0 {name=p4 lab=nbias}
+C {devices/lab_wire.sym} 30 -220 0 1 {name=p5 sig_type=std_logic lab=tg_top}
+C {devices/lab_wire.sym} 30 -55 0 1 {name=p6 sig_type=std_logic lab=tg_bot}

@@ -19,6 +19,10 @@ module tmpDig (
     output logic src_n,
     output logic snk,
 
+    output logic cmp_p1,
+    output logic cmp_p2,
+    output logic sample,
+
     output logic rst,
     output logic valid,
     output logic preChrg,
@@ -39,6 +43,7 @@ parameter   PRECHARGE=0,
 logic [3:0] state;
 logic [3:0] afterBlank;
 logic [5:0] count;
+logic [5:0] chcount;
 logic [5:0] setupCount;
 logic       Hcharged;
 logic       Lcharged;
@@ -53,7 +58,33 @@ end
 
 initial begin
     state = PRECHARGE;
+    cmp_p1 = 1'b0;
+    cmp_p2 = 1'b1;
 end
+
+// always_ff @(posedge clk) begin
+//     if(chcount > 1) begin
+//         chcount <= 0;
+//         cmp_p1 <= ~cmp_p1;
+//         cmp_p2 <= ~cmp_p2;
+//         sample <= 1'b0;
+//     end else if(chcount > 0) begin
+//         sample <= 1'b1;
+//         chcount <= chcount + 1;
+//     end
+//     else begin
+//         sample <= 1'b0;
+//         chcount <= chcount + 1;
+//     end
+// end
+
+// always_ff @(posedge clk) begin
+//     cmp_p1 <= ~cmp_p1;
+//     cmp_p2 <= ~cmp_p2;
+// end
+
+
+
 
 
 always_ff @(posedge clk) begin
@@ -120,6 +151,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1;
                     state <= DIODE;
                     PII2 <= 1;
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
                 end
             end
 
@@ -143,12 +176,12 @@ always_ff @(posedge clk) begin
             end
 
             BIGDIODE: begin
-                if(count > 4 && setupDone == 0) begin
+                if(count > 6 && setupDone == 0) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                end else if (count > 4 && setupDone > 0) begin
-                     if (cmp && !Hcharged) begin
+                end else if (count > 2 && setupDone > 0) begin
+                    if (cmp && !Hcharged) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= HCHARGE;
@@ -161,6 +194,7 @@ always_ff @(posedge clk) begin
                     end else if (!cmp) begin
                         snk <= ~snk;
                     end
+
 
                 end else begin
                     count <= count + 1;
