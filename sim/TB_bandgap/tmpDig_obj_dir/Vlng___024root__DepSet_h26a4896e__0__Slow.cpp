@@ -116,7 +116,6 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->preChrg = VL_RAND_RESET_I(1);
     vlSelf->setupBias = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__state = VL_RAND_RESET_I(4);
-    vlSelf->tmpDig__DOT__afterBlank = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);

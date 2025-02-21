@@ -36,7 +36,7 @@ lab=vref}
 N 560 -1330 600 -1330 {
 lab=vdd}
 N 980 -1360 1040 -1360 {
-lab=PI1}
+lab=BD}
 N 980 -1330 1020 -1330 {
 lab=vdd}
 N 690 -1330 890 -1330 {
@@ -120,11 +120,11 @@ lab=vctrl}
 N 790 -1790 790 -1690 {
 lab=vdd}
 N 520 -1250 520 -1220 {
-lab=PII2}
+lab=SDM}
 N 450 -1250 520 -1250 {
-lab=PII2}
+lab=SDM}
 N 1030 -1250 1060 -1250 {
-lab=PI2}
+lab=BDM}
 N 2500 -1540 2530 -1540 {
 lab=vref}
 N 1390 -1660 1510 -1660 {
@@ -134,7 +134,7 @@ lab=PA}
 N 1240 -1660 1390 -1660 {
 lab=PA}
 N 510 -1360 600 -1360 {
-lab=PII1}
+lab=SD}
 N 450 -1730 490 -1730 {
 lab=dummy}
 N 490 -1730 490 -1690 {
@@ -242,7 +242,7 @@ lab=vn}
 N 1110 -1180 1170 -1180 {
 lab=vp}
 N 1060 -1250 1060 -1220 {
-lab=PI2}
+lab=BDM}
 N 1870 -1540 1870 -1420 {
 lab=#net10}
 N 1690 -1540 1870 -1540 {
@@ -383,14 +383,14 @@ C {devices/ipin.sym} 2200 -1710 1 0 {name=p8 lab=PD}
 C {devices/ipin.sym} 1810 -1370 0 0 {name=p10 lab=PB}
 C {devices/ipin.sym} 2180 -1370 2 0 {name=p15 lab=PC}
 C {devices/ipin.sym} 1390 -1690 1 0 {name=p16 lab=PA}
-C {devices/ipin.sym} 1030 -1250 2 1 {name=p31 lab=PI2}
+C {devices/ipin.sym} 930 -1720 2 1 {name=p31 lab=PI2}
 C {devices/ipin.sym} 450 -1730 0 0 {name=p32 lab=dummy}
-C {devices/ipin.sym} 510 -1360 0 0 {name=p33 lab=PII1}
-C {devices/ipin.sym} 1040 -1360 2 0 {name=p34 lab=PI1}
+C {devices/ipin.sym} 550 -1860 0 0 {name=p33 lab=PII1}
+C {devices/ipin.sym} 510 -1900 2 0 {name=p34 lab=PI1}
 C {devices/opin.sym} 2530 -1540 0 0 {name=p3 lab=vref}
 C {devices/opin.sym} 1220 -1180 0 0 {name=p21 lab=vp}
 C {devices/opin.sym} 360 -1180 2 0 {name=p22 lab=vn}
-C {devices/ipin.sym} 450 -1250 0 0 {name=p29 lab=PII2}
+C {devices/ipin.sym} 1730 -1720 0 0 {name=p29 lab=PII2}
 C {devices/lab_wire.sym} 450 -1610 0 1 {name=p30 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[20:0]}
@@ -485,3 +485,39 @@ C {devices/lab_wire.sym} 1290 -440 0 1 {name=p54 sig_type=std_logic lab=preChrg
 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1290 -440 0 1 {name=x27 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 310 -440 0 0 {name=x28 }
+C {JNW_AVV_SKY130A/NonOverlap.sym} 1080 -1720 0 0 {name=x29}
+C {JNW_AVV_SKY130A/NonOverlap.sym} 1880 -1720 0 0 {name=x30}
+C {devices/lab_wire.sym} 930 -1740 0 0 {name=p49 sig_type=std_logic lab=vdd
+
+}
+C {devices/lab_wire.sym} 930 -1700 2 1 {name=p50 sig_type=std_logic lab=vss
+}
+C {devices/lab_wire.sym} 1730 -1740 0 0 {name=p52 sig_type=std_logic lab=vdd
+
+}
+C {devices/lab_wire.sym} 1730 -1700 2 1 {name=p53 sig_type=std_logic lab=vss
+}
+C {devices/lab_wire.sym} 1010 -1360 0 1 {name=p59 sig_type=std_logic lab=BD
+
+}
+C {devices/lab_wire.sym} 1050 -1250 0 0 {name=p58 sig_type=std_logic lab=BDM
+
+}
+C {devices/lab_wire.sym} 520 -1360 0 0 {name=p60 sig_type=std_logic lab=SD
+
+}
+C {devices/lab_wire.sym} 480 -1250 0 1 {name=p61 sig_type=std_logic lab=SDM
+
+}
+C {devices/lab_wire.sym} 1230 -1740 0 1 {name=p62 sig_type=std_logic lab=BD
+
+}
+C {devices/lab_wire.sym} 1230 -1700 0 1 {name=p63 sig_type=std_logic lab=BDM
+
+}
+C {devices/lab_wire.sym} 2030 -1740 0 1 {name=p64 sig_type=std_logic lab=SD
+
+}
+C {devices/lab_wire.sym} 2030 -1700 0 1 {name=p65 sig_type=std_logic lab=SDM
+
+}

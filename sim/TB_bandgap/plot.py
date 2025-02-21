@@ -244,11 +244,11 @@ def plotPpmDistribution(folder):
     plt.show()
 
 
-plotVrefDistribution("sim_results/MC_20_feb_tempSweep")  
-# plotPpmDistribution("sim_results/MC_20_feb_tempSweep")  
+# plotVrefDistribution("sim_results/MC_21_feb_tempSweep")  
+plotPpmDistribution("sim_results/MC_21_feb_tempSweep")  
 
 
-name = "output_tran/tran_SchGtKttTtVt_20"
+name = "output_tran/tran_SchGtKttTtVt_21"
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
