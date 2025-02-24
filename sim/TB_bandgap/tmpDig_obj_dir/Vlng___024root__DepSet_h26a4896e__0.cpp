@@ -94,7 +94,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
         vlSelfRef.PB = 0U;
         vlSelfRef.PC = 0U;
         vlSelfRef.PD = 0U;
-        if ((0U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+        if ((1U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
             __Vdly__tmpDig__DOT__count = 0U;
             vlSelfRef.PII2 = 0U;
             __Vdly__tmpDig__DOT__state = 2U;

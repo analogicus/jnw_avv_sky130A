@@ -103,7 +103,7 @@ always_ff @(posedge clk) begin
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
-                if(count > 0) begin
+                if(count > 1) begin
                     PII2 <= 0;
                     state <= BIGDIODE;
                     count <= 0;

@@ -76,10 +76,10 @@ C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 800 -360 0 0 {name=x34 }
 C {devices/lab_wire.sym} 840 -320 3 0 {name=p19 sig_type=std_logic lab=vss
 }
 C {devices/lab_wire.sym} 840 -400 3 0 {name=p23 sig_type=std_logic lab=vdd}
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 690 -100 0 0 {name=x1[4:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 690 -100 0 0 {name=x1[6:0]}
 C {devices/lab_wire.sym} 590 -90 3 0 {name=p45 sig_type=std_logic lab=vss
 }
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 660 -300 0 0 {name=x2[4:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 660 -300 0 0 {name=x2[6:0]}
 C {devices/lab_wire.sym} 560 -290 3 0 {name=p46 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 810 -160 0 0 {name=x32 }
