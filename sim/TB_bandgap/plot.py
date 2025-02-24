@@ -191,16 +191,19 @@ def plotTempDependence(yamlfile):
   plt.show()
 
 
-def plotVrefDistribution(folder):
+def plotVrefDistribution(folders):
     # Read result yaml file
     vrefMean = np.array([])
     total_points = 0
-    for file in os.scandir(folder):
-        if file.name.endswith(".yaml"):
-            mean = calcVrefMean(folder + "/" + file.name[:-5])
-            print(file.name, mean)
-            vrefMean = np.append(vrefMean, mean)
-            total_points += 1
+
+
+    for folder in folders:
+        for file in os.scandir(folder):
+            if file.name.endswith(".yaml"):
+                mean = calcVrefMean(folder + "/" + file.name[:-5])
+                # print(file.name, mean)
+                vrefMean = np.append(vrefMean, mean)
+                total_points += 1
 
     std = round(np.std(vrefMean), 2)
 
@@ -244,11 +247,11 @@ def plotPpmDistribution(folder):
     plt.show()
 
 
-plotVrefDistribution("sim_results/MC_20_feb_tempSweep")  
+plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep"])  
 # plotPpmDistribution("sim_results/MC_20_feb_tempSweep")  
 
 
-name = "output_tran/tran_SchGtKttTtVt_20"
+# name = "output_tran/tran_SchGtKttTtVt_20"
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
