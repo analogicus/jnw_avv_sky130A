@@ -84,6 +84,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x2.SD)
 .save v(xdut.x2.SDM)
 .save v(xdut.x2.BDM)
+.save v(xdut.x2.VbeSD)
+.save v(xdut.x2.VbeBD)
 .save i(vdd)
 .save i(vss)
 .save v(xdut.x1.ip)

@@ -245,7 +245,7 @@ def plotPpmDistribution(folder):
 
 
 # plotVrefDistribution("sim_results/MC_21_feb_tempSweep")  
-plotPpmDistribution("sim_results/MC_21_feb_tempSweep")  
+# plotPpmDistribution("sim_results/MC_21_feb_tempSweep")  
 
 
 name = "output_tran/tran_SchGtKttTtVt_21"
@@ -253,4 +253,11 @@ name = "output_tran/tran_SchGtKttTtVt_21"
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
 # plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
-# plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_5")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_4")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_3")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_2")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_1")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_7")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_8")
