@@ -222,17 +222,19 @@ def plotVrefDistribution(folders):
     plt.show()
 
 
-def plotPpmDistribution(folder):
+def plotPpmDistribution(folders):
     # Read result yaml file
     ppmValues = np.array([])
-    for file in os.scandir(folder):
-        if file.name.endswith(".yaml"):
-            ppm = calcPpm(folder + "/" + file.name[:-5])
-            # print(file.name, ppm)
-            if ppm < 70:
-                ppmValues = np.append(ppmValues, ppm)
-            else:
-                print("PPM value for file", file.name, "is over 70 and is discarded: ", ppm)
+
+    for folder in folders:
+        for file in os.scandir(folder):
+            if file.name.endswith(".yaml"):
+                ppm = calcPpm(folder + "/" + file.name[:-5])
+                # print(file.name, ppm)
+                if ppm < 70:
+                    ppmValues = np.append(ppmValues, ppm)
+                else:
+                    print("PPM value for file", file.name, "is over 70 and is discarded: ", ppm)
 
     std = round(np.std(ppmValues), 2)
     print("Standard deviation: ", std)
@@ -247,8 +249,8 @@ def plotPpmDistribution(folder):
     plt.show()
 
 
-plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep"])  
-# plotPpmDistribution("sim_results/MC_20_feb_tempSweep")  
+# plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
+plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
 
 
 # name = "output_tran/tran_SchGtKttTtVt_20"
