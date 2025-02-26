@@ -250,7 +250,7 @@ def plotPpmDistribution(folders):
 
 
 # plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
-plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
+# plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
 
 
 # name = "output_tran/tran_SchGtKttTtVt_20"
