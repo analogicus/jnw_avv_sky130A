@@ -16,6 +16,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
     VL_IN8(reset,0,0);
+    CData/*0:0*/ tmpDig__DOT__snk_ctrl;
+    CData/*0:0*/ tmpDig__DOT__src_ctrl;
     VL_IN8(cmp,0,0);
     VL_OUT8(PI1,0,0);
     VL_OUT8(PI2,0,0);
@@ -43,10 +45,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     CData/*5:0*/ tmpDig__DOT__setupDone;
     CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
+    CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0;
+    CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0;
+    CData/*0:0*/ __VactDidInit;
     CData/*0:0*/ __VactContinue;
     IData/*31:0*/ __VactIterCount;
-    VlTriggerVec<2> __VactTriggered;
-    VlTriggerVec<2> __VnbaTriggered;
+    VlTriggerVec<4> __VactTriggered;
+    VlTriggerVec<4> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     Vlng__Syms* const vlSymsp;

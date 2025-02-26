@@ -48,6 +48,10 @@ logic [5:0] setupCount;
 logic       Hcharged;
 logic       Lcharged;
 logic [5:0] setupDone;
+logic       snk_ctrl;
+logic       src_ctrl;
+
+
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -60,7 +64,26 @@ initial begin
     state = PRECHARGE;
     cmp_p1 = 1'b0;
     cmp_p2 = 1'b1;
+    snk_ctrl = 1'b0;
+    src_ctrl = 1'b0;
 end
+
+always @(negedge clk or snk_ctrl) begin
+    if (clk) begin
+        snk <= 1;
+    end else begin
+        snk <= 0;
+    end
+end
+
+always @(negedge clk or src_ctrl) begin
+    if (clk) begin
+        src_n <= 1;
+    end else begin
+        src_n <= 0;
+    end
+end
+
 
 always_ff @(posedge clk) begin
     if (rst) begin
@@ -91,8 +114,6 @@ always_ff @(posedge clk) begin
                 PII1 <= 0;
                 PI1 <= 0;
                 PA <= 0;
-                snk <= 0;
-                src_n <= 0;
                 valid <= 0;
                 Hcharged <= 0;
                 Lcharged <= 0;
@@ -134,10 +155,10 @@ always_ff @(posedge clk) begin
                         state <= LCHARGE;
                     end else if (cmp) begin
                         PI2 <= 1;
-                        src_n <= ~src_n;
+                        src_ctrl <= ~src_ctrl;
                     end else if (!cmp) begin
                         PI2 <= 1;
-                        snk <= ~snk;
+                        snk_ctrl <= ~snk_ctrl;
                     end
 
                 end else begin
@@ -145,7 +166,7 @@ always_ff @(posedge clk) begin
                     state <= BIGDIODE;
                     PI2 <= 1;
                     if (cmp) begin
-                        src_n <= ~src_n;	
+                        src_ctrl <= ~src_ctrl;	
                     end else if (!cmp) begin
                         if (setupDone == 0) begin
                             setupCount <= setupCount + 1;
@@ -154,7 +175,7 @@ always_ff @(posedge clk) begin
                                 setupBias <= 0;
                             end
                         end
-                        snk <= ~snk;
+                        snk_ctrl <= ~snk_ctrl;
                     end
                 end
             end
