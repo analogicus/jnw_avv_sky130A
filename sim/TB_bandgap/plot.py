@@ -29,17 +29,23 @@ def calcPpm(yamlfile):
     return ppm
 
 
-def calcVrefMean(yamlfile):
+def getVref(yamlfile, temp=None):
     with open(yamlfile + ".yaml") as fi:
         obj = yaml.safe_load(fi)
 
     vref = np.array([])
 
-    for key in obj:
-        if key.startswith("vref"):
-            vref = np.append(vref, obj[key])
-  
-    mean = round((np.mean(vref))*1000, 1)
+    if temp is None:
+        for key in obj:
+            if key.startswith("vref"):
+                vref = np.append(vref, obj[key])
+        mean = round((np.mean(vref))*1000, 1)
+    else:
+        for key in obj:
+            if key.startswith("vref") and key.split("_")[1] == temp:
+                vref = np.append(vref, obj[key])
+                break
+        mean = round(vref[0]*1000, 1)
     return mean
 
 
@@ -191,16 +197,15 @@ def plotTempDependence(yamlfile):
   plt.show()
 
 
-def plotVrefDistribution(folders):
-    # Read result yaml file
+def plotVrefDistribution(folders, Temp=None):
+    # If no temperature is given, the func will plot the mean of Vref across all temperatures
     vrefMean = np.array([])
     total_points = 0
-
 
     for folder in folders:
         for file in os.scandir(folder):
             if file.name.endswith(".yaml"):
-                mean = calcVrefMean(folder + "/" + file.name[:-5])
+                mean = getVref(folder + "/" + file.name[:-5], temp=Temp)
                 # print(file.name, mean)
                 vrefMean = np.append(vrefMean, mean)
                 total_points += 1
@@ -209,13 +214,16 @@ def plotVrefDistribution(folders):
 
     fig,ax = plt.subplots(sharey=True,tight_layout=True,figsize=(7,5))
     ax.hist(vrefMean, bins=10, edgecolor='black')
-    ax.set_title("Vref distribution")
     ax.set_xlabel("Voltage [mV]")
     ax.set_ylabel("Frequency")
     ax.annotate(r'$\sigma$ = ' + str(std) + "mV", xy=(0.8, 0.9), xycoords='axes fraction',
                 bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
     ax.annotate("Points: " + str(total_points), xy=(0.8, 0.8), xycoords='axes fraction',
                 bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+    if Temp is None:
+        ax.set_title("Distrobutin of Vref mean")
+    else:
+        ax.set_title("Distribution of Vref at " + Temp + "C")
     # ax.yaxis.grid(True)  
     # ax.xaxis.grid(False) 
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
@@ -249,10 +257,10 @@ def plotPpmDistribution(folders):
     plt.show()
 
 
-# plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
+plotVrefDistribution(["sim_results/MC_28_feb_tempSweep_nochp"], Temp="20")  
 # plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
 
-
+# getVref("sim_results/MC_28_feb_tempSweep_nochp/tran_SchGtKttmmTtVt_1", temp="20")
 # name = "output_tran/tran_SchGtKttTtVt_20"
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
