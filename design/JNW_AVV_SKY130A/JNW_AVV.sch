@@ -353,8 +353,8 @@ C {devices/lab_wire.sym} 560 -1330 0 1 {name=p19 sig_type=std_logic lab=vdd
 C {devices/lab_wire.sym} 1020 -1330 0 0 {name=p20 sig_type=std_logic lab=vdd
 
 }
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1020 0 0 {name=x14[2:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1020 0 1 {name=x18[2:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1020 0 0 {name=x14[10:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1020 0 1 {name=x18[10:0]}
 C {sky130_fd_pr/pnp_05v5.sym} 960 -520 0 1 {name=Q1
 model=pnp_05v5_W3p40L3p40
 m=8

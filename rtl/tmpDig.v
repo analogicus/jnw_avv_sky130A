@@ -207,17 +207,14 @@ always_ff @(posedge clk) begin
                 if (setupDone < 63) begin
                     setupDone <= setupDone + 1;
                     PA <= 1;
-                    PB <= 1;
-                    PC <= 1;
-                    PD <= 1;
                     state <= OUTPUT;
                 end else begin
                     PA <= 0;
-                    PB <= 1;
-                    PC <= 1;
-                    PD <= 1;
                     state <= DIODE;
                 end
+                PB <= 1;
+                PC <= 1;
+                PD <= 1;
                 Lcharged <= 0;
                 Hcharged <= 0;
             end

@@ -186,17 +186,14 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                                               & ((IData)(1U) 
                                                  + (IData)(vlSelfRef.tmpDig__DOT__setupDone)));
             vlSelfRef.PA = 1U;
-            vlSelfRef.PB = 1U;
-            vlSelfRef.PC = 1U;
-            vlSelfRef.PD = 1U;
             __Vdly__tmpDig__DOT__state = 5U;
         } else {
             vlSelfRef.PA = 0U;
-            vlSelfRef.PB = 1U;
-            vlSelfRef.PC = 1U;
-            vlSelfRef.PD = 1U;
             __Vdly__tmpDig__DOT__state = 1U;
         }
+        vlSelfRef.PB = 1U;
+        vlSelfRef.PC = 1U;
+        vlSelfRef.PD = 1U;
         __Vdly__tmpDig__DOT__Lcharged = 0U;
         __Vdly__tmpDig__DOT__Hcharged = 0U;
     }

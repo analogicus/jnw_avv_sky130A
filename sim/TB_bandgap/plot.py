@@ -248,7 +248,7 @@ def plotPpmDistribution(folder):
 # plotPpmDistribution("sim_results/MC_21_feb_tempSweep")  
 
 
-name = "output_tran/tran_SchGtKttTtVt_21"
+# name = "output_tran/tran_SchGtKttTtVt_21"
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
