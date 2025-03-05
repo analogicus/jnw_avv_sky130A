@@ -138,4 +138,4 @@ C {devices/ipin.sym} 840 -830 0 0 {name=p39 lab=cmp_p2}
 C {devices/ipin.sym} 840 -870 0 0 {name=p40 lab=sample}
 C {devices/lab_wire.sym} 1490 -700 0 0 {name=p42 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1490 -620 0 0 {name=p43 sig_type=std_logic lab=vss}
-C {JNW_AVV_SKY130A/CMP.sym} 1370 -250 0 0 {name=x1}
+C {JNW_AVV_SKY130A/CMP_v2.sym} 1430 -270 0 0 {name=x1}

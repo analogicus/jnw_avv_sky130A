@@ -257,7 +257,9 @@ def plotPpmDistribution(folders):
     plt.show()
 
 
-plotVrefDistribution(["sim_results/MC_28_feb_tempSweep_nochp"], Temp="20")  
+# plotVrefDistribution(["sim_results/MC_28_feb_tempSweep_nochp"], Temp="20")  
+# plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"], Temp="20")  
+
 # plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
 
 # getVref("sim_results/MC_28_feb_tempSweep_nochp/tran_SchGtKttmmTtVt_1", temp="20")
