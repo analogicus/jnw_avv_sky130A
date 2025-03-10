@@ -21,7 +21,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , PB{vlSymsp->TOP.PB}
     , PC{vlSymsp->TOP.PC}
     , PD{vlSymsp->TOP.PD}
-    , src_n{vlSymsp->TOP.src_n}
+    , src{vlSymsp->TOP.src}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
     , cmp_p2{vlSymsp->TOP.cmp_p2}

@@ -51,10 +51,6 @@ N 640 -1190 650 -1190 {
 lab=vnm}
 N 950 -1180 950 -1170 {
 lab=vpm}
-N 1170 -1180 1220 -1180 {
-lab=vp}
-N 1170 -1180 1170 -1080 {
-lab=vp}
 N 1390 -1160 1390 -350 {
 lab=vss}
 N 650 -1190 650 -1180 {
@@ -65,13 +61,9 @@ N 640 -1170 650 -1170 {
 lab=vnm}
 N 650 -1180 740 -1180 {
 lab=vnm}
-N 360 -1180 410 -1180 {
-lab=vn}
-N 410 -1180 410 -1080 {
-lab=vn}
 N 630 -1180 630 -1170 {
 lab=vnm}
-N 410 -1010 410 -350 {
+N 410 -1000 410 -350 {
 lab=vss}
 N 2040 -350 2500 -350 {
 lab=vss}
@@ -83,7 +75,7 @@ N 1870 -350 2040 -350 {
 lab=vss}
 N 1870 -1200 1870 -350 {
 lab=vss}
-N 1170 -1010 1170 -350 {
+N 1170 -1000 1170 -350 {
 lab=vss}
 N 940 -350 1170 -350 {
 lab=vss}
@@ -117,12 +109,6 @@ N 670 -1690 750 -1690 {
 lab=vctrl}
 N 790 -1790 790 -1690 {
 lab=vdd}
-N 520 -1250 520 -1220 {
-lab=PII2}
-N 450 -1250 520 -1250 {
-lab=PII2}
-N 1030 -1250 1060 -1250 {
-lab=PI2}
 N 2500 -1540 2530 -1540 {
 lab=vref}
 N 1390 -1660 1510 -1660 {
@@ -235,12 +221,6 @@ N 640 -1310 640 -1190 {
 lab=vnm}
 N 630 -1190 640 -1190 {
 lab=vnm}
-N 410 -1180 470 -1180 {
-lab=vn}
-N 1110 -1180 1170 -1180 {
-lab=vp}
-N 1060 -1250 1060 -1220 {
-lab=PI2}
 N 1870 -1540 1870 -1420 {
 lab=topSw}
 N 1870 -1320 1870 -1270 {
@@ -319,6 +299,26 @@ N 1670 -440 1670 -350 {
 lab=vss}
 N 1390 -350 1670 -350 {
 lab=vss}
+N 420 -1320 520 -1320 {
+lab=PII2}
+N 520 -1320 520 -1220 {
+lab=PII2}
+N 1060 -1300 1240 -1300 {
+lab=PI2}
+N 1060 -1300 1060 -1220 {
+lab=PI2}
+N 410 -1180 470 -1180 {
+lab=vn}
+N 1170 -1180 1220 -1180 {
+lab=vp}
+N 410 -1180 410 -1070 {
+lab=vn}
+N 310 -1180 410 -1180 {
+lab=vn}
+N 1170 -1180 1170 -1070 {
+lab=vp}
+N 1110 -1180 1170 -1180 {
+lab=vp}
 C {devices/ipin.sym} 480 -1480 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 480 -1460 0 0 {name=p2 lab=vss
 }
@@ -351,8 +351,8 @@ C {devices/lab_wire.sym} 560 -1330 0 1 {name=p19 sig_type=std_logic lab=vdd
 C {devices/lab_wire.sym} 1020 -1330 0 0 {name=p20 sig_type=std_logic lab=vdd
 
 }
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1020 0 0 {name=x14[10:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1020 0 1 {name=x18[10:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1170 -1010 0 0 {name=x14[10:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 410 -1010 0 1 {name=x18[10:0]}
 C {sky130_fd_pr/pnp_05v5.sym} 960 -520 0 1 {name=Q1
 model=pnp_05v5_W3p40L3p40
 m=8
@@ -381,14 +381,14 @@ C {devices/ipin.sym} 2200 -1710 1 0 {name=p8 lab=PD}
 C {devices/ipin.sym} 1810 -1370 0 0 {name=p10 lab=PB}
 C {devices/ipin.sym} 2180 -1370 2 0 {name=p15 lab=PC}
 C {devices/ipin.sym} 1390 -1690 1 0 {name=p16 lab=PA}
-C {devices/ipin.sym} 1030 -1250 2 1 {name=p31 lab=PI2}
+C {devices/ipin.sym} 1240 -1300 0 1 {name=p31 lab=PI2}
 C {devices/ipin.sym} 450 -1730 0 0 {name=p32 lab=dummy}
 C {devices/ipin.sym} 510 -1360 0 0 {name=p33 lab=PII1}
 C {devices/ipin.sym} 1040 -1360 2 0 {name=p34 lab=PI1}
 C {devices/opin.sym} 2530 -1540 0 0 {name=p3 lab=vref}
 C {devices/opin.sym} 1220 -1180 0 0 {name=p21 lab=vp}
-C {devices/opin.sym} 360 -1180 2 0 {name=p22 lab=vn}
-C {devices/ipin.sym} 450 -1250 0 0 {name=p29 lab=PII2}
+C {devices/opin.sym} 310 -1180 2 0 {name=p22 lab=vn}
+C {devices/ipin.sym} 420 -1320 0 0 {name=p29 lab=PII2}
 C {devices/lab_wire.sym} 450 -1610 0 1 {name=p30 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[20:0]}

@@ -17,6 +17,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     VL_IN8(clk,0,0);
     VL_IN8(reset,0,0);
     VL_IN8(cmp,0,0);
+    CData/*0:0*/ tmpDig__DOT__snk_ctrl;
+    CData/*0:0*/ tmpDig__DOT__src_ctrl;
     VL_OUT8(PI1,0,0);
     VL_OUT8(PI2,0,0);
     VL_OUT8(PII1,0,0);
@@ -26,7 +28,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     VL_OUT8(PB,0,0);
     VL_OUT8(PC,0,0);
     VL_OUT8(PD,0,0);
-    VL_OUT8(src_n,0,0);
+    VL_OUT8(src,0,0);
     VL_OUT8(snk,0,0);
     VL_OUT8(cmp_p1,0,0);
     VL_OUT8(cmp_p2,0,0);
@@ -42,12 +44,24 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     CData/*0:0*/ tmpDig__DOT__Hcharged;
     CData/*0:0*/ tmpDig__DOT__Lcharged;
     CData/*5:0*/ tmpDig__DOT__setupDone;
+    CData/*3:0*/ __Vdly__tmpDig__DOT__state;
+    CData/*3:0*/ __Vdly__tmpDig__DOT__afterBlank;
+    CData/*5:0*/ __Vdly__tmpDig__DOT__count;
+    CData/*5:0*/ __Vdly__tmpDig__DOT__setupCount;
+    CData/*5:0*/ __Vdly__tmpDig__DOT__setupDone;
+    CData/*0:0*/ __Vdly__tmpDig__DOT__Hcharged;
+    CData/*0:0*/ __Vdly__tmpDig__DOT__Lcharged;
     CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
+    CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;
+    CData/*3:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__afterBlank__0;
+    CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0;
+    CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0;
+    CData/*0:0*/ __VactDidInit;
     CData/*0:0*/ __VactContinue;
     IData/*31:0*/ __VactIterCount;
-    VlTriggerVec<2> __VactTriggered;
-    VlTriggerVec<2> __VnbaTriggered;
+    VlTriggerVec<4> __VactTriggered;
+    VlTriggerVec<4> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     Vlng__Syms* const vlSymsp;

@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {type=subcircuit
@@ -38,7 +38,7 @@ B 5 -152.5 -142.5 -147.5 -137.5 {name=setupBias dir=in}
 B 5 -152.5 -122.5 -147.5 -117.5 {name=vdd dir=in}
 B 5 -152.5 -102.5 -147.5 -97.5 {name=vss dir=in}
 B 5 -152.5 -82.5 -147.5 -77.5 {name=preChrg dir=in}
-B 5 -152.5 -62.5 -147.5 -57.5 {name=src_n dir=in}
+B 5 -152.5 -62.5 -147.5 -57.5 {name=src dir=in}
 B 5 -152.5 -42.5 -147.5 -37.5 {name=snk dir=in}
 B 5 -152.5 -22.5 -147.5 -17.5 {name=PA dir=in}
 B 5 -152.5 -2.5 -147.5 2.5 {name=PB dir=in}
@@ -60,7 +60,7 @@ T {setupBias} -125 -144 0 0 0.2 0.2 {}
 T {vdd} -125 -124 0 0 0.2 0.2 {}
 T {vss} -125 -104 0 0 0.2 0.2 {}
 T {preChrg} -125 -84 0 0 0.2 0.2 {}
-T {src_n} -125 -64 0 0 0.2 0.2 {}
+T {src} -125 -64 0 0 0.2 0.2 {}
 T {snk} -125 -44 0 0 0.2 0.2 {}
 T {PA} -125 -24 0 0 0.2 0.2 {}
 T {PB} -125 -4 0 0 0.2 0.2 {}

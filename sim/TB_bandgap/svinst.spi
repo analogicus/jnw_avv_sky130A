@@ -12,7 +12,7 @@ adut [clk
 + PB
 + PC
 + PD
-+ src_n
++ src
 + snk
 + cmp_p1
 + cmp_p2
@@ -39,7 +39,7 @@ Rsvi8 PA 0 1G
 Rsvi9 PB 0 1G
 Rsvi10 PC 0 1G
 Rsvi11 PD 0 1G
-Rsvi12 src_n 0 1G
+Rsvi12 src 0 1G
 Rsvi13 snk 0 1G
 Rsvi14 cmp_p1 0 1G
 Rsvi15 cmp_p2 0 1G
@@ -67,7 +67,7 @@ Rsvi20 setupBias 0 1G
 
 .save v(PD)
 
-.save v(src_n)
+.save v(src)
 
 .save v(snk)
 

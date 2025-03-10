@@ -4,7 +4,7 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import plotTempDependence, rawplot, calcPpm, calcVrefMean, calcVrefMaxMinDelta 
+from plot import plotTempDependence, rawplot, calcPpm, getVref, calcVrefMaxMinDelta 
 
 
 

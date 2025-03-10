@@ -27,10 +27,10 @@ test:
 	${MAKE} typical OPT="Debug"
 
 typical: netlist1
-	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
+	cicsim run --ignore --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 single: netlist1
-	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt "Kfs,Ksf" Tt Vl
+	cicsim run --ignore --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt "Kff,Kss" Tt Vl
 
 slow: netlist
 	cicsim run --name ${VIEW}_slow ${TB} ${OPT} ${VIEW} Gt Kss "Th,Tl" Vl
@@ -42,7 +42,7 @@ tfs: netlist
 	cicsim run --name ${VIEW}_tfs ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt,Th,Tl" "Vt,Vl,Vh"
 
 etc: netlist1
-	cicsim run --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh" 
+	cicsim run --ignore --name ${VIEW}_etc ${TB} ${OPT} ${VIEW} Gt "Kss,Kff,Ksf,Kfs" "Tt" "Vl,Vh" 
 # Trenger ikke kjøre Th og Tl, fordi jeg sweeper temperatur
 # Gt "Kss,Kff,Ksf,Kfs" "Th,Tl" "Vl,Vh"
 
