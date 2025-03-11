@@ -244,7 +244,7 @@ def plotPpmDistribution(folder):
     plt.show()
 
 
-# plotVrefDistribution("sim_results/MC_21_feb_tempSweep")  
+# plotVrefDistribution("sim_results/")  
 # plotPpmDistribution("sim_results/MC_21_feb_tempSweep")  
 
 
