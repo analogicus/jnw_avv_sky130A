@@ -22,8 +22,25 @@ void Vlng___024root___eval_triggers__act(Vlng___024root* vlSelf) {
                                           & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__reset__0)))));
     vlSelfRef.__VactTriggered.set(1U, ((IData)(vlSelfRef.clk) 
                                        & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__clk__0))));
+    vlSelfRef.__VactTriggered.set(2U, (((~ (IData)(vlSelfRef.clk)) 
+                                        & (IData)(vlSelfRef.__Vtrigprevexpr___TOP__clk__0)) 
+                                       | ((IData)(vlSelfRef.tmpDig__DOT__snk_ctrl) 
+                                          != (IData)(vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0))));
+    vlSelfRef.__VactTriggered.set(3U, (((~ (IData)(vlSelfRef.clk)) 
+                                        & (IData)(vlSelfRef.__Vtrigprevexpr___TOP__clk__0)) 
+                                       | ((IData)(vlSelfRef.tmpDig__DOT__src_ctrl) 
+                                          != (IData)(vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0))));
     vlSelfRef.__Vtrigprevexpr___TOP__clk__0 = vlSelfRef.clk;
     vlSelfRef.__Vtrigprevexpr___TOP__reset__0 = vlSelfRef.reset;
+    vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0 
+        = vlSelfRef.tmpDig__DOT__snk_ctrl;
+    vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0 
+        = vlSelfRef.tmpDig__DOT__src_ctrl;
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelfRef.__VactDidInit))))) {
+        vlSelfRef.__VactDidInit = 1U;
+        vlSelfRef.__VactTriggered.set(2U, 1U);
+        vlSelfRef.__VactTriggered.set(3U, 1U);
+    }
 #ifdef VL_DEBUG
     if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
         Vlng___024root___dump_triggers__act(vlSelf);

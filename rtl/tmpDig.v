@@ -48,6 +48,8 @@ logic [5:0] setupCount;
 logic       Hcharged;
 logic       Lcharged;
 logic [5:0] setupDone;
+logic       snk_ctrl;
+logic       src_ctrl;
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -60,31 +62,9 @@ initial begin
     state = PRECHARGE;
     cmp_p1 = 1'b0;
     cmp_p2 = 1'b1;
+    snk_ctrl = 1'b0;
+    src_ctrl = 1'b0;
 end
-
-// always_ff @(posedge clk) begin
-//     if(chcount > 1) begin
-//         chcount <= 0;
-//         cmp_p1 <= ~cmp_p1;
-//         cmp_p2 <= ~cmp_p2;
-//         sample <= 1'b0;
-//     end else if(chcount > 0) begin
-//         sample <= 1'b1;
-//         chcount <= chcount + 1;
-//     end
-//     else begin
-//         sample <= 1'b0;
-//         chcount <= chcount + 1;
-//     end
-// end
-
-// always_ff @(posedge clk) begin
-//     cmp_p1 <= ~cmp_p1;
-//     cmp_p2 <= ~cmp_p2;
-// end
-
-
-
 
 
 always_ff @(posedge clk) begin
@@ -93,33 +73,6 @@ always_ff @(posedge clk) begin
     end
     else begin
         case(state)
-            PRECHARGE: begin
-                if (count > 10) begin
-                    state <= BLANKDIODE;
-                    afterBlank <= DIODE;
-                    count <= 0;
-                    preChrg <= 0;
-                end
-                else begin
-                    count <= count + 1;
-                    preChrg <= 1;
-                    setupBias <= 1;
-                end
-                PI2 <= 0;
-                PII2 <= 0;
-                PII1 <= 0;
-                PI1 <= 0;
-                PA <= 0;
-                PB <= 1;
-                PC <= 1;
-                PD <= 1;
-                snk <= 0;
-                src_n <= 0;
-                valid <= 0;
-                Hcharged <= 0;
-                Lcharged <= 0;
-            end
-
             BLANKDIODE: begin
                 preChrg <= 0;
                 count <= 0;
@@ -139,11 +92,9 @@ always_ff @(posedge clk) begin
             end
 
 
-
-            // Setter setuptid til 15 sykluser på vn.
-
             DIODE: begin
                 if(count > 0) begin
+                    count <= 0;
                     PII2 <= 0;
                     state <= BLANKDIODE;
                     afterBlank <= BLANKBIGDIODE;
@@ -162,8 +113,6 @@ always_ff @(posedge clk) begin
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
-                snk <= 0;
-                src_n <= 0;
                 if (afterBlank == BIGDIODE) begin
                     PI1 <= 1;
                 end else begin
@@ -180,7 +129,7 @@ always_ff @(posedge clk) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                end else if (count > 2 && setupDone > 0) begin
+                end else if (count > 1 && setupDone > 0) begin
                     if (cmp && !Hcharged) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
@@ -190,18 +139,18 @@ always_ff @(posedge clk) begin
                         state <= BLANKBIGDIODE;
                         afterBlank <= LCHARGE;
                     end else if (cmp) begin
-                        src_n <= ~src_n;
+                        src_ctrl <= ~src_ctrl;
                     end else if (!cmp) begin
-                        snk <= ~snk;
+                        snk_ctrl <= ~snk_ctrl;
                     end
 
 
-                end else begin
+                end else if (count > 0) begin
                     count <= count + 1;
                     state <= BIGDIODE;
                     PI2 <= 1;
                     if (cmp) begin
-                        src_n <= ~src_n;	
+                        src_ctrl <= ~src_ctrl;	
                     end else if (!cmp) begin
                         if (setupDone == 0) begin
                             setupCount <= setupCount + 1;
@@ -210,8 +159,10 @@ always_ff @(posedge clk) begin
                                 setupBias <= 0;
                             end
                         end
-                        snk <= ~snk;
+                        snk_ctrl <= ~snk_ctrl;
                     end
+                end else begin
+                    count <= count + 1;
                 end
             end
 
@@ -255,8 +206,50 @@ always_ff @(posedge clk) begin
                 Lcharged <= 0;
                 Hcharged <= 0;
             end
+            
+            
+            PRECHARGE: begin
+                if (count > 10) begin
+                    state <= BLANKDIODE;
+                    afterBlank <= DIODE;
+                    count <= 0;
+                    preChrg <= 0;
+                end
+                else begin
+                    count <= count + 1;
+                    preChrg <= 1;
+                    setupBias <= 1;
+                end
+                PI2 <= 0;
+                PII2 <= 0;
+                PII1 <= 0;
+                PI1 <= 0;
+                PA <= 0;
+                PB <= 1;
+                PC <= 1;
+                PD <= 1;
+                valid <= 0;
+                Hcharged <= 0;
+                Lcharged <= 0;
+            end
 
         endcase
+    end
+end
+
+always @(negedge clk or snk_ctrl) begin
+    if (clk) begin
+        snk <= 1;
+    end else begin
+        snk <= 0;
+    end
+end
+
+always @(negedge clk or src_ctrl) begin
+    if (clk) begin
+        src_n <= 1;
+    end else begin
+        src_n <= 0;
     end
 end
 

@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -213,12 +212,6 @@ N 1390 -1540 1460 -1540 {
 lab=outRes}
 N 940 -1540 1190 -1540 {
 lab=pmosDrain}
-N 640 -1540 640 -1410 {
-lab=pmosDrain}
-N 940 -1540 940 -1410 {
-lab=pmosDrain}
-N 790 -1540 940 -1540 {
-lab=pmosDrain}
 N 940 -1310 940 -1190 {
 lab=vpm}
 N 930 -1190 940 -1190 {
@@ -319,6 +312,12 @@ N 1670 -440 1670 -350 {
 lab=vss}
 N 1390 -350 1670 -350 {
 lab=vss}
+N 940 -1430 940 -1410 {lab=#net11}
+N 940 -1540 940 -1490 {lab=pmosDrain}
+N 790 -1540 940 -1540 {
+lab=pmosDrain}
+N 640 -1540 640 -1510 {lab=pmosDrain}
+N 640 -1450 640 -1410 {lab=#net12}
 C {devices/ipin.sym} 480 -1480 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 480 -1460 0 0 {name=p2 lab=vss
 }
@@ -488,3 +487,5 @@ C {devices/lab_wire.sym} 700 -1180 0 1 {name=p49 sig_type=std_logic lab=vnm
 }
 C {devices/lab_wire.sym} 880 -1180 0 0 {name=p50 sig_type=std_logic lab=vpm
 }
+C {devices/vsource.sym} 940 -1460 0 0 {name=vipmos1 value=0 savecurrent=true}
+C {devices/vsource.sym} 640 -1480 0 0 {name=vipmos2 value=0 savecurrent=true}

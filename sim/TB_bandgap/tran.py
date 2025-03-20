@@ -4,7 +4,7 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import plotTempDependence, rawplot, calcPpm, calcVrefMean, calcVrefMaxMinDelta 
+from plot import plotTempDependence, rawplot, calcPpm, getVref, calcVrefMaxMinDelta 
 
 
 
@@ -23,7 +23,7 @@ def main(name):
     # print("SchGtKsfTtVl ppm and mean: ", calcPpm(name + "SchGtKsfTtVl"), calcVrefMean(name + "SchGtKsfTtVl"))  
     # print("SchGtKsfTtVh ppm and mean: ", calcPpm(name + "SchGtKsfTtVh"), calcVrefMean(name + "SchGtKsfTtVh"))
     # print("SchGtKttTtVt ppm and mean: ", calcPpm(name + "SchGtKttTtVt"), calcVrefMean(name + "SchGtKttTtVt"))
-    print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), calcVrefMean(name + "SchGtKttmmTtVt"))
+    print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), getVref(name + "SchGtKttmmTtVt"))
     # print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), calcVrefMean(name + "SchGtKttmmTtVt_1"))  
     # print("SchGtKttmmTtVt_2 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_2"), calcVrefMean(name + "SchGtKttmmTtVt_2"))
     # print("SchGtKttmmTtVt_3 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_3"), calcVrefMean(name + "SchGtKttmmTtVt_3"))

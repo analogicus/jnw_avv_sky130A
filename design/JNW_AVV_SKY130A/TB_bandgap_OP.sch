@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -13,8 +12,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.5260582e-05
-x2=2.0460583e-05
+x1=2.3836418e-05
+x2=2.9036419e-05
 divx=5
 subdivx=1
 xlabmag=1.0
