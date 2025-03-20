@@ -1,4 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
+v {xschem version=3.4.5 file_version=1.2
 }
 G {}
 K {type=subcircuit
@@ -17,11 +17,13 @@ L 4 -60 -140 -60 -20 {}
 L 4 -60 -20 60 -20 {}
 L 4 60 -140 60 -20 {}
 L 4 -60 -140 60 -140 {}
+L 4 60 -100 80 -100 {}
 B 5 77.5 -122.5 82.5 -117.5 {name=pbias dir=out}
 B 5 -82.5 -122.5 -77.5 -117.5 {name=vdd dir=in}
 B 5 77.5 -42.5 82.5 -37.5 {name=nbias dir=out}
 B 5 -82.5 -42.5 -77.5 -37.5 {name=vss dir=in}
 B 5 -82.5 -82.5 -77.5 -77.5 {name=setupBias dir=in}
+B 5 77.5 -102.5 82.5 -97.5 {name=pcasc dir=out}
 T {@symname} -46 -66 0 0 0.3 0.3 {}
 T {@name} -25 -102 0 0 0.2 0.2 {}
 T {pbias} 55 -124 0 1 0.2 0.2 {}
@@ -29,3 +31,4 @@ T {vdd} -55 -124 0 0 0.2 0.2 {}
 T {nbias} 55 -44 0 1 0.2 0.2 {}
 T {vss} -55 -44 0 0 0.2 0.2 {}
 T {setupBias} -55 -84 0 0 0.2 0.2 {}
+T {pcasc} 55 -104 0 1 0.2 0.2 {}

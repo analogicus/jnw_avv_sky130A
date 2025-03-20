@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -83,15 +82,7 @@ N 1690 -350 1870 -350 {
 lab=vss}
 N 1170 -1010 1170 -350 {
 lab=vss}
-N 940 -350 1170 -350 {
-lab=vss}
 N 1390 -350 1690 -350 {
-lab=vss}
-N 940 -470 940 -350 {
-lab=vss}
-N 640 -470 640 -350 {
-lab=vss}
-N 410 -350 640 -350 {
 lab=vss}
 N 600 -520 600 -470 {
 lab=vss}
@@ -111,9 +102,9 @@ N 1090 -1260 1090 -1220 {
 lab=vdd}
 N 550 -1260 550 -1220 {
 lab=vdd}
-N 670 -1690 750 -1690 {
+N 670 -1760 750 -1760 {
 lab=vctrl}
-N 790 -1790 790 -1690 {
+N 790 -1860 790 -1760 {
 lab=vdd}
 N 520 -1250 520 -1220 {
 lab=SDM}
@@ -141,30 +132,20 @@ N 450 -1610 510 -1610 {
 lab=vss}
 N 640 -490 640 -470 {
 lab=vss}
-N 820 -1180 930 -1180 {
-lab=vpm}
 N 940 -1170 950 -1170 {
 lab=vpm}
-N 920 -350 940 -350 {
-lab=vss}
-N 790 -1660 790 -1640 {
+N 790 -1730 790 -1620 {
 lab=#net1}
-N 790 -1580 790 -1540 {
-lab=pmosDrain}
+N 790 -1560 790 -1540 {
+lab=cascDrain}
 N 640 -1540 790 -1540 {
-lab=pmosDrain}
+lab=cascDrain}
 N 940 -1170 940 -1140 {
 lab=vpm}
 N 930 -1170 940 -1170 {
 lab=vpm}
-N 940 -810 940 -720 {
+N 940 -810 940 -790 {
 lab=#net2}
-N 940 -640 940 -550 {
-lab=VbeBD}
-N 740 -550 740 -350 {
-lab=vss}
-N 820 -550 820 -350 {
-lab=vss}
 N 780 -590 800 -590 {
 lab=vss}
 N 780 -590 780 -350 {
@@ -187,12 +168,6 @@ N 780 -850 780 -720 {
 lab=vss}
 N 760 -850 780 -850 {
 lab=vss}
-N 640 -350 740 -350 {
-lab=vss}
-N 740 -350 780 -350 {
-lab=vss}
-N 780 -350 820 -350 {
-lab=vss}
 N 940 -1080 940 -890 {
 lab=#net5}
 N 820 -810 820 -760 {
@@ -205,18 +180,16 @@ N 940 -890 1020 -890 {
 lab=#net5}
 N 920 -850 1000 -850 {
 lab=vss}
-N 820 -350 920 -350 {
-lab=vss}
 N 1390 -1540 1460 -1540 {
 lab=outRes}
 N 940 -1540 1190 -1540 {
-lab=pmosDrain}
+lab=cascDrain}
 N 640 -1540 640 -1410 {
-lab=pmosDrain}
+lab=cascDrain}
 N 940 -1540 940 -1410 {
-lab=pmosDrain}
+lab=cascDrain}
 N 790 -1540 940 -1540 {
-lab=pmosDrain}
+lab=cascDrain}
 N 940 -1310 940 -1190 {
 lab=vpm}
 N 930 -1190 940 -1190 {
@@ -225,8 +198,6 @@ N 950 -1180 1010 -1180 {
 lab=vpm}
 N 950 -1190 950 -1180 {
 lab=vpm}
-N 570 -1180 630 -1180 {
-lab=vnm}
 N 630 -1190 630 -1180 {
 lab=vnm}
 N 640 -1310 640 -1190 {
@@ -289,10 +260,6 @@ N 640 -1170 640 -1140 {
 lab=vnm}
 N 630 -1170 640 -1170 {
 lab=vnm}
-N 640 -1080 640 -550 {
-lab=VbeSD}
-N 920 -850 920 -350 {
-lab=vss}
 N 1690 -1540 1690 -1280 {
 lab=#net8}
 N 1560 -1540 1690 -1540 {
@@ -321,6 +288,40 @@ N 1170 -1180 1170 -1080 {
 lab=vp}
 N 1110 -1180 1170 -1180 {
 lab=vp}
+N 790 -1860 850 -1860 {
+lab=vdd}
+N 640 -470 640 -350 {
+lab=vss}
+N 410 -350 640 -350 {
+lab=vss}
+N 940 -350 1170 -350 {
+lab=vss}
+N 940 -470 940 -350 {
+lab=vss}
+N 920 -850 920 -350 {
+lab=vss}
+N 940 -710 940 -550 {
+lab=VbeBD}
+N 640 -1080 640 -550 {
+lab=VbeSD}
+N 920 -350 940 -350 {
+lab=vss}
+N 820 -1180 930 -1180 {
+lab=vpm}
+N 570 -1180 630 -1180 {
+lab=vnm}
+N 740 -350 780 -350 {
+lab=vss}
+N 820 -350 920 -350 {
+lab=vss}
+N 820 -550 820 -450 {lab=#net12}
+N 820 -420 820 -350 {lab=vss}
+N 780 -350 820 -350 {
+lab=vss}
+N 740 -420 740 -350 {lab=vss}
+N 640 -350 740 -350 {
+lab=vss}
+N 740 -550 740 -450 {lab=#net13}
 C {devices/ipin.sym} 480 -1480 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 480 -1460 0 0 {name=p2 lab=vss
 }
@@ -375,8 +376,8 @@ C {devices/lab_wire.sym} 1090 -1260 0 0 {name=p25 sig_type=std_logic lab=vdd
 C {devices/lab_wire.sym} 550 -1260 0 0 {name=p26 sig_type=std_logic lab=vdd
 
 }
-C {devices/ipin.sym} 670 -1690 0 0 {name=p27 lab=vctrl}
-C {devices/lab_wire.sym} 790 -1790 0 1 {name=p28 sig_type=std_logic lab=vdd
+C {devices/ipin.sym} 670 -1760 0 0 {name=p27 lab=vctrl}
+C {devices/lab_wire.sym} 840 -1860 0 1 {name=p28 sig_type=std_logic lab=vdd
 
 }
 C {devices/ipin.sym} 2200 -1710 1 0 {name=p8 lab=PD}
@@ -386,7 +387,7 @@ C {devices/ipin.sym} 1390 -1690 1 0 {name=p16 lab=PA}
 C {devices/ipin.sym} 930 -1720 2 1 {name=p31 lab=PI2}
 C {devices/ipin.sym} 450 -1730 0 0 {name=p32 lab=dummy}
 C {devices/ipin.sym} 550 -1860 0 0 {name=p33 lab=PII1}
-C {devices/ipin.sym} 510 -1900 2 0 {name=p34 lab=PI1}
+C {devices/ipin.sym} 450 -1830 2 1 {name=p34 lab=PI1}
 C {devices/opin.sym} 2530 -1540 0 0 {name=p3 lab=vref}
 C {devices/opin.sym} 1220 -1180 0 0 {name=p21 lab=vp}
 C {devices/opin.sym} 360 -1180 2 0 {name=p22 lab=vn}
@@ -396,10 +397,10 @@ C {devices/lab_wire.sym} 450 -1610 0 1 {name=p30 sig_type=std_logic lab=vss
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[20:0]}
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2040 -1210 0 0 {name=x2[20:0]}
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2500 -1210 0 0 {name=x3[40:0]}
-C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 750 -1690 0 0 {name=x9 }
-C {devices/vsource.sym} 790 -1610 0 0 {name=vipmos value=0 savecurrent=true}
+C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 750 -1760 0 0 {name=x9 }
+C {devices/vsource.sym} 790 -1590 0 0 {name=vipmos value=0 savecurrent=true}
 C {devices/vsource.sym} 940 -1110 0 0 {name=vibigdiode value=0 savecurrent=true}
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 940 -720 1 0 {name=x18 }
+C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 940 -790 1 0 {name=x18 }
 C {devices/lab_wire.sym} 1870 -1290 0 1 {name=p35 sig_type=std_logic lab=Hcharge
 
 }
@@ -449,7 +450,7 @@ C {devices/lab_wire.sym} 2380 -1490 1 0 {name=p40 sig_type=std_logic lab=vss
 C {devices/lab_wire.sym} 2420 -1380 0 1 {name=p41 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 490 -1690 3 1 {name=x15 }
-C {devices/lab_wire.sym} 830 -1540 0 1 {name=p43 sig_type=std_logic lab=pmosDrain
+C {devices/lab_wire.sym} 830 -1540 0 1 {name=p43 sig_type=std_logic lab=cascDrain
 
 }
 C {devices/vsource.sym} 820 -1110 0 0 {name=viCTAT1 value=0 savecurrent=true}
@@ -527,3 +528,14 @@ C {devices/lab_wire.sym} 910 -1180 0 0 {name=p66 sig_type=std_logic lab=vpm
 C {devices/lab_wire.sym} 680 -1180 0 1 {name=p67 sig_type=std_logic lab=vnm
 
 }
+C {devices/lab_wire.sym} 240 -1580 0 0 {name=p68 sig_type=std_logic lab=pmosDrain
+
+}
+C {devices/lab_wire.sym} 700 -420 0 0 {name=p70 sig_type=std_logic lab=SD
+
+}
+C {devices/lab_wire.sym} 860 -420 0 1 {name=p71 sig_type=std_logic lab=BD
+
+}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 700 -420 0 0 {name=x31 }
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 860 -420 0 1 {name=x32 }

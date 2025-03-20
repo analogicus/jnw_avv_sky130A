@@ -52,7 +52,7 @@ lab=PC}
 N 940 -400 970 -400 {
 lab=PD}
 N 940 -380 970 -380 {
-lab=PI1}
+lab=pcasc}
 N 940 -360 970 -360 {
 lab=PI2}
 N 940 -340 970 -340 {
@@ -112,7 +112,7 @@ C {devices/ipin.sym} 940 -460 0 0 {name=p21 lab=PA}
 C {devices/ipin.sym} 940 -440 0 0 {name=p22 lab=PB}
 C {devices/ipin.sym} 940 -420 0 0 {name=p23 lab=PC}
 C {devices/ipin.sym} 940 -400 0 0 {name=p24 lab=PD}
-C {devices/ipin.sym} 940 -380 0 0 {name=p25 lab=PI1}
+C {devices/ipin.sym} 880 -600 0 0 {name=p25 lab=PI1}
 C {devices/ipin.sym} 940 -360 0 0 {name=p26 lab=PI2}
 C {devices/ipin.sym} 940 -340 0 0 {name=p28 lab=PII1}
 C {devices/opin.sym} 1970 -390 0 0 {name=p29 lab=cmp}
@@ -137,3 +137,5 @@ C {devices/ipin.sym} 840 -870 0 0 {name=p40 lab=sample}
 C {devices/lab_wire.sym} 1490 -700 0 0 {name=p42 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1490 -620 0 0 {name=p43 sig_type=std_logic lab=vss}
 C {JNW_AVV_SKY130A/CMP_v2.sym} 1430 -270 0 0 {name=x1}
+C {devices/lab_wire.sym} 1650 -680 0 1 {name=p12 sig_type=std_logic lab=pcasc}
+C {devices/lab_wire.sym} 940 -380 0 0 {name=p13 sig_type=std_logic lab=pcasc}

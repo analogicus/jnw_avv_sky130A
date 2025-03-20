@@ -250,8 +250,8 @@ C {devices/lab_wire.sym} 505 -380 0 1 {name=p28 sig_type=std_logic lab=src_gate}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 410 -200 0 1 {name=x23 }
 C {devices/lab_wire.sym} 325 -200 0 0 {name=p31 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 435 -200 0 1 {name=p33 sig_type=std_logic lab=snk_gate_n}
-C {devices/vsource.sym} 440 -670 0 0 {name=V_isrc value=0 savecurrent=true}
-C {devices/vsource.sym} 260 60 0 0 {name=V_isnk value=0 savecurrent=true}
+C {devices/vsource.sym} 440 -670 0 0 {name=V_isrc value=0 savecurrent=false}
+C {devices/vsource.sym} 260 60 0 0 {name=V_isnk value=0 savecurrent=false}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 400 -770 0 0 {name=x20 }
 C {devices/ipin.sym} -630 -210 0 0 {name=p9 lab=snk
 }
@@ -286,20 +286,20 @@ C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} -340 -220 0 0 {name=x26 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} -310 -400 0 0 {name=x27 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} -430 -340 0 0 {name=x1 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} -430 -160 0 0 {name=x10 }
-C {devices/vsource.sym} 880 -580 0 0 {name=V_iPreCharge value=0 savecurrent=true}
+C {devices/vsource.sym} 880 -580 0 0 {name=V_iPreCharge value=0 savecurrent=false}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 920 -490 0 1 {name=x5 }
 C {devices/lab_wire.sym} 935 -490 0 1 {name=p39 sig_type=std_logic lab=preChrg}
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -720 1 0 {name=x8 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1090 1 0 {name=x9 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -1200 1 0 {name=x11 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -980 1 0 {name=x13 }
-C {devices/vsource.sym} 260 -260 0 0 {name=V_isnk_drain value=0 savecurrent=true}
-C {devices/vsource.sym} 260 -520 0 0 {name=V_isrc_source value=0 savecurrent=true}
+C {devices/vsource.sym} 260 -260 0 0 {name=V_isnk_drain value=0 savecurrent=false}
+C {devices/vsource.sym} 260 -520 0 0 {name=V_isrc_source value=0 savecurrent=false}
 C {devices/lab_wire.sym} 405 -250 0 1 {name=p32 sig_type=std_logic lab=vdd}
-C {devices/vsource.sym} 600 -510 0 0 {name=V_icap_bot value=0 savecurrent=true}
-C {devices/vsource.sym} 670 -150 0 0 {name=V_iprecharge1 value=0 savecurrent=true}
-C {devices/vsource.sym} 780 -300 1 0 {name=V_ipmosGate value=0 savecurrent=true}
+C {devices/vsource.sym} 600 -510 0 0 {name=V_icap_bot value=0 savecurrent=false}
+C {devices/vsource.sym} 670 -150 0 0 {name=V_iprecharge1 value=0 savecurrent=false}
+C {devices/vsource.sym} 780 -300 1 0 {name=V_ipmosGate value=0 savecurrent=false}
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 880 -870 1 0 {name=x14 }
-C {devices/vsource.sym} 600 -740 0 0 {name=V_icap_top value=0 savecurrent=true}
+C {devices/vsource.sym} 600 -740 0 0 {name=V_icap_top value=0 savecurrent=false}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 710 -90 0 1 {name=x2 }
 C {devices/lab_wire.sym} 655 -90 0 0 {name=p8 sig_type=std_logic lab=vss}

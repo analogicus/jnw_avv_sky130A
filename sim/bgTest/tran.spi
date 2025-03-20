@@ -12,6 +12,7 @@
 * OPTIONS
 *-----------------------------------------------------------------
 .option TNOM=25 GMIN=1e-15 reltol=1e-3
+.option TEMP=20
 
 *-----------------------------------------------------------------
 * PARAMETERS
@@ -26,10 +27,11 @@
 VSS  VSS  0     dc 0
 VDD  VDD  VSS   dc 1.8
 
-VA  A  0  pulse(0 1.8 0 10p 10p 50n 100n)
+VA  A  0  pulse(0 1.8 0 10p 10p 300n 600n)
+VB  B  0  dc 0.63055
 
 * VA  A  0  pwl 0 0 50n 0 51n 1.8 150n 1.8 151n 0
-VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
+* VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
 
 
 
@@ -58,6 +60,15 @@ VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
 .save v(xdut.y)
 .save v(xdut.clk1)
 .save v(xdut.clk2)
+.save v(xdut.VBP)
+.save v(xdut.VCP)
+.save v(xdut.nbias)
+.save v(xdut.pbias)
+.save v(xdut.VbeBD)
+.save v(xdut.vp)
+.save v(xdut.bd)
+.save v(xdut.bdm)
+.save v(xdut.vpm)
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -81,7 +92,7 @@ set fend = .raw
 *   write {cicname}_$vtemp$fend
 * end
 
-tran 1n 500n
+tran 0.5n 3u
 
 write
 quit

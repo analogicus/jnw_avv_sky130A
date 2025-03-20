@@ -92,11 +92,36 @@ always_ff @(posedge clk) begin
     else begin
         case(state)
             BIGDIODE: begin
-                if (count > 2 && setupDone == 0) begin
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
+                if(count > 6 && setupDone == 0) begin
+                    PI2 <= 0;
+                    state <= DIODE;
+                    count <= 0;
+                end else if (count > 2 && setupDone > 0) begin
+                    if (cmp && !Hcharged) begin
+                        PI2 <= 0;
+                        state <= HCHARGE;
+                    end else if (!cmp && !Lcharged) begin
+                        PI2 <= 0;
+                        state <= LCHARGE;
+                    end else if (cmp) begin
+                        PI2 <= 1;
+                        src_ctrl <= ~src_ctrl;
+                    end else if (!cmp) begin
+                        PI2 <= 1;
+                        snk_ctrl <= ~snk_ctrl;
+                    end
+
+                end else begin
                     count <= count + 1;
+                    state <= BIGDIODE;
+                    PI2 <= 1;
                     if (cmp) begin
                         src_ctrl <= ~src_ctrl;	
-                    end else begin
+                    end else if (!cmp) begin
                         if (setupDone == 0) begin
                             setupCount <= setupCount + 1;
                             if (setupCount == 5) begin
@@ -106,60 +131,8 @@ always_ff @(posedge clk) begin
                         end
                         snk_ctrl <= ~snk_ctrl;
                     end
-                    if (count > 6) begin
-                        PI2 <= 0;
-                        count <= 0;
-                        state <= DIODE;
-                    end else begin
-                        state <= BIGDIODE;
-                    end
-                end else if (count > 20) begin
-                    if (cmp) begin
-                        src_ctrl <= ~src_ctrl;
-                    end else begin
-                        snk_ctrl <= ~snk_ctrl;
-                    end
-                    PI2 <= 0;
-                    count <= 0;
-                    state <= DIODE;
-                end else begin
-                    count <= count + 1;
-                    PI2 <= 1;
                 end
-                PA <= 0;
-                PB <= 0;
-                PC <= 0;
-                PD <= 0;
             end
-
-            DIODE: begin
-                if(count > 3) begin
-                    PII2 <= 0;
-                    count <= 0;
-                    if (setupDone > 0) begin
-                        if (!Hcharged) begin
-                            state <= HCHARGE;
-                        end else begin
-                            state <= LCHARGE;
-                        end
-                    end else begin
-                        state <= BIGDIODE;
-                    end
-                end else if (count == 0) begin
-                    cmp_p1 <= ~cmp_p1;
-                    cmp_p2 <= ~cmp_p2;
-                    count <= count + 1;
-                end else begin
-                    count <= count + 1;
-                    PII2 <= 1;
-                end
-
-                PA <= 0;
-                PB <= 0;
-                PC <= 0;
-                PD <= 0;
-            end
-
 
             PRECHARGE: begin
                 if (count > 10) begin
@@ -189,6 +162,24 @@ always_ff @(posedge clk) begin
                 Lcharged <= 0;
             end
 
+            DIODE: begin
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
+                if(count > 1) begin
+                    PII2 <= 0;
+                    state <= BIGDIODE;
+                    count <= 0;
+                end else begin
+                    count <= count + 1;
+                    state <= DIODE;
+                    PII2 <= 1;
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
+                end
+            end
+
             HCHARGE: begin
                 PA <= 1;
                 PB <= 1;
@@ -212,15 +203,15 @@ always_ff @(posedge clk) begin
             end
 
             OUTPUT: begin
+                count <= 0;
                 if (setupDone < 63) begin
                     setupDone <= setupDone + 1;
                     PA <= 1;
                     state <= OUTPUT;
                 end else begin
                     PA <= 0;
-                    state <= BIGDIODE;
+                    state <= DIODE;
                 end
-                count <= 0;
                 PB <= 1;
                 PC <= 1;
                 PD <= 1;
