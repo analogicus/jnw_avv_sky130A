@@ -5,7 +5,7 @@ load {cicname}.raw
 
 echo "MEAS_START"
 
-meas tran I_
+meas tran VBE avg v(VBE) from=400n to=500n
 
 echo "MEAS_END"
 .endc
