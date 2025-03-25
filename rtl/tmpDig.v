@@ -94,21 +94,14 @@ always_ff @(posedge clk) begin
             end
 
             DIODE: begin
-                if(count > 3) begin
+                if(count > 0) begin
                     PII2 <= 0;
                     count <= 0;
                     if (setupDone > 0) begin
-                        // if (!prevPump && !Hcharged) begin
-                        //     afterBlank <= HCHARGE;
-                        //     state <= BLANKDIODE;
-                        // end else if (prevPump && !Lcharged) begin
-                        //     afterBlank <= LCHARGE;
-                        //     state <= BLANKDIODE;
-                        // end else begin
-                        //     afterBlank <= BLANKBIGDIODE;
-                        //     state <= BLANKDIODE;
-                        // end
-                        if (!Hcharged) begin
+                        if (setupDone == 1) begin
+                            state <= BLANKDIODE;
+                            afterBlank <= OUTPUT;
+                        end else if (!Hcharged) begin
                             afterBlank <= HCHARGE;
                             state <= BLANKDIODE;
                         end else begin
@@ -120,6 +113,7 @@ always_ff @(posedge clk) begin
                         state <= BLANKDIODE;
                     end
                 end else if (count == 0) begin
+                    PII2 <= 1;
                     cmp_p1 <= ~cmp_p1;
                     cmp_p2 <= ~cmp_p2;
                     count <= count + 1;
@@ -156,14 +150,14 @@ always_ff @(posedge clk) begin
                     end else begin
                         if (setupDone == 0) begin
                             setupCount <= setupCount + 1;
-                            if (setupCount == 5) begin
+                            if (setupCount == 4) begin
                                 setupDone <= 1;
                                 setupBias <= 0;
                             end
                         end
                         snk_ctrl <= ~snk_ctrl;
                     end
-                    if (count > 5) begin
+                    if (count > 2) begin
                         PI2 <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= BLANKDIODE;
@@ -179,7 +173,7 @@ always_ff @(posedge clk) begin
                         snk_ctrl <= ~snk_ctrl;
                         prevPump <= 0;
                     end
-                end else if (count > 6 && setupDone > 0) begin
+                end else if (count > 2 && setupDone > 0) begin
                     PI2 <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
@@ -192,7 +186,7 @@ always_ff @(posedge clk) begin
                 count <= count + 1;
                 PA <= 1;
                 PB <= 1;
-                if (count > 5) begin
+                if (count > 1) begin
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
                     end else begin
@@ -207,7 +201,7 @@ always_ff @(posedge clk) begin
                 count <= count + 1;
                 PA <= 1;
                 PC <= 1;
-                if (count > 5) begin
+                if (count > 1) begin
                     if (Hcharged == 1) begin
                         state <= OUTPUT;
                     end else begin
@@ -219,7 +213,7 @@ always_ff @(posedge clk) begin
             end
 
             OUTPUT: begin
-                if (setupDone < 62) begin
+                if (setupDone < 14) begin
                     setupDone <= setupDone + 1;
                     PA <= 1;
                     state <= OUTPUT;
