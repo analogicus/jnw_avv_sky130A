@@ -50,6 +50,9 @@ logic       Lcharged;
 logic [5:0] setupDone;
 logic       snk_ctrl;
 logic       src_ctrl;
+logic       intCmp;
+logic       firstCycle;
+
 
 
 
@@ -66,6 +69,7 @@ initial begin
     cmp_p2 = 1'b1;
     snk_ctrl = 1'b0;
     src_ctrl = 1'b0;
+    PI1 = 1;
 end
 
 always @(negedge clk or snk_ctrl) begin
@@ -92,50 +96,101 @@ always_ff @(posedge clk) begin
     else begin
         case(state)
             BIGDIODE: begin
+                PI2 <= 1;
+                if (!firstCycle) begin
+                    if (count > 0 && setupDone == 0) begin
+                        count <= count + 1;
+                        if (cmp) begin
+                            src_ctrl <= ~src_ctrl;	
+                        end else begin
+                            if (setupDone == 0) begin
+                                setupCount <= setupCount + 1;
+                                if (setupCount == 4) begin
+                                    setupDone <= 1;
+                                    setupBias <= 0;
+                                end
+                            end
+                            snk_ctrl <= ~snk_ctrl;
+                        end
+                        if (count > 4) begin
+                            PI2 <= 0;
+                            count <= 0;
+                            state <= DIODE;
+                        end else begin
+                            state <= BIGDIODE;
+                        end
+                    end else if (count == 0) begin
+                        count <= count + 1;
+                        PI2 <= 1;
+
+                        if (intCmp) begin
+                            src_ctrl <= ~src_ctrl;
+                        end else begin
+                            snk_ctrl <= ~snk_ctrl;
+                        end
+                    end else if (count > 3) begin
+                        PI2 <= 0;
+                        count <= 0;
+                        state <= DIODE;
+                    end else begin
+                        count <= count + 1;
+                        PI2 <= 1;
+                    end
+                end else if (count > 20) begin
+                    PI2 <= 0;
+                    count <= 0;
+                    state <= DIODE;
+                    firstCycle <= 0;
+                end else begin
+                    count <= count + 1;
+                end
                 PA <= 0;
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
-                if(count > 6 && setupDone == 0) begin
-                    PI2 <= 0;
-                    state <= DIODE;
-                    count <= 0;
-                end else if (count > 2 && setupDone > 0) begin
-                    if (cmp && !Hcharged) begin
-                        PI2 <= 0;
-                        state <= HCHARGE;
-                    end else if (!cmp && !Lcharged) begin
-                        PI2 <= 0;
-                        state <= LCHARGE;
-                    end else if (cmp) begin
-                        PI2 <= 1;
-                        src_ctrl <= ~src_ctrl;
-                    end else if (!cmp) begin
-                        PI2 <= 1;
-                        snk_ctrl <= ~snk_ctrl;
-                    end
-
-                end else begin
-                    count <= count + 1;
-                    state <= BIGDIODE;
-                    PI2 <= 1;
-                    if (cmp) begin
-                        src_ctrl <= ~src_ctrl;	
-                    end else if (!cmp) begin
-                        if (setupDone == 0) begin
-                            setupCount <= setupCount + 1;
-                            if (setupCount == 5) begin
-                                setupDone <= 1;
-                                setupBias <= 0;
-                            end
-                        end
-                        snk_ctrl <= ~snk_ctrl;
-                    end
-                end
             end
 
+            DIODE: begin
+                PII2 <= 1;
+                if (!firstCycle) begin
+                    if(count > 2) begin
+                        PII2 <= 0;
+                        count <= 0;
+                        if (setupDone > 0) begin
+                            if (setupDone == 1) begin
+                                state <= OUTPUT;
+                            end else if (!Hcharged) begin
+                                state <= HCHARGE;
+                            end else begin
+                                state <= LCHARGE;
+                            end
+                        end else begin
+                            state <= BIGDIODE;
+                        end
+                    end else if (count == 0) begin
+                        cmp_p1 <= ~cmp_p1;
+                        cmp_p2 <= ~cmp_p2;
+                        count <= count + 1;
+                        PII2 <= 1;
+                    end else begin
+                        count <= count + 1;
+                    end
+                end else if (count > 20) begin
+                        PII2 <= 0;
+                        count <= 0;
+                        state <= BIGDIODE;
+                end else begin
+                    count <= count + 1;
+                end
+                PA <= 0;
+                PB <= 0;
+                PC <= 0;
+                PD <= 0;
+            end
+
+
             PRECHARGE: begin
-                if (count > 10) begin
+                if (count > 20) begin
                     state <= DIODE;
                     afterBlank <= DIODE;
                     count <= 0;
@@ -152,66 +207,59 @@ always_ff @(posedge clk) begin
                     PC <= 1;
                     PD <= 1;
                 end
+                firstCycle <= 1;
                 PI2 <= 0;
                 PII2 <= 0;
                 PII1 <= 0;
-                PI1 <= 0;
+                PI1 <= 1;
                 PA <= 0;
                 valid <= 0;
                 Hcharged <= 0;
                 Lcharged <= 0;
             end
 
-            DIODE: begin
-                PA <= 0;
-                PB <= 0;
-                PC <= 0;
-                PD <= 0;
-                if(count > 1) begin
-                    PII2 <= 0;
-                    state <= BIGDIODE;
-                    count <= 0;
-                end else begin
-                    count <= count + 1;
-                    state <= DIODE;
-                    PII2 <= 1;
-                    cmp_p1 <= ~cmp_p1;
-                    cmp_p2 <= ~cmp_p2;
-                end
-            end
-
             HCHARGE: begin
+                count <= count + 1;
                 PA <= 1;
                 PB <= 1;
-                if (Lcharged == 1) begin
-                    state <= OUTPUT;
-                end else begin
-                    Hcharged <= 1;
-                    state <= BIGDIODE;
+                if (count > 2) begin
+                    count <= 0;
+                    intCmp <= cmp;
+                    if (Lcharged == 1) begin
+                        state <= OUTPUT;
+                    end else begin
+                        Hcharged <= 1;
+                        state <= BIGDIODE;
+                    end
                 end
             end
 
             LCHARGE: begin
                 PA <= 1;
                 PC <= 1;
-                if (Hcharged == 1) begin
-                    state <= OUTPUT;
-                end else begin
-                    Lcharged <= 1;
-                    state <= BIGDIODE;
+                count <= count + 1;
+                if (count > 2) begin
+                    count <= 0;
+                    intCmp <= cmp;
+                    if (Hcharged == 1) begin
+                        state <= OUTPUT;
+                    end else begin
+                        Lcharged <= 1;
+                        state <= BIGDIODE;
+                    end
                 end
             end
 
             OUTPUT: begin
-                count <= 0;
-                if (setupDone < 63) begin
+                if (setupDone < 15) begin
                     setupDone <= setupDone + 1;
                     PA <= 1;
                     state <= OUTPUT;
                 end else begin
                     PA <= 0;
-                    state <= DIODE;
+                    state <= BIGDIODE;
                 end
+                count <= 0;
                 PB <= 1;
                 PC <= 1;
                 PD <= 1;

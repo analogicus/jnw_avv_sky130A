@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -13,8 +12,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=8.0472632e-06
-x2=1.3247263e-05
+x1=2.9927658e-05
+x2=3.5127657e-05
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -71,7 +70,7 @@ N 220 -170 250 -170 {
 lab=cmp_p2}
 C {devices/launcher.sym} 520 -100 0 0 {name=h5
 descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVt.raw tran"
+tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKssTtVl_-40.raw tran"
 }
 C {JNW_AVV_SKY130A/TB_bandgap.sym} 400 -370 0 0 {name=xdut}
 C {devices/lab_wire.sym} 220 -510 0 0 {name=p8 sig_type=std_logic lab=setupBias}

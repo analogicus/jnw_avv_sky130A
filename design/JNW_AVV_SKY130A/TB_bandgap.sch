@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -52,7 +51,7 @@ lab=PC}
 N 940 -400 970 -400 {
 lab=PD}
 N 940 -380 970 -380 {
-lab=pcasc}
+lab=PI1}
 N 940 -360 970 -360 {
 lab=PI2}
 N 940 -340 970 -340 {
@@ -95,7 +94,7 @@ N 1700 -390 1970 -390 {
 lab=cmp}
 C {devices/lab_wire.sym} 960 -480 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 1260 -730 0 0 {name=p3 sig_type=std_logic lab=vctrl}
-C {devices/ipin.sym} 840 -810 0 0 {name=p4 lab=vdd}
+C {devices/ipin.sym} 860 -640 0 0 {name=p4 lab=vdd2}
 C {devices/ipin.sym} 840 -790 0 0 {name=p5 lab=vss}
 C {devices/lab_wire.sym} 1100 -560 0 0 {name=p6 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1540 -520 0 0 {name=p7 sig_type=std_logic lab=vdd}
@@ -112,7 +111,7 @@ C {devices/ipin.sym} 940 -460 0 0 {name=p21 lab=PA}
 C {devices/ipin.sym} 940 -440 0 0 {name=p22 lab=PB}
 C {devices/ipin.sym} 940 -420 0 0 {name=p23 lab=PC}
 C {devices/ipin.sym} 940 -400 0 0 {name=p24 lab=PD}
-C {devices/ipin.sym} 880 -600 0 0 {name=p25 lab=PI1}
+C {devices/ipin.sym} 940 -380 0 0 {name=p25 lab=PI1}
 C {devices/ipin.sym} 940 -360 0 0 {name=p26 lab=PI2}
 C {devices/ipin.sym} 940 -340 0 0 {name=p28 lab=PII1}
 C {devices/opin.sym} 1970 -390 0 0 {name=p29 lab=cmp}
@@ -138,4 +137,5 @@ C {devices/lab_wire.sym} 1490 -700 0 0 {name=p42 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1490 -620 0 0 {name=p43 sig_type=std_logic lab=vss}
 C {JNW_AVV_SKY130A/CMP_v2.sym} 1430 -270 0 0 {name=x1}
 C {devices/lab_wire.sym} 1650 -680 0 1 {name=p12 sig_type=std_logic lab=pcasc}
-C {devices/lab_wire.sym} 940 -380 0 0 {name=p13 sig_type=std_logic lab=pcasc}
+C {devices/lab_wire.sym} 840 -530 0 0 {name=p13 sig_type=std_logic lab=pcasc}
+C {devices/ipin.sym} 840 -810 0 0 {name=p41 lab=vdd}

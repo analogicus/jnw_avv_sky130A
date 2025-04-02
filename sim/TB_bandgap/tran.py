@@ -14,6 +14,7 @@ def main(name):
   # plotTempDependence(name + "SchGtKttTtVt")
 
   if (0):  # Print TC of etc and typical corners
+    print("test")
     # print("SchGtKffTtVl ppm and mean: ", calcPpm(name + "SchGtKffTtVl"), calcVrefMean(name + "SchGtKffTtVl"))
     # print("SchGtKffTtVh ppm and mean: ", calcPpm(name + "SchGtKffTtVh"), calcVrefMean(name + "SchGtKffTtVh"))  
     # print("SchGtKssTtVl ppm and mean: ", calcPpm(name + "SchGtKssTtVl"), calcVrefMean(name + "SchGtKssTtVl"))  
@@ -23,7 +24,7 @@ def main(name):
     # print("SchGtKsfTtVl ppm and mean: ", calcPpm(name + "SchGtKsfTtVl"), calcVrefMean(name + "SchGtKsfTtVl"))  
     # print("SchGtKsfTtVh ppm and mean: ", calcPpm(name + "SchGtKsfTtVh"), calcVrefMean(name + "SchGtKsfTtVh"))
     # print("SchGtKttTtVt ppm and mean: ", calcPpm(name + "SchGtKttTtVt"), calcVrefMean(name + "SchGtKttTtVt"))
-    print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), calcVrefMean(name + "SchGtKttmmTtVt"))
+    # print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), calcVrefMean(name + "SchGtKttmmTtVt"))
     # print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), calcVrefMean(name + "SchGtKttmmTtVt_1"))  
     # print("SchGtKttmmTtVt_2 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_2"), calcVrefMean(name + "SchGtKttmmTtVt_2"))
     # print("SchGtKttmmTtVt_3 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_3"), calcVrefMean(name + "SchGtKttmmTtVt_3"))
