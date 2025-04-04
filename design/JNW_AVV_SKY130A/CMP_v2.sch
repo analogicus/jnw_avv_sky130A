@@ -1,14 +1,9 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
 E {}
-N 680 -600 680 -540 {
-lab=#net1}
-N 720 -630 770 -630 {
-lab=pbias}
 N 460 -460 500 -460 {
 lab=ip}
 N 860 -460 900 -460 {
@@ -88,13 +83,13 @@ lab=pre_vout}
 N 980 -250 1040 -250 {
 lab=VinDrain}
 N 460 -750 460 -660 {
-lab=#net2}
+lab=#net1}
 N 280 -350 280 -280 {
 lab=pre_voutn}
 N 920 -750 1040 -750 {
-lab=#net2}
+lab=#net1}
 N 320 -750 460 -750 {
-lab=#net2}
+lab=#net1}
 N 280 -820 280 -750 {
 lab=vdd}
 N 1080 -820 1080 -750 {
@@ -109,34 +104,30 @@ N 1080 -680 1080 -480 {
 lab=pre_vout}
 N 1080 -480 1150 -480 {
 lab=pre_vout}
-N 680 -820 680 -630 {
-lab=vdd}
 N 540 -540 540 -490 {
-lab=#net1}
+lab=#net2}
 N 820 -540 820 -490 {
-lab=#net1}
+lab=#net2}
 N 540 -460 820 -460 {
 lab=vdd}
 N 540 -540 680 -540 {
-lab=#net1}
-N 280 -820 680 -820 {
-lab=vdd}
-N 680 -540 820 -540 {
-lab=#net1}
+lab=#net2}
 N 680 -820 1080 -820 {
 lab=vdd}
+N 680 -540 820 -540 {
+lab=#net2}
 N 280 -660 330 -660 {
 lab=pre_voutn}
 N 280 -720 280 -660 {
 lab=pre_voutn}
 N 430 -660 460 -660 {
-lab=#net2}
+lab=#net1}
 N 920 -680 950 -680 {
-lab=#net2}
+lab=#net1}
 N 920 -750 920 -680 {
-lab=#net2}
+lab=#net1}
 N 460 -750 920 -750 {
-lab=#net2}
+lab=#net1}
 N 1050 -680 1080 -680 {
 lab=pre_vout}
 N 1080 -720 1080 -680 {
@@ -193,15 +184,18 @@ N -180 -830 60 -830 {
 lab=cmp_p1}
 N 60 -830 60 -810 {
 lab=cmp_p1}
+N 680 -610 680 -540 {lab=#net2}
+N 680 -820 680 -640 {lab=vdd}
+N 280 -820 680 -820 {
+lab=vdd}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 500 -460 0 0 {name=x1[3:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_12C1F2.sym} 860 -460 0 1 {name=x2[3:0]}
-C {devices/ipin.sym} 770 -630 2 0 {name=p1 lab=pbias
+C {devices/ipin.sym} 240 -950 0 0 {name=p1 lab=pbias
 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -630 0 1 {name=x1}
 C {devices/ipin.sym} -40 -630 0 0 {name=p5 lab=vin
 }
 C {devices/ipin.sym} -310 -640 0 0 {name=p6 lab=vip
@@ -267,3 +261,5 @@ C {devices/lab_wire.sym} 110 -530 0 0 {name=p43 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 110 -770 0 0 {name=p44 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -80 -470 0 1 {name=p45 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} -80 -830 0 1 {name=p46 sig_type=std_logic lab=cmp_p1}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -640 0 1 {name=x20[3:0]}
+C {devices/lab_wire.sym} 720 -640 0 1 {name=p50 sig_type=std_logic lab=pbias}

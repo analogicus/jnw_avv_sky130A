@@ -268,4 +268,6 @@ def plotPpmDistribution(folders):
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
 # plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
+
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
+plotTempDependence("output_tran/tran_SchGtKttTtVt")
