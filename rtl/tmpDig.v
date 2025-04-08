@@ -82,9 +82,9 @@ always_ff @(posedge clk) begin
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
+                cmp_p1 <= ~cmp_p1;
+                cmp_p2 <= ~cmp_p2;
                 if (afterBlank == DIODE) begin
-                    cmp_p1 <= ~cmp_p1;
-                    cmp_p2 <= ~cmp_p2;
                     PII1 <= 1;
                 end else begin
                     PII1 <= 0;
@@ -130,6 +130,8 @@ always_ff @(posedge clk) begin
                     intermCmp <= cmp;
                     PI1 <= 1;
                 end else begin
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
                     PI1 <= 0;
                 end
                 state <= afterBlank;
@@ -181,6 +183,8 @@ always_ff @(posedge clk) begin
                 if (count > 4) begin
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
+                        PA <= 0;
+                        PB <= 0;
                     end else begin
                         Hcharged <= 1;
                         state <= BLANKBIGDIODE;
@@ -194,7 +198,9 @@ always_ff @(posedge clk) begin
                 PA <= 1;
                 PC <= 1;
                 if (count > 4) begin
-                    if (Hcharged == 1) begin
+                    if (Hcharged == 1 ) begin
+                        PA <= 0;
+                        PC <= 0;
                         state <= OUTPUT;
                     end else begin
                         Lcharged <= 1;

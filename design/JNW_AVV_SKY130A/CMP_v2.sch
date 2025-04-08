@@ -261,5 +261,5 @@ C {devices/lab_wire.sym} 110 -530 0 0 {name=p43 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 110 -770 0 0 {name=p44 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -80 -470 0 1 {name=p45 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} -80 -830 0 1 {name=p46 sig_type=std_logic lab=cmp_p1}
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -640 0 1 {name=x20[3:0]}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -640 0 1 {name=x20}
 C {devices/lab_wire.sym} 720 -640 0 1 {name=p50 sig_type=std_logic lab=pbias}

@@ -1,5 +1,4 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
@@ -126,8 +125,6 @@ C {devices/ipin.sym} 940 -300 0 0 {name=p27 lab=PII2}
 C {JNW_AVV_SKY130A/JNW_AVV.sym} 1100 -400 0 0 {name=x2}
 C {devices/lab_wire.sym} 960 -500 0 0 {name=p36 sig_type=std_logic lab=preChrg}
 C {JNW_AVV_SKY130A/bias.sym} 1570 -580 0 0 {name=x4}
-C {devices/lab_wire.sym} 1870 -430 0 0 {name=p12 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 1870 -310 2 1 {name=p13 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1650 -620 0 1 {name=p32 sig_type=std_logic lab=nbias}
 C {devices/lab_wire.sym} 1650 -700 0 1 {name=p34 sig_type=std_logic lab=pbias}
 C {devices/ipin.sym} 1460 -660 0 0 {name=p14 lab=setupBias}

@@ -270,4 +270,4 @@ def plotPpmDistribution(folders):
 # plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
-plotTempDependence("output_tran/tran_SchGtKttTtVt")
+# plotTempDependence("output_tran/tran_SchGtKttTtVt")
