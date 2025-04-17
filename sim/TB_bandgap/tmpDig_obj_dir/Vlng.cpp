@@ -21,11 +21,11 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , PB{vlSymsp->TOP.PB}
     , PC{vlSymsp->TOP.PC}
     , PD{vlSymsp->TOP.PD}
+    , s_BG2CMP{vlSymsp->TOP.s_BG2CMP}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
     , cmp_p2{vlSymsp->TOP.cmp_p2}
-    , sample{vlSymsp->TOP.sample}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
     , preChrg{vlSymsp->TOP.preChrg}

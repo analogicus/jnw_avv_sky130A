@@ -63,7 +63,7 @@ lab=vref}
 N 550 -490 580 -490 {
 lab=cmp}
 N 220 -210 250 -210 {
-lab=sample}
+lab=s_BG2CMP}
 N 220 -190 250 -190 {
 lab=cmp_p1}
 N 220 -170 250 -170 {
@@ -90,6 +90,6 @@ C {devices/lab_wire.sym} 220 -230 0 0 {name=p14 sig_type=std_logic lab=PII2}
 C {devices/lab_wire.sym} 220 -490 0 0 {name=p15 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 580 -510 0 1 {name=p16 sig_type=std_logic lab=vref}
 C {devices/lab_wire.sym} 580 -490 0 1 {name=p17 sig_type=std_logic lab=cmp}
-C {devices/lab_wire.sym} 220 -210 0 0 {name=p18 sig_type=std_logic lab=sample}
+C {devices/lab_wire.sym} 220 -210 0 0 {name=p18 sig_type=std_logic lab=s_BG2CMP}
 C {devices/lab_wire.sym} 220 -190 0 0 {name=p19 sig_type=std_logic lab=cmp_p1}
 C {devices/lab_wire.sym} 220 -170 0 0 {name=p20 sig_type=std_logic lab=cmp_p2}

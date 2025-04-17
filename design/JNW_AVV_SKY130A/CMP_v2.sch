@@ -105,17 +105,15 @@ lab=pre_vout}
 N 1080 -480 1150 -480 {
 lab=pre_vout}
 N 540 -540 540 -490 {
-lab=#net2}
+lab=inSource}
 N 820 -540 820 -490 {
-lab=#net2}
+lab=inSource}
 N 540 -460 820 -460 {
 lab=vdd}
-N 540 -540 680 -540 {
-lab=#net2}
+N 680 -540 820 -540 {
+lab=inSource}
 N 680 -820 1080 -820 {
 lab=vdd}
-N 680 -540 820 -540 {
-lab=#net2}
 N 280 -660 330 -660 {
 lab=pre_voutn}
 N 280 -720 280 -660 {
@@ -141,13 +139,13 @@ lab=cmp_p2}
 N 940 -580 1000 -580 {
 lab=cmp_p2}
 N 1230 -480 1280 -480 {
-lab=#net3}
+lab=#net2}
 N 1330 -440 1330 -380 {
 lab=cmp_p1}
 N 210 -350 280 -350 {
 lab=pre_voutn}
 N 80 -350 130 -350 {
-lab=#net4}
+lab=#net3}
 N 30 -310 30 -250 {
 lab=cmp_p2}
 N 280 -660 280 -350 {
@@ -184,10 +182,13 @@ N -180 -830 60 -830 {
 lab=cmp_p1}
 N 60 -830 60 -810 {
 lab=cmp_p1}
-N 680 -610 680 -540 {lab=#net2}
-N 680 -820 680 -640 {lab=vdd}
+N 680 -820 680 -690 {lab=vdd}
 N 280 -820 680 -820 {
 lab=vdd}
+N 680 -580 680 -540 {lab=inSource}
+N 540 -540 680 -540 {
+lab=inSource}
+N 680 -660 680 -640 {lab=#net4}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
@@ -261,5 +262,7 @@ C {devices/lab_wire.sym} 110 -530 0 0 {name=p43 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 110 -770 0 0 {name=p44 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -80 -470 0 1 {name=p45 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} -80 -830 0 1 {name=p46 sig_type=std_logic lab=cmp_p1}
-C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 720 -640 0 1 {name=x20}
-C {devices/lab_wire.sym} 720 -640 0 1 {name=p50 sig_type=std_logic lab=pbias}
+C {devices/lab_wire.sym} 720 -690 0 1 {name=p50 sig_type=std_logic lab=pbias}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 720 -690 0 1 {name=x1 }
+C {devices/vsource.sym} 680 -610 0 0 {name=v_cmpTail value=0 savecurrent=true}
+C {devices/lab_wire.sym} 680 -540 0 1 {name=p47 sig_type=std_logic lab=inSource}

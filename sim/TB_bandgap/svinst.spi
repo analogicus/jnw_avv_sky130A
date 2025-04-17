@@ -12,11 +12,11 @@ adut [clk
 + PB
 + PC
 + PD
++ s_BG2CMP
 + src_n
 + snk
 + cmp_p1
 + cmp_p2
-+ sample
 + rst
 + valid
 + preChrg
@@ -39,11 +39,11 @@ Rsvi8 PA 0 1G
 Rsvi9 PB 0 1G
 Rsvi10 PC 0 1G
 Rsvi11 PD 0 1G
-Rsvi12 src_n 0 1G
-Rsvi13 snk 0 1G
-Rsvi14 cmp_p1 0 1G
-Rsvi15 cmp_p2 0 1G
-Rsvi16 sample 0 1G
+Rsvi12 s_BG2CMP 0 1G
+Rsvi13 src_n 0 1G
+Rsvi14 snk 0 1G
+Rsvi15 cmp_p1 0 1G
+Rsvi16 cmp_p2 0 1G
 Rsvi17 rst 0 1G
 Rsvi18 valid 0 1G
 Rsvi19 preChrg 0 1G
@@ -67,6 +67,8 @@ Rsvi20 setupBias 0 1G
 
 .save v(PD)
 
+.save v(s_BG2CMP)
+
 .save v(src_n)
 
 .save v(snk)
@@ -74,8 +76,6 @@ Rsvi20 setupBias 0 1G
 .save v(cmp_p1)
 
 .save v(cmp_p2)
-
-.save v(sample)
 
 .save v(rst)
 

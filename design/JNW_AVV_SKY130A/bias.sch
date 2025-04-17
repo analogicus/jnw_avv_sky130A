@@ -4,9 +4,9 @@ K {}
 V {}
 S {}
 E {}
-N -40 120 50 120 {
+N -40 310 50 310 {
 lab=nbias}
-N -40 120 -40 140 {
+N -40 310 -40 330 {
 lab=nbias}
 N 170 -20 170 10 {
 lab=pbias}
@@ -18,31 +18,23 @@ N 80 -50 130 -50 {
 lab=pbias}
 N 170 -110 170 -50 {
 lab=vdd}
-N -40 170 -40 220 {
+N -40 360 -40 410 {
 lab=vss}
-N -100 -30 -100 220 {
+N -100 410 -40 410 {
 lab=vss}
-N -100 220 -40 220 {
-lab=vss}
-N -100 -30 -60 -30 {
-lab=vss}
-N 50 120 50 170 {
+N 50 310 50 360 {
 lab=nbias}
-N 0 170 50 170 {
+N 0 360 50 360 {
 lab=nbias}
-N 170 170 170 220 {
+N 170 360 170 410 {
 lab=vss}
-N 50 170 130 170 {
-lab=nbias}
-N -40 90 -40 120 {
+N 50 360 130 360 {
 lab=nbias}
 N 170 10 170 40 {
 lab=pbias}
-N 170 100 170 140 {
-lab=#net1}
 N -100 -190 -60 -190 {
 lab=vss}
-N -100 -110 -100 -30 {
+N -100 -30 -100 410 {
 lab=vss}
 N -40 -430 -40 -390 {
 lab=vdd}
@@ -62,7 +54,7 @@ N -40 -390 30 -390 {
 lab=vdd}
 N -100 -190 -100 -110 {
 lab=vss}
-N -40 220 170 220 {
+N -40 410 170 410 {
 lab=vss}
 N 30 -90 30 20 {
 lab=tg_bot}
@@ -76,13 +68,18 @@ N -100 -270 -60 -270 {
 lab=vss}
 N -100 -350 -100 -270 {
 lab=vss}
+N -40 90 -40 310 {lab=nbias}
+N 170 100 170 330 {lab=#net1}
+N -100 -30 -60 -30 {lab=vss}
+N -100 -110 -100 -30 {
+lab=vss}
 C {devices/lab_wire.sym} 130 10 0 0 {name=p32 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} -40 -430 0 1 {name=p34 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 50 220 0 1 {name=p35 sig_type=std_logic lab=vss}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 0 170 0 1 {name=x28 }
+C {devices/lab_wire.sym} 50 410 0 1 {name=p35 sig_type=std_logic lab=vss}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 0 360 0 1 {name=x28 }
 C {devices/lab_wire.sym} 170 -110 0 0 {name=p13 sig_type=std_logic lab=vdd}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 130 170 0 0 {name=x4 }
-C {devices/lab_wire.sym} 110 170 0 0 {name=p14 sig_type=std_logic lab=nbias}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 130 360 0 0 {name=x4 }
+C {devices/lab_wire.sym} 110 360 0 0 {name=p14 sig_type=std_logic lab=nbias}
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} -40 10 1 1 {name=x26 }
 C {devices/vsource.sym} -40 60 0 0 {name=v_nbias value=0 savecurrent=true}
 C {devices/vsource.sym} 170 70 0 0 {name=v_pbias value=0 savecurrent=true}

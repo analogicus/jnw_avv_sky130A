@@ -1,5 +1,4 @@
-v {xschem version=3.4.6RC file_version=1.2
-}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {type=subcircuit
 format="@name @pinlist @symname"
@@ -51,7 +50,7 @@ B 5 -152.5 77.5 -147.5 82.5 {name=PI2 dir=in}
 B 5 -152.5 97.5 -147.5 102.5 {name=PII1 dir=in}
 B 5 -152.5 117.5 -147.5 122.5 {name=dummy dir=in}
 B 5 -152.5 137.5 -147.5 142.5 {name=PII2 dir=in}
-B 5 -152.5 157.5 -147.5 162.5 {name=sample dir=in}
+B 5 -152.5 157.5 -147.5 162.5 {name=s_BG2CMP dir=in}
 B 5 -152.5 177.5 -147.5 182.5 {name=cmp_p1 dir=in}
 B 5 -152.5 197.5 -147.5 202.5 {name=cmp_p2 dir=in}
 T {@symname} -63 -6 0 0 0.3 0.3 {}
@@ -73,6 +72,6 @@ T {PI2} -125 76 0 0 0.2 0.2 {}
 T {PII1} -125 96 0 0 0.2 0.2 {}
 T {dummy} -125 116 0 0 0.2 0.2 {}
 T {PII2} -125 136 0 0 0.2 0.2 {}
-T {sample} -125 156 0 0 0.2 0.2 {}
+T {s_BG2CMP} -125 156 0 0 0.2 0.2 {}
 T {cmp_p1} -125 176 0 0 0.2 0.2 {}
 T {cmp_p2} -125 196 0 0 0.2 0.2 {}
