@@ -179,10 +179,10 @@ always_ff @(posedge clk) begin
                 count <= count + 1;
                 PA <= 1;
                 PB <= 1;
-                // s_BG2CMP <= 1;
+                s_BG2CMP <= 1;
                 if (count > 4) begin
                     intermCmp <= cmp;
-                    // s_BG2CMP <= 0;
+                    s_BG2CMP <= 0;
                     count <= 0;
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
@@ -200,11 +200,11 @@ always_ff @(posedge clk) begin
                 count <= count + 1;
                 PA <= 1;
                 PC <= 1;
-                // s_BG2CMP <= 1;
+                s_BG2CMP <= 1;
                 if (count > 4) begin
                     count <= 0;
                     intermCmp <= cmp;
-                    // s_BG2CMP <= 0;
+                    s_BG2CMP <= 0;
                     if (Hcharged == 1 ) begin
                         PA <= 0;
                         PC <= 0;
@@ -236,7 +236,7 @@ always_ff @(posedge clk) begin
             
             
             PRECHARGE: begin
-                if (count > 62) begin
+                if (count > 15) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BIGDIODE;
                     count <= 0;

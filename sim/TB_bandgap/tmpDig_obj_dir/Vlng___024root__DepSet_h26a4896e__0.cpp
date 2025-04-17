@@ -177,8 +177,10 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                                                    + (IData)(vlSelfRef.tmpDig__DOT__count)));
             vlSelfRef.PA = 1U;
             vlSelfRef.PB = 1U;
+            vlSelfRef.s_BG2CMP = 1U;
             if ((4U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 vlSelfRef.tmpDig__DOT__intermCmp = vlSelfRef.cmp;
+                vlSelfRef.s_BG2CMP = 0U;
                 __Vdly__tmpDig__DOT__count = 0U;
                 if (vlSelfRef.tmpDig__DOT__Lcharged) {
                     __Vdly__tmpDig__DOT__state = 5U;
@@ -195,9 +197,11 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                                                    + (IData)(vlSelfRef.tmpDig__DOT__count)));
             vlSelfRef.PA = 1U;
             vlSelfRef.PC = 1U;
+            vlSelfRef.s_BG2CMP = 1U;
             if ((4U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 __Vdly__tmpDig__DOT__count = 0U;
                 vlSelfRef.tmpDig__DOT__intermCmp = vlSelfRef.cmp;
+                vlSelfRef.s_BG2CMP = 0U;
                 if (vlSelfRef.tmpDig__DOT__Hcharged) {
                     vlSelfRef.PA = 0U;
                     vlSelfRef.PC = 0U;
@@ -226,7 +230,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             vlSelfRef.tmpDig__DOT__Lcharged = 0U;
             __Vdly__tmpDig__DOT__Hcharged = 0U;
         } else {
-            if ((0x3eU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+            if ((0xfU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 __Vdly__tmpDig__DOT__afterBlank = 2U;
                 __Vdly__cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
                 __Vdly__cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
