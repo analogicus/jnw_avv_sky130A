@@ -38,6 +38,18 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     vlSelfRef.cmp_p2 = 0U;
     vlSelfRef.tmpDig__DOT__snk_ctrl = 0U;
     vlSelfRef.tmpDig__DOT__src_ctrl = 0U;
+    vlSelfRef.s_BG2CMP = 0U;
+    vlSelfRef.s_BgCtrl = 0U;
+    vlSelfRef.s_PtatCtrl = 0U;
+    vlSelfRef.s_Cap2CMP = 0U;
+    vlSelfRef.s_Ref2CMP = 0U;
+    vlSelfRef.s_CapRst = 0U;
+    vlSelfRef.s_PtatOut = 0U;
+    vlSelfRef.s_Rdiscon_N = 1U;
+    vlSelfRef.preChrg = 0U;
+    vlSelfRef.setupBias = 0U;
+    vlSelfRef.tmpDig__DOT__setupDone = 0U;
+    vlSelfRef.tmpDig__DOT__count = 0U;
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_final(Vlng___024root* vlSelf) {
@@ -123,6 +135,13 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->PC = VL_RAND_RESET_I(1);
     vlSelf->PD = VL_RAND_RESET_I(1);
     vlSelf->s_BG2CMP = VL_RAND_RESET_I(1);
+    vlSelf->s_BgCtrl = VL_RAND_RESET_I(1);
+    vlSelf->s_PtatCtrl = VL_RAND_RESET_I(1);
+    vlSelf->s_Cap2CMP = VL_RAND_RESET_I(1);
+    vlSelf->s_Ref2CMP = VL_RAND_RESET_I(1);
+    vlSelf->s_CapRst = VL_RAND_RESET_I(1);
+    vlSelf->s_PtatOut = VL_RAND_RESET_I(1);
+    vlSelf->s_Rdiscon_N = VL_RAND_RESET_I(1);
     vlSelf->src_n = VL_RAND_RESET_I(1);
     vlSelf->snk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);

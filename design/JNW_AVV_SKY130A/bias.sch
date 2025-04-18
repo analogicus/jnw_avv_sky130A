@@ -88,12 +88,13 @@ C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} -40 -150 1 1 {name=x6 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} -40 -230 1 1 {name=x8 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} -40 -310 1 1 {name=x9 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 130 -50 0 0 {name=x10 }
-C {devices/ipin.sym} 130 -140 2 0 {name=p12 lab=setupBias}
+C {devices/ipin.sym} -180 -310 0 0 {name=p12 lab=setupBias}
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 30 -310 1 1 {name=x13 }
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 30 -200 1 0 {name=x14 }
 C {devices/ipin.sym} -180 -340 0 0 {name=p1 lab=vdd}
-C {devices/ipin.sym} -180 -310 0 0 {name=p2 lab=vss}
+C {devices/ipin.sym} -180 -280 0 0 {name=p2 lab=vss}
 C {devices/opin.sym} 160 -350 0 0 {name=p3 lab=pbias}
 C {devices/opin.sym} 160 -320 0 0 {name=p4 lab=nbias}
 C {devices/lab_wire.sym} 30 -220 0 1 {name=p5 sig_type=std_logic lab=tg_top}
 C {devices/lab_wire.sym} 30 -55 0 1 {name=p6 sig_type=std_logic lab=tg_bot}
+C {devices/lab_wire.sym} 80 -140 0 1 {name=p7 sig_type=std_logic lab=setupBias}

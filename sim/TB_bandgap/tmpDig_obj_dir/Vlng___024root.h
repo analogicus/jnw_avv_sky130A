@@ -29,6 +29,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     VL_OUT8(PC,0,0);
     VL_OUT8(PD,0,0);
     VL_OUT8(s_BG2CMP,0,0);
+    VL_OUT8(s_BgCtrl,0,0);
+    VL_OUT8(s_PtatCtrl,0,0);
+    VL_OUT8(s_Cap2CMP,0,0);
+    VL_OUT8(s_Ref2CMP,0,0);
+    VL_OUT8(s_CapRst,0,0);
+    VL_OUT8(s_PtatOut,0,0);
+    VL_OUT8(s_Rdiscon_N,0,0);
     VL_OUT8(src_n,0,0);
     VL_OUT8(snk,0,0);
     VL_OUT8(cmp_p1,0,0);

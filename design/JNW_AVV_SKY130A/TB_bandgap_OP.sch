@@ -12,8 +12,8 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.3836418e-05
-x2=2.9036419e-05
+x1=3.615773e-05
+x2=4.1357731e-05
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -28,68 +28,89 @@ logy=0
 rainbow=0
 rawfile=/pri/alve/aicex/ip/jnw_avv_sky130A/sim/TB_bandgap/output_tran/tran_SchGtKttTtVt.raw
 autoload=0}
-N 220 -510 250 -510 {
+N 210 -600 240 -600 {
 lab=setupBias}
-N 220 -490 250 -490 {
+N 210 -580 240 -580 {
 lab=vdd}
-N 220 -230 250 -230 {
+N 210 -320 240 -320 {
 lab=PII2}
-N 220 -250 250 -250 {
+N 210 -340 240 -340 {
 lab=dummy}
-N 220 -270 250 -270 {
+N 210 -360 240 -360 {
 lab=PII1}
-N 220 -290 250 -290 {
+N 210 -380 240 -380 {
 lab=PI2}
-N 220 -310 250 -310 {
+N 210 -400 240 -400 {
 lab=PI1}
-N 220 -330 250 -330 {
+N 210 -420 240 -420 {
 lab=PD}
-N 220 -350 250 -350 {
+N 210 -440 240 -440 {
 lab=PC}
-N 220 -370 250 -370 {
+N 210 -460 240 -460 {
 lab=PB}
-N 220 -390 250 -390 {
+N 210 -480 240 -480 {
 lab=PA}
-N 220 -410 250 -410 {
+N 210 -500 240 -500 {
 lab=snk}
-N 220 -450 250 -450 {
+N 210 -540 240 -540 {
 lab=preChrg}
-N 220 -430 250 -430 {
+N 210 -520 240 -520 {
 lab=src_n}
-N 220 -470 250 -470 {
+N 210 -560 240 -560 {
 lab=vss}
-N 550 -510 580 -510 {
+N 540 -600 570 -600 {
 lab=vref}
-N 550 -490 580 -490 {
+N 540 -580 570 -580 {
 lab=cmp}
-N 220 -210 250 -210 {
+N 210 -300 240 -300 {
 lab=s_BG2CMP}
-N 220 -190 250 -190 {
+N 210 -280 240 -280 {
 lab=cmp_p1}
-N 220 -170 250 -170 {
+N 210 -260 240 -260 {
 lab=cmp_p2}
-C {devices/launcher.sym} 520 -100 0 0 {name=h5
+N 210 -200 240 -200 {
+lab=s_Cap2CMP}
+N 210 -220 240 -220 {
+lab=s_PtatCtrl}
+N 210 -240 240 -240 {
+lab=s_BgCtrl}
+N 210 -180 240 -180 {
+lab=s_Ref2CMP}
+N 210 -160 240 -160 {
+lab=s_CapRst}
+N 210 -140 240 -140 {
+lab=s_PtatOut}
+N 210 -120 240 -120 {
+lab=s_Rdiscon}
+C {devices/launcher.sym} 750 -110 0 0 {name=h5
 descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVt_20.raw tran"
+tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVt_-40.raw tran"
 }
-C {JNW_AVV_SKY130A/TB_bandgap.sym} 400 -370 0 0 {name=xdut}
-C {devices/lab_wire.sym} 220 -510 0 0 {name=p8 sig_type=std_logic lab=setupBias}
-C {devices/lab_wire.sym} 220 -470 0 0 {name=p1 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 220 -450 0 0 {name=p2 sig_type=std_logic lab=preChrg}
-C {devices/lab_wire.sym} 220 -430 0 0 {name=p3 sig_type=std_logic lab=src_n}
-C {devices/lab_wire.sym} 220 -410 0 0 {name=p4 sig_type=std_logic lab=snk}
-C {devices/lab_wire.sym} 220 -390 0 0 {name=p5 sig_type=std_logic lab=PA}
-C {devices/lab_wire.sym} 220 -370 0 0 {name=p6 sig_type=std_logic lab=PB}
-C {devices/lab_wire.sym} 220 -350 0 0 {name=p7 sig_type=std_logic lab=PC}
-C {devices/lab_wire.sym} 220 -310 0 0 {name=p9 sig_type=std_logic lab=PI1}
-C {devices/lab_wire.sym} 220 -330 0 0 {name=p10 sig_type=std_logic lab=PD}
-C {devices/lab_wire.sym} 220 -290 0 0 {name=p11 sig_type=std_logic lab=PI2}
-C {devices/lab_wire.sym} 220 -270 0 0 {name=p12 sig_type=std_logic lab=PII1}
-C {devices/lab_wire.sym} 220 -250 0 0 {name=p13 sig_type=std_logic lab=dummy}
-C {devices/lab_wire.sym} 220 -230 0 0 {name=p14 sig_type=std_logic lab=PII2}
-C {devices/lab_wire.sym} 220 -490 0 0 {name=p15 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 580 -510 0 1 {name=p16 sig_type=std_logic lab=vref}
-C {devices/lab_wire.sym} 580 -490 0 1 {name=p17 sig_type=std_logic lab=cmp}
-C {devices/lab_wire.sym} 220 -210 0 0 {name=p18 sig_type=std_logic lab=s_BG2CMP}
-C {devices/lab_wire.sym} 220 -190 0 0 {name=p19 sig_type=std_logic lab=cmp_p1}
-C {devices/lab_wire.sym} 220 -170 0 0 {name=p20 sig_type=std_logic lab=cmp_p2}
+C {JNW_AVV_SKY130A/TB_bandgap.sym} 390 -460 0 0 {name=xdut}
+C {devices/lab_wire.sym} 210 -600 0 0 {name=p8 sig_type=std_logic lab=setupBias}
+C {devices/lab_wire.sym} 210 -560 0 0 {name=p1 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 210 -540 0 0 {name=p2 sig_type=std_logic lab=preChrg}
+C {devices/lab_wire.sym} 210 -520 0 0 {name=p3 sig_type=std_logic lab=src_n}
+C {devices/lab_wire.sym} 210 -500 0 0 {name=p4 sig_type=std_logic lab=snk}
+C {devices/lab_wire.sym} 210 -480 0 0 {name=p5 sig_type=std_logic lab=PA}
+C {devices/lab_wire.sym} 210 -460 0 0 {name=p6 sig_type=std_logic lab=PB}
+C {devices/lab_wire.sym} 210 -440 0 0 {name=p7 sig_type=std_logic lab=PC}
+C {devices/lab_wire.sym} 210 -400 0 0 {name=p9 sig_type=std_logic lab=PI1}
+C {devices/lab_wire.sym} 210 -420 0 0 {name=p10 sig_type=std_logic lab=PD}
+C {devices/lab_wire.sym} 210 -380 0 0 {name=p11 sig_type=std_logic lab=PI2}
+C {devices/lab_wire.sym} 210 -360 0 0 {name=p12 sig_type=std_logic lab=PII1}
+C {devices/lab_wire.sym} 210 -340 0 0 {name=p13 sig_type=std_logic lab=dummy}
+C {devices/lab_wire.sym} 210 -320 0 0 {name=p14 sig_type=std_logic lab=PII2}
+C {devices/lab_wire.sym} 210 -580 0 0 {name=p15 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 570 -600 0 1 {name=p16 sig_type=std_logic lab=vref}
+C {devices/lab_wire.sym} 570 -580 0 1 {name=p17 sig_type=std_logic lab=cmp}
+C {devices/lab_wire.sym} 210 -300 0 0 {name=p18 sig_type=std_logic lab=s_BG2CMP}
+C {devices/lab_wire.sym} 210 -280 0 0 {name=p19 sig_type=std_logic lab=cmp_p1}
+C {devices/lab_wire.sym} 210 -260 0 0 {name=p20 sig_type=std_logic lab=cmp_p2}
+C {devices/lab_wire.sym} 210 -240 0 0 {name=p21 sig_type=std_logic lab=s_BgCtrl}
+C {devices/lab_wire.sym} 210 -220 0 0 {name=p22 sig_type=std_logic lab=s_PtatCtrl}
+C {devices/lab_wire.sym} 210 -200 0 0 {name=p23 sig_type=std_logic lab=s_Cap2CMP}
+C {devices/lab_wire.sym} 210 -180 0 0 {name=p24 sig_type=std_logic lab=s_Ref2CMP}
+C {devices/lab_wire.sym} 210 -160 0 0 {name=p25 sig_type=std_logic lab=s_CapRst}
+C {devices/lab_wire.sym} 210 -140 0 0 {name=p26 sig_type=std_logic lab=s_PtatOut}
+C {devices/lab_wire.sym} 210 -120 0 0 {name=p27 sig_type=std_logic lab=s_Rdiscon}

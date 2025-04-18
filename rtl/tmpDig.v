@@ -17,6 +17,13 @@ module tmpDig (
     output logic PD,
 
     output logic s_BG2CMP,
+    output logic s_BgCtrl,
+    output logic s_PtatCtrl,
+    output logic s_Cap2CMP,
+    output logic s_Ref2CMP,
+    output logic s_CapRst,
+    output logic s_PtatOut,
+    output logic s_Rdiscon_N,
 
     output logic src_n,
     output logic snk,
@@ -41,6 +48,9 @@ parameter   PRECHARGE=0,
             BLANKBIGDIODE=7,
             INTERMEDIATE=8;
 
+parameter   BANDGAP=0,
+            TEMPSENS=1;
+
 logic [3:0] state;
 logic [3:0] afterBlank;
 logic [5:0] count;
@@ -51,7 +61,7 @@ logic [6:0] setupDone;
 logic       snk_ctrl;
 logic       src_ctrl;
 logic       intermCmp;
-logic [2:0] cmpCount;
+logic       outputState;
 
 
 always_ff @(posedge clk or posedge reset) begin
@@ -63,11 +73,22 @@ end
 
 initial begin
     state = PRECHARGE;
-    cmpCount = 0;
     cmp_p1 = 1'b1;
     cmp_p2 = 1'b0;
     snk_ctrl = 1'b0;
     src_ctrl = 1'b0;
+    s_BG2CMP = 1'b0;
+    s_BgCtrl = 1'b0;
+    s_PtatCtrl = 1'b0;
+    s_Cap2CMP = 1'b0;
+    s_Ref2CMP = 1'b0;
+    s_CapRst = 1'b0;
+    s_PtatOut = 1'b0;
+    s_Rdiscon_N = 1'b1;
+    preChrg = 1'b0;
+    setupBias = 1'b0;
+    setupDone = 0;
+    count = 0;
 end
 
 
@@ -241,6 +262,7 @@ always_ff @(posedge clk) begin
                     afterBlank <= BIGDIODE;
                     count <= 0;
                     preChrg <= 0;
+                    s_PtatCtrl <= 0;
                     cmp_p1 <= ~cmp_p1;
                     cmp_p2 <= ~cmp_p2;
                 end
@@ -249,6 +271,8 @@ always_ff @(posedge clk) begin
                     preChrg <= 1;
                     setupBias <= 1;
                 end
+                s_BgCtrl <= 1;
+                s_PtatCtrl <= 1;
                 s_BG2CMP <= 1;
                 PI2 <= 0;
                 PII2 <= 0;
@@ -261,6 +285,11 @@ always_ff @(posedge clk) begin
                 valid <= 0;
                 Hcharged <= 0;
                 Lcharged <= 0;
+                s_Cap2CMP <= 0;
+                s_Ref2CMP <= 0;
+                s_CapRst <= 0;
+                s_PtatOut <= 0;
+                s_Rdiscon_N <= 1;
             end
 
         endcase
@@ -282,10 +311,6 @@ always @(negedge clk or src_ctrl) begin
         src_n <= 0;
     end
 end
-
-
-
-
 
 
 

@@ -22,6 +22,13 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , PC{vlSymsp->TOP.PC}
     , PD{vlSymsp->TOP.PD}
     , s_BG2CMP{vlSymsp->TOP.s_BG2CMP}
+    , s_BgCtrl{vlSymsp->TOP.s_BgCtrl}
+    , s_PtatCtrl{vlSymsp->TOP.s_PtatCtrl}
+    , s_Cap2CMP{vlSymsp->TOP.s_Cap2CMP}
+    , s_Ref2CMP{vlSymsp->TOP.s_Ref2CMP}
+    , s_CapRst{vlSymsp->TOP.s_CapRst}
+    , s_PtatOut{vlSymsp->TOP.s_PtatOut}
+    , s_Rdiscon_N{vlSymsp->TOP.s_Rdiscon_N}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}

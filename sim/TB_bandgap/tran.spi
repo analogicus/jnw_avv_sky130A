@@ -93,6 +93,7 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x1.pre_voutn)
 .save v(xdut.x1.vip)
 .save v(xdut.x1.vin)
+.save i(xdut.x1.vibigdiode)
 .save v(cmp_p1)
 .save v(cmp_p2)
 
@@ -102,8 +103,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
      .option savecurrents
 #endif
 
-* .save all
-* .option savecurrents
+.save all
+.option savecurrents
 
 
 *----------------------------------------------------------------

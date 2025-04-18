@@ -13,6 +13,13 @@ adut [clk
 + PC
 + PD
 + s_BG2CMP
++ s_BgCtrl
++ s_PtatCtrl
++ s_Cap2CMP
++ s_Ref2CMP
++ s_CapRst
++ s_PtatOut
++ s_Rdiscon_N
 + src_n
 + snk
 + cmp_p1
@@ -40,14 +47,21 @@ Rsvi9 PB 0 1G
 Rsvi10 PC 0 1G
 Rsvi11 PD 0 1G
 Rsvi12 s_BG2CMP 0 1G
-Rsvi13 src_n 0 1G
-Rsvi14 snk 0 1G
-Rsvi15 cmp_p1 0 1G
-Rsvi16 cmp_p2 0 1G
-Rsvi17 rst 0 1G
-Rsvi18 valid 0 1G
-Rsvi19 preChrg 0 1G
-Rsvi20 setupBias 0 1G
+Rsvi13 s_BgCtrl 0 1G
+Rsvi14 s_PtatCtrl 0 1G
+Rsvi15 s_Cap2CMP 0 1G
+Rsvi16 s_Ref2CMP 0 1G
+Rsvi17 s_CapRst 0 1G
+Rsvi18 s_PtatOut 0 1G
+Rsvi19 s_Rdiscon_N 0 1G
+Rsvi20 src_n 0 1G
+Rsvi21 snk 0 1G
+Rsvi22 cmp_p1 0 1G
+Rsvi23 cmp_p2 0 1G
+Rsvi24 rst 0 1G
+Rsvi25 valid 0 1G
+Rsvi26 preChrg 0 1G
+Rsvi27 setupBias 0 1G
 
 .save v(PI1)
 
@@ -68,6 +82,20 @@ Rsvi20 setupBias 0 1G
 .save v(PD)
 
 .save v(s_BG2CMP)
+
+.save v(s_BgCtrl)
+
+.save v(s_PtatCtrl)
+
+.save v(s_Cap2CMP)
+
+.save v(s_Ref2CMP)
+
+.save v(s_CapRst)
+
+.save v(s_PtatOut)
+
+.save v(s_Rdiscon_N)
 
 .save v(src_n)
 

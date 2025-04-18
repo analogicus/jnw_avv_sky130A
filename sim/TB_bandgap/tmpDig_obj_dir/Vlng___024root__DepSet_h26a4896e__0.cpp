@@ -237,6 +237,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 __Vdly__tmpDig__DOT__state = 7U;
                 __Vdly__tmpDig__DOT__count = 0U;
                 vlSelfRef.preChrg = 0U;
+                vlSelfRef.s_PtatCtrl = 0U;
             } else {
                 __Vdly__tmpDig__DOT__count = (0x3fU 
                                               & ((IData)(1U) 
@@ -244,6 +245,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                 vlSelfRef.preChrg = 1U;
                 vlSelfRef.setupBias = 1U;
             }
+            vlSelfRef.s_BgCtrl = 1U;
             vlSelfRef.s_BG2CMP = 1U;
             vlSelfRef.PI2 = 0U;
             vlSelfRef.PII2 = 0U;
@@ -256,6 +258,12 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             vlSelfRef.valid = 0U;
             __Vdly__tmpDig__DOT__Hcharged = 0U;
             vlSelfRef.tmpDig__DOT__Lcharged = 0U;
+            vlSelfRef.s_Cap2CMP = 0U;
+            vlSelfRef.s_Ref2CMP = 0U;
+            vlSelfRef.s_CapRst = 0U;
+            vlSelfRef.s_PtatOut = 0U;
+            vlSelfRef.s_Rdiscon_N = 1U;
+            vlSelfRef.s_PtatCtrl = 1U;
         }
     }
     vlSelfRef.tmpDig__DOT__state = __Vdly__tmpDig__DOT__state;
