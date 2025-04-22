@@ -184,7 +184,7 @@ N -140 -260 -60 -260 {lab=snk}
 N -20 -320 -20 -260 {lab=vdd}
 N -20 -320 0 -320 {lab=vdd}
 N 600 -830 760 -830 {lab=vdd}
-N 600 -530 600 -510 {lab=#net16}
+N 600 -530 600 -510 {lab=vBgCtrl}
 N 600 -410 600 -300 {lab=#net1}
 N 260 -300 600 -300 {
 lab=#net1}
@@ -201,7 +201,7 @@ N -20 -230 -20 -200 {lab=snk_gate_n}
 N -90 -200 -20 -200 {lab=snk_gate_n}
 N 490 -200 540 -200 {lab=snk_gate_n}
 N 760 -830 760 -675 {lab=vdd}
-N 760 -605 760 -510 {lab=#net17}
+N 760 -605 760 -510 {lab=vPtatCtrl}
 N 760 -410 760 -300 {lab=#net1}
 N 800 -460 840 -460 {lab=s_PtatCtrl}
 N 670 -300 760 -300 {
@@ -355,5 +355,11 @@ C {devices/lab_wire.sym} 800 -430 1 1 {name=p9 sig_type=std_logic lab=vdd
 
 }
 C {devices/lab_wire.sym} 810 -460 0 1 {name=p14 sig_type=std_logic lab=s_PtatCtrl
+
+}
+C {devices/lab_wire.sym} 760 -530 0 1 {name=p27 sig_type=std_logic lab=vPtatCtrl
+
+}
+C {devices/lab_wire.sym} 600 -520 0 1 {name=p29 sig_type=std_logic lab=vBgCtrl
 
 }
