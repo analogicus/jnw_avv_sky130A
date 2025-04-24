@@ -130,6 +130,7 @@ always_ff @(posedge clk) begin
                 PC <= 0;
                 PD <= 0;
                 if (afterBlank == BIGDIODE) begin
+                    intermCmp <= cmp;
                     PI1 <= 1;
                 end else begin
                     PI1 <= 0;
@@ -143,50 +144,20 @@ always_ff @(posedge clk) begin
             BIGDIODE: begin
                 count <= count + 1;
                 PI2  <= 1;
-                if (setupDone == 0) begin
-                    if (cmp) begin
-                        src_ctrl <= ~src_ctrl;	
+                if (cmp == intermCmp ) begin
+                    if (!cmp) begin
+                        src_n <= 1;
+                        snk <= 0;
                     end else begin
-                        if (setupDone == 0) begin
-                            setupCount <= setupCount + 1;
-                            if (setupCount == 4) begin
-                                setupDone <= 1;
-                                setupBias <= 0;
-                                intermCmp <= cmp;
-                            end
-                        end
-                        snk_ctrl <= ~snk_ctrl;
+                        src_n <= 0;
+                        snk <= 1;
                     end
-                    if (count > 5) begin
-                        PI2  <= 0;
-                        state <= BLANKBIGDIODE;
-                        afterBlank <= BLANKDIODE;
-                    end else begin
-                        state <= BIGDIODE;
-                    end
-                end else if (count == 0) begin
-                    if (intermCmp) begin
-                        src_ctrl <= ~src_ctrl;
-                    end else begin
-                        snk_ctrl <= ~snk_ctrl;
-                    end
-                end else if (count > 10) begin
-                    PI2  <= 0;
-                    state <= BLANKBIGDIODE;
-                    afterBlank <= SMPLCMP;
-                end
-            end
-
-            SMPLCMP: begin
-
-                if (cmp == intermCmp) begin
-                    state <= BLANKBIGDIODE;
-                    afterBlank <= BIGDIODE;
-                    
                 end else begin
-                    state <= BLANKDIODE;
-                    afterBlank <= DIODE;
-                    s_BG2CMP <= 0;
+                    PI2  <= 0;
+                    snk <= 0;
+                    src_n <= 0;
+                    state <= BLANKBIGDIODE;
+                    afterBlank <= BLANKDIODE;
                 end
             end
 
@@ -204,7 +175,8 @@ always_ff @(posedge clk) begin
                         PB <= 0;
                     end else begin
                         Hcharged <= 1;
-                        state <= SMPLCMP;
+                        state <= BLANKBIGDIODE;
+                        afterBlank <= BIGDIODE;
                     end
                 end
             end
@@ -224,7 +196,8 @@ always_ff @(posedge clk) begin
                         state <= OUTPUT;
                     end else begin
                         Lcharged <= 1;
-                        state <= SMPLCMP;
+                        state <= BLANKBIGDIODE;
+                        afterBlank <= BIGDIODE;
                     end
                 end
             end
@@ -236,7 +209,8 @@ always_ff @(posedge clk) begin
                     state <= OUTPUT;
                 end else begin
                     PA <= 0;
-                    state <= SMPLCMP;
+                    state <= BLANKBIGDIODE;
+                    afterBlank <= BIGDIODE;
                     s_BG2CMP <= 1;
                 end
                 PB <= 1;
@@ -278,21 +252,21 @@ always_ff @(posedge clk) begin
     end
 end
 
-always @(negedge clk or snk_ctrl) begin
-    if (clk) begin
-        snk <= 1;
-    end else begin
-        snk <= 0;
-    end
-end
+// always @(negedge clk or snk_ctrl) begin
+//     if (clk) begin
+//         snk <= 1;
+//     end else begin
+//         snk <= 0;
+//     end
+// end
 
-always @(negedge clk or src_ctrl) begin
-    if (clk) begin
-        src_n <= 1;
-    end else begin
-        src_n <= 0;
-    end
-end
+// always @(negedge clk or src_ctrl) begin
+//     if (clk) begin
+//         src_n <= 1;
+//     end else begin
+//         src_n <= 0;
+//     end
+// end
 
 
 

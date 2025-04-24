@@ -23,8 +23,6 @@ VL_ATTR_COLD void Vlng___024root___eval_initial(Vlng___024root* vlSelf) {
     Vlng___024root___eval_initial__TOP(vlSelf);
     vlSelfRef.__Vtrigprevexpr___TOP__clk__0 = vlSelfRef.clk;
     vlSelfRef.__Vtrigprevexpr___TOP__reset__0 = vlSelfRef.reset;
-    vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0 = 0U;
-    vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0 = 0U;
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
@@ -36,8 +34,6 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     vlSelfRef.tmpDig__DOT__state = 0U;
     vlSelfRef.cmp_p1 = 1U;
     vlSelfRef.cmp_p2 = 0U;
-    vlSelfRef.tmpDig__DOT__snk_ctrl = 0U;
-    vlSelfRef.tmpDig__DOT__src_ctrl = 0U;
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_final(Vlng___024root* vlSelf) {
@@ -70,12 +66,6 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__act(Vlng___024root* vlSelf) {
     if ((2ULL & vlSelfRef.__VactTriggered.word(0U))) {
         VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge clk)\n");
     }
-    if ((4ULL & vlSelfRef.__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 2 is active: @(negedge clk or [changed] tmpDig.snk_ctrl)\n");
-    }
-    if ((8ULL & vlSelfRef.__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 3 is active: @(negedge clk or [changed] tmpDig.src_ctrl)\n");
-    }
 }
 #endif  // VL_DEBUG
 
@@ -94,12 +84,6 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__nba(Vlng___024root* vlSelf) {
     }
     if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge clk)\n");
-    }
-    if ((4ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 2 is active: @(negedge clk or [changed] tmpDig.snk_ctrl)\n");
-    }
-    if ((8ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 3 is active: @(negedge clk or [changed] tmpDig.src_ctrl)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -134,16 +118,10 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__state = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__afterBlank = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(6);
-    vlSelf->tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__setupDone = VL_RAND_RESET_I(7);
-    vlSelf->tmpDig__DOT__snk_ctrl = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__src_ctrl = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__reset__0 = VL_RAND_RESET_I(1);
-    vlSelf->__Vtrigprevexpr___TOP__tmpDig__DOT__snk_ctrl__0 = VL_RAND_RESET_I(1);
-    vlSelf->__Vtrigprevexpr___TOP__tmpDig__DOT__src_ctrl__0 = VL_RAND_RESET_I(1);
-    vlSelf->__VactDidInit = 0;
 }

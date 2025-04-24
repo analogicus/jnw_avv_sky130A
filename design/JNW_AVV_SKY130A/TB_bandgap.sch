@@ -33,9 +33,7 @@ lab=vss}
 N 1070 -240 1100 -240 {
 lab=vss}
 N 950 -750 1000 -750 {
-lab=pbias}
-N 950 -710 1000 -710 {
-lab=nbias}
+lab=cmp}
 N 1830 -330 1830 -290 {
 lab=pbias}
 N 1830 -290 1880 -290 {
@@ -100,8 +98,6 @@ C {devices/lab_wire.sym} 1100 -850 0 0 {name=p8 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1750 -260 0 0 {name=p9 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1100 -610 0 0 {name=p10 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1100 -240 0 0 {name=p11 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 990 -710 0 0 {name=p17 sig_type=std_logic lab=nbias}
-C {devices/lab_wire.sym} 990 -750 0 0 {name=p18 sig_type=std_logic lab=pbias}
 C {devices/opin.sym} 1260 -400 0 0 {name=p19 lab=vref}
 C {devices/ipin.sym} 980 -780 0 0 {name=p1 lab=src_n}
 C {devices/ipin.sym} 980 -680 0 0 {name=p20 lab=snk}
@@ -142,3 +138,4 @@ C {devices/lab_wire.sym} 1460 -270 0 1 {name=p44 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1430 -520 0 0 {name=p45 sig_type=std_logic lab=s_BG2CMP}
 C {devices/lab_wire.sym} 1430 -360 0 0 {name=p46 sig_type=std_logic lab=s_BG2CMP}
 C {devices/ipin.sym} 840 -770 0 0 {name=p47 lab=s_BG2CMP}
+C {devices/lab_wire.sym} 990 -750 0 0 {name=p17 sig_type=std_logic lab=cmp}
