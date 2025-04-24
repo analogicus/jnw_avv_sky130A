@@ -16,12 +16,13 @@ module tmpDig (
     output logic PC,
     output logic PD,
 
+    output logic s_BG2CMP,
+
     output logic src_n,
     output logic snk,
 
     output logic cmp_p1,
     output logic cmp_p2,
-    output logic sample,
 
     output logic rst,
     output logic valid,
@@ -38,20 +39,21 @@ parameter   PRECHARGE=0,
             OUTPUT=5,
             BLANKDIODE=6,
             BLANKBIGDIODE=7,
-            INTERMEDIATE=8;
+            INTERMEDIATE=8,
+            CHOPP=9;
 
 logic [3:0] state;
 logic [3:0] afterBlank;
 logic [5:0] count;
-logic [5:0] chcount;
 logic [5:0] setupCount;
 logic       Hcharged;
 logic       Lcharged;
 logic [6:0] setupDone;
 logic       snk_ctrl;
 logic       src_ctrl;
-logic       prevPump;
 logic       intermCmp;
+logic [2:0] cmpCount;
+
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -62,8 +64,9 @@ end
 
 initial begin
     state = PRECHARGE;
-    cmp_p1 = 1'b0;
-    cmp_p2 = 1'b1;
+    cmpCount = 0;
+    cmp_p1 = 1'b1;
+    cmp_p2 = 1'b0;
     snk_ctrl = 1'b0;
     src_ctrl = 1'b0;
 end
@@ -82,8 +85,7 @@ always_ff @(posedge clk) begin
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
-                cmp_p1 <= ~cmp_p1;
-                cmp_p2 <= ~cmp_p2;
+
                 if (afterBlank == DIODE) begin
                     PII1 <= 1;
                 end else begin
@@ -99,18 +101,17 @@ always_ff @(posedge clk) begin
                 count <= count + 1; 
                 PII2 <= 1;
                 if(count > 7) begin
-                    PII2 <= 0;
+                    // cmp_p1 <= ~cmp_p1;
+                    // cmp_p2 <= ~cmp_p2;
+                    PII2  <= 0;
                     count <= 0;
                     if (setupDone > 0) begin
                         if (setupDone == 1) begin
                             state <= BLANKDIODE;
                             afterBlank <= OUTPUT;
-                        end else if (!Hcharged) begin
-                            afterBlank <= HCHARGE;
-                            state <= BLANKDIODE;
                         end else begin
-                            afterBlank <= LCHARGE;
-                            state <= BLANKDIODE;
+                            state <= CHOPP;
+
                         end
                     end else begin
                         afterBlank <= BLANKBIGDIODE;
@@ -119,19 +120,14 @@ always_ff @(posedge clk) begin
                 end
             end
 
-
             BLANKBIGDIODE: begin
-                count <= 0;
                 PA <= 0;
                 PB <= 0;
                 PC <= 0;
                 PD <= 0;
                 if (afterBlank == BIGDIODE) begin
-                    intermCmp <= cmp;
                     PI1 <= 1;
                 end else begin
-                    cmp_p1 <= ~cmp_p1;
-                    cmp_p2 <= ~cmp_p2;
                     PI1 <= 0;
                 end
                 state <= afterBlank;
@@ -142,22 +138,22 @@ always_ff @(posedge clk) begin
 
             BIGDIODE: begin
                 count <= count + 1;
-                PI2 <= 1;
+                PI2  <= 1;
                 if (setupDone == 0) begin
                     if (cmp) begin
                         src_ctrl <= ~src_ctrl;	
                     end else begin
                         if (setupDone == 0) begin
                             setupCount <= setupCount + 1;
-                            if (setupCount == 7) begin
+                            if (setupCount == 4) begin
                                 setupDone <= 1;
                                 setupBias <= 0;
                             end
                         end
                         snk_ctrl <= ~snk_ctrl;
                     end
-                    if (count > 2) begin
-                        PI2 <= 0;
+                    if (count > 5) begin
+                        PI2  <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= BLANKDIODE;
                     end else begin
@@ -170,17 +166,36 @@ always_ff @(posedge clk) begin
                         snk_ctrl <= ~snk_ctrl;
                     end
                 end else if (count > 10) begin
-                    PI2 <= 0;
+                    PI2  <= 0;
                     state <= BLANKBIGDIODE;
                     afterBlank <= BLANKDIODE;
-                end 
+                end
+            end
+
+            CHOPP: begin
+                if (cmp == intermCmp) begin
+                    afterBlank <= BIGDIODE;
+                    state <= BLANKBIGDIODE;
+                end else begin
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
+                    if (!Hcharged) begin
+                        state <= HCHARGE;
+                    end else begin
+                        state <= LCHARGE;
+                    end
+                end
             end
 
             HCHARGE: begin
                 count <= count + 1;
                 PA <= 1;
                 PB <= 1;
+                // s_BG2CMP <= 1;
                 if (count > 4) begin
+                    intermCmp <= cmp;
+                    // s_BG2CMP <= 0;
+                    count <= 0;
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
                         PA <= 0;
@@ -197,7 +212,11 @@ always_ff @(posedge clk) begin
                 count <= count + 1;
                 PA <= 1;
                 PC <= 1;
+                s_BG2CMP <= 1;
                 if (count > 4) begin
+                    count <= 0;
+                    intermCmp <= cmp;
+                    // s_BG2CMP <= 0;
                     if (Hcharged == 1 ) begin
                         PA <= 0;
                         PC <= 0;
@@ -229,17 +248,20 @@ always_ff @(posedge clk) begin
             
             
             PRECHARGE: begin
-                if (count > 10) begin
+                if (count > 25) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BIGDIODE;
                     count <= 0;
                     preChrg <= 0;
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
                 end
                 else begin
                     count <= count + 1;
                     preChrg <= 1;
                     setupBias <= 1;
                 end
+                s_BG2CMP <= 1;
                 PI2 <= 0;
                 PII2 <= 0;
                 PII1 <= 0;
@@ -272,5 +294,53 @@ always @(negedge clk or src_ctrl) begin
         src_n <= 0;
     end
 end
+
+
+
+
+
+
+
+// always_ff @(posedge clk) begin
+//     if (setupDone > 1) begin
+//         if(state != BLANKBIGDIODE) begin
+//             cmp_p1 <= ~cmp_p1;
+//             cmp_p2 <= ~cmp_p2;
+//             cmpCount <= 0;
+//         end else begin
+//             cmpCount <= cmpCount + 1;
+//         end
+//     end
+// end
+
+            // BLANKBIGDIODE: begin
+            //     PA<= 0;
+            //     PB <= 0;
+            //     PC <= 0;
+            //     PD <= 0;
+            //     if (afterBlank == BIGDIODE) begin
+            //         s_BG2CMP <= 1;
+            //         PI1 <= 1;
+            //         if (setupDone > 0) begin
+            //             if (count > 1) begin
+            //                 intermCmp <= cmp;
+            //                 s_BG2CMP <= 0;
+            //                 state <= afterBlank;
+            //                 count <= 0;
+            //             end else begin
+            //                 count <= count + 1;
+            //             end
+            //         end else begin
+            //             state <= afterBlank;
+            //         end
+            //     end else begin
+            //         PI1 <= 0;
+            //         state <= afterBlank;
+            //     end
+            //     if (afterBlank == BLANKDIODE) begin
+            //         afterBlank <= DIODE;
+            //     end
+            // end
+
 
 endmodule

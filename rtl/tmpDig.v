@@ -39,7 +39,8 @@ parameter   PRECHARGE=0,
             OUTPUT=5,
             BLANKDIODE=6,
             BLANKBIGDIODE=7,
-            INTERMEDIATE=8;
+            INTERMEDIATE=8,
+            SMPLCMP=9;
 
 logic [3:0] state;
 logic [3:0] afterBlank;
@@ -122,8 +123,8 @@ always_ff @(posedge clk) begin
                 end
             end
 
-
             BLANKBIGDIODE: begin
+                count <= 0;
                 PA <= 0;
                 PB <= 0;
                 PC <= 0;
@@ -151,6 +152,7 @@ always_ff @(posedge clk) begin
                             if (setupCount == 4) begin
                                 setupDone <= 1;
                                 setupBias <= 0;
+                                intermCmp <= cmp;
                             end
                         end
                         snk_ctrl <= ~snk_ctrl;
@@ -171,7 +173,20 @@ always_ff @(posedge clk) begin
                 end else if (count > 10) begin
                     PI2  <= 0;
                     state <= BLANKBIGDIODE;
-                    afterBlank <= BLANKDIODE;
+                    afterBlank <= SMPLCMP;
+                end
+            end
+
+            SMPLCMP: begin
+
+                if (cmp == intermCmp) begin
+                    state <= BLANKBIGDIODE;
+                    afterBlank <= BIGDIODE;
+                    
+                end else begin
+                    state <= BLANKDIODE;
+                    afterBlank <= DIODE;
+                    s_BG2CMP <= 0;
                 end
             end
 
@@ -182,7 +197,6 @@ always_ff @(posedge clk) begin
                 s_BG2CMP <= 1;
                 if (count > 4) begin
                     intermCmp <= cmp;
-                    s_BG2CMP <= 0;
                     count <= 0;
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
@@ -190,8 +204,7 @@ always_ff @(posedge clk) begin
                         PB <= 0;
                     end else begin
                         Hcharged <= 1;
-                        state <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
+                        state <= SMPLCMP;
                     end
                 end
             end
@@ -211,8 +224,7 @@ always_ff @(posedge clk) begin
                         state <= OUTPUT;
                     end else begin
                         Lcharged <= 1;
-                        state <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
+                        state <= SMPLCMP;
                     end
                 end
             end
@@ -224,8 +236,8 @@ always_ff @(posedge clk) begin
                     state <= OUTPUT;
                 end else begin
                     PA <= 0;
-                    state <= BLANKBIGDIODE;
-                    afterBlank <= BIGDIODE;
+                    state <= SMPLCMP;
+                    s_BG2CMP <= 1;
                 end
                 PB <= 1;
                 PC <= 1;
@@ -233,10 +245,9 @@ always_ff @(posedge clk) begin
                 Lcharged <= 0;
                 Hcharged <= 0;
             end
-            
-            
+                       
             PRECHARGE: begin
-                if (count > 15) begin
+                if (count > 25) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BIGDIODE;
                     count <= 0;

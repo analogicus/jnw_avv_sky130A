@@ -101,9 +101,7 @@ lab=preChrg}
 N 655 -90 670 -90 {
 lab=vss}
 N 670 -60 670 -10 {
-lab=Vpre}
-N 635 -10 670 -10 {
-lab=Vpre}
+lab=#net13}
 N 670 -300 670 -180 {
 lab=#net1}
 N 600 -300 670 -300 {
@@ -115,17 +113,17 @@ N 880 -720 910 -720 {lab=Vpre}
 N 880 -640 910 -640 {lab=#net5}
 N 860 -680 890 -680 {lab=vss}
 N 880 -790 880 -740 {lab=Vpre}
-N 880 -900 880 -870 {lab=#net13}
+N 880 -900 880 -870 {lab=#net14}
 N 860 -1160 860 -680 {
 lab=vss}
 N -680 -300 -480 -300 {
-lab=#net14}
+lab=#net15}
 N -440 -350 -440 -330 {
 lab=vdd}
 N -440 -250 -440 -210 {
 lab=vss}
 N -920 -300 -920 -250 {
-lab=#net14}
+lab=#net15}
 N -630 -280 -630 -250 {
 lab=snk_cap}
 N -630 -280 -480 -280 {
@@ -151,9 +149,9 @@ lab=snk_gate}
 N 70 -240 110 -240 {
 lab=vdd}
 N -790 -250 -730 -250 {
-lab=#net15}
+lab=#net16}
 N -920 -250 -870 -250 {
-lab=#net14}
+lab=#net15}
 N -830 -210 -790 -210 {
 lab=vss}
 N -830 -290 -790 -290 {
@@ -163,17 +161,17 @@ lab=vss}
 N 50 -160 110 -160 {
 lab=vss}
 N -950 -300 -920 -300 {
-lab=#net14}
+lab=#net15}
 N -600 -350 -600 -340 {
 lab=vdd}
 N -570 -350 -440 -350 {
 lab=vdd}
 N -680 -310 -640 -310 {
-lab=#net14}
+lab=#net15}
 N -680 -310 -680 -300 {
-lab=#net14}
+lab=#net15}
 N -920 -300 -680 -300 {
-lab=#net14}
+lab=#net15}
 N -600 -310 -570 -310 {
 lab=vdd}
 N -570 -350 -570 -310 {
@@ -202,6 +200,8 @@ N -20 -320 -20 -260 {lab=vdd}
 N -20 -320 0 -320 {lab=vdd}
 N -20 -230 -20 -200 {lab=snk_gate_n}
 N -90 -200 -20 -200 {lab=snk_gate_n}
+N 670 50 670 110 {lab=vss}
+N 670 110 700 110 {lab=vss}
 C {devices/ipin.sym} 320 -830 0 0 {name=p1 lab=vdd}
 C {devices/opin.sym} 900 -300 0 0 {name=p2 lab=vctrl}
 C {devices/ipin.sym} -30 180 0 0 {name=p3 lab=vss
@@ -218,7 +218,6 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 220 140 0 0 {name=x4 }
 C {devices/lab_wire.sym} 285 -380 0 1 {name=p22 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 915 -410 0 1 {name=p17 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 925 -740 0 1 {name=p13 sig_type=std_logic lab=Vpre}
-C {devices/lab_wire.sym} 635 -10 0 0 {name=p20 sig_type=std_logic lab=Vpre}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 220 -380 0 0 {name=x12 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 220 -200 0 0 {name=x19 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 480 -380 0 1 {name=x21 }
@@ -255,7 +254,7 @@ C {devices/lab_wire.sym} -475 -350 0 1 {name=p70 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} -475 -210 0 1 {name=p71 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 185 -380 0 0 {name=p72 sig_type=std_logic lab=src_gate_n}
 C {devices/lab_wire.sym} 215 -200 0 0 {name=p73 sig_type=std_logic lab=snk_gate}
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} -540 -220 0 0 {name=x6[3:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} -540 -220 0 0 {name=x6[15:0]}
 C {devices/lab_wire.sym} -495 -280 0 0 {name=p77 sig_type=std_logic lab=snk_cap}
 C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 70 -300 0 0 {name=x37 }
 C {devices/lab_wire.sym} 125 -340 0 1 {name=p78 sig_type=std_logic lab=vdd}
@@ -315,3 +314,5 @@ C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} -60 -260 0 0 {name=x55 }
 C {devices/lab_wire.sym} -20 -320 0 1 {name=p98 sig_type=std_logic lab=vdd
 
 }
+C {devices/vsource.sym} 670 20 0 0 {name=V_iPreCharge6 value=410m savecurrent=true}
+C {devices/lab_wire.sym} 675 110 0 1 {name=p20 sig_type=std_logic lab=vss}

@@ -26,22 +26,26 @@ initial begin
     sample = 1'b0;
 end
 
+// always_ff @(posedge clk) begin
+//     cmp_p1 <= ~cmp_p1;
+//     cmp_p2 <= ~cmp_p2;
+// end
 
-always_ff @(posedge clk) begin
-    if(count == 3) begin
-        count <= 0;
-        cmp_p1 <= ~cmp_p1;
-        cmp_p2 <= ~cmp_p2;
-        sample <= 1'b0;
-    end else if(count == 1) begin
-        sample <= 1'b1;
-        count <= count + 1;
-    end
-    else begin
-        sample <= 1'b0;
-        count <= count + 1;
-    end
-end
+// always_ff @(posedge clk) begin
+//     if(count == 3) begin
+//         count <= 0;
+//         cmp_p1 <= ~cmp_p1;
+//         cmp_p2 <= ~cmp_p2;
+//         sample <= 1'b0;
+//     end else if(count == 1) begin
+//         sample <= 1'b1;
+//         count <= count + 1;
+//     end
+//     else begin
+//         sample <= 1'b0;
+//         count <= count + 1;
+//     end
+// end
 
 
 // initial begin

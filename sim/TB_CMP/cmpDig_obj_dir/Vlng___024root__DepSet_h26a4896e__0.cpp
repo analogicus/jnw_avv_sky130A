@@ -12,44 +12,11 @@ void Vlng___024root___eval_act(Vlng___024root* vlSelf) {
     auto &vlSelfRef = std::ref(*vlSelf).get();
 }
 
-void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf);
-
 void Vlng___024root___eval_nba(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___eval_nba\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
-    // Body
-    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
-        Vlng___024root___nba_sequent__TOP__0(vlSelf);
-    }
-}
-
-VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) {
-    (void)vlSelf;  // Prevent unused variable warning
-    Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__0\n"); );
-    auto &vlSelfRef = std::ref(*vlSelf).get();
-    // Init
-    CData/*5:0*/ __Vdly__cmpDig__DOT__count;
-    __Vdly__cmpDig__DOT__count = 0;
-    // Body
-    __Vdly__cmpDig__DOT__count = vlSelfRef.cmpDig__DOT__count;
-    if ((3U == (IData)(vlSelfRef.cmpDig__DOT__count))) {
-        vlSelfRef.cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
-        vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
-        __Vdly__cmpDig__DOT__count = 0U;
-        vlSelfRef.sample = 0U;
-    } else if ((1U == (IData)(vlSelfRef.cmpDig__DOT__count))) {
-        __Vdly__cmpDig__DOT__count = (0x3fU & ((IData)(1U) 
-                                               + (IData)(vlSelfRef.cmpDig__DOT__count)));
-        vlSelfRef.sample = 1U;
-    } else {
-        __Vdly__cmpDig__DOT__count = (0x3fU & ((IData)(1U) 
-                                               + (IData)(vlSelfRef.cmpDig__DOT__count)));
-        vlSelfRef.sample = 0U;
-    }
-    vlSelfRef.cmpDig__DOT__count = __Vdly__cmpDig__DOT__count;
 }
 
 void Vlng___024root___eval_triggers__act(Vlng___024root* vlSelf);
@@ -60,7 +27,7 @@ bool Vlng___024root___eval_phase__act(Vlng___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___eval_phase__act\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Init
-    VlTriggerVec<1> __VpreTriggered;
+    VlTriggerVec<0> __VpreTriggered;
     CData/*0:0*/ __VactExecute;
     // Body
     Vlng___024root___eval_triggers__act(vlSelf);
