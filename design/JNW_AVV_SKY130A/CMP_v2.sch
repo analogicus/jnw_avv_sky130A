@@ -4,8 +4,6 @@ K {}
 V {}
 S {}
 E {}
-N 860 -460 900 -460 {
-lab=in}
 N 540 -430 540 -340 {
 lab=VipDrain}
 N 460 -340 460 -300 {
@@ -124,7 +122,7 @@ N 1270 -380 1330 -380 {
 lab=cmp_p1}
 N 1380 -480 1430 -480 {
 lab=vout}
-N -310 -760 -310 -530 {
+N -310 -640 -310 -530 {
 lab=vip}
 N -310 -760 -230 -760 {
 lab=vip}
@@ -168,6 +166,11 @@ N 1610 -600 1660 -600 {lab=vout}
 N 1420 -600 1510 -600 {lab=#net3}
 N 1310 -600 1340 -600 {lab=#net4}
 N 1270 -640 1380 -640 {lab=vdd}
+N -310 -640 -260 -640 {lab=vip}
+N -310 -760 -310 -640 {
+lab=vip}
+N 860 -460 880 -460 {lab=#net5}
+N 940 -460 950 -460 {lab=in}
 C {devices/ipin.sym} 240 -160 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 240 -820 0 0 {name=p3 lab=vdd
@@ -176,7 +179,7 @@ C {devices/ipin.sym} 240 -950 0 0 {name=p1 lab=pbias
 }
 C {devices/ipin.sym} -40 -630 0 0 {name=p5 lab=vin
 }
-C {devices/ipin.sym} -310 -640 0 0 {name=p6 lab=vip
+C {devices/ipin.sym} -260 -640 0 0 {name=p6 lab=vip
 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 420 -250 0 0 {name=x2 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 640 -270 0 1 {name=x3 }
@@ -200,7 +203,7 @@ C {devices/lab_wire.sym} 1320 -380 0 0 {name=p22 sig_type=std_logic lab=cmp_p1}
 C {devices/lab_wire.sym} -130 -530 0 0 {name=p32 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} -130 -760 0 0 {name=p33 sig_type=std_logic lab=ip}
 C {devices/lab_wire.sym} 390 -460 0 0 {name=p34 sig_type=std_logic lab=ip}
-C {devices/lab_wire.sym} 900 -460 0 1 {name=p35 sig_type=std_logic lab=in}
+C {devices/lab_wire.sym} 950 -460 0 1 {name=p35 sig_type=std_logic lab=in}
 C {devices/ipin.sym} 240 -930 0 0 {name=p11 lab=cmp_p2
 }
 C {devices/lab_wire.sym} 800 -340 0 0 {name=p12 sig_type=std_logic lab=VinDrain}
@@ -240,3 +243,4 @@ C {devices/lab_wire.sym} 1530 -650 0 0 {name=p52 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1570 -500 0 1 {name=p53 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} 1660 -600 0 0 {name=p54 sig_type=std_logic lab=vout}
 C {devices/lab_wire.sym} 490 -460 0 0 {name=p8 sig_type=std_logic lab=ipm}
+C {devices/vsource.sym} 910 -460 1 0 {name=vCMPoffset1 value=0 savecurrent=false}

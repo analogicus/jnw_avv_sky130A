@@ -38,6 +38,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     CData/*3:0*/ tmpDig__DOT__state;
     CData/*3:0*/ tmpDig__DOT__afterBlank;
     CData/*5:0*/ tmpDig__DOT__count;
+    CData/*5:0*/ tmpDig__DOT__setupCount;
+    CData/*5:0*/ tmpDig__DOT__syState;
     CData/*0:0*/ tmpDig__DOT__Hcharged;
     CData/*0:0*/ tmpDig__DOT__Lcharged;
     CData/*6:0*/ tmpDig__DOT__setupDone;
