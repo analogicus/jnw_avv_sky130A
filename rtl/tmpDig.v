@@ -108,7 +108,7 @@ always_ff @(posedge clk) begin
                 DIODE: begin
                     count <= count + 1; 
                     PII2 <= 1;
-                    if(count > 4) begin
+                    if(count > 7) begin
                         cmp_p1 <= ~cmp_p1;
                         cmp_p2 <= ~cmp_p2;
                         PII2  <= 0;
@@ -243,7 +243,7 @@ always_ff @(posedge clk) begin
         end else begin
             case(state)
                 PRECHARGE: begin
-                    if (count > 30) begin
+                    if (count > 14) begin
                         state <= BLANKDIODE;
                         afterBlank <= DIODE;
                         count <= 0;
@@ -293,7 +293,7 @@ always_ff @(posedge clk) begin
                 DIODE: begin
                     count <= count + 1; 
                     PII2 <= 1;
-                    if(count > 1) begin
+                    if(count > 5) begin
                         state <= BLANKDIODE;
                         afterBlank <= BLANKBIGDIODE;
                         PII2  <= 0;
@@ -324,7 +324,7 @@ always_ff @(posedge clk) begin
                 BIGDIODE: begin
                     count <= count + 1;
                     PI2 <= 1;
-                    if (count > 4) begin
+                    if (count > 14) begin
                         count <= 0;
                         syState <= BANDGAP;
                         intermCmp <= cmp;

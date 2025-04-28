@@ -82,7 +82,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             __Vdly__tmpDig__DOT__count = (0x3fU & ((IData)(1U) 
                                                    + (IData)(vlSelfRef.tmpDig__DOT__count)));
             vlSelfRef.PII2 = 1U;
-            if ((4U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+            if ((7U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 __Vdly__cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
                 __Vdly__cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
                 vlSelfRef.PII2 = 0U;
@@ -204,7 +204,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
             __Vdly__tmpDig__DOT__Hcharged = 0U;
         }
     } else if ((0U == (IData)(vlSelfRef.tmpDig__DOT__state))) {
-        if ((0x1eU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+        if ((0xeU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
             __Vdly__tmpDig__DOT__afterBlank = 1U;
             __Vdly__cmp_p1 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
             __Vdly__cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p2)));
@@ -246,7 +246,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
         __Vdly__tmpDig__DOT__count = (0x3fU & ((IData)(1U) 
                                                + (IData)(vlSelfRef.tmpDig__DOT__count)));
         vlSelfRef.PII2 = 1U;
-        if ((1U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+        if ((5U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
             __Vdly__tmpDig__DOT__afterBlank = 7U;
             __Vdly__tmpDig__DOT__state = 6U;
             vlSelfRef.PII2 = 0U;
@@ -270,7 +270,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
         __Vdly__tmpDig__DOT__count = (0x3fU & ((IData)(1U) 
                                                + (IData)(vlSelfRef.tmpDig__DOT__count)));
         vlSelfRef.PI2 = 1U;
-        if ((4U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
+        if ((0xeU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
             __Vdly__tmpDig__DOT__count = 0U;
             vlSelfRef.tmpDig__DOT__syState = 0xaU;
             __Vdly__tmpDig__DOT__intermCmp = vlSelfRef.cmp;
