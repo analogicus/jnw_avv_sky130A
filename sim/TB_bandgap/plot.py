@@ -167,7 +167,7 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     plt.show()
 
 
-def plotTempDependence(yamlfile):
+def plotVrefTempDependence(yamlfile):
   # Read result yaml file
   with open(yamlfile + ".yaml") as fi:
     obj = yaml.safe_load(fi)
@@ -195,6 +195,31 @@ def plotTempDependence(yamlfile):
   ax.set_title("Temperature dependence of Vref")
   plt.tight_layout()
   plt.show()
+  
+def plotSensTempDependence(yamlfile):
+    # Read result yaml file
+    print(yamlfile)
+    with open(yamlfile + ".yaml") as fi:
+        obj = yaml.safe_load(fi)
+
+    temps = dict()
+    for o in obj:
+        if (not re.search("tpulse", o)):
+            continue
+        (dontcare, temp) = o.split("_")
+        temps[int(temp)] = float(obj[o])
+    
+    temps = dict(sorted(temps.items()))
+    # print(temps)
+    fig,ax = plt.subplots(figsize=(10,5))
+    ax.set_title("Temperature dependence of Temperature sensor")
+    ax.set_ylabel("Time [s]")
+    ax.set_xlabel("Temperature [C]")
+    ax.plot(list(temps.keys()), list(temps.values()), marker='o')
+    plt.tight_layout()
+    plt.show()
+
+
 
 
 def plotVrefDistribution(folders, Temp=None):
@@ -267,7 +292,7 @@ def plotPpmDistribution(folders):
 
 # rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
 
-# plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
+# plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
 # plotTempDependence("output_tran/tran_SchGtKttTtVt")

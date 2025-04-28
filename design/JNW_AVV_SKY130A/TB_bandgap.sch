@@ -100,6 +100,15 @@ N 1530 -910 1580 -910 {lab=vin}
 N 1200 -770 1200 -750 {lab=#net1}
 N 1200 -850 1200 -830 {lab=Iptat}
 N 1200 -850 1250 -850 {lab=Iptat}
+N 1390 -290 1430 -290 {lab=s_CapRst}
+N 1390 -370 1430 -370 {lab=cmp}
+N 1510 -370 1560 -370 {lab=#net2}
+N 1560 -370 1560 -340 {lab=#net2}
+N 1560 -340 1590 -340 {lab=#net2}
+N 1510 -290 1560 -290 {lab=#net3}
+N 1560 -320 1560 -290 {lab=#net3}
+N 1560 -320 1590 -320 {lab=#net3}
+N 1680 -330 1750 -330 {lab=tmpPulse}
 C {devices/lab_wire.sym} 310 -790 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 770 -1100 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 350 -1180 0 0 {name=p4 lab=vdd}
@@ -172,7 +181,7 @@ C {devices/ipin.sym} 290 -590 0 0 {name=p77 lab=s_PtatOut}
 C {devices/lab_wire.sym} 600 -680 0 1 {name=p78 sig_type=std_logic lab=Iptat}
 C {devices/ipin.sym} 350 -1000 0 0 {name=p79 lab=s_Ref2CMP}
 C {devices/ipin.sym} 350 -980 0 0 {name=p80 lab=s_Cap2CMP}
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1260 -535 0 0 {name=x1[30:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1260 -535 0 0 {name=x1[60:0]}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1160 -560 0 0 {name=x7 }
 C {devices/lab_wire.sym} 1160 -560 0 0 {name=p58 sig_type=std_logic lab=s_CapRst}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 1160 -720 0 0 {name=x8 }
@@ -193,3 +202,14 @@ C {devices/lab_wire.sym} 1350 -680 0 0 {name=p74 sig_type=std_logic lab=s_Cap2CM
 C {devices/lab_wire.sym} 1220 -490 0 1 {name=p75 sig_type=std_logic lab=vss}
 C {devices/vsource.sym} 1200 -800 0 0 {name=vIptat value=0 savecurrent=true}
 C {devices/lab_wire.sym} 1280 -640 0 0 {name=p81 sig_type=std_logic lab=Vcap}
+C {JNW_TR_SKY130A/JNWTR_ANX1_CV.sym} 1590 -320 0 0 {name=x11 }
+C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 1430 -290 0 0 {name=x12 }
+C {devices/lab_wire.sym} 1390 -290 0 0 {name=p82 sig_type=std_logic lab=s_CapRst}
+C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 1430 -370 2 1 {name=x13 }
+C {devices/lab_wire.sym} 1470 -410 0 0 {name=p83 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 1470 -250 0 0 {name=p84 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 1630 -290 0 0 {name=p85 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 1630 -370 0 0 {name=p86 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 1390 -370 0 0 {name=p87 sig_type=std_logic lab=cmp}
+C {devices/lab_wire.sym} 1470 -330 0 0 {name=p88 sig_type=std_logic lab=vdd}
+C {devices/opin.sym} 1750 -330 0 0 {name=p89 lab=tmpPulse}

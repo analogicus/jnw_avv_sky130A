@@ -4,6 +4,7 @@ module tmpDig (
     input wire clk,
     input wire reset,
     input wire cmp,
+    input wire tmpPulse,
 
     output logic PI1,
     output logic PI2,
@@ -566,20 +567,20 @@ always_ff @(posedge clk) begin
         else if (syState == TEMPSENS) begin
             s_PtatCtrl <= 1;
             s_CapRst <= 0;
-            // if (cmp) begin
-            //     syState <= BANDGAP;
-            //     state <= BLANKBIGDIODE;
-            //     afterBlank <= BIGDIODE;
-            //     s_BgCtrl <= 1;
-            //     s_PtatCtrl <= 0;
-            //     s_Cap2CMP <= 0;
-            //     s_Ref2CMP <= 0;
-            //     s_CapRst <= 1;
-            //     s_PtatOut <= 0;
-            //     s_Rdiscon_N <= 1;
-            // end else begin
-            //     syState <= TEMPSENS;
-            // end
+            if (!tmpPulse) begin
+                syState <= BANDGAP;
+                state <= BLANKBIGDIODE;
+                afterBlank <= BIGDIODE;
+                s_BgCtrl <= 1;
+                s_PtatCtrl <= 0;
+                s_Cap2CMP <= 0;
+                s_Ref2CMP <= 0;
+                s_CapRst <= 1;
+                s_PtatOut <= 0;
+                s_Rdiscon_N <= 1;
+            end else begin
+                syState <= TEMPSENS;
+            end
         end
 
 
@@ -589,6 +590,9 @@ always_ff @(posedge clk) begin
         end
     end
 end
+
+
+// Lag en alwaysblock som teller clk cycles på tmpPulse
 
 always @(negedge clk or snk_ctrl) begin
     if (clk) begin

@@ -4,7 +4,7 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import plotTempDependence, rawplot, calcPpm, getVref, calcVrefMaxMinDelta, plotVrefDistribution
+from plot import plotSensTempDependence, plotVrefTempDependence, rawplot, calcPpm, getVref, calcVrefMaxMinDelta, plotVrefDistribution
 
 
 
@@ -13,6 +13,8 @@ def main(name):
   # rawplot(name + ".raw",'time',"v(vref),v(xdut.vn),v(xdut.vp)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
   # plotTempDependence(name + "SchGtKttTtVt")
   # plotVrefDistribution(["sim_results/MC_tempSweep_0408"], Temp="20")
+  plotSensTempDependence(name + "SchGtKttTtVt")
+  # plotSensTempDependence("output_tran/tmpSnsSim1")
 
   if (0):  # Print TC of etc and typical corners
     print("SchGtKffTtVl ppm and mean: ", calcPpm(name + "SchGtKffTtVl"), getVref(name + "SchGtKffTtVl"))
