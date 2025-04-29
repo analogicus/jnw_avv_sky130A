@@ -88,6 +88,8 @@ N 1550 -480 1550 -420 {lab=#net2}
 N 1550 -420 1650 -420 {lab=#net2}
 N 1480 -480 1550 -480 {lab=#net2}
 N 1480 -320 1550 -320 {lab=#net1}
+N 1790 -270 1820 -270 {lab=nbias}
+N 1790 -310 1790 -270 {lab=nbias}
 C {devices/lab_wire.sym} 960 -480 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 1260 -730 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 840 -810 0 0 {name=p4 lab=vdd}
@@ -139,3 +141,4 @@ C {devices/lab_wire.sym} 1430 -520 0 0 {name=p45 sig_type=std_logic lab=s_BG2CMP
 C {devices/lab_wire.sym} 1430 -360 0 0 {name=p46 sig_type=std_logic lab=s_BG2CMP}
 C {devices/ipin.sym} 840 -770 0 0 {name=p47 lab=s_BG2CMP}
 C {devices/lab_wire.sym} 990 -750 0 0 {name=p17 sig_type=std_logic lab=cmp}
+C {devices/lab_wire.sym} 1790 -270 0 1 {name=p18 sig_type=std_logic lab=nbias}

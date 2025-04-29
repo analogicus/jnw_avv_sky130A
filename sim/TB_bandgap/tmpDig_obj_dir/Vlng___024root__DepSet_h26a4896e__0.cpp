@@ -138,13 +138,17 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                         }
                     }
                 }
-            } else {
+            } else if ((5U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 __Vdly__tmpDig__DOT__afterBlank = 6U;
                 __Vdly__tmpDig__DOT__count = 0U;
                 vlSelfRef.PI2 = 0U;
                 vlSelfRef.snk = 0U;
                 vlSelfRef.src_n = 0U;
                 __Vdly__tmpDig__DOT__state = 7U;
+            } else {
+                __Vdly__tmpDig__DOT__count = (0x3fU 
+                                              & ((IData)(1U) 
+                                                 + (IData)(vlSelfRef.tmpDig__DOT__count)));
             }
         } else if ((3U == (IData)(vlSelfRef.tmpDig__DOT__state))) {
             __Vdly__tmpDig__DOT__count = (0x3fU & ((IData)(1U) 

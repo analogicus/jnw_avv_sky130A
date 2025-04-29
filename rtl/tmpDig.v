@@ -160,19 +160,21 @@ always_ff @(posedge clk) begin
                             snk <= 1;
                             if (setupDone == 0) begin
                                 setupCount <= setupCount + 1;
-                                if (setupCount == 4) begin
+                                if (setupCount == 2) begin
                                     setupDone <= 1;
                                     setupBias <= 0;
                                 end
                             end 
                         end
-                    end else begin
+                    end else if (count > 5) begin
                         count <= 0;
                         PI2  <= 0;
                         snk <= 0;
                         src_n <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= BLANKDIODE;
+                    end else begin
+                        count <= count + 1;
                     end
                 end
 
