@@ -103,8 +103,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
      .option savecurrents
 #endif
 
-* .save all
-* .option savecurrents
+.save all
+.option savecurrents
 
 
 *----------------------------------------------------------------
@@ -132,10 +132,10 @@ set fend = .raw
 * tran 200n 40u
 
 
-* foreach vtemp 20
-foreach vtemp -40 -20 0 20 40 60 80 100 125
+foreach vtemp 20
+* foreach vtemp -40 -20 0 20 40 60 80 100 125
   option temp=$vtemp
-  tran 1000n 120u
+  tran 1000n 50u
   write {cicname}_$vtemp$fend
 end
 

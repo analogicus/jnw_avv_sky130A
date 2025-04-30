@@ -132,7 +132,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
                         __Vdly__tmpDig__DOT__setupCount 
                             = (0x3fU & ((IData)(1U) 
                                         + (IData)(vlSelfRef.tmpDig__DOT__setupCount)));
-                        if ((4U == (IData)(vlSelfRef.tmpDig__DOT__setupCount))) {
+                        if ((2U == (IData)(vlSelfRef.tmpDig__DOT__setupCount))) {
                             __Vdly__tmpDig__DOT__setupDone = 1U;
                             vlSelfRef.setupBias = 0U;
                         }

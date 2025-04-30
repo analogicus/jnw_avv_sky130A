@@ -161,7 +161,6 @@ N 980 -500 980 -440 {lab=#net16}
 N 980 -1310 1320 -1310 {lab=vdd}
 N 890 -1310 980 -1310 {lab=vdd}
 N 980 -1120 980 -1080 {lab=#net11}
-N 1390 -440 1390 -340 {lab=#net17}
 N 650 -860 650 -790 {lab=src_gate_n}
 N 490 -860 650 -860 {lab=src_gate_n}
 N 650 -790 690 -790 {lab=src_gate_n}
@@ -169,16 +168,17 @@ N 770 -790 820 -790 {lab=src_gate}
 N 200 -850 200 -650 {lab=cmp}
 N 200 -850 400 -850 {lab=cmp}
 N 200 -650 200 -340 {lab=cmp}
-N 390 -400 390 -340 {lab=#net18}
-N 390 -400 420 -400 {lab=#net18}
+N 390 -400 390 -340 {lab=#net17}
+N 390 -400 420 -400 {lab=#net17}
 N 350 -420 420 -420 {lab=snk}
 N 740 -410 940 -410 {lab=snk_gate}
 N 980 -410 1090 -410 {lab=vss}
 N 650 -860 940 -860 {lab=src_gate_n}
 N 980 -860 1160 -860 {lab=vdd}
 N 200 -340 270 -340 {lab=cmp}
-N 350 -340 390 -340 {lab=#net18}
+N 350 -340 390 -340 {lab=#net17}
 N 510 -410 660 -410 {lab=snk_gate_n}
+N 1390 -440 1390 -390 {lab=Vpre}
 C {devices/lab_wire.sym} 1915 -1720 0 1 {name=p117 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1935 -880 0 1 {name=p119 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 1945 -1210 0 1 {name=p120 sig_type=std_logic lab=Vpre}
@@ -238,11 +238,11 @@ C {devices/vsource.sym} 1500 -680 1 0 {name=V_ipmosGate2 value=0 savecurrent=tru
 C {devices/vsource.sym} 1320 -1220 0 0 {name=V_icap_top2 value=0 savecurrent=true}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1430 -470 0 1 {name=x51 }
 C {devices/lab_wire.sym} 1375 -470 0 0 {name=p103 sig_type=std_logic lab=vss}
-C {devices/vsource.sym} 1390 -310 0 0 {name=V_iPreCharge4 value=410 savecurrent=true}
+C {devices/vsource.sym} 1390 -310 0 0 {name=V_iPreCharge4 value=410m savecurrent=true}
 C {devices/lab_wire.sym} 1395 -220 0 1 {name=p106 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 920 -1250 0 0 {name=p107 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 930 -140 0 0 {name=p108 sig_type=std_logic lab=nbias}
-C {devices/lab_wire.sym} 1470 -390 0 1 {name=p109 sig_type=std_logic lab=Vpre
+C {devices/lab_wire.sym} 1390 -390 0 1 {name=p109 sig_type=std_logic lab=Vpre
 
 }
 C {devices/lab_wire.sym} 615 -860 0 0 {name=p110 sig_type=std_logic lab=src_gate_n}
