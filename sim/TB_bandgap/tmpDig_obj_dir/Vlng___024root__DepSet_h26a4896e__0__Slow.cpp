@@ -33,12 +33,8 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     // Body
     vlSelfRef.tmpDig__DOT__syState = 0U;
     vlSelfRef.tmpDig__DOT__state = 0U;
-    vlSelfRef.tmpDig__DOT__syState = 0U;
     vlSelfRef.cmp_p1 = 1U;
     vlSelfRef.cmp_p2 = 0U;
-<<<<<<< HEAD
-    vlSelfRef.tmpDig__DOT__snk_ctrl = 0U;
-    vlSelfRef.tmpDig__DOT__src_ctrl = 0U;
     vlSelfRef.s_BG2CMP = 0U;
     vlSelfRef.s_BgCtrl = 0U;
     vlSelfRef.s_PtatCtrl = 0U;
@@ -50,8 +46,6 @@ VL_ATTR_COLD void Vlng___024root___eval_initial__TOP(Vlng___024root* vlSelf) {
     vlSelfRef.preChrg = 0U;
     vlSelfRef.setupBias = 0U;
     vlSelfRef.tmpDig__DOT__count = 0U;
-=======
->>>>>>> main
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_final(Vlng___024root* vlSelf) {
@@ -115,6 +109,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->reset = VL_RAND_RESET_I(1);
     vlSelf->cmp = VL_RAND_RESET_I(1);
+    vlSelf->tmpPulse = VL_RAND_RESET_I(1);
     vlSelf->PI1 = VL_RAND_RESET_I(1);
     vlSelf->PI2 = VL_RAND_RESET_I(1);
     vlSelf->PII1 = VL_RAND_RESET_I(1);
@@ -145,18 +140,9 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__afterBlank = VL_RAND_RESET_I(4);
     vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
-<<<<<<< HEAD
     vlSelf->tmpDig__DOT__stateCount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__snk_ctrl = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__src_ctrl = VL_RAND_RESET_I(1);
-=======
-    vlSelf->tmpDig__DOT__syState = VL_RAND_RESET_I(6);
-    vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__setupDone = VL_RAND_RESET_I(7);
->>>>>>> main
     vlSelf->tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__reset__0 = VL_RAND_RESET_I(1);

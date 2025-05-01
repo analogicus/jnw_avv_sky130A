@@ -76,7 +76,7 @@ N 1580 -730 1610 -730 {lab=vip}
 N 1580 -670 1610 -670 {lab=vin}
 N 830 -630 880 -630 {lab=vin}
 N 830 -790 880 -790 {lab=vip}
-N 460 -1120 510 -1120 {lab=cmp}
+N 460 -1100 510 -1100 {lab=cmp}
 N 460 -1150 510 -1150 {lab=src_n}
 N 460 -1180 510 -1180 {lab=preChrg}
 N 460 -1050 510 -1050 {lab=snk}
@@ -108,6 +108,8 @@ N 1510 -290 1560 -290 {lab=#net3}
 N 1560 -320 1560 -290 {lab=#net3}
 N 1560 -320 1590 -320 {lab=#net3}
 N 1680 -330 1750 -330 {lab=tmpPulse}
+N 1750 -620 1750 -570 {lab=nbias}
+N 1750 -570 1780 -570 {lab=nbias}
 C {devices/lab_wire.sym} 310 -790 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 770 -1100 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 350 -1180 0 0 {name=p4 lab=vdd}
@@ -162,7 +164,7 @@ C {devices/lab_wire.sym} 1600 -730 0 0 {name=p40 sig_type=std_logic lab=vip}
 C {devices/lab_wire.sym} 1600 -670 0 0 {name=p48 sig_type=std_logic lab=vin}
 C {devices/lab_wire.sym} 850 -790 0 1 {name=p49 sig_type=std_logic lab=vip}
 C {devices/lab_wire.sym} 850 -630 0 1 {name=p50 sig_type=std_logic lab=vin}
-C {devices/lab_wire.sym} 490 -1120 0 0 {name=p18 sig_type=std_logic lab=cmp}
+C {devices/lab_wire.sym} 490 -1100 0 0 {name=p18 sig_type=std_logic lab=cmp}
 C {devices/lab_wire.sym} 490 -1150 0 0 {name=p51 sig_type=std_logic lab=src_n}
 C {devices/lab_wire.sym} 490 -1180 0 0 {name=p52 sig_type=std_logic lab=preChrg}
 C {devices/lab_wire.sym} 490 -1050 0 0 {name=p53 sig_type=std_logic lab=snk}
@@ -211,3 +213,4 @@ C {devices/lab_wire.sym} 1630 -370 0 0 {name=p86 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1390 -370 0 0 {name=p87 sig_type=std_logic lab=cmp}
 C {devices/lab_wire.sym} 1470 -330 0 0 {name=p88 sig_type=std_logic lab=vdd}
 C {devices/opin.sym} 1750 -330 0 0 {name=p89 lab=tmpPulse}
+C {devices/lab_wire.sym} 1760 -570 0 1 {name=p17 sig_type=std_logic lab=nbias}

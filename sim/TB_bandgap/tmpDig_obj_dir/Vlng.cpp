@@ -12,6 +12,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , reset{vlSymsp->TOP.reset}
     , cmp{vlSymsp->TOP.cmp}
+    , tmpPulse{vlSymsp->TOP.tmpPulse}
     , PI1{vlSymsp->TOP.PI1}
     , PI2{vlSymsp->TOP.PI2}
     , PII1{vlSymsp->TOP.PII1}

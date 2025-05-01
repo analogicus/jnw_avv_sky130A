@@ -2,6 +2,7 @@
 adut [clk
 + reset
 + cmp
++ tmpPulse
 + ]
 + [PI1
 + PI2
@@ -35,33 +36,34 @@ adut [clk
 Rsvi0 clk 0 1G
 Rsvi1 reset 0 1G
 Rsvi2 cmp 0 1G
+Rsvi3 tmpPulse 0 1G
 
 * Outputs
-Rsvi3 PI1 0 1G
-Rsvi4 PI2 0 1G
-Rsvi5 PII1 0 1G
-Rsvi6 dummy 0 1G
-Rsvi7 PII2 0 1G
-Rsvi8 PA 0 1G
-Rsvi9 PB 0 1G
-Rsvi10 PC 0 1G
-Rsvi11 PD 0 1G
-Rsvi12 s_BG2CMP 0 1G
-Rsvi13 s_BgCtrl 0 1G
-Rsvi14 s_PtatCtrl 0 1G
-Rsvi15 s_Cap2CMP 0 1G
-Rsvi16 s_Ref2CMP 0 1G
-Rsvi17 s_CapRst 0 1G
-Rsvi18 s_PtatOut 0 1G
-Rsvi19 s_Rdiscon_N 0 1G
-Rsvi20 src_n 0 1G
-Rsvi21 snk 0 1G
-Rsvi22 cmp_p1 0 1G
-Rsvi23 cmp_p2 0 1G
-Rsvi24 rst 0 1G
-Rsvi25 valid 0 1G
-Rsvi26 preChrg 0 1G
-Rsvi27 setupBias 0 1G
+Rsvi4 PI1 0 1G
+Rsvi5 PI2 0 1G
+Rsvi6 PII1 0 1G
+Rsvi7 dummy 0 1G
+Rsvi8 PII2 0 1G
+Rsvi9 PA 0 1G
+Rsvi10 PB 0 1G
+Rsvi11 PC 0 1G
+Rsvi12 PD 0 1G
+Rsvi13 s_BG2CMP 0 1G
+Rsvi14 s_BgCtrl 0 1G
+Rsvi15 s_PtatCtrl 0 1G
+Rsvi16 s_Cap2CMP 0 1G
+Rsvi17 s_Ref2CMP 0 1G
+Rsvi18 s_CapRst 0 1G
+Rsvi19 s_PtatOut 0 1G
+Rsvi20 s_Rdiscon_N 0 1G
+Rsvi21 src_n 0 1G
+Rsvi22 snk 0 1G
+Rsvi23 cmp_p1 0 1G
+Rsvi24 cmp_p2 0 1G
+Rsvi25 rst 0 1G
+Rsvi26 valid 0 1G
+Rsvi27 preChrg 0 1G
+Rsvi28 setupBias 0 1G
 
 .save v(PI1)
 
