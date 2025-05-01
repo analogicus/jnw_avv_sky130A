@@ -76,8 +76,7 @@ N 1580 -730 1610 -730 {lab=vip}
 N 1580 -670 1610 -670 {lab=vin}
 N 830 -630 880 -630 {lab=vin}
 N 830 -790 880 -790 {lab=vip}
-N 460 -1080 510 -1080 {lab=nbias}
-N 460 -1120 510 -1120 {lab=pbias}
+N 460 -1120 510 -1120 {lab=cmp}
 N 460 -1150 510 -1150 {lab=src_n}
 N 460 -1180 510 -1180 {lab=preChrg}
 N 460 -1050 510 -1050 {lab=snk}
@@ -119,7 +118,6 @@ C {devices/lab_wire.sym} 610 -1220 0 0 {name=p8 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 1710 -570 0 0 {name=p9 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 610 -940 0 0 {name=p10 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 450 -510 0 0 {name=p11 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 490 -1080 0 0 {name=p17 sig_type=std_logic lab=nbias}
 C {devices/opin.sym} 1480 -1180 0 0 {name=p19 lab=vref}
 C {devices/ipin.sym} 350 -1120 0 0 {name=p1 lab=src_n}
 C {devices/ipin.sym} 350 -1100 0 0 {name=p20 lab=snk}
@@ -164,7 +162,7 @@ C {devices/lab_wire.sym} 1600 -730 0 0 {name=p40 sig_type=std_logic lab=vip}
 C {devices/lab_wire.sym} 1600 -670 0 0 {name=p48 sig_type=std_logic lab=vin}
 C {devices/lab_wire.sym} 850 -790 0 1 {name=p49 sig_type=std_logic lab=vip}
 C {devices/lab_wire.sym} 850 -630 0 1 {name=p50 sig_type=std_logic lab=vin}
-C {devices/lab_wire.sym} 490 -1120 0 0 {name=p18 sig_type=std_logic lab=pbias}
+C {devices/lab_wire.sym} 490 -1120 0 0 {name=p18 sig_type=std_logic lab=cmp}
 C {devices/lab_wire.sym} 490 -1150 0 0 {name=p51 sig_type=std_logic lab=src_n}
 C {devices/lab_wire.sym} 490 -1180 0 0 {name=p52 sig_type=std_logic lab=preChrg}
 C {devices/lab_wire.sym} 490 -1050 0 0 {name=p53 sig_type=std_logic lab=snk}

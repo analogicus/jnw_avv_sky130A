@@ -18,7 +18,11 @@ Vlng__Syms::Vlng__Syms(VerilatedContext* contextp, const char* namep, Vlng* mode
     , TOP{this, namep}
 {
         // Check resources
+<<<<<<< HEAD
         Verilated::stackCheck(37);
+=======
+        Verilated::stackCheck(29);
+>>>>>>> main
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-12);
     _vm_contextp__->timeprecision(-12);

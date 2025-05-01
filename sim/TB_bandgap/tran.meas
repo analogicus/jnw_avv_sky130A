@@ -15,6 +15,7 @@ meas tran Vref_$vtemp avg v(vref) from=60u to=70u
 meas tran IPtat_$vtemp avg i(v.xdut.vIptat) from=80u to=90u
 meas tran tPulse_$vtemp TRIG v(tmpPulse) VAL=0.9 RISE=LAST TARG v(tmpPulse) VAL=0.9 FALL=LAST
 * meas tran ivdd_$vtemp avg i(vdd) from=90u to=100u
+
 end
 
 echo "MEAS_END"

@@ -31,10 +31,12 @@ VSS  VSS  0     dc 0
 VDD  VDD  VSS  pwl 0 0 10n {AVDD}
 VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
 
-VLST LPI LPO dc 0
 
-Vip  vip   VSS   pwl 0 0.89 1u 0.91 2u 0.89 3u 0.91 4u 0.89
-Vin  vin   VSS   pwl 0 0.91 1u 0.89 2u 0.91 3u 0.89 4u 0.91
+Vip  vip   VSS   dc 1.8
+Vin  vin   VSS   dc 1.8
+
+* Vip  vip   VSS   pwl 0 0.89 1u 0.91 2u 0.89 3u 0.91 4u 0.89
+* Vin  vin   VSS   pwl 0 0.91 1u 0.89 2u 0.91 3u 0.89 4u 0.91
 
 *-----------------------------------------------------------------
 * DUT
@@ -54,6 +56,7 @@ Vin  vin   VSS   pwl 0 0.91 1u 0.89 2u 0.91 3u 0.89 4u 0.91
 .save v(xdut.nbias)
 .save v(clk)
 .save v(xdut.x1.ip)
+.save v(xdut.x1.ipm)
 .save v(xdut.x1.in)
 .save v(cmp_p2)
 .save v(cmp_p1)

@@ -91,6 +91,7 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save i(xdut.x2.vipmos)
 .save v(xdut.x2.Hcharge)
 .save v(xdut.x2.Lcharge)
+.save v(xdut.x2.vref)
 .save v(xdut.x2.outRes)
 .save v(xdut.x2.vpm)
 .save v(xdut.x2.vnm)
@@ -115,8 +116,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
      .option savecurrents
 #endif
 
-* .save all
-* .option savecurrents
+.save all
+.option savecurrents
 
 
 *----------------------------------------------------------------

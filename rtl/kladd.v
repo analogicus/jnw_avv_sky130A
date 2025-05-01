@@ -25,6 +25,7 @@ module tmpDig (
     output logic s_PtatOut,
     output logic s_Rdiscon_N,
 
+
     output logic src_n,
     output logic snk,
 
@@ -48,8 +49,7 @@ parameter   PRECHARGE=0,
             BLANKBIGDIODE=7,
             TEMPSENS=8;
 
-// parameter   BANDGAP=0,
-//             TEMPSENS=1;
+
 
 logic [3:0] state;
 logic [3:0] afterBlank;
@@ -63,6 +63,7 @@ logic       snk_ctrl;
 logic       src_ctrl;
 logic       intermCmp;
 logic       outputState;
+logic [2:0] cmpCount;
 
 
 always_ff @(posedge clk or posedge reset) begin
@@ -74,6 +75,7 @@ end
 
 initial begin
     state = PRECHARGE;
+    cmpCount = 0;
     cmp_p1 = 1'b1;
     cmp_p2 = 1'b0;
     snk_ctrl = 1'b0;
@@ -130,12 +132,9 @@ always_ff @(posedge clk) begin
                         if (setupDone == 1) begin
                             state <= BLANKDIODE;
                             afterBlank <= OUTPUT;
-                        end else if (!Hcharged) begin
-                            afterBlank <= HCHARGE;
-                            state <= BLANKDIODE;
                         end else begin
-                            afterBlank <= LCHARGE;
-                            state <= BLANKDIODE;
+                            state <= CHOPP;
+
                         end
                     end else begin
                         afterBlank <= BLANKBIGDIODE;
@@ -143,7 +142,6 @@ always_ff @(posedge clk) begin
                     end
                 end
             end
-
 
             BLANKBIGDIODE: begin
                 PA <= 0;
@@ -197,14 +195,29 @@ always_ff @(posedge clk) begin
                 end
             end
 
+            CHOPP: begin
+                if (cmp == intermCmp) begin
+                    afterBlank <= BIGDIODE;
+                    state <= BLANKBIGDIODE;
+                end else begin
+                    cmp_p1 <= ~cmp_p1;
+                    cmp_p2 <= ~cmp_p2;
+                    if (!Hcharged) begin
+                        state <= HCHARGE;
+                    end else begin
+                        state <= LCHARGE;
+                    end
+                end
+            end
+
             HCHARGE: begin
                 count <= count + 1;
                 PA <= 1;
                 PB <= 1;
-                s_BG2CMP <= 1;
+                // s_BG2CMP <= 1;
                 if (count > 4) begin
                     intermCmp <= cmp;
-                    s_BG2CMP <= 0;
+                    // s_BG2CMP <= 0;
                     count <= 0;
                     if (Lcharged == 1) begin
                         state <= OUTPUT;
@@ -226,7 +239,7 @@ always_ff @(posedge clk) begin
                 if (count > 4) begin
                     count <= 0;
                     intermCmp <= cmp;
-                    s_BG2CMP <= 0;
+                    // s_BG2CMP <= 0;
                     if (Hcharged == 1 ) begin
                         PA <= 0;
                         PC <= 0;
@@ -258,12 +271,11 @@ always_ff @(posedge clk) begin
             
             
             PRECHARGE: begin
-                if (count > 15) begin
+                if (count > 25) begin
                     state <= BLANKBIGDIODE;
                     afterBlank <= BIGDIODE;
                     count <= 0;
                     preChrg <= 0;
-                    s_PtatCtrl <= 0;
                     cmp_p1 <= ~cmp_p1;
                     cmp_p2 <= ~cmp_p2;
                 end
@@ -272,8 +284,6 @@ always_ff @(posedge clk) begin
                     preChrg <= 1;
                     setupBias <= 1;
                 end
-                s_BgCtrl <= 1;
-                s_PtatCtrl <= 1;
                 s_BG2CMP <= 1;
                 PI2 <= 0;
                 PII2 <= 0;
@@ -312,6 +322,10 @@ always @(negedge clk or src_ctrl) begin
         src_n <= 0;
     end
 end
+
+
+
+
 
 
 
@@ -358,40 +372,3 @@ end
 
 
 endmodule
-
-
-                    if (outputCount > 15)begin
-                        state <= TEMPSENS;
-                        outputCount <= 0;
-                        s_BG2CMP <= 0;
-                        s_Cap2CMP <= 1;
-                        s_Ref2CMP <= 1;
-                        s_PtatOut <= 1;
-                    end else begin
-                        PA <= 0;
-                        state <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
-                    end
-                    if (outputCount > 6) begin
-                        s_BgCtrl <= 0;
-                        s_PtatCtrl <= 1;
-                        s_Rdiscon_N <= 0;
-                    end else begin
-                        s_Rdiscon_N <= 1;
-                    end
-
-                TEMPSENS: begin
-                    s_CapRst <= 0;
-                    if (cmp) begin
-                        state <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
-                        s_Cap2CMP <= 0;
-                        s_Ref2CMP <= 0;
-                        s_CapRst <= 1;
-                        s_BG2CMP <= 1;
-                        s_BgCtrl <= 1;
-                        s_PtatCtrl <= 0;
-                    end else begin
-                        state <= TEMPSENS;
-                    end
-                end
