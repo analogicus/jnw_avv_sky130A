@@ -33,6 +33,8 @@ module tmpDig (
     output logic cmp_p1,
     output logic cmp_p2,
 
+    output logic PwrUp,
+
     output logic rst,
     output logic valid,
     output logic preChrg,
@@ -53,6 +55,7 @@ typedef enum logic [2:0] {
 childState_t afterBlank, childState;
 
 typedef enum logic [2:0] {
+    SLEEP,
     PRECHARGEPARENT,
     PTATSETUP,
     BANDGAP,
@@ -509,11 +512,27 @@ always_ff @(posedge clk) begin
                 s_CapRst <= 1;
                 s_PtatOut <= 0;
                 s_Rdiscon_N <= 1;
+                count <= 0;
             end else begin
                 parentState <= TEMPSENS;
             end
         end
-        
+
+/////////////////// SLEEP ///////////////////////////
+
+        else if (parentState == SLEEP) begin
+            count <= count + 1;
+            PwrUp <= 0;
+            if (count > 10) begin
+                parentState <= BANDGAP;
+                childState <= BLANKBIGDIODE;
+                afterBlank <= BIGDIODE;
+                count <= 0;
+                PwrUp <= 1;
+            end else begin
+                parentState <= SLEEP;
+            end
+        end
 
 //////////////// PRECHARGE /////////////////
 
