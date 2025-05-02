@@ -116,8 +116,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
      .option savecurrents
 #endif
 
-* .save all
-* .option savecurrents
+.save all
+.option savecurrents
 
 
 *----------------------------------------------------------------

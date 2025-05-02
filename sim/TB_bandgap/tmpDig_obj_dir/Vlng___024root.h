@@ -43,9 +43,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
     VL_OUT8(valid,0,0);
     VL_OUT8(preChrg,0,0);
     VL_OUT8(setupBias,0,0);
-    CData/*3:0*/ tmpDig__DOT__state;
-    CData/*3:0*/ tmpDig__DOT__syState;
-    CData/*3:0*/ tmpDig__DOT__afterBlank;
+    CData/*2:0*/ tmpDig__DOT__afterBlank;
+    CData/*2:0*/ tmpDig__DOT__childState;
+    CData/*2:0*/ tmpDig__DOT__parentState;
     CData/*5:0*/ tmpDig__DOT__count;
     CData/*5:0*/ tmpDig__DOT__setupCount;
     CData/*5:0*/ tmpDig__DOT__stateCount;
