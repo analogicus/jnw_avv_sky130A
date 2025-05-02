@@ -62,20 +62,20 @@ typedef enum logic [2:0] {
 
 parentState_t parentState;
 
-logic [5:0] count;
+logic [6:0] count;
 logic [5:0] setupCount;
 logic [5:0] stateCount;
+logic [5:0] tmpCount;
 logic       Hcharged;
 logic       Lcharged;
 logic [6:0] setupDone;
 logic       intermCmp;
+logic       enable_cmp_toggle;
+logic       cmp_p1_fsm, cmp_p2_fsm;
+logic       cmp_p1_async, cmp_p2_async;
 
-always_ff @(posedge clk or posedge reset) begin
-    if(reset)
-        rst <= 1'b1;
-    else
-        rst <= 1'b0;
-end
+assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
+assign cmp_p2 = ~cmp_p1;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -114,6 +114,15 @@ task automatic do_BLANKDIODE();
 endtask
 
 
+
+always_ff @(posedge clk or posedge reset) begin
+    if(reset)
+        rst <= 1'b1;
+    else
+        rst <= 1'b0;
+end
+
+
 always_ff @(posedge clk) begin
     if (rst) begin
         childState <= PRECHARGECHILD;
@@ -132,8 +141,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1; 
                     PII2 <= 1;
                     if(count > 1) begin
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
+                        cmp_p1_fsm <= ~cmp_p1_fsm;
+                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         afterBlank <= BLANKBIGDIODE;
@@ -215,8 +224,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1; 
                     PII2 <= 1;
                     if(count > 1) begin
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
+                        cmp_p1_fsm <= ~cmp_p1_fsm;
+                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         afterBlank <= BLANKBIGDIODE;
@@ -288,8 +297,8 @@ always_ff @(posedge clk) begin
                     count <= count + 1; 
                     PII2 <= 1;
                     if(count > 7) begin
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
+                        cmp_p1_fsm <= ~cmp_p1_fsm;
+                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         childState <= BLANKDIODE;
@@ -441,8 +450,8 @@ always_ff @(posedge clk) begin
                         stateCount <= stateCount + 1;
                         PII2  <= 0;
                         count <= 0;
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
+                        cmp_p1_fsm <= ~cmp_p1_fsm;
+                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         afterBlank <= BLANKBIGDIODE;
                         childState <= BLANKDIODE;
                     end
@@ -487,20 +496,23 @@ always_ff @(posedge clk) begin
         else if (parentState == TEMPSENS) begin
             s_PtatCtrl <= 1;
             s_CapRst <= 0;
-            // if (!tmpPulse) begin
-            //     parentState <= BANDGAP;
-            //     childState <= BLANKBIGDIODE;
-            //     afterBlank <= BIGDIODE;
-            //     s_BgCtrl <= 1;
-            //     s_PtatCtrl <= 0;
-            //     s_Cap2CMP <= 0;
-            //     s_Ref2CMP <= 0;
-            //     s_CapRst <= 1;
-            //     s_PtatOut <= 0;
-            //     s_Rdiscon_N <= 1;
-            // end else begin
-            //     parentState <= TEMPSENS;
-            // end
+            count <= count + 1;
+            enable_cmp_toggle <= 1;
+            if (count > 120) begin
+                parentState <= BANDGAP;
+                childState <= BLANKBIGDIODE;
+                afterBlank <= BIGDIODE;
+                enable_cmp_toggle <= 0;
+                s_BgCtrl <= 1;
+                s_PtatCtrl <= 0;
+                s_Cap2CMP <= 0;
+                s_Ref2CMP <= 0;
+                s_CapRst <= 1;
+                s_PtatOut <= 0;
+                s_Rdiscon_N <= 1;
+            end else begin
+                parentState <= TEMPSENS;
+            end
         end
 
 //////////////// PRECHARGE /////////////////
@@ -530,16 +542,16 @@ always_ff @(posedge clk) begin
                     s_Rdiscon_N <= 1;
                     stateCount <= 0;
                     setupBias <= 0;
-                    cmp_p1 <= 1'b1;
-                    cmp_p2 <= 1'b0;
+                    cmp_p1_fsm <= 1'b1;
+                    cmp_p2_fsm <= 1'b0;
 
                     if (count > 14) begin
                         childState <= BLANKDIODE;
                         afterBlank <= DIODE;
                         count <= 0;
                         preChrg <= 0;
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
+                        cmp_p1_fsm <= ~cmp_p1_fsm;
+                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         preChrg <= 0;
                         s_PtatCtrl <= 0;
                     end else begin
@@ -604,6 +616,25 @@ always_ff @(posedge clk) begin
         end
     end
 end
+
+
+
+
+
+always_ff @(posedge cmp or posedge reset) begin
+    if (reset) begin
+        cmp_p1_async <= 1'b1;
+        cmp_p2_async <= 1'b0;
+    end else if (enable_cmp_toggle) begin
+        cmp_p1_async <= ~cmp_p1_async;
+        cmp_p2_async <= ~cmp_p2_async;
+        tmpCount <= tmpCount + 1;
+    end else begin
+        tmpCount <= 0;
+    end
+end
+
+
 
 
 // Lag en alwaysblock som teller clk cycles på tmpPulse
