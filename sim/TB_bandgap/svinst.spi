@@ -21,6 +21,7 @@ adut [clk
 + s_CapRst
 + s_PtatOut
 + s_Rdiscon_N
++ s_CmpOutDisable
 + src_n
 + snk
 + cmp_p1
@@ -56,14 +57,15 @@ Rsvi17 s_Ref2CMP 0 1G
 Rsvi18 s_CapRst 0 1G
 Rsvi19 s_PtatOut 0 1G
 Rsvi20 s_Rdiscon_N 0 1G
-Rsvi21 src_n 0 1G
-Rsvi22 snk 0 1G
-Rsvi23 cmp_p1 0 1G
-Rsvi24 cmp_p2 0 1G
-Rsvi25 rst 0 1G
-Rsvi26 valid 0 1G
-Rsvi27 preChrg 0 1G
-Rsvi28 setupBias 0 1G
+Rsvi21 s_CmpOutDisable 0 1G
+Rsvi22 src_n 0 1G
+Rsvi23 snk 0 1G
+Rsvi24 cmp_p1 0 1G
+Rsvi25 cmp_p2 0 1G
+Rsvi26 rst 0 1G
+Rsvi27 valid 0 1G
+Rsvi28 preChrg 0 1G
+Rsvi29 setupBias 0 1G
 
 .save v(PI1)
 
@@ -98,6 +100,8 @@ Rsvi28 setupBias 0 1G
 .save v(s_PtatOut)
 
 .save v(s_Rdiscon_N)
+
+.save v(s_CmpOutDisable)
 
 .save v(src_n)
 

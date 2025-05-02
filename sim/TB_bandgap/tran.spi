@@ -109,6 +109,11 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save i(xdut.x1.vibigdiode)
 .save v(cmp_p1)
 .save v(cmp_p2)
+.save v(xdut.x7.Vcap)
+.save v(xdut.x7.Vcap2)
+.save v(xdut.x7.Vcap1)
+.save v(xdut.x7.rstCap1)
+.save v(xdut.x7.rstCap2)
 
 
 #ifdef debug
@@ -116,8 +121,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
      .option savecurrents
 #endif
 
-.save all
-.option savecurrents
+* .save all
+* .option savecurrents
 
 
 *----------------------------------------------------------------

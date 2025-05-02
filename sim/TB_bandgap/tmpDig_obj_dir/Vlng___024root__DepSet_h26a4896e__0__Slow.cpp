@@ -79,7 +79,7 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__stl(Vlng___024root* vlSelf) {
 }
 #endif  // VL_DEBUG
 
-void Vlng___024root___nba_comb__TOP__0(Vlng___024root* vlSelf);
+VL_ATTR_COLD void Vlng___024root___stl_sequent__TOP__0(Vlng___024root* vlSelf);
 
 VL_ATTR_COLD void Vlng___024root___eval_stl(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
@@ -88,8 +88,21 @@ VL_ATTR_COLD void Vlng___024root___eval_stl(Vlng___024root* vlSelf) {
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     if ((1ULL & vlSelfRef.__VstlTriggered.word(0U))) {
-        Vlng___024root___nba_comb__TOP__0(vlSelf);
+        Vlng___024root___stl_sequent__TOP__0(vlSelf);
     }
+}
+
+VL_ATTR_COLD void Vlng___024root___stl_sequent__TOP__0(Vlng___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___stl_sequent__TOP__0\n"); );
+    auto &vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.s_CmpOutDisable = vlSelfRef.tmpDig__DOT__s_CmpOutDisable_reg;
+    vlSelfRef.cmp_p1 = ((IData)(vlSelfRef.tmpDig__DOT__enable_cmp_toggle)
+                         ? (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_async)
+                         : (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm));
+    vlSelfRef.cmp_p2 = (1U & (~ (IData)(vlSelfRef.cmp_p1)));
 }
 
 VL_ATTR_COLD void Vlng___024root___eval_triggers__stl(Vlng___024root* vlSelf);
@@ -129,6 +142,9 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__act(Vlng___024root* vlSelf) {
     if ((4ULL & vlSelfRef.__VactTriggered.word(0U))) {
         VL_DBG_MSGF("         'act' region trigger index 2 is active: @(posedge cmp or posedge reset)\n");
     }
+    if ((8ULL & vlSelfRef.__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 3 is active: @([changed] clk or posedge cmp or posedge reset)\n");
+    }
 }
 #endif  // VL_DEBUG
 
@@ -150,6 +166,9 @@ VL_ATTR_COLD void Vlng___024root___dump_triggers__nba(Vlng___024root* vlSelf) {
     }
     if ((4ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         VL_DBG_MSGF("         'nba' region trigger index 2 is active: @(posedge cmp or posedge reset)\n");
+    }
+    if ((8ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 3 is active: @([changed] clk or posedge cmp or posedge reset)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -181,6 +200,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->s_CapRst = VL_RAND_RESET_I(1);
     vlSelf->s_PtatOut = VL_RAND_RESET_I(1);
     vlSelf->s_Rdiscon_N = VL_RAND_RESET_I(1);
+    vlSelf->s_CmpOutDisable = VL_RAND_RESET_I(1);
     vlSelf->src_n = VL_RAND_RESET_I(1);
     vlSelf->snk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);
@@ -200,8 +220,9 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__enable_cmp_toggle = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__cmp_p1_fsm = VL_RAND_RESET_I(1);
-    vlSelf->tmpDig__DOT__cmp_p2_fsm = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__cmp_p1_async = VL_RAND_RESET_I(1);
+    vlSelf->tmpDig__DOT__s_CmpOutDisable_reg = VL_RAND_RESET_I(1);
+    vlSelf->tmpDig__DOT__s_CmpOutDisableCount = VL_RAND_RESET_I(2);
     vlSelf->__Vdly__tmpDig__DOT__childState = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__parentState = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__count = VL_RAND_RESET_I(7);
@@ -209,11 +230,11 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->__Vdly__tmpDig__DOT__afterBlank = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
     vlSelf->__Vdly__tmpDig__DOT__cmp_p1_fsm = VL_RAND_RESET_I(1);
-    vlSelf->__Vdly__tmpDig__DOT__cmp_p2_fsm = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__stateCount = VL_RAND_RESET_I(6);
     vlSelf->__Vdly__tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__reset__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__cmp__0 = VL_RAND_RESET_I(1);
+    vlSelf->__VactDidInit = 0;
 }

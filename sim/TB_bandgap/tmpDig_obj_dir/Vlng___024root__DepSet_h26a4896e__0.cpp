@@ -16,6 +16,7 @@ void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__1(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__3(Vlng___024root* vlSelf);
+void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf);
 void Vlng___024root___nba_comb__TOP__0(Vlng___024root* vlSelf);
 
 void Vlng___024root___eval_nba(Vlng___024root* vlSelf) {
@@ -24,33 +25,66 @@ void Vlng___024root___eval_nba(Vlng___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___eval_nba\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
-    if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((8ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__0(vlSelf);
     }
-    if ((4ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__1(vlSelf);
     }
-    if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((4ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__2(vlSelf);
     }
-    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__3(vlSelf);
+    }
+    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+        Vlng___024root___nba_sequent__TOP__4(vlSelf);
     }
     if ((6ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_comb__TOP__0(vlSelf);
     }
 }
 
+extern const VlUnpacked<CData/*1:0*/, 256> Vlng__ConstPool__TABLE_h7112f6bb_0;
+extern const VlUnpacked<CData/*0:0*/, 256> Vlng__ConstPool__TABLE_hb0931d02_0;
+extern const VlUnpacked<CData/*1:0*/, 256> Vlng__ConstPool__TABLE_h3b4475b8_0;
+
 VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__0\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
+    // Init
+    CData/*7:0*/ __Vtableidx1;
+    __Vtableidx1 = 0;
+    // Body
+    __Vtableidx1 = (((IData)(vlSelfRef.tmpDig__DOT__parentState) 
+                     << 5U) | (((IData)(vlSelfRef.cmp) 
+                                << 4U) | (((IData)(vlSelfRef.tmpDig__DOT__s_CmpOutDisableCount) 
+                                           << 2U) | 
+                                          (((IData)(vlSelfRef.s_CmpOutDisable) 
+                                            << 1U) 
+                                           | (IData)(vlSelfRef.reset)))));
+    if ((1U & Vlng__ConstPool__TABLE_h7112f6bb_0[__Vtableidx1])) {
+        vlSelfRef.tmpDig__DOT__s_CmpOutDisable_reg 
+            = Vlng__ConstPool__TABLE_hb0931d02_0[__Vtableidx1];
+    }
+    if ((2U & Vlng__ConstPool__TABLE_h7112f6bb_0[__Vtableidx1])) {
+        vlSelfRef.tmpDig__DOT__s_CmpOutDisableCount 
+            = Vlng__ConstPool__TABLE_h3b4475b8_0[__Vtableidx1];
+    }
+    vlSelfRef.s_CmpOutDisable = vlSelfRef.tmpDig__DOT__s_CmpOutDisable_reg;
+}
+
+VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__1(Vlng___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__1\n"); );
+    auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     vlSelfRef.__Vdly__tmpDig__DOT__Hcharged = vlSelfRef.tmpDig__DOT__Hcharged;
     vlSelfRef.__Vdly__tmpDig__DOT__Lcharged = vlSelfRef.tmpDig__DOT__Lcharged;
     vlSelfRef.__Vdly__tmpDig__DOT__stateCount = vlSelfRef.tmpDig__DOT__stateCount;
-    vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm = vlSelfRef.tmpDig__DOT__cmp_p2_fsm;
     vlSelfRef.__Vdly__tmpDig__DOT__setupCount = vlSelfRef.tmpDig__DOT__setupCount;
     vlSelfRef.__Vdly__tmpDig__DOT__afterBlank = vlSelfRef.tmpDig__DOT__afterBlank;
     vlSelfRef.__Vdly__tmpDig__DOT__intermCmp = vlSelfRef.tmpDig__DOT__intermCmp;
@@ -60,10 +94,10 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__0(Vlng___024root* vlSelf) 
     vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm = vlSelfRef.tmpDig__DOT__cmp_p1_fsm;
 }
 
-VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__1(Vlng___024root* vlSelf) {
+VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__2\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Init
     CData/*0:0*/ __Vdly__tmpDig__DOT__cmp_p1_async;
@@ -78,10 +112,10 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__1(Vlng___024root* vlSelf) 
     vlSelfRef.tmpDig__DOT__cmp_p1_async = __Vdly__tmpDig__DOT__cmp_p1_async;
 }
 
-VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) {
+VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__3(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__3\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     if (vlSelfRef.rst) {
@@ -190,8 +224,6 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
             if ((1U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm 
                     = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm)));
-                vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm 
-                    = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p2_fsm)));
                 vlSelfRef.__Vdly__tmpDig__DOT__afterBlank = 7U;
                 vlSelfRef.PII2 = 0U;
                 vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
@@ -292,8 +324,6 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
             if ((1U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm 
                     = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm)));
-                vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm 
-                    = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p2_fsm)));
                 vlSelfRef.__Vdly__tmpDig__DOT__afterBlank = 7U;
                 vlSelfRef.PII2 = 0U;
                 vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
@@ -434,8 +464,6 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
             if ((7U < (IData)(vlSelfRef.tmpDig__DOT__count))) {
                 vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm 
                     = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm)));
-                vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm 
-                    = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p2_fsm)));
                 vlSelfRef.PII2 = 0U;
                 vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
                 vlSelfRef.__Vdly__tmpDig__DOT__childState = 6U;
@@ -539,8 +567,6 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
                     = (0x3fU & ((IData)(1U) + (IData)(vlSelfRef.tmpDig__DOT__stateCount)));
                 vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm 
                     = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm)));
-                vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm 
-                    = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p2_fsm)));
                 vlSelfRef.__Vdly__tmpDig__DOT__afterBlank = 7U;
                 vlSelfRef.PII2 = 0U;
                 vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
@@ -562,7 +588,6 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
             vlSelfRef.__Vdly__tmpDig__DOT__parentState = 2U;
             vlSelfRef.__Vdly__tmpDig__DOT__childState = 7U;
             vlSelfRef.tmpDig__DOT__enable_cmp_toggle = 0U;
-            vlSelfRef.s_BgCtrl = 1U;
             vlSelfRef.s_PtatCtrl = 0U;
             vlSelfRef.s_Cap2CMP = 0U;
             vlSelfRef.s_Ref2CMP = 0U;
@@ -659,13 +684,10 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
         vlSelfRef.setupBias = 0U;
         vlSelfRef.s_PtatCtrl = 1U;
         vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm = 1U;
-        vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm = 0U;
         if ((0xeU < (IData)(vlSelfRef.tmpDig__DOT__count))) {
             vlSelfRef.__Vdly__tmpDig__DOT__afterBlank = 1U;
             vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm 
                 = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm)));
-            vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm 
-                = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p2_fsm)));
             vlSelfRef.__Vdly__tmpDig__DOT__childState = 6U;
             vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
             vlSelfRef.preChrg = 0U;
@@ -683,17 +705,16 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
     vlSelfRef.tmpDig__DOT__intermCmp = vlSelfRef.__Vdly__tmpDig__DOT__intermCmp;
     vlSelfRef.tmpDig__DOT__afterBlank = vlSelfRef.__Vdly__tmpDig__DOT__afterBlank;
     vlSelfRef.tmpDig__DOT__setupCount = vlSelfRef.__Vdly__tmpDig__DOT__setupCount;
-    vlSelfRef.tmpDig__DOT__cmp_p2_fsm = vlSelfRef.__Vdly__tmpDig__DOT__cmp_p2_fsm;
     vlSelfRef.tmpDig__DOT__stateCount = vlSelfRef.__Vdly__tmpDig__DOT__stateCount;
     vlSelfRef.tmpDig__DOT__Lcharged = vlSelfRef.__Vdly__tmpDig__DOT__Lcharged;
     vlSelfRef.tmpDig__DOT__Hcharged = vlSelfRef.__Vdly__tmpDig__DOT__Hcharged;
     vlSelfRef.tmpDig__DOT__cmp_p1_fsm = vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm;
 }
 
-VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__3(Vlng___024root* vlSelf) {
+VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__3\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__4\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     vlSelfRef.rst = vlSelfRef.reset;
@@ -719,7 +740,7 @@ bool Vlng___024root___eval_phase__act(Vlng___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___eval_phase__act\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Init
-    VlTriggerVec<3> __VpreTriggered;
+    VlTriggerVec<4> __VpreTriggered;
     CData/*0:0*/ __VactExecute;
     // Body
     Vlng___024root___eval_triggers__act(vlSelf);

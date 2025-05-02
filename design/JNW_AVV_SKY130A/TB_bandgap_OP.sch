@@ -82,6 +82,7 @@ N 210 -140 240 -140 {
 lab=s_PtatOut}
 N 210 -120 240 -120 {
 lab=s_Rdiscon}
+N 210 -100 240 -100 {lab=s_CmpOutDisable}
 C {devices/launcher.sym} 750 -110 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/../../sim/TB_bandgap/output_tran/tran_SchGtKttTtVt_20.raw tran"
@@ -114,3 +115,4 @@ C {devices/lab_wire.sym} 210 -180 0 0 {name=p24 sig_type=std_logic lab=s_Ref2CMP
 C {devices/lab_wire.sym} 210 -160 0 0 {name=p25 sig_type=std_logic lab=s_CapRst}
 C {devices/lab_wire.sym} 210 -140 0 0 {name=p26 sig_type=std_logic lab=s_PtatOut}
 C {devices/lab_wire.sym} 210 -120 0 0 {name=p27 sig_type=std_logic lab=s_Rdiscon}
+C {devices/lab_wire.sym} 210 -100 0 0 {name=p28 sig_type=std_logic lab=s_CmpOutDisable}

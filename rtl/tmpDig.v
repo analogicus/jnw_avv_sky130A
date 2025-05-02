@@ -25,6 +25,7 @@ module tmpDig (
     output logic s_CapRst,
     output logic s_PtatOut,
     output logic s_Rdiscon_N,
+    output logic s_CmpOutDisable,
 
     output logic src_n,
     output logic snk,
@@ -71,8 +72,11 @@ logic       Lcharged;
 logic [6:0] setupDone;
 logic       intermCmp;
 logic       enable_cmp_toggle;
-logic       cmp_p1_fsm, cmp_p2_fsm;
-logic       cmp_p1_async, cmp_p2_async;
+logic       cmp_p1_fsm;
+logic       cmp_p1_async;
+logic       s_CmpOutDisable_reg;
+logic [1:0] s_CmpOutDisableCount;
+
 
 assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
 assign cmp_p2 = ~cmp_p1;
@@ -142,7 +146,6 @@ always_ff @(posedge clk) begin
                     PII2 <= 1;
                     if(count > 1) begin
                         cmp_p1_fsm <= ~cmp_p1_fsm;
-                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         afterBlank <= BLANKBIGDIODE;
@@ -225,7 +228,6 @@ always_ff @(posedge clk) begin
                     PII2 <= 1;
                     if(count > 1) begin
                         cmp_p1_fsm <= ~cmp_p1_fsm;
-                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         afterBlank <= BLANKBIGDIODE;
@@ -298,7 +300,6 @@ always_ff @(posedge clk) begin
                     PII2 <= 1;
                     if(count > 7) begin
                         cmp_p1_fsm <= ~cmp_p1_fsm;
-                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         PII2  <= 0;
                         count <= 0;
                         childState <= BLANKDIODE;
@@ -451,7 +452,6 @@ always_ff @(posedge clk) begin
                         PII2  <= 0;
                         count <= 0;
                         cmp_p1_fsm <= ~cmp_p1_fsm;
-                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         afterBlank <= BLANKBIGDIODE;
                         childState <= BLANKDIODE;
                     end
@@ -503,7 +503,6 @@ always_ff @(posedge clk) begin
                 childState <= BLANKBIGDIODE;
                 afterBlank <= BIGDIODE;
                 enable_cmp_toggle <= 0;
-                s_BgCtrl <= 1;
                 s_PtatCtrl <= 0;
                 s_Cap2CMP <= 0;
                 s_Ref2CMP <= 0;
@@ -514,6 +513,7 @@ always_ff @(posedge clk) begin
                 parentState <= TEMPSENS;
             end
         end
+        
 
 //////////////// PRECHARGE /////////////////
 
@@ -543,15 +543,12 @@ always_ff @(posedge clk) begin
                     stateCount <= 0;
                     setupBias <= 0;
                     cmp_p1_fsm <= 1'b1;
-                    cmp_p2_fsm <= 1'b0;
-
                     if (count > 14) begin
                         childState <= BLANKDIODE;
                         afterBlank <= DIODE;
                         count <= 0;
                         preChrg <= 0;
                         cmp_p1_fsm <= ~cmp_p1_fsm;
-                        cmp_p2_fsm <= ~cmp_p2_fsm;
                         preChrg <= 0;
                         s_PtatCtrl <= 0;
                     end else begin
@@ -621,18 +618,33 @@ end
 
 
 
-always_ff @(posedge cmp or posedge reset) begin
+always @(posedge cmp or posedge reset) begin
     if (reset) begin
         cmp_p1_async <= 1'b1;
-        cmp_p2_async <= 1'b0;
     end else if (enable_cmp_toggle) begin
         cmp_p1_async <= ~cmp_p1_async;
-        cmp_p2_async <= ~cmp_p2_async;
         tmpCount <= tmpCount + 1;
     end else begin
         tmpCount <= 0;
     end
 end
+
+// Async set (immediate with cmp rising edge), sync clear (by clk)
+always @(clk or posedge cmp or posedge reset) begin
+    if (reset) begin
+        s_CmpOutDisable_reg <= 1'b0;
+    end else if (s_CmpOutDisable) begin // sync clear
+        s_CmpOutDisableCount <= s_CmpOutDisableCount + 1;
+        if (s_CmpOutDisableCount > 1) begin
+            s_CmpOutDisable_reg <= 1'b0;
+            s_CmpOutDisableCount <= 0;
+        end
+    end else if (cmp && parentState == TEMPSENS) begin // async set
+        s_CmpOutDisable_reg <= 1'b1;
+    end
+end
+
+assign s_CmpOutDisable = s_CmpOutDisable_reg;
 
 
 

@@ -30,6 +30,7 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , s_CapRst{vlSymsp->TOP.s_CapRst}
     , s_PtatOut{vlSymsp->TOP.s_PtatOut}
     , s_Rdiscon_N{vlSymsp->TOP.s_Rdiscon_N}
+    , s_CmpOutDisable{vlSymsp->TOP.s_CmpOutDisable}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}

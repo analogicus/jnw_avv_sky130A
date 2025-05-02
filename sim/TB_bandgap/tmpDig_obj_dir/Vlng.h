@@ -49,6 +49,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng VL_NOT_FINAL : public VerilatedModel {
     VL_OUT8(&s_CapRst,0,0);
     VL_OUT8(&s_PtatOut,0,0);
     VL_OUT8(&s_Rdiscon_N,0,0);
+    VL_OUT8(&s_CmpOutDisable,0,0);
     VL_OUT8(&src_n,0,0);
     VL_OUT8(&snk,0,0);
     VL_OUT8(&cmp_p1,0,0);
