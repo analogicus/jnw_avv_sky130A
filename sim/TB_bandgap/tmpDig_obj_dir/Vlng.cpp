@@ -35,10 +35,12 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
     , cmp_p2{vlSymsp->TOP.cmp_p2}
+    , PwrUp{vlSymsp->TOP.PwrUp}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
     , preChrg{vlSymsp->TOP.preChrg}
     , setupBias{vlSymsp->TOP.setupBias}
+    , tmpCount_out{vlSymsp->TOP.tmpCount_out}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

@@ -99,6 +99,7 @@ VL_ATTR_COLD void Vlng___024root___stl_sequent__TOP__0(Vlng___024root* vlSelf) {
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     vlSelfRef.s_CmpOutDisable = vlSelfRef.tmpDig__DOT__s_CmpOutDisable_reg;
+    vlSelfRef.tmpCount_out = vlSelfRef.tmpDig__DOT__tmpCount;
     vlSelfRef.cmp_p1 = ((IData)(vlSelfRef.tmpDig__DOT__enable_cmp_toggle)
                          ? (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_async)
                          : (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_fsm));
@@ -205,16 +206,19 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->snk = VL_RAND_RESET_I(1);
     vlSelf->cmp_p1 = VL_RAND_RESET_I(1);
     vlSelf->cmp_p2 = VL_RAND_RESET_I(1);
+    vlSelf->PwrUp = VL_RAND_RESET_I(1);
     vlSelf->rst = VL_RAND_RESET_I(1);
     vlSelf->valid = VL_RAND_RESET_I(1);
     vlSelf->preChrg = VL_RAND_RESET_I(1);
     vlSelf->setupBias = VL_RAND_RESET_I(1);
+    vlSelf->tmpCount_out = VL_RAND_RESET_I(8);
     vlSelf->tmpDig__DOT__afterBlank = VL_RAND_RESET_I(3);
     vlSelf->tmpDig__DOT__childState = VL_RAND_RESET_I(3);
     vlSelf->tmpDig__DOT__parentState = VL_RAND_RESET_I(3);
-    vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(7);
+    vlSelf->tmpDig__DOT__count = VL_RAND_RESET_I(8);
     vlSelf->tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);
     vlSelf->tmpDig__DOT__stateCount = VL_RAND_RESET_I(6);
+    vlSelf->tmpDig__DOT__tmpCount = VL_RAND_RESET_I(8);
     vlSelf->tmpDig__DOT__Hcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__Lcharged = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
@@ -225,7 +229,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__s_CmpOutDisableCount = VL_RAND_RESET_I(2);
     vlSelf->__Vdly__tmpDig__DOT__childState = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__parentState = VL_RAND_RESET_I(3);
-    vlSelf->__Vdly__tmpDig__DOT__count = VL_RAND_RESET_I(7);
+    vlSelf->__Vdly__tmpDig__DOT__count = VL_RAND_RESET_I(8);
     vlSelf->__Vdly__tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__afterBlank = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__setupCount = VL_RAND_RESET_I(6);

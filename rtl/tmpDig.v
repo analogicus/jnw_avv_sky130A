@@ -38,8 +38,12 @@ module tmpDig (
     output logic rst,
     output logic valid,
     output logic preChrg,
-    output logic setupBias
+    output logic setupBias,
+    
+    output logic [7:0] tmpCount_out
     );
+
+assign tmpCount_out = tmpCount;
 
 typedef enum logic [2:0] {
     PRECHARGECHILD,
@@ -66,10 +70,10 @@ typedef enum logic [2:0] {
 
 parentState_t parentState;
 
-logic [6:0] count;
+logic [7:0] count;
 logic [5:0] setupCount;
 logic [5:0] stateCount;
-logic [5:0] tmpCount;
+logic [7:0] tmpCount;
 logic       Hcharged;
 logic       Lcharged;
 logic [6:0] setupDone;
@@ -79,10 +83,6 @@ logic       cmp_p1_fsm;
 logic       cmp_p1_async;
 logic       s_CmpOutDisable_reg;
 logic [1:0] s_CmpOutDisableCount;
-
-
-assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
-assign cmp_p2 = ~cmp_p1;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -134,6 +134,7 @@ always_ff @(posedge clk) begin
     if (rst) begin
         childState <= PRECHARGECHILD;
         parentState <= PRECHARGEPARENT;
+        count <= 0;
     end
     else begin
 
@@ -174,7 +175,7 @@ always_ff @(posedge clk) begin
                         count <= 0;
                         childState <= BLANKBIGDIODE;
                         PI2  <= 0;
-                        if (setupCount == 2) begin
+                        if (setupCount > 1) begin
                             afterBlank <= OUTPUT;
                             setupCount <= 0;
                         end else begin
@@ -196,6 +197,7 @@ always_ff @(posedge clk) begin
                         childState <= BLANKBIGDIODE; 
                         afterBlank <= BIGDIODE;
                         s_BgCtrl <= 0;
+                        setupCount <= 0;
                         PA <= 0;
                         PB <= 0;
                         PC <= 0;
@@ -256,7 +258,7 @@ always_ff @(posedge clk) begin
                         snk <= 0;
                         src_n <= 0;
                         childState <= BLANKBIGDIODE;
-                        if (setupCount == 2) begin
+                        if (setupCount > 1) begin
                             afterBlank <= HCHARGE;
                             s_PtatCtrl <= 0;
                             setupCount <= 0;
@@ -386,13 +388,14 @@ always_ff @(posedge clk) begin
                     PD <= 1;
                     Lcharged <= 0;
                     Hcharged <= 0;
-                    if (stateCount > 5) begin
+                    if (stateCount > 15) begin
                         parentState <= PTAT;
                         afterBlank <= BLANKBIGDIODE;
                         childState <= BLANKDIODE;
                         stateCount <= 0;
                         s_BgCtrl <= 0;
                         s_Rdiscon_N <= 0;
+                        count <= 0;
                         PA <= 0;
                         PB <= 0;
                         PC <= 0;
@@ -431,11 +434,9 @@ always_ff @(posedge clk) begin
                         PII1 <= 1;
                     end else begin
                         PII1 <= 0;
-                        if (stateCount > 14) begin
+                        if (stateCount > 3) begin
                             parentState <= TEMPSENS;
                             s_BG2CMP <= 0;
-                            s_Cap2CMP <= 1;
-                            s_Ref2CMP <= 1;
                             s_CapRst <= 1;
                             s_PtatOut <= 1;
                             stateCount <= 0;
@@ -448,15 +449,16 @@ always_ff @(posedge clk) begin
                 end
 
                 DIODE: begin
-                    count <= count + 1; 
                     PII2 <= 1;
-                    if(count > 7) begin
+                    if(count > 15) begin
                         stateCount <= stateCount + 1;
                         PII2  <= 0;
                         count <= 0;
                         cmp_p1_fsm <= ~cmp_p1_fsm;
                         afterBlank <= BLANKBIGDIODE;
                         childState <= BLANKDIODE;
+                    end else begin
+                        count <= count + 1; 
                     end
                 end
 
@@ -499,14 +501,15 @@ always_ff @(posedge clk) begin
         else if (parentState == TEMPSENS) begin
             s_PtatCtrl <= 1;
             s_CapRst <= 0;
+            s_Cap2CMP <= 1;
+            s_Ref2CMP <= 1;
             count <= count + 1;
             enable_cmp_toggle <= 1;
-            if (count > 120) begin
-                parentState <= BANDGAP;
-                childState <= BLANKBIGDIODE;
-                afterBlank <= BIGDIODE;
+            if (count > 200) begin
+                parentState <= SLEEP;
                 enable_cmp_toggle <= 0;
                 s_PtatCtrl <= 0;
+                s_BgCtrl <= 0;
                 s_Cap2CMP <= 0;
                 s_Ref2CMP <= 0;
                 s_CapRst <= 1;
@@ -523,7 +526,7 @@ always_ff @(posedge clk) begin
         else if (parentState == SLEEP) begin
             count <= count + 1;
             PwrUp <= 0;
-            if (count > 10) begin
+            if (count > 30) begin
                 parentState <= BANDGAP;
                 childState <= BLANKBIGDIODE;
                 afterBlank <= BIGDIODE;
@@ -539,6 +542,7 @@ always_ff @(posedge clk) begin
         else begin
             case(childState)
                 PRECHARGECHILD: begin
+                    PwrUp <= 1;
                     preChrg <= 1;
                     s_PtatCtrl <= 1;
                     s_BgCtrl <= 1;
@@ -561,6 +565,7 @@ always_ff @(posedge clk) begin
                     s_Rdiscon_N <= 1;
                     stateCount <= 0;
                     setupBias <= 0;
+                    setupCount <= 0;
                     cmp_p1_fsm <= 1'b1;
                     if (count > 14) begin
                         childState <= BLANKDIODE;
@@ -635,8 +640,8 @@ end
 
 
 
-
-
+// Purpose: When in TEMPSENS state, count positive edges of cmp.
+//          And toggle chopping on every rising edge of CMP.
 always @(posedge cmp or posedge reset) begin
     if (reset) begin
         cmp_p1_async <= 1'b1;
@@ -648,7 +653,12 @@ always @(posedge cmp or posedge reset) begin
     end
 end
 
-// Async set (immediate with cmp rising edge), sync clear (by clk)
+assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
+assign cmp_p2 = ~cmp_p1;
+
+
+// Purpose: Tie CMP output high for 1-2 clk cycles after cmp goes high
+//          to avoid the glitches from chopping the CMP to toggle the always block above
 always @(clk or posedge cmp or posedge reset) begin
     if (reset) begin
         s_CmpOutDisable_reg <= 1'b0;

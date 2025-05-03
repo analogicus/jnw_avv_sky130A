@@ -26,10 +26,19 @@ adut [clk
 + snk
 + cmp_p1
 + cmp_p2
++ PwrUp
 + rst
 + valid
 + preChrg
 + setupBias
++ tmpCount_out.7
++ tmpCount_out.6
++ tmpCount_out.5
++ tmpCount_out.4
++ tmpCount_out.3
++ tmpCount_out.2
++ tmpCount_out.1
++ tmpCount_out.0
 + ] null dut
 .model dut d_cosim simulation="../tmpDig.so" delay=10p
 
@@ -62,10 +71,19 @@ Rsvi22 src_n 0 1G
 Rsvi23 snk 0 1G
 Rsvi24 cmp_p1 0 1G
 Rsvi25 cmp_p2 0 1G
-Rsvi26 rst 0 1G
-Rsvi27 valid 0 1G
-Rsvi28 preChrg 0 1G
-Rsvi29 setupBias 0 1G
+Rsvi26 PwrUp 0 1G
+Rsvi27 rst 0 1G
+Rsvi28 valid 0 1G
+Rsvi29 preChrg 0 1G
+Rsvi30 setupBias 0 1G
+Rsvi31 tmpCount_out.7 0 1G
+Rsvi32 tmpCount_out.6 0 1G
+Rsvi33 tmpCount_out.5 0 1G
+Rsvi34 tmpCount_out.4 0 1G
+Rsvi35 tmpCount_out.3 0 1G
+Rsvi36 tmpCount_out.2 0 1G
+Rsvi37 tmpCount_out.1 0 1G
+Rsvi38 tmpCount_out.0 0 1G
 
 .save v(PI1)
 
@@ -111,6 +129,8 @@ Rsvi29 setupBias 0 1G
 
 .save v(cmp_p2)
 
+.save v(PwrUp)
+
 .save v(rst)
 
 .save v(valid)
@@ -118,4 +138,16 @@ Rsvi29 setupBias 0 1G
 .save v(preChrg)
 
 .save v(setupBias)
+
+E_STATE_tmpCount_out dec_tmpCount_out 0 value={( 0 
++ + 128*v(tmpCount_out.7)/AVDD
++ + 64*v(tmpCount_out.6)/AVDD
++ + 32*v(tmpCount_out.5)/AVDD
++ + 16*v(tmpCount_out.4)/AVDD
++ + 8*v(tmpCount_out.3)/AVDD
++ + 4*v(tmpCount_out.2)/AVDD
++ + 2*v(tmpCount_out.1)/AVDD
++ + 1*v(tmpCount_out.0)/AVDD
++)/1000}
+.save v(dec_tmpCount_out)
 

@@ -33,7 +33,7 @@
 *-----------------------------------------------------------------
 VSS  VSS    0   dc 0
 VDD  vdd    0   dc {AVDD}
-VRST reset  0   dc 0
+VRST reset  0   pwl 0 0 25n 0 25.1n 1.8 75n 1.8 75.1n 0
 VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
 
 
@@ -109,11 +109,21 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save i(xdut.x1.vibigdiode)
 .save v(cmp_p1)
 .save v(cmp_p2)
-.save v(xdut.x7.Vcap)
+.save v(xdut.Vcap)
+.save v(xdut.vin)
+.save v(xdut.vip)
 .save v(xdut.x7.Vcap2)
 .save v(xdut.x7.Vcap1)
 .save v(xdut.x7.rstCap1)
 .save v(xdut.x7.rstCap2)
+
+
+.save v(tmpcount_out)
+* .save v(tmpcount_out[1])
+* .save v(tmpcount_out[2])
+* .save v(tmpcount_out[3])
+* .save v(tmpcount_out[4])
+* .save v(tmpcount_out[5])
 
 
 #ifdef debug
@@ -150,11 +160,11 @@ set fend = .raw
 * tran 200n 40u
 
 
-foreach vtemp 20
-* foreach vtemp -40 -30 -20 -10 0 10 20 30 40 50 60 70 80 90 100 110 120 125
+* foreach vtemp -40 20 125
+foreach vtemp -40 -30 -20 -10 0 10 20 30 40 50 60 70 80 90 100 110 120 125
 * foreach vtemp -40 -20 0 20 40 60 80 100 125
   option temp=$vtemp
-  tran 1000n 65u
+  tran 1000n 100u
   write {cicname}_$vtemp$fend
 end
 

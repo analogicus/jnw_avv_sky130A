@@ -204,7 +204,7 @@ def plotSensTempDependence(yamlfile):
 
     temps = dict()
     for o in obj:
-        if (not re.search("tpulse", o)):
+        if (not re.search("tmpcount", o)):
             continue
         (dontcare, temp) = o.split("_")
         temps[int(temp)] = float(obj[o])
@@ -213,7 +213,7 @@ def plotSensTempDependence(yamlfile):
     # print(temps)
     fig,ax = plt.subplots(figsize=(10,5))
     ax.set_title("Temperature dependence of Temperature sensor")
-    ax.set_ylabel("Time [s]")
+    ax.set_ylabel("Value of counter")
     ax.set_xlabel("Temperature [C]")
     ax.plot(list(temps.keys()), list(temps.values()), marker='o')
     plt.tight_layout()
@@ -295,4 +295,4 @@ def plotPpmDistribution(folders):
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
-# plotTempDependence("output_tran/tran_SchGtKttTtVt")
+plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")

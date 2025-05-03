@@ -30,8 +30,6 @@ N 420 -940 450 -940 {
 lab=vss}
 N 1400 -630 1400 -590 {
 lab=pbias}
-N 1400 -590 1450 -590 {
-lab=pbias}
 N 1330 -820 1330 -790 {
 lab=vdd}
 N 290 -770 320 -770 {
@@ -99,6 +97,7 @@ N 1370 -820 1370 -770 {lab=cmp_p1}
 N 1370 -820 1410 -820 {lab=cmp_p1}
 N 450 -480 490 -480 {lab=vss}
 N 450 -500 450 -480 {lab=vss}
+N 1400 -590 1470 -590 {lab=pbias}
 C {devices/lab_wire.sym} 310 -790 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 610 -1100 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 140 -1190 0 0 {name=p4 lab=vdd}
