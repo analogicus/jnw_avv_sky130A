@@ -206,6 +206,10 @@ N 1750 -480 1780 -480 {
 lab=VinDrain}
 N 1670 -350 1780 -350 {
 lab=vss}
+N 810 -900 830 -900 {lab=#net12}
+N 890 -900 950 -900 {lab=ip}
+N 810 -1140 840 -1140 {lab=#net13}
+N 900 -1140 940 -1140 {lab=in}
 C {devices/ipin.sym} 1010 -350 0 0 {name=p2 lab=vss
 }
 C {devices/ipin.sym} 1010 -1160 0 0 {name=p3 lab=vdd
@@ -256,8 +260,8 @@ C {devices/lab_wire.sym} 550 -1080 2 0 {name=p40 sig_type=std_logic lab=vss}
 C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 700 -1140 0 0 {name=x19 }
 C {devices/lab_wire.sym} 790 -1180 2 0 {name=p41 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 790 -1090 2 0 {name=p42 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 810 -900 0 0 {name=p43 sig_type=std_logic lab=ip}
-C {devices/lab_wire.sym} 810 -1140 0 0 {name=p44 sig_type=std_logic lab=in}
+C {devices/lab_wire.sym} 950 -900 0 0 {name=p43 sig_type=std_logic lab=ip}
+C {devices/lab_wire.sym} 940 -1140 0 0 {name=p44 sig_type=std_logic lab=in}
 C {devices/lab_wire.sym} 620 -840 0 1 {name=p45 sig_type=std_logic lab=cmp_p2}
 C {devices/lab_wire.sym} 620 -1200 0 1 {name=p46 sig_type=std_logic lab=cmp_p1}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 1490 -950 0 1 {name=x15[7:0]}
@@ -313,3 +317,5 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 1740 -410 0 0 {name=x25 }
 C {devices/lab_wire.sym} 1740 -410 0 0 {name=p60 sig_type=std_logic lab=PwrUp_N}
 C {devices/ipin.sym} 860 -1230 0 0 {name=p61 lab=PwrUp
 }
+C {devices/vsource.sym} 860 -900 1 0 {name=voutofVin2 value=0 savecurrent=false}
+C {devices/vsource.sym} 870 -1140 1 0 {name=vOutofVin1 value=0 savecurrent=false}

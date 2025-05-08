@@ -26,10 +26,11 @@
 VSS  VSS  0     dc 0
 VDD  VDD  VSS   dc 1.8
 
-VA  A  0  pulse(0 1.8 0 10p 10p 50n 100n)
-
+* VA  A  0  pulse(0 1.8 0 10p 10p 50n 100n)
+VB  B  0  pulse(0.8 1.1 0 10p 10p 100n 200n)
 * VA  A  0  pwl 0 0 50n 0 51n 1.8 150n 1.8 151n 0
-VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
+* VB  B  0  pwl 0 0 100n 0 101n 1.8 200n 1.8 201n 0
+
 
 
 
@@ -75,9 +76,9 @@ optran 0 0 0 1n 1u 0
 set fend = .raw
 
 
-* foreach vtemp -40 -39 -38 -37 -36 -34 -32 -30 -28 -26 -24 -22 -20 -18 -16 -14 -12 -10 -8 -6
+* foreach vtemp -40 40 120
 *   option temp=$vtemp
-*   tran 10n 500n
+*   tran 1n 500n
 *   write {cicname}_$vtemp$fend
 * end
 

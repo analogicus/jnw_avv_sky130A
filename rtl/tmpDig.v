@@ -8,8 +8,8 @@ module tmpDig (
 
     output logic PI1,
     output logic PI2,
-    output logic PII1,
     output logic dummy,
+    output logic PII1,
     output logic PII2,
 
     output logic PA,
@@ -71,7 +71,6 @@ typedef enum logic [2:0] {
 parentState_t parentState;
 
 logic [7:0] count;
-logic [5:0] setupCount;
 logic [5:0] stateCount;
 logic [7:0] tmpCount;
 logic       Hcharged;
@@ -81,8 +80,8 @@ logic       intermCmp;
 logic       enable_cmp_toggle;
 logic       cmp_p1_fsm;
 logic       cmp_p1_async;
-logic       s_CmpOutDisable_reg;
-logic [1:0] s_CmpOutDisableCount;
+logic       CmpOutDisable_reg;
+logic [1:0] CmpOutDisableCount;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -132,11 +131,10 @@ end
 
 always_ff @(posedge clk) begin
     if (rst) begin
-        childState <= PRECHARGECHILD;
+        do_reset_FSM();
         parentState <= PRECHARGEPARENT;
-        count <= 0;
-    end
-    else begin
+        childState <= PRECHARGECHILD;
+    end else begin
 
 /////////////////// BGSETUP /////////////////////////
 
@@ -167,7 +165,7 @@ always_ff @(posedge clk) begin
                         end else begin
                             src_n <= 0;
                             snk <= 1;
-                            setupCount <= setupCount + 1;
+                            stateCount <= stateCount + 1;
                         end
                     end else if (count > 5) begin
                         snk <= 0;
@@ -175,9 +173,9 @@ always_ff @(posedge clk) begin
                         count <= 0;
                         childState <= BLANKBIGDIODE;
                         PI2  <= 0;
-                        if (setupCount > 1) begin
+                        if (stateCount > 1) begin
                             afterBlank <= OUTPUT;
-                            setupCount <= 0;
+                            stateCount <= 0;
                         end else begin
                             afterBlank <= BLANKDIODE;
                         end
@@ -197,7 +195,7 @@ always_ff @(posedge clk) begin
                         childState <= BLANKBIGDIODE; 
                         afterBlank <= BIGDIODE;
                         s_BgCtrl <= 0;
-                        setupCount <= 0;
+                        stateCount <= 0;
                         PA <= 0;
                         PB <= 0;
                         PC <= 0;
@@ -250,7 +248,7 @@ always_ff @(posedge clk) begin
                         end else begin
                             src_n <= 0;
                             snk <= 1;
-                            setupCount <= setupCount + 1;
+                            stateCount <= stateCount + 1;
                         end
                     end else if (count > 5) begin
                         count <= 0;
@@ -258,10 +256,10 @@ always_ff @(posedge clk) begin
                         snk <= 0;
                         src_n <= 0;
                         childState <= BLANKBIGDIODE;
-                        if (setupCount > 1) begin
+                        if (stateCount > 1) begin
                             afterBlank <= HCHARGE;
                             s_PtatCtrl <= 0;
-                            setupCount <= 0;
+                            stateCount <= 0;
                             stateCount <= 0;
                         end else begin
                             afterBlank <= BLANKDIODE;
@@ -537,39 +535,16 @@ always_ff @(posedge clk) begin
             end
         end
 
-//////////////// PRECHARGE /////////////////
+///////////////// PRECHARGE /////////////////////////
 
         else begin
             case(childState)
                 PRECHARGECHILD: begin
-                    PwrUp <= 1;
-                    preChrg <= 1;
-                    s_PtatCtrl <= 1;
-                    s_BgCtrl <= 1;
-                    s_BG2CMP <= 0;
-                    PI2 <= 0;
-                    PII2 <= 0;
-                    PII1 <= 0;
-                    PI1 <= 0;
-                    PA <= 0;
-                    PB <= 1;
-                    PC <= 1;
-                    PD <= 1;
-                    valid <= 0;
-                    Hcharged <= 0;
-                    Lcharged <= 0;
-                    s_Cap2CMP <= 0;
-                    s_Ref2CMP <= 0;
-                    s_CapRst <= 1;
-                    s_PtatOut <= 0;
-                    s_Rdiscon_N <= 1;
-                    stateCount <= 0;
-                    setupBias <= 0;
-                    setupCount <= 0;
-                    cmp_p1_fsm <= 1'b1;
+                    do_precharge();
                     if (count > 14) begin
                         childState <= BLANKDIODE;
                         afterBlank <= DIODE;
+                        PII1 <= 1;
                         count <= 0;
                         preChrg <= 0;
                         cmp_p1_fsm <= ~cmp_p1_fsm;
@@ -582,46 +557,57 @@ always_ff @(posedge clk) begin
                 end
 
                 DIODE: begin
-                    count <= count + 1; 
-                    PII2 <= 1;
-                    if(count > 5) begin
-                        childState <= BLANKDIODE;
-                        afterBlank <= BLANKBIGDIODE;
-                        PII2  <= 0;
+                    if (PII1 == 1) begin
+                        count <= count + 1; 
+                        PII2 <= 1;
+                        if(count > 5) begin
+                            childState <= BLANKDIODE;
+                            afterBlank <= BLANKBIGDIODE;
+                            PII2  <= 0;
+                        end else begin
+                            childState <= DIODE;
+                        end
                     end else begin
-                        childState <= DIODE;
+                        count <= 0;
+                        childState <= BLANKDIODE;
+                        afterBlank <= DIODE;
                     end
                 end
 
                 BLANKBIGDIODE: begin
-                    count <= 0;
-                    PA <= 0;
-                    PB <= 0;
-                    PC <= 0;
-                    PD <= 0;
-                    if (afterBlank == BIGDIODE) begin
-                        PI1 <= 1;
-                    end else begin
-                        PI1 <= 0;
-                    end
-                    childState <= afterBlank;
-                    if (afterBlank == BLANKDIODE) begin
-                        parentState <= BANDGAP;
-                        childState <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
-                    end
+                        count <= 0;
+                        PA <= 0;
+                        PB <= 0;
+                        PC <= 0;
+                        PD <= 0;
+                        if (afterBlank == BIGDIODE) begin
+                            PI1 <= 1;
+                        end else begin
+                            PI1 <= 0;
+                        end
+                        childState <= afterBlank;
+                        if (afterBlank == BLANKDIODE) begin
+                            parentState <= BANDGAP;
+                            childState <= BLANKBIGDIODE;
+                            afterBlank <= BIGDIODE;
+                        end
                 end
 
                 BIGDIODE: begin
-                    count <= count + 1;
-                    PI2 <= 1;
-                    s_BG2CMP <= 1;
-                    if (count > 14) begin
-                        parentState <= BGSETUP;
-                       childState <= BIGDIODE;
-                        intermCmp <= cmp;
+                    if (PI1 == 1) begin
+                        count <= count + 1;
+                        PI2 <= 1;
+                        s_BG2CMP <= 1;
+                        if (count > 14) begin
+                            parentState <= BGSETUP;
+                            childState <= BIGDIODE;
+                            intermCmp <= cmp;
+                        end else begin
+                        childState <= BIGDIODE;
+                        end
                     end else begin
-                       childState <= BIGDIODE;
+                        childState <= BLANKBIGDIODE;
+                        afterBlank <= BIGDIODE;
                     end
                 end
 
@@ -644,11 +630,12 @@ end
 //          And toggle chopping on every rising edge of CMP.
 always @(posedge cmp or posedge reset) begin
     if (reset) begin
+        tmpCount <= 0;
         cmp_p1_async <= 1'b1;
-    end else if (enable_cmp_toggle) begin
+    end else if (enable_cmp_toggle && !CmpOutDisable_reg) begin
         cmp_p1_async <= ~cmp_p1_async;
         tmpCount <= tmpCount + 1;
-    end else begin
+    end else if (parentState != TEMPSENS) begin
         tmpCount <= 0;
     end
 end
@@ -659,26 +646,91 @@ assign cmp_p2 = ~cmp_p1;
 
 // Purpose: Tie CMP output high for 1-2 clk cycles after cmp goes high
 //          to avoid the glitches from chopping the CMP to toggle the always block above
-always @(clk or posedge cmp or posedge reset) begin
+always @(posedge clk or negedge clk or posedge cmp or posedge reset) begin
     if (reset) begin
-        s_CmpOutDisable_reg <= 1'b0;
+        CmpOutDisable_reg <= 1'b0;
     end else if (s_CmpOutDisable) begin // sync clear
-        s_CmpOutDisableCount <= s_CmpOutDisableCount + 1;
-        if (s_CmpOutDisableCount > 1) begin
-            s_CmpOutDisable_reg <= 1'b0;
-            s_CmpOutDisableCount <= 0;
+        CmpOutDisableCount <= CmpOutDisableCount + 1;
+        if (CmpOutDisableCount > 0) begin
+            CmpOutDisable_reg <= 1'b0;
+            CmpOutDisableCount <= 0;
         end
     end else if (cmp && parentState == TEMPSENS) begin // async set
-        s_CmpOutDisable_reg <= 1'b1;
+        CmpOutDisable_reg <= 1'b1;
     end
 end
 
-assign s_CmpOutDisable = s_CmpOutDisable_reg;
+assign s_CmpOutDisable = CmpOutDisable_reg;
 
 
+task automatic do_precharge();
+    PI1 <= 0;
+    PI2 <= 0;
+    PII1 <= 0;
+    PII2 <= 0;
 
+    PA <= 0;
+    PB <= 1;
+    PC <= 1;
+    PD <= 1;
 
-// Lag en alwaysblock som teller clk cycles på tmpPulse
+    s_BgCtrl <= 1;
+    s_PtatCtrl <= 1;
+
+    s_BG2CMP <= 0;
+    s_Cap2CMP <= 0;
+    s_Ref2CMP <= 0;
+    s_CapRst <= 1;
+    s_PtatOut <= 0;
+    s_Rdiscon_N <= 1;
+
+    src_n <= 0;
+    snk <= 0;
+
+    PwrUp <= 1;
+    preChrg <= 1;
+    count <= 0;
+    stateCount <= 0;
+    Hcharged <= 0;
+    Lcharged <= 0;
+    intermCmp <= 0;
+    enable_cmp_toggle <= 0;
+endtask
+
+task automatic do_reset_FSM();
+    PI1 <= 0;
+    PI2 <= 0;
+    PII1 <= 0;
+    PII2 <= 0;
+
+    PA <= 0;
+    PB <= 0;
+    PC <= 0;
+    PD <= 0;
+
+    s_BgCtrl <= 0;
+    s_PtatCtrl <= 0;
+
+    s_BG2CMP <= 0;
+    s_Cap2CMP <= 0;
+    s_Ref2CMP <= 0;
+    s_CapRst <= 0;
+    s_PtatOut <= 0;
+    s_Rdiscon_N <= 0;
+
+    src_n <= 0;
+    snk <= 0;
+
+    PwrUp <= 0;
+    preChrg <= 0;
+    count <= 0;
+    stateCount <= 0;
+    Hcharged <= 0;
+    Lcharged <= 0;
+    intermCmp <= 0;
+    enable_cmp_toggle <= 0;
+endtask
+
 
 
 endmodule

@@ -30,7 +30,7 @@ typical: netlist1
 	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 single: netlist1
-	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt "Kss" Tt Vh
+	cicsim run --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt "Kff" Tt Vl
 
 slow: netlist
 	cicsim run --name ${VIEW}_slow ${TB} ${OPT} ${VIEW} Gt Kss "Th,Tl" Vl
@@ -47,7 +47,7 @@ etc: netlist1
 # Gt "Kss,Kff,Ksf,Kfs" "Th,Tl" "Vl,Vh"
 
 mc: netlist1
-	cicsim run --ignore --name ${VIEW}_mc --count 3 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
+	cicsim run --ignore --name ${VIEW}_mc --count 10 ${TB} ${OPT} ${VIEW} Gt "Kttmm" "Tt" "Vt"
 
 ntc: netlist
 	cicsim run --name ${VIEW}_ntc ${TB} ${OPT} ${VIEW} Gt "Ktt,Kss,Kff" "Tt" Vt

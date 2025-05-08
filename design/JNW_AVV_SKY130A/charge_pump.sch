@@ -29,9 +29,9 @@ lab=#net4}
 N 1900 -1210 1900 -1190 {lab=Vpre}
 N 1880 -1150 1880 -880 {
 lab=vss}
-N 1900 -1190 1930 -1190 {lab=Vpre}
-N 1900 -1110 1930 -1110 {lab=#net2}
-N 1880 -1150 1910 -1150 {lab=vss}
+N 1900 -1190 1940 -1190 {lab=Vpre}
+N 1900 -1110 1940 -1110 {lab=#net2}
+N 1880 -1150 1920 -1150 {lab=vss}
 N 1900 -1260 1900 -1210 {lab=Vpre}
 N 1900 -1370 1900 -1340 {lab=#net5}
 N 1880 -1630 1880 -1150 {
@@ -213,7 +213,7 @@ C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1900 -1560 1 0 {name=x68 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1900 -1670 1 0 {name=x69 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1900 -1450 1 0 {name=x70 }
 C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1900 -1340 1 0 {name=x72 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1930 -1190 1 0 {name=x73 }
+C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 1940 -1190 1 0 {name=x73 }
 C {devices/ipin.sym} 560 -1160 0 0 {name=p128 lab=snk
 }
 C {devices/ipin.sym} 560 -1180 0 0 {name=p129 lab=src_n}

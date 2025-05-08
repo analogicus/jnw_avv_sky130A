@@ -1,2 +1,2 @@
 *Automatic generated instance fron ../../tech/scripts/genxdut bgTest
-XDUT vss vdd vn vp vref VBE B A  bgTest
+XDUT vss vdd vref VBE A cmp vctrl preChrg snk src_n cmp vp B vn  bgTest

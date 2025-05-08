@@ -6,8 +6,8 @@ adut [clk
 + ]
 + [PI1
 + PI2
-+ PII1
 + dummy
++ PII1
 + PII2
 + PA
 + PB
@@ -51,8 +51,8 @@ Rsvi3 tmpPulse 0 1G
 * Outputs
 Rsvi4 PI1 0 1G
 Rsvi5 PI2 0 1G
-Rsvi6 PII1 0 1G
-Rsvi7 dummy 0 1G
+Rsvi6 dummy 0 1G
+Rsvi7 PII1 0 1G
 Rsvi8 PII2 0 1G
 Rsvi9 PA 0 1G
 Rsvi10 PB 0 1G
@@ -89,9 +89,9 @@ Rsvi38 tmpCount_out.0 0 1G
 
 .save v(PI2)
 
-.save v(PII1)
-
 .save v(dummy)
+
+.save v(PII1)
 
 .save v(PII2)
 

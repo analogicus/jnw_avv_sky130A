@@ -611,4 +611,32 @@ always @(negedge clk or src_ctrl) begin
 end
 
 
+
+    PwrUp <= 1;
+    preChrg <= 1;
+    s_PtatCtrl <= 1;
+    s_BgCtrl <= 1;
+    s_BG2CMP <= 0;
+    PI2 <= 0;
+    PII2 <= 0;
+    PII1 <= 0;
+    PI1 <= 0;
+    PA <= 0;
+    PB <= 1;
+    PC <= 1;
+    PD <= 1;
+    valid <= 0;
+    Hcharged <= 0;
+    Lcharged <= 0;
+    s_Cap2CMP <= 0;
+    s_Ref2CMP <= 0;
+    s_CapRst <= 1;
+    s_PtatOut <= 0;
+    s_Rdiscon_N <= 1;
+    stateCount <= 0;
+    setupBias <= 0;
+    setupCount <= 0;
+    cmp_p1_fsm <= 1'b1;
+
+
 endmodule
