@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 import pandas as pd
 from cicsim import command as cm
@@ -10,6 +11,7 @@ import re
 import os
 from matplotlib.ticker import MaxNLocator
 
+matplotlib.use('pgf')
 
 
 def calcPpm(yamlfile):
@@ -196,27 +198,42 @@ def plotVrefTempDependence(yamlfile):
   plt.tight_layout()
   plt.show()
   
-def plotSensTempDependence(yamlfile):
-    # Read result yaml file
-    print(yamlfile)
-    with open(yamlfile + ".yaml") as fi:
-        obj = yaml.safe_load(fi)
-
-    temps = dict()
-    for o in obj:
-        if (not re.search("tmpcount", o)):
-            continue
-        (dontcare, temp) = o.split("_")
-        temps[int(temp)] = float(obj[o])
-    
-    temps = dict(sorted(temps.items()))
-    # print(temps)
+def plotSensTempDependence(yamlfile, folder=None):
     fig,ax = plt.subplots(figsize=(10,5))
+    temps = dict()
+
+    if folder is not None:
+        for file in os.scandir(folder):
+            if not file.name.endswith(".yaml"):
+                continue
+            with open(file) as fi:
+                obj = yaml.safe_load(fi)
+            for o in obj:
+                if (not re.search("tmpcount", o)):
+                    continue
+                (dontcare, temp) = o.split("_")
+                temps[int(temp)] = float(obj[o])
+            temps = dict(sorted(temps.items()))
+            ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file.name[10:-5])
+            temps.clear()
+    else:
+        with open(yamlfile + ".yaml") as fi:
+            obj = yaml.safe_load(fi)     
+        for o in obj:
+            if (not re.search("tmpcount", o)):
+                continue
+            (dontcare, temp) = o.split("_")
+            temps[int(temp)] = float(obj[o])
+    
+    # print(temps)
     ax.set_title("Temperature dependence of Temperature sensor")
     ax.set_ylabel("Value of counter")
     ax.set_xlabel("Temperature [C]")
+    ax.legend()
     ax.plot(list(temps.keys()), list(temps.values()), marker='o')
     plt.tight_layout()
+    import tikzplotlib
+    tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
     plt.show()
 
 
@@ -295,4 +312,7 @@ def plotPpmDistribution(folders):
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
-plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
+# plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
+# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905/tran_SchGtKttTtVt")
+# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/ETC_tmpSnsSweep_0905")
+plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
