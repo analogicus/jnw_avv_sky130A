@@ -82,8 +82,8 @@ N 1380 -280 1410 -280 {lab=#net3}
 N 1500 -290 1570 -290 {lab=tmpPulse}
 N 1360 -610 1360 -560 {lab=nbias}
 N 1360 -560 1390 -560 {lab=nbias}
-N 800 -290 840 -290 {lab=vip}
-N 660 -290 700 -290 {lab=Vcap}
+N 820 -400 860 -400 {lab=vip}
+N 680 -400 720 -400 {lab=Vcap}
 N 1710 -700 1760 -700 {lab=cmp}
 N 1480 -710 1620 -710 {lab=s_CmpOutDisable}
 N 1270 -570 1298 -570 {lab=PwrUp}
@@ -96,9 +96,17 @@ N 1370 -820 1410 -820 {lab=cmp_p1}
 N 450 -480 490 -480 {lab=vss}
 N 450 -500 450 -480 {lab=vss}
 N 1400 -590 1470 -590 {lab=pbias}
-N 740 -470 790 -470 {lab=#net4}
-N 630 -470 680 -470 {lab=vref}
-N 890 -470 930 -470 {lab=vin}
+N 960 10 970 10 {lab=vin}
+N 700 10 720 10 {lab=vref}
+N 780 10 830 10 {lab=#net4}
+N 700 10 700 200 {lab=vref}
+N 670 10 700 10 {lab=vref}
+N 700 260 700 380 {lab=OTAout}
+N 700 380 960 380 {lab=OTAout}
+N 960 200 960 380 {lab=OTAout}
+N 960 10 960 100 {lab=vin}
+N 930 10 960 10 {lab=vin}
+N 880 -50 880 -30 {lab=#net5}
 C {devices/lab_wire.sym} 310 -790 0 0 {name=p2 sig_type=std_logic lab=vctrl}
 C {devices/lab_wire.sym} 610 -1100 0 0 {name=p3 sig_type=std_logic lab=vctrl}
 C {devices/ipin.sym} 140 -1110 0 0 {name=p4 lab=vdd}
@@ -168,12 +176,12 @@ C {devices/ipin.sym} 290 -590 0 0 {name=p77 lab=s_PtatOut}
 C {devices/lab_wire.sym} 600 -680 0 1 {name=p78 sig_type=std_logic lab=Iptat}
 C {devices/ipin.sym} 140 -930 0 0 {name=p79 lab=s_Ref2CMP}
 C {devices/ipin.sym} 140 -910 0 0 {name=p80 lab=s_Cap2CMP}
-C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 690 -290 0 0 {name=x9 }
-C {devices/lab_wire.sym} 780 -240 0 1 {name=p66 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 780 -330 0 1 {name=p67 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 840 -290 0 1 {name=p69 sig_type=std_logic lab=vip}
-C {devices/lab_wire.sym} 750 -330 0 0 {name=p74 sig_type=std_logic lab=s_Cap2CMP}
-C {devices/lab_wire.sym} 660 -290 0 0 {name=p81 sig_type=std_logic lab=Vcap}
+C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 710 -400 0 0 {name=x9 }
+C {devices/lab_wire.sym} 800 -350 0 1 {name=p66 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 800 -440 0 1 {name=p67 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 860 -400 0 1 {name=p69 sig_type=std_logic lab=vip}
+C {devices/lab_wire.sym} 770 -440 0 0 {name=p74 sig_type=std_logic lab=s_Cap2CMP}
+C {devices/lab_wire.sym} 680 -400 0 0 {name=p81 sig_type=std_logic lab=Vcap}
 C {JNW_TR_SKY130A/JNWTR_ANX1_CV.sym} 1410 -280 0 0 {name=x11 }
 C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 1250 -250 0 0 {name=x12 }
 C {devices/lab_wire.sym} 1210 -250 0 0 {name=p82 sig_type=std_logic lab=s_CapRst}
@@ -206,10 +214,27 @@ C {devices/lab_wire.sym} 980 -1110 0 0 {name=p97 sig_type=std_logic lab=setupBia
 C {devices/lab_wire.sym} 1270 -570 0 0 {name=p98 sig_type=std_logic lab=PwrUp}
 C {devices/lab_wire.sym} 350 -1080 0 0 {name=p99 sig_type=std_logic lab=PwrUp}
 C {devices/lab_wire.sym} 290 -550 0 0 {name=p100 sig_type=std_logic lab=PwrUp}
-C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 780 -470 0 0 {name=x45 }
-C {devices/lab_wire.sym} 870 -420 0 1 {name=p68 sig_type=std_logic lab=vss}
-C {devices/lab_wire.sym} 870 -510 0 1 {name=p70 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 630 -470 0 0 {name=p71 sig_type=std_logic lab=vref}
-C {devices/lab_wire.sym} 930 -470 0 1 {name=p72 sig_type=std_logic lab=vin}
-C {devices/lab_wire.sym} 840 -510 0 0 {name=p73 sig_type=std_logic lab=s_Ref2CMP}
-C {devices/vsource.sym} 710 -470 1 0 {name=V_intoVref1 value=0 savecurrent=false}
+C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 820 10 0 0 {name=x46 }
+C {devices/lab_wire.sym} 910 60 0 1 {name=p101 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 910 -30 0 1 {name=p102 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 970 10 0 1 {name=p104 sig_type=std_logic lab=vin}
+C {devices/lab_wire.sym} 870 -140 0 0 {name=p105 sig_type=std_logic lab=s_Ref2CMP}
+C {devices/vsource.sym} 750 10 1 0 {name=V_intoVref2 value=0 savecurrent=false}
+C {JNW_AVV_SKY130A/OTA.sym} 810 230 0 0 {name=x47}
+C {JNW_TR_SKY130A/JNWTR_TGX2_CV.sym} 960 90 1 0 {name=x48 }
+C {devices/lab_wire.sym} 850 150 0 1 {name=p106 sig_type=std_logic lab=PwrUp}
+C {devices/lab_wire.sym} 850 310 0 1 {name=p107 sig_type=std_logic lab=nbias}
+C {devices/lab_wire.sym} 810 330 2 1 {name=p108 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 810 130 0 0 {name=p109 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 910 180 2 1 {name=p110 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 1000 180 2 0 {name=p122 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 1000 150 0 1 {name=p130 sig_type=std_logic lab=s_CmpOutDisable}
+C {JNW_TR_SKY130A/JNWTR_ANX1_CV.sym} 870 -140 1 0 {name=x51 }
+C {devices/lab_wire.sym} 890 -220 0 1 {name=p133 sig_type=std_logic lab=s_CmpOutDisable}
+C {JNW_TR_SKY130A/JNWTR_IVX1_CV.sym} 890 -220 3 1 {name=x52 }
+C {devices/lab_wire.sym} 930 -180 1 0 {name=p135 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 850 -180 1 0 {name=p136 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 840 -100 1 0 {name=p137 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 920 -100 1 0 {name=p138 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 960 320 0 1 {name=p111 sig_type=std_logic lab=OTAout}
+C {devices/lab_wire.sym} 670 10 0 0 {name=p103 sig_type=std_logic lab=vref}

@@ -220,7 +220,9 @@ C {devices/ipin.sym} 560 -1180 0 0 {name=p129 lab=src_n}
 C {devices/lab_wire.sym} 2630 -1220 0 0 {name=p174 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 2460 -1780 0 1 {name=p175 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 2550 -740 0 1 {name=p176 sig_type=std_logic lab=vss}
-C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 2500 -870 0 1 {name=x28[3:0]}
+C {devices/lab_wire.sym} 2460 -1660 0 1 {name=p175 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 2550 -820 0 1 {name=p176 sig_type=std_logic lab=vss}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 2500 -870 0 1 {name=x28[1:0]}
 C {devices/lab_wire.sym} 2670 -1340 0 0 {name=p177 sig_type=std_logic lab=vdd}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 2630 -870 0 0 {name=x92 }
 C {devices/lab_wire.sym} 2610 -870 0 0 {name=p178 sig_type=std_logic lab=nbias}

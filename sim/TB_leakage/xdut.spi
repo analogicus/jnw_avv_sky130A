@@ -1,0 +1,2 @@
+*Automatic generated instance fron ../../tech/scripts/genxdut TB_leakage
+XDUT vss vdd cmp vref tmpPulse  TB_leakage

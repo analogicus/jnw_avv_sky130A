@@ -11,7 +11,7 @@ import re
 import os
 from matplotlib.ticker import MaxNLocator
 
-matplotlib.use('pgf')
+# matplotlib.use('pgf')
 
 
 def calcPpm(yamlfile):
@@ -232,8 +232,8 @@ def plotSensTempDependence(yamlfile, folder=None):
     ax.legend()
     ax.plot(list(temps.keys()), list(temps.values()), marker='o')
     plt.tight_layout()
-    import tikzplotlib
-    tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
+    # import tikzplotlib
+    # tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
     plt.show()
 
 
@@ -314,5 +314,5 @@ def plotPpmDistribution(folders):
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
 # plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905/tran_SchGtKttTtVt")
-# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/ETC_tmpSnsSweep_0905")
-plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
+plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/ETC_tmpSnsSweep_0905")
+# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
