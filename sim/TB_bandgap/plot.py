@@ -13,6 +13,27 @@ from matplotlib.ticker import MaxNLocator
 
 # matplotlib.use('pgf')
 
+k = 1.380649e-23  # Boltzmann constant in J/K
+q = 1.602176634e-19  # Elementary charge in C
+R1 = 7535
+Rout = 4*7535+7535/3
+Tclk = 50e-9  # Clock period in seconds
+vref = 1        # Do i use the calculated or the simulated vref?
+Cosc = 53.8e-15*4*3
+Nclk = 201
+
+
+def calcIptat(temp):
+    return (k * (temp + 273.15) * np.log(8)) / (R1 * q) 
+
+def calcCount(temp):
+    return (Tclk * Nclk)/((Cosc * vref)/calcIptat(temp)) 
+
+# for temp in [-40, -20, 0, 20, 40, 60, 80, 100, 125]:
+#     # print("Iptat at", temp, "C:", calcIptat(temp))
+#     print("Count at", temp, "C:", calcCount(temp))
+    
+    
 
 def calcPpm(yamlfile):
     # Read result yaml file
@@ -198,44 +219,58 @@ def plotVrefTempDependence(yamlfile):
   plt.tight_layout()
   plt.show()
   
-def plotSensTempDependence(yamlfile, folder=None):
-    fig,ax = plt.subplots(figsize=(10,5))
-    temps = dict()
 
-    if folder is not None:
-        for file in os.scandir(folder):
-            if not file.name.endswith(".yaml"):
-                continue
-            with open(file) as fi:
-                obj = yaml.safe_load(fi)
-            for o in obj:
-                if (not re.search("tmpcount", o)):
-                    continue
-                (dontcare, temp) = o.split("_")
-                temps[int(temp)] = float(obj[o])
-            temps = dict(sorted(temps.items()))
-            ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file.name[10:-5])
-            temps.clear()
-    else:
-        with open(yamlfile + ".yaml") as fi:
-            obj = yaml.safe_load(fi)     
+
+def plotSensTempDependence(path, POC=None):
+    cal_t1 = 0  # First calibration temperature (C)
+    cal_t2 = 80  # Second calibration temperature (C)
+
+    def parse_and_calibrate(filepath):
+        with open(filepath) as fi:
+            obj = yaml.safe_load(fi)
+        temps = {}
         for o in obj:
-            if (not re.search("tmpcount", o)):
+            if re.search("tmpcount", o):
+                (dontcare, temp) = o.split("_")
+                temps[int(temp)] = float(obj[o])*1000
+        temps = dict(sorted(temps.items()))
+        # Calibration
+        if POC == 1:
+            if cal_t1 not in temps:
+                print(f"{os.path.basename(filepath)}: missing {cal_t1}C for 1pt calibration")
+            else:
+                c_error = calcCount(cal_t1) - temps[cal_t1]
+                temps = {k: v + c_error for k, v in temps.items()}
+        elif POC == 2:
+            if cal_t1 not in temps or cal_t2 not in temps:
+                print(f"{os.path.basename(filepath)}: missing {cal_t1}C or {cal_t2}C for 2pt calibration")
+            else:
+                meas_1 = temps[cal_t1]
+                meas_2 = temps[cal_t2]
+                ref_1 = calcCount(cal_t1)
+                ref_2 = calcCount(cal_t2)
+                m = (ref_2 - ref_1)/(meas_2 - meas_1)
+                b = ref_1 - m*meas_1
+                temps = {k: m*v + b for k, v in temps.items()}
+        return temps
+
+    fig, ax = plt.subplots(figsize=(10,5))
+    if os.path.isdir(path):
+        for file in sorted(os.listdir(path)):
+            if not file.endswith(".yaml"):
                 continue
-            (dontcare, temp) = o.split("_")
-            temps[int(temp)] = float(obj[o])
-    
-    # print(temps)
+            fullfile = os.path.join(path, file)
+            temps = parse_and_calibrate(fullfile)
+            ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file[10:-5])
+    else:
+        temps = parse_and_calibrate(path)
+        ax.plot(list(temps.keys()), list(temps.values()), marker='o')
     ax.set_title("Temperature dependence of Temperature sensor")
     ax.set_ylabel("Value of counter")
     ax.set_xlabel("Temperature [C]")
     ax.legend()
-    ax.plot(list(temps.keys()), list(temps.values()), marker='o')
     plt.tight_layout()
-    # import tikzplotlib
-    # tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
     plt.show()
-
 
 
 
@@ -314,5 +349,69 @@ def plotPpmDistribution(folders):
 # plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
 # plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905/tran_SchGtKttTtVt")
-plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/ETC_tmpSnsSweep_0905")
+# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0509", folder="sim_results/ETC_tmpSnsSweep_0509", POC=1)
+plotSensTempDependence("sim_results/MC_tmpSnsSweep_0509", POC=2)
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
+
+
+# def plotSensTempDependence(yamlfile, folder=None, POC=None):
+#     fig,ax = plt.subplots(figsize=(10,5))
+#     temps = dict()
+#     Cerror = 0
+#     ROI = (calcCount(60)-calcCount(20))/(60-20)
+
+#     if folder is not None:
+#         for file in os.scandir(folder):
+#             if not file.name.endswith(".yaml"):
+#                 continue
+#             with open(file) as fi:
+#                 obj = yaml.safe_load(fi)
+#             for o in obj:
+#                 if (not re.search("tmpcount", o)):
+#                     continue
+#                 (dontcare, temp) = o.split("_")
+#                 temps[int(temp)] = float(obj[o])*1000
+#             temps = dict(sorted(temps.items()))
+            # if POC == 1:
+            #     # print("Count @ 20 deg", temps[20])
+            #     Cerror = calcCount(20) - temps[20]
+            #     # print("Cerror: ", Cerror)
+            #     for key in temps:
+            #         temps[key] = temps[key] + Cerror
+                # print("Corrected count: ", temps)
+#                 if POC == 2:
+#                     measured_20 = temps.get(20)
+#                     measured_60 = temps.get(60)
+#                     if measured_20 is None or measured_60 is None:
+#                         print(file.name, "missing temp points for 2-point cal (need 20C,60C), skipping.")
+#                         continue
+#                     theo_20 = calcCount(20) * 1000  # match scale
+#                     theo_60 = calcCount(60) * 1000
+#                     # Compute linear fit
+#                     m = (theo_60 - theo_20) / (measured_60 - measured_20)
+#                     b = theo_20 - m * measured_20
+#                     for key in temps:
+#                         temps[key] = m * temps[key] + b
+                
+                
+#             ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file.name[10:-5])
+#             temps.clear()
+#     else:
+#         with open(yamlfile + ".yaml") as fi:
+#             obj = yaml.safe_load(fi)     
+#         for o in obj:
+#             if (not re.search("tmpcount", o)):
+#                 continue
+#             (dontcare, temp) = o.split("_")
+#             temps[int(temp)] = float(obj[o])
+    
+#     # print(temps)
+#     ax.set_title("Temperature dependence of Temperature sensor")
+#     ax.set_ylabel("Value of counter")
+#     ax.set_xlabel("Temperature [C]")
+#     ax.legend()
+#     ax.plot(list(temps.keys()), list(temps.values()), marker='o')
+#     plt.tight_layout()
+#     # import tikzplotlib
+#     # tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
+#     plt.show()
