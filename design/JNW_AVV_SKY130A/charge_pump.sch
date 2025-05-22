@@ -140,8 +140,6 @@ N 1375 -470 1390 -470 {
 lab=vss}
 N 1390 -680 1390 -560 {
 lab=#net8}
-N 1390 -280 1390 -220 {lab=vss}
-N 1390 -220 1420 -220 {lab=vss}
 N 100 -650 200 -650 {lab=cmp}
 N 360 -870 400 -870 {lab=src_n}
 N 1350 -680 1390 -680 {lab=#net8}
@@ -177,7 +175,6 @@ N 1350 -1310 1350 -1175 {lab=vdd}
 N 1350 -1310 1570 -1310 {lab=vdd}
 N 1570 -1310 1570 -1175 {lab=vdd}
 N 980 -680 1350 -680 {lab=#net8}
-N 1390 -340 1420 -340 {lab=#net17}
 N 1350 -930 1350 -680 {lab=#net8}
 N 1570 -930 1570 -680 {lab=vctrl}
 N 1480 -680 1570 -680 {lab=vctrl}
@@ -195,7 +192,7 @@ N 2720 -1250 2720 -1220 {lab=pbias}
 N 2670 -1220 2720 -1220 {lab=pbias}
 N 2720 -1340 2720 -1280 {lab=vdd}
 N 2670 -1340 2720 -1340 {lab=vdd}
-N 2460 -1650 2460 -1620 {lab=#net18}
+N 2460 -1650 2460 -1620 {lab=#net17}
 N 2460 -1780 2460 -1680 {lab=vdd}
 N 1670 -730 1670 -680 {lab=vctrl}
 N 1570 -680 1670 -680 {
@@ -260,8 +257,6 @@ C {devices/vsource.sym} 1390 -530 0 0 {name=V_iprecharge1 value=0 savecurrent=tr
 C {devices/vsource.sym} 1450 -680 1 0 {name=V_ipmosGate2 value=0 savecurrent=true}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1430 -470 0 1 {name=x51 }
 C {devices/lab_wire.sym} 1375 -470 0 0 {name=p103 sig_type=std_logic lab=vss}
-C {devices/vsource.sym} 1390 -310 0 0 {name=V_iPreCharge4 value=410m savecurrent=true}
-C {devices/lab_wire.sym} 1395 -220 0 1 {name=p106 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 920 -1250 0 0 {name=p107 sig_type=std_logic lab=pbias}
 C {devices/lab_wire.sym} 930 -140 0 0 {name=p108 sig_type=std_logic lab=nbias}
 C {devices/lab_wire.sym} 1390 -390 0 1 {name=p109 sig_type=std_logic lab=Vpre

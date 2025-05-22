@@ -34,9 +34,9 @@ Nclk = 201
 def calcIptat(temp):
     return (k * (temp + 273.15) * np.log(8)) / (R1 * q) 
 
-print("Iptat at 125C:", calcIptat(125))
+# print("Iptat at 125C:", calcIptat(125))
 
-print((10e-6 * 100e-9 / (1.1))/53.8e-15)
+# print((15e-6 * 100e-9 / (1.1))/53.8e-15)
 
 def calcCount(temp):
     return (Tclk * Nclk)/((Cosc * vref)/calcIptat(temp)) 

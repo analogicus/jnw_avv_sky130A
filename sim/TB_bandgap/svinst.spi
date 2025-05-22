@@ -31,14 +31,22 @@ adut [clk
 + valid
 + preChrg
 + setupBias
-+ tmpCount_out.7
-+ tmpCount_out.6
-+ tmpCount_out.5
-+ tmpCount_out.4
-+ tmpCount_out.3
-+ tmpCount_out.2
-+ tmpCount_out.1
-+ tmpCount_out.0
++ tmpCount_out1.7
++ tmpCount_out1.6
++ tmpCount_out1.5
++ tmpCount_out1.4
++ tmpCount_out1.3
++ tmpCount_out1.2
++ tmpCount_out1.1
++ tmpCount_out1.0
++ tmpCount_out2.7
++ tmpCount_out2.6
++ tmpCount_out2.5
++ tmpCount_out2.4
++ tmpCount_out2.3
++ tmpCount_out2.2
++ tmpCount_out2.1
++ tmpCount_out2.0
 + ] null dut
 .model dut d_cosim simulation="../tmpDig.so" delay=10p
 
@@ -76,14 +84,22 @@ Rsvi27 rst 0 1G
 Rsvi28 valid 0 1G
 Rsvi29 preChrg 0 1G
 Rsvi30 setupBias 0 1G
-Rsvi31 tmpCount_out.7 0 1G
-Rsvi32 tmpCount_out.6 0 1G
-Rsvi33 tmpCount_out.5 0 1G
-Rsvi34 tmpCount_out.4 0 1G
-Rsvi35 tmpCount_out.3 0 1G
-Rsvi36 tmpCount_out.2 0 1G
-Rsvi37 tmpCount_out.1 0 1G
-Rsvi38 tmpCount_out.0 0 1G
+Rsvi31 tmpCount_out1.7 0 1G
+Rsvi32 tmpCount_out1.6 0 1G
+Rsvi33 tmpCount_out1.5 0 1G
+Rsvi34 tmpCount_out1.4 0 1G
+Rsvi35 tmpCount_out1.3 0 1G
+Rsvi36 tmpCount_out1.2 0 1G
+Rsvi37 tmpCount_out1.1 0 1G
+Rsvi38 tmpCount_out1.0 0 1G
+Rsvi39 tmpCount_out2.7 0 1G
+Rsvi40 tmpCount_out2.6 0 1G
+Rsvi41 tmpCount_out2.5 0 1G
+Rsvi42 tmpCount_out2.4 0 1G
+Rsvi43 tmpCount_out2.3 0 1G
+Rsvi44 tmpCount_out2.2 0 1G
+Rsvi45 tmpCount_out2.1 0 1G
+Rsvi46 tmpCount_out2.0 0 1G
 
 .save v(PI1)
 
@@ -139,15 +155,27 @@ Rsvi38 tmpCount_out.0 0 1G
 
 .save v(setupBias)
 
-E_STATE_tmpCount_out dec_tmpCount_out 0 value={( 0 
-+ + 128*v(tmpCount_out.7)/AVDD
-+ + 64*v(tmpCount_out.6)/AVDD
-+ + 32*v(tmpCount_out.5)/AVDD
-+ + 16*v(tmpCount_out.4)/AVDD
-+ + 8*v(tmpCount_out.3)/AVDD
-+ + 4*v(tmpCount_out.2)/AVDD
-+ + 2*v(tmpCount_out.1)/AVDD
-+ + 1*v(tmpCount_out.0)/AVDD
+E_STATE_tmpCount_out1 dec_tmpCount_out1 0 value={( 0 
++ + 128*v(tmpCount_out1.7)/AVDD
++ + 64*v(tmpCount_out1.6)/AVDD
++ + 32*v(tmpCount_out1.5)/AVDD
++ + 16*v(tmpCount_out1.4)/AVDD
++ + 8*v(tmpCount_out1.3)/AVDD
++ + 4*v(tmpCount_out1.2)/AVDD
++ + 2*v(tmpCount_out1.1)/AVDD
++ + 1*v(tmpCount_out1.0)/AVDD
 +)/1000}
-.save v(dec_tmpCount_out)
+.save v(dec_tmpCount_out1)
+
+E_STATE_tmpCount_out2 dec_tmpCount_out2 0 value={( 0 
++ + 128*v(tmpCount_out2.7)/AVDD
++ + 64*v(tmpCount_out2.6)/AVDD
++ + 32*v(tmpCount_out2.5)/AVDD
++ + 16*v(tmpCount_out2.4)/AVDD
++ + 8*v(tmpCount_out2.3)/AVDD
++ + 4*v(tmpCount_out2.2)/AVDD
++ + 2*v(tmpCount_out2.1)/AVDD
++ + 1*v(tmpCount_out2.0)/AVDD
++)/1000}
+.save v(dec_tmpCount_out2)
 
