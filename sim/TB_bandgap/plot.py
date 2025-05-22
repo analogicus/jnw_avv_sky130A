@@ -1,5 +1,13 @@
-import matplotlib.pyplot as plt
 import matplotlib
+# matplotlib.use("pgf")
+# matplotlib.rcParams.update({
+#     "pgf.texsystem": "pdflatex",
+#     "font.family": "serif",
+#     # "font.serif": ["Computer Modern"],
+#     "text.usetex": True,
+#     "pgf.rcfonts": False,
+# })
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from cicsim import command as cm
@@ -26,13 +34,19 @@ Nclk = 201
 def calcIptat(temp):
     return (k * (temp + 273.15) * np.log(8)) / (R1 * q) 
 
+print("Iptat at 125C:", calcIptat(125))
+
+print((10e-6 * 100e-9 / (1.1))/53.8e-15)
+
 def calcCount(temp):
     return (Tclk * Nclk)/((Cosc * vref)/calcIptat(temp)) 
 
 # for temp in [-40, -20, 0, 20, 40, 60, 80, 100, 125]:
 #     # print("Iptat at", temp, "C:", calcIptat(temp))
 #     print("Count at", temp, "C:", calcCount(temp))
-    
+
+
+
     
 
 def calcPpm(yamlfile):
@@ -88,7 +102,7 @@ def calcVrefMaxMinDelta(yamlfile):
     return maxVref, minVref, delta
 
 
-def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
+def plot(df,xname,yname,ptype=None,ax=None,label="", color=None):
     cmd = cm.Command()
     if(xname not in df.columns):
         cmd.error("Could not find name %s in %s" %(xname,",".join(df.columns)))
@@ -100,37 +114,21 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
 
     x = df[xname]
     y = df[yname]
-    
-    # Adjust the number of samples to remove from plot
-    if rmFirst:
-        x = x[500:].reset_index(drop=True)
-        y = y[500:].reset_index(drop=True)
-    
-    
-    if label == "":
-        # Apply regex transformations to standardize the label
-        label = re.sub(r"^v\(xdut\.x\d+\)", "", yname)  # Remove 'v(xdut.x<number>)'
-        label = re.sub(r"^v\(xdut\.(.*?)\)$", r"\1", label)  # Remove 'v(xdut.<anything>)'
-        label = re.sub(r"^v\((.*)\)$", r"\1", label)  # Remove 'v(<anything>)'
         
-        # Capitalize the first letter if the label starts with 'v'
-        if label[0] == 'v':  # Check if the first character is 'v'
-            label = label[0].upper() + label[1:]  # Capitalize it
-
-        # Er nok mulig å få subscrpit i label hvis jeg bruker noe som er brukt lengre nede: r'$\sigma$ = '
-        # r-en foran stringen gjør at du kan skrive i latex-format
+    if label == "":
+        label = label_dict.get(yname, yname) 
 
     #- Plot
     if("logy" in ptype):
-        ax.semilogy(x,y,label = label)
+        ax.semilogy(x,y,label = label, color=color)
     elif("ln2" in ptype):
-        ax.plot(x,np.log(y)/np.log(2),label = label)
+        ax.plot(x,np.log(y)/np.log(2),label = label, color=color)
     elif("logx" in ptype):
-        ax.semilogx(x,y,label)
+        ax.semilogx(x,y,label, color=color)
     elif("db20" in ptype):
-        ax.semilogx(x,20*np.log10(y),label="dB20("+ label +")")
+        ax.semilogx(x,20*np.log10(y),label="dB20("+ label +")", color=color)
     else:
-        ax.plot(x,y,label = label)
+        ax.plot(x,y,label = label, color=color)
 
     # ax.grid()
     ax.legend()
@@ -140,56 +138,87 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", rmFirst = False):
     return (x,y)
 
 
-def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=False):
-
+def rawplot(
+    fraw,
+    xname,
+    signal_groups=None,        
+    ptype=None,
+    fname=None,
+    xlim=None,
+    ylims=None,
+    legend_loc=None,
+    plot_height=2, 
+    colors=None,
+):
+    """
+    signal_groups: List of lists, each list is a group of signals to plot in one subplot.
+    ylims:         List of y-limits, one per subplot (or None)
+    legend_loc:    List of legend locations, one per subplot (or None/"best")
+    """
     dfs = ngraw.toDataFrames(ngraw.ngRawRead(fraw))
-
-    if(len(dfs)> 0):
+    if len(dfs) > 0:
         df = dfs[0]
-
     else:
-        raise "You have multiple plots in .raw file, that's not supported"
+        raise Exception("You have multiple plots in .raw file, that's not supported")
 
-    if("," in yname):
-        names = yname.split(",")
-        if("same" in ptype):
-            f,axes = plt.subplots(sharex=True, tight_layout=True, figsize=(8, 5))
-        else:
-            f,axes = plt.subplots(len(names),1,sharex=True)
+    # Convert time to microseconds if xname is "time"
+    plot_xname = xname
+    if xname == "time":
+        df = df.copy()
+        df["time"] = df["time"] * 1e6  # now in us
 
-        for i in range(0,len(names)):
-            if("same" in ptype):
-                plot(df,xname,names[i],ptype,ax=axes, rmFirst = removeFirstSamples)
-            else:
-                plot(df,xname,names[i],ptype,ax=axes[i],rmFirst = removeFirstSamples)
-    elif(axes is not None):
-        plot(df,xname,yname,ptype,axes,label=" %s" %fraw)
-    else:
-        f,axes = plt.subplots(sharex=True, tight_layout=True, figsize=(8, 5))
-        plot(df,xname,yname,ptype,axes,label=" %s" %fraw)
+    # Temporary backward compatible handling: if signal_groups is None, build from yname
+    if signal_groups is None:
+        raise Exception("signal_groups must be specified!")
+    n_subplots = len(signal_groups)
+    fig, axes = plt.subplots(n_subplots, 1, sharex=True, figsize=(6.3, plot_height*n_subplots))
+    fig.subplots_adjust(hspace=0.1)
+    if n_subplots == 1:
+        axes = [axes]
+        
+    # Default legend location ("best") if not passed
+    if legend_loc is None:
+        legend_loc = ["best"] * n_subplots
+    elif isinstance(legend_loc, str):
+        legend_loc = [legend_loc] * n_subplots
+    assert len(legend_loc) == n_subplots, "legend_loc must be a list with length equal to number of subplots"
+    
+    for i, (signals, ax) in enumerate(zip(signal_groups, axes)):
+        subplot_colors = None
+        if colors is not None and i < len(colors):
+            subplot_colors = colors[i]
+        for j, sig in enumerate(signals):
+            color = None
+            if subplot_colors is not None and j < len(subplot_colors):
+                color = subplot_colors[j]
+            plot(
+                df,
+                plot_xname,
+                sig,
+                ptype,
+                ax=ax,
+                label="",
+                color=color   # <--- pass color!
+            )
+        if ylims is not None and ylims[i] is not None:
+            ax.set_ylim(*ylims[i])
+        if xlim is not None:
+            ax.set_xlim(*xlim)
+        ax.set_ylabel("Voltage [V]")   # <--- Use constant label here!
+        ax.legend(loc=legend_loc[i])   # CHANGED: use per-subplot location
+        ax.grid()
 
-    if(xname == "time"):    
-        plt.xlabel("Time [s]")
-    elif(xname == "frequency"):
-        plt.xlabel("Frequency [Hz]")
-    elif(xname == "temperature"):
-        plt.xlabel("Temperature [K]")
-    plt.grid()
-    plt.ylabel("Voltage [V]")
+    if xname == "time":
+        axes[-1].set_xlabel(r'Time [$\mu$s]')
+    elif xname == "frequency":
+        axes[-1].set_xlabel("Frequency [Hz]")
+    elif xname == "temperature":
+        axes[-1].set_xlabel("Temperature [K]")
     plt.tight_layout()
-
-    #if("tikz" in ptype):
-    #    tikzplotlib.save(fname.replace(".csv",".pgf"))
-
-
-
-    # if(fname is not None):
-    #     plt.savefig(fname)
-
-    # if("pdf" not in ptype):
-    plt.show()
-
-
+    # plt.show()
+    plt.savefig("plots/operationCloseup.pgf") 
+    
+    
 def plotVrefTempDependence(yamlfile):
   # Read result yaml file
   with open(yamlfile + ".yaml") as fi:
@@ -219,7 +248,6 @@ def plotVrefTempDependence(yamlfile):
   plt.tight_layout()
   plt.show()
   
-
 
 def plotSensTempDependence(path, POC=None):
     cal_t1 = 0  # First calibration temperature (C)
@@ -334,15 +362,76 @@ def plotPpmDistribution(folders):
     plt.show()
 
 
-# plotVrefDistribution(["sim_results/MC_28_feb_tempSweep_nochp"], Temp="20")  
-# plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"], Temp="20")  
+label_dict = {
+    "v(xdut.vn)": r'$V_{n}$',
+    "v(xdut.vp)": r'$V_{p}$',
+    "v(xdut.vctrl)": r'$V_{ctrl}$',
+    "v(vref)": r'$V_{ref}$',
+    "v(xdut.vout)": r'$V_{out}$',
+    "v(xdut.x3.vbgctrl)": r'$V_{ctrlRef}$',
+    "v(xdut.x3.vptatctrl)": r'$V_{ctrlPTAT}$',
+    "v(dec_tmpcount_out1)": r'$V_{count1}$',
+    "v(dec_tmpcount_out2)": r'$V_{count2}$',
+    "v(pa)": r'$sOut$',
+    "v(pb)": r'$sAvgCapH$',
+    "v(pc)": r'$sAvgCapL$',
+    "v(pd)": r'$sRefCap$',
+    "v(pi1)": r'$sBD$',
+    "v(pi2)": r'$sBDC$',
+    "v(pii1)": r'$sSD$',
+    "v(pii2)": r'$sSDC$',
+    "v(snk)": r'$sSnk$',
+    "v(src_n)": r'$sSrc$',
+    "v(cmp)": r'$V_{cmp}$',
+    }
 
-# plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
 
-# getVref("sim_results/MC_28_feb_tempSweep_nochp/tran_SchGtKttmmTtVt_1", temp="20")
-# name = "output_tran/tran_SchGtKttTtVt_20"
+# signal_groups = [
+#     ["v(pii1)", "v(pi1)", "v(src_n)", "v(snk)"],
+#     ["v(xdut.vn)", "v(xdut.vp)", "v(xdut.x3.vptatctrl)", "v(xdut.x3.vbgctrl)"],
+# ]
 
-# rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
+signal_groups = [
+    ["v(xdut.vn)", "v(xdut.vp)"],
+    ["v(xdut.x3.vbgctrl)"],
+    ["v(cmp)"],
+    ["v(pii1)", "v(pi1)","v(pb)","v(pc)","v(pd)"]
+]
+
+# y_lims = [
+#     (-0.1, 2),  # y-limits for the second group
+#     (-0.1, 1),  # y-limits for the first group
+# ]
+
+y_lims = [
+    (0.741, 0.747),
+    (0.424, 0.431),
+    (-0.1, 2),
+    (-0.1, 2),
+]
+
+colors = [
+    ["C0", "C1"],
+    ["C2"],
+    ["C3"],
+]
+
+name = "output_tran/tran_SchGtKttTtVt_20"
+# rawplot(
+#     name + ".raw",
+#     'time',
+#     signal_groups=signal_groups,
+#     ptype="same",
+#     fname=name + ".pdf",
+#     xlim=(27.3, 31.3),      
+#     ylims=y_lims,     
+#     plot_height=1.6,
+#     legend_loc=["right", "right", "right", "right"],
+#     colors=colors
+# )
+
+
+
 
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
@@ -350,68 +439,5 @@ def plotPpmDistribution(folders):
 # plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905/tran_SchGtKttTtVt")
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0509", folder="sim_results/ETC_tmpSnsSweep_0509", POC=1)
-plotSensTempDependence("sim_results/MC_tmpSnsSweep_0509", POC=2)
+# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0509", POC=0)
 # plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
-
-
-# def plotSensTempDependence(yamlfile, folder=None, POC=None):
-#     fig,ax = plt.subplots(figsize=(10,5))
-#     temps = dict()
-#     Cerror = 0
-#     ROI = (calcCount(60)-calcCount(20))/(60-20)
-
-#     if folder is not None:
-#         for file in os.scandir(folder):
-#             if not file.name.endswith(".yaml"):
-#                 continue
-#             with open(file) as fi:
-#                 obj = yaml.safe_load(fi)
-#             for o in obj:
-#                 if (not re.search("tmpcount", o)):
-#                     continue
-#                 (dontcare, temp) = o.split("_")
-#                 temps[int(temp)] = float(obj[o])*1000
-#             temps = dict(sorted(temps.items()))
-            # if POC == 1:
-            #     # print("Count @ 20 deg", temps[20])
-            #     Cerror = calcCount(20) - temps[20]
-            #     # print("Cerror: ", Cerror)
-            #     for key in temps:
-            #         temps[key] = temps[key] + Cerror
-                # print("Corrected count: ", temps)
-#                 if POC == 2:
-#                     measured_20 = temps.get(20)
-#                     measured_60 = temps.get(60)
-#                     if measured_20 is None or measured_60 is None:
-#                         print(file.name, "missing temp points for 2-point cal (need 20C,60C), skipping.")
-#                         continue
-#                     theo_20 = calcCount(20) * 1000  # match scale
-#                     theo_60 = calcCount(60) * 1000
-#                     # Compute linear fit
-#                     m = (theo_60 - theo_20) / (measured_60 - measured_20)
-#                     b = theo_20 - m * measured_20
-#                     for key in temps:
-#                         temps[key] = m * temps[key] + b
-                
-                
-#             ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file.name[10:-5])
-#             temps.clear()
-#     else:
-#         with open(yamlfile + ".yaml") as fi:
-#             obj = yaml.safe_load(fi)     
-#         for o in obj:
-#             if (not re.search("tmpcount", o)):
-#                 continue
-#             (dontcare, temp) = o.split("_")
-#             temps[int(temp)] = float(obj[o])
-    
-#     # print(temps)
-#     ax.set_title("Temperature dependence of Temperature sensor")
-#     ax.set_ylabel("Value of counter")
-#     ax.set_xlabel("Temperature [C]")
-#     ax.legend()
-#     ax.plot(list(temps.keys()), list(temps.values()), marker='o')
-#     plt.tight_layout()
-#     # import tikzplotlib
-#     # tikzplotlib.save("plots/ETCsnsTmpDep.pgf")
-#     plt.show()
