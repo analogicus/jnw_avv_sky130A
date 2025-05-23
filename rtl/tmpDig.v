@@ -86,6 +86,7 @@ logic       cmp_p1_async;
 logic       CmpOutDisable_reg;
 logic [1:0] CmpOutDisableCount;
 logic       lastPTATcmp;
+logic       tmpCountRst;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -436,6 +437,7 @@ always_ff @(posedge clk) begin
             s_Ref2CMP <= 1;
             count <= count + 1;
             enable_cmp_toggle <= 1;
+            tmpCountRst <= 0;
             if (count > 400) begin
                 parentState <= SLEEP;
                 enable_cmp_toggle <= 0;
@@ -463,6 +465,9 @@ always_ff @(posedge clk) begin
                 afterBlank <= BIGDIODE;
                 count <= 0;
                 PwrUp <= 1;
+                if (tmpCount1 > 0 && tmpCount2 > 0) begin
+                    tmpCountRst <= 1;
+                end 
             end else begin
                 parentState <= SLEEP;
             end
@@ -561,7 +566,7 @@ end
 
 // Purpose: When in TEMPSENS state, count positive edges of cmp.
 //          And toggle chopping on every rising edge of CMP.
-always @(posedge cmp or posedge reset) begin
+always @(posedge cmp or posedge reset or posedge tmpCountRst) begin
     if (reset) begin
         tmpCount1 <= 0;
         tmpCount2 <= 0;
@@ -573,7 +578,7 @@ always @(posedge cmp or posedge reset) begin
         end else begin
             tmpCount2 <= tmpCount2 + 1;
         end 
-    end else if (parentState != TEMPSENS && lastPTATcmp == 0) begin
+    end else if (tmpCountRst) begin
         tmpCount1 <= 0;
         tmpCount2 <= 0;
     end
@@ -635,7 +640,7 @@ task automatic do_precharge();
     intermCmp <= 0;
     enable_cmp_toggle <= 0;
     lastPTATcmp <= 0;
-
+    tmpCountRst <= 0;
 endtask
 
 task automatic do_reset_FSM();
@@ -671,7 +676,7 @@ task automatic do_reset_FSM();
     intermCmp <= 0;
     enable_cmp_toggle <= 0;
     lastPTATcmp <= 0;
-
+    tmpCountRst <= 0;
 endtask
 
 

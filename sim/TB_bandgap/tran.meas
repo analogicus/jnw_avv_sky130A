@@ -17,13 +17,17 @@ meas tran tmpCount2_$vtemp MAX v(dec_tmpcount_out2)
 * meas tran Vref_$vtemp avg v(vref) from=150u to=160u
 * meas tran IPtat_$vtemp avg i(v.xdut.vIptat) from=100u to=120u
 * meas tran tPulse_$vtemp TRIG v(tmpPulse) VAL=0.9 RISE=LAST TARG v(tmpPulse) VAL=0.9 FALL=LAST
-meas tran ivdd_$vtemp avg i(vdd) from=100u to=120u
+* meas tran ivdd_$vtemp avg i(vdd) from=100u to=120u
 * meas tran Vn_$vtemp avg v(xdut.vn) from=5u to=7u
 * meas tran IcmpTail_$vtemp avg i(v.xdut.x1.v_cmptail) from=20u to=40u
 
-meas tran capRst_fall_$vtemp WHEN v(s_caprst)=0.9 FALL=1
-meas tran capRst_rise_$vtemp WHEN v(s_caprst)=0.9 RISE=2
-meas tran IPtat_$vtemp avg i(v.xdut.x7.viptat1) from='capRst_fall_$vtemp' to='capRst_rise_$vtemp'
+meas tran capRst_fall_first_$vtemp WHEN v(s_caprst)=0.9 FALL=1
+meas tran capRst_rise_first_$vtemp WHEN v(s_caprst)=0.9 RISE=2
+meas tran IPtat_First_$vtemp avg i(v.xdut.x7.viptat1) from='capRst_fall_first_$vtemp' to='capRst_rise_first_$vtemp'
+
+meas tran capRst_fall_second_$vtemp WHEN v(s_caprst)=0.9 FALL=2
+meas tran capRst_rise_second_$vtemp WHEN v(s_caprst)=0.9 RISE=3
+meas tran IPtat_Second_$vtemp avg i(v.xdut.x7.viptat1) from='capRst_fall_second_$vtemp' to='capRst_rise_second_$vtemp'
 
 end
 

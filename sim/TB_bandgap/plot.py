@@ -27,8 +27,8 @@ R1 = 7535
 Rout = 4*7535+7535/3
 Tclk = 50e-9  # Clock period in seconds
 vref = 1        # Do i use the calculated or the simulated vref?
-Cosc = 53.8e-15*4*3
-Nclk = 201
+Cosc = 53.8e-15*4*7
+Nclk = 401
 
 
 def calcIptat(temp):
@@ -198,14 +198,14 @@ def rawplot(
                 ptype,
                 ax=ax,
                 label="",
-                color=color   # <--- pass color!
+                color=color
             )
         if ylims is not None and ylims[i] is not None:
             ax.set_ylim(*ylims[i])
         if xlim is not None:
             ax.set_xlim(*xlim)
-        ax.set_ylabel("Voltage [V]")   # <--- Use constant label here!
-        ax.legend(loc=legend_loc[i])   # CHANGED: use per-subplot location
+        ax.set_ylabel("Voltage [V]")   
+        ax.legend(loc=legend_loc[i])
         ax.grid()
 
     if xname == "time":
@@ -248,6 +248,10 @@ def plotVrefTempDependence(yamlfile):
   plt.tight_layout()
   plt.show()
   
+def countToTemp(count):
+    A = (k * np.log(8)) / (R1 * q)
+    temp = (count * (Cosc * vref) / (Tclk * Nclk * A)) - 273.15
+    return temp
 
 def plotSensTempDependence(path, POC=None):
     cal_t1 = 0  # First calibration temperature (C)
@@ -256,12 +260,33 @@ def plotSensTempDependence(path, POC=None):
     def parse_and_calibrate(filepath):
         with open(filepath) as fi:
             obj = yaml.safe_load(fi)
+        # Find all entries for tmpcount1 and tmpcount2
+        tmp1 = {}
+        tmp2 = {}
         temps = {}
         for o in obj:
-            if re.search("tmpcount", o):
-                (dontcare, temp) = o.split("_")
-                temps[int(temp)] = float(obj[o])*1000
-        temps = dict(sorted(temps.items()))
+            m1 = re.match(r"tmpcount1_(\-?\d+)", o)
+            m2 = re.match(r"tmpcount2_(\-?\d+)", o)
+            if m1:
+                temp = int(m1.group(1))
+                tmp1[temp] = float(obj[o])*1000
+            elif m2:
+                temp = int(m2.group(1))
+                tmp2[temp] = float(obj[o])*1000
+        all_temps = sorted(set(tmp1.keys()).union(tmp2.keys()))
+        for t in all_temps:
+            vals = []
+            if t in tmp1:
+                vals.append(tmp1[t])
+            if t in tmp2:
+                vals.append(tmp2[t])
+            if vals:
+                if len(vals) == 2:
+                    avg = sum(vals)/2
+                else:
+                    avg = vals[0]
+                    print(f"Warning: Only one of tmpcount1 or tmpcount2 present for T={t}C in {os.path.basename(filepath)}")
+                temps[t] = avg
         # Calibration
         if POC == 1:
             if cal_t1 not in temps:
@@ -289,17 +314,29 @@ def plotSensTempDependence(path, POC=None):
                 continue
             fullfile = os.path.join(path, file)
             temps = parse_and_calibrate(fullfile)
-            ax.plot(list(temps.keys()), list(temps.values()), marker='o', label=file[10:-5])
+            counters = list(temps.values())
+            est_temps = [countToTemp(c) for c in counters]
+            ax.plot(list(temps.keys()), est_temps, marker='o', label=file[10:-5])
     else:
         temps = parse_and_calibrate(path)
-        ax.plot(list(temps.keys()), list(temps.values()), marker='o')
+        counters = list(temps.values())
+        est_temps = [countToTemp(c) for c in counters]
+        ax.plot(list(temps.keys()), est_temps, marker='o')
     ax.set_title("Temperature dependence of Temperature sensor")
-    ax.set_ylabel("Value of counter")
+    ax.set_ylabel("Estimated temperature [°C]")
     ax.set_xlabel("Temperature [C]")
     ax.legend()
+    ax.grid()
+
+    desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
+    lower_lim = desired_ticks[0] - 10
+    upper_lim = desired_ticks[-1] + 10
+    ax.set_xticks(desired_ticks)
+    ax.set_yticks(desired_ticks)
+    ax.set_xlim(lower_lim, upper_lim)
+    ax.set_ylim(lower_lim, upper_lim)
     plt.tight_layout()
     plt.show()
-
 
 
 def plotVrefDistribution(folders, Temp=None):
@@ -435,9 +472,6 @@ name = "output_tran/tran_SchGtKttTtVt_20"
 
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
-# plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
-# plotSensTempDependence("output_tran/TYP_tmpSns_Sweep_tmpCount")
-# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905/tran_SchGtKttTtVt")
-# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0509", folder="sim_results/ETC_tmpSnsSweep_0509", POC=1)
-# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0509", POC=0)
-# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0905", folder="sim_results/MC_tmpSnsSweep_0905")
+plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=None)
+plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=1)
+plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=2)

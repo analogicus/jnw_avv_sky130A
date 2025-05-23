@@ -17,6 +17,7 @@ void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__3(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf);
 void Vlng___024root___nba_sequent__TOP__5(Vlng___024root* vlSelf);
+void Vlng___024root___nba_sequent__TOP__6(Vlng___024root* vlSelf);
 void Vlng___024root___nba_comb__TOP__0(Vlng___024root* vlSelf);
 
 void Vlng___024root___eval_nba(Vlng___024root* vlSelf) {
@@ -37,8 +38,11 @@ void Vlng___024root___eval_nba(Vlng___024root* vlSelf) {
     if ((2ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__4(vlSelf);
     }
-    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((4ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_sequent__TOP__5(vlSelf);
+    }
+    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+        Vlng___024root___nba_sequent__TOP__6(vlSelf);
     }
     if ((6ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vlng___024root___nba_comb__TOP__0(vlSelf);
@@ -73,41 +77,30 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__2(Vlng___024root* vlSelf) 
     // Init
     CData/*0:0*/ __Vdly__tmpDig__DOT__cmp_p1_async;
     __Vdly__tmpDig__DOT__cmp_p1_async = 0;
-    CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount2;
-    __Vdly__tmpDig__DOT__tmpCount2 = 0;
-    CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount1;
-    __Vdly__tmpDig__DOT__tmpCount1 = 0;
     // Body
     __Vdly__tmpDig__DOT__cmp_p1_async = vlSelfRef.tmpDig__DOT__cmp_p1_async;
-    __Vdly__tmpDig__DOT__tmpCount1 = vlSelfRef.tmpDig__DOT__tmpCount1;
-    __Vdly__tmpDig__DOT__tmpCount2 = vlSelfRef.tmpDig__DOT__tmpCount2;
+    vlSelfRef.__Vdly__tmpDig__DOT__tmpCount1 = vlSelfRef.tmpDig__DOT__tmpCount1;
+    vlSelfRef.__Vdly__tmpDig__DOT__tmpCount2 = vlSelfRef.tmpDig__DOT__tmpCount2;
     if (vlSelfRef.reset) {
         __Vdly__tmpDig__DOT__cmp_p1_async = 1U;
-        __Vdly__tmpDig__DOT__tmpCount1 = 0U;
-        __Vdly__tmpDig__DOT__tmpCount2 = 0U;
+        vlSelfRef.__Vdly__tmpDig__DOT__tmpCount1 = 0U;
+        vlSelfRef.__Vdly__tmpDig__DOT__tmpCount2 = 0U;
     } else if (((IData)(vlSelfRef.tmpDig__DOT__enable_cmp_toggle) 
                 & (~ (IData)(vlSelfRef.tmpDig__DOT__CmpOutDisable_reg)))) {
         __Vdly__tmpDig__DOT__cmp_p1_async = (1U & (~ (IData)(vlSelfRef.tmpDig__DOT__cmp_p1_async)));
         if (vlSelfRef.tmpDig__DOT__lastPTATcmp) {
-            __Vdly__tmpDig__DOT__tmpCount1 = (0xffU 
-                                              & ((IData)(1U) 
-                                                 + (IData)(vlSelfRef.tmpDig__DOT__tmpCount1)));
+            vlSelfRef.__Vdly__tmpDig__DOT__tmpCount1 
+                = (0xffU & ((IData)(1U) + (IData)(vlSelfRef.tmpDig__DOT__tmpCount1)));
         }
         if ((1U & (~ (IData)(vlSelfRef.tmpDig__DOT__lastPTATcmp)))) {
-            __Vdly__tmpDig__DOT__tmpCount2 = (0xffU 
-                                              & ((IData)(1U) 
-                                                 + (IData)(vlSelfRef.tmpDig__DOT__tmpCount2)));
+            vlSelfRef.__Vdly__tmpDig__DOT__tmpCount2 
+                = (0xffU & ((IData)(1U) + (IData)(vlSelfRef.tmpDig__DOT__tmpCount2)));
         }
-    } else if (((4U != (IData)(vlSelfRef.tmpDig__DOT__parentState)) 
-                & (~ (IData)(vlSelfRef.tmpDig__DOT__lastPTATcmp)))) {
-        __Vdly__tmpDig__DOT__tmpCount1 = 0U;
-        __Vdly__tmpDig__DOT__tmpCount2 = 0U;
+    } else if (vlSelfRef.tmpDig__DOT__tmpCountRst) {
+        vlSelfRef.__Vdly__tmpDig__DOT__tmpCount1 = 0U;
+        vlSelfRef.__Vdly__tmpDig__DOT__tmpCount2 = 0U;
     }
     vlSelfRef.tmpDig__DOT__cmp_p1_async = __Vdly__tmpDig__DOT__cmp_p1_async;
-    vlSelfRef.tmpDig__DOT__tmpCount1 = __Vdly__tmpDig__DOT__tmpCount1;
-    vlSelfRef.tmpDig__DOT__tmpCount2 = __Vdly__tmpDig__DOT__tmpCount2;
-    vlSelfRef.tmpCount_out1 = vlSelfRef.tmpDig__DOT__tmpCount1;
-    vlSelfRef.tmpCount_out2 = vlSelfRef.tmpDig__DOT__tmpCount2;
 }
 
 extern const VlUnpacked<CData/*1:0*/, 256> Vlng__ConstPool__TABLE_h69f8f00e_0;
@@ -175,6 +168,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) 
         vlSelfRef.__Vdly__tmpDig__DOT__intermCmp = 0U;
         vlSelfRef.tmpDig__DOT__enable_cmp_toggle = 0U;
         vlSelfRef.__Vdly__tmpDig__DOT__lastPTATcmp = 0U;
+        vlSelfRef.tmpDig__DOT__tmpCountRst = 0U;
         vlSelfRef.__Vdly__tmpDig__DOT__parentState = 1U;
         vlSelfRef.__Vdly__tmpDig__DOT__childState = 0U;
     } else if ((5U == (IData)(vlSelfRef.tmpDig__DOT__parentState))) {
@@ -538,6 +532,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) 
         }
     } else if ((4U == (IData)(vlSelfRef.tmpDig__DOT__parentState))) {
         vlSelfRef.s_PtatCtrl = 1U;
+        vlSelfRef.tmpDig__DOT__tmpCountRst = 0U;
         vlSelfRef.s_CapRst = 0U;
         vlSelfRef.s_Cap2CMP = 1U;
         vlSelfRef.s_Ref2CMP = 1U;
@@ -570,6 +565,10 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) 
             vlSelfRef.__Vdly__tmpDig__DOT__childState = 7U;
             vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
             vlSelfRef.PwrUp = 1U;
+            if (((0U < (IData)(vlSelfRef.tmpDig__DOT__tmpCount1)) 
+                 & (0U < (IData)(vlSelfRef.tmpDig__DOT__tmpCount2)))) {
+                vlSelfRef.tmpDig__DOT__tmpCountRst = 1U;
+            }
         } else {
             vlSelfRef.__Vdly__tmpDig__DOT__parentState = 0U;
         }
@@ -669,6 +668,7 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) 
         vlSelfRef.__Vdly__tmpDig__DOT__intermCmp = 0U;
         vlSelfRef.tmpDig__DOT__enable_cmp_toggle = 0U;
         vlSelfRef.__Vdly__tmpDig__DOT__lastPTATcmp = 0U;
+        vlSelfRef.tmpDig__DOT__tmpCountRst = 0U;
         vlSelfRef.s_PtatCtrl = 1U;
         vlSelfRef.preChrg = 1U;
         vlSelfRef.__Vdly__tmpDig__DOT__count = 0U;
@@ -696,9 +696,9 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__4(Vlng___024root* vlSelf) 
     vlSelfRef.tmpDig__DOT__Lcharged = vlSelfRef.__Vdly__tmpDig__DOT__Lcharged;
     vlSelfRef.tmpDig__DOT__intermCmp = vlSelfRef.__Vdly__tmpDig__DOT__intermCmp;
     vlSelfRef.tmpDig__DOT__childState = vlSelfRef.__Vdly__tmpDig__DOT__childState;
+    vlSelfRef.tmpDig__DOT__parentState = vlSelfRef.__Vdly__tmpDig__DOT__parentState;
     vlSelfRef.tmpDig__DOT__afterBlank = vlSelfRef.__Vdly__tmpDig__DOT__afterBlank;
     vlSelfRef.tmpDig__DOT__lastPTATcmp = vlSelfRef.__Vdly__tmpDig__DOT__lastPTATcmp;
-    vlSelfRef.tmpDig__DOT__parentState = vlSelfRef.__Vdly__tmpDig__DOT__parentState;
     vlSelfRef.tmpDig__DOT__cmp_p1_fsm = vlSelfRef.__Vdly__tmpDig__DOT__cmp_p1_fsm;
 }
 
@@ -706,6 +706,18 @@ VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__5(Vlng___024root* vlSelf) 
     (void)vlSelf;  // Prevent unused variable warning
     Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__5\n"); );
+    auto &vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.tmpDig__DOT__tmpCount1 = vlSelfRef.__Vdly__tmpDig__DOT__tmpCount1;
+    vlSelfRef.tmpDig__DOT__tmpCount2 = vlSelfRef.__Vdly__tmpDig__DOT__tmpCount2;
+    vlSelfRef.tmpCount_out1 = vlSelfRef.tmpDig__DOT__tmpCount1;
+    vlSelfRef.tmpCount_out2 = vlSelfRef.tmpDig__DOT__tmpCount2;
+}
+
+VL_INLINE_OPT void Vlng___024root___nba_sequent__TOP__6(Vlng___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vlng__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vlng___024root___nba_sequent__TOP__6\n"); );
     auto &vlSelfRef = std::ref(*vlSelf).get();
     // Body
     vlSelfRef.rst = vlSelfRef.reset;

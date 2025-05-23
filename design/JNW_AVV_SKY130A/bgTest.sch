@@ -1030,6 +1030,34 @@ N 8580 -1070 8710 -1070 {lab=#net12}
 N 8790 -1070 8920 -1070 {lab=#net7}
 N 8620 -910 8710 -910 {lab=#net16}
 N 8790 -910 8880 -910 {lab=#net15}
+N 6770 -620 6820 -620 {lab=ip_intermediate}
+N 6860 -680 7030 -680 {lab=vdd}
+N 6860 -680 6860 -650 {lab=vdd}
+N 7030 -680 7030 -650 {lab=vdd}
+N 6900 -420 6990 -420 {lab=nbias}
+N 7070 -620 7110 -620 {lab=in_intermediate}
+N 7030 -420 7030 -360 {lab=vss}
+N 6860 -360 7030 -360 {lab=vss}
+N 6860 -420 6860 -360 {lab=vss}
+N 6790 -550 6860 -550 {lab=ipShifted}
+N 7030 -550 7090 -550 {lab=inShifted}
+N 7030 -590 7030 -550 {lab=inShifted}
+N 6860 -590 6860 -550 {lab=ipShifted}
+N 7030 -550 7030 -530 {lab=inShifted}
+N 7030 -470 7030 -450 {lab=#net9}
+N 6860 -550 6860 -530 {lab=ipShifted}
+N 6860 -470 6860 -450 {lab=#net10}
+N 6470 -690 6620 -690 {lab=vdd}
+N 6470 -690 6470 -620 {lab=vdd}
+N 6620 -690 6620 -620 {lab=vdd}
+N 6510 -620 6580 -620 {lab=pbias}
+N 6470 -590 6470 -550 {lab=ip_intermediate}
+N 6620 -590 6620 -550 {lab=in_intermediate}
+N 6530 -520 6580 -520 {lab=in}
+N 6390 -520 6430 -520 {lab=ip}
+N 6470 -460 6620 -460 {lab=#net13}
+N 6470 -490 6470 -460 {lab=#net13}
+N 6620 -490 6620 -460 {lab=#net13}
 C {devices/ipin.sym} 120 -1010 0 0 {name=p4 lab=vss}
 C {devices/ipin.sym} 120 -1040 0 0 {name=p5 lab=vdd}
 C {devices/lab_wire.sym} 1140 -180 0 0 {name=p32 sig_type=std_logic lab=pbias}
@@ -1698,3 +1726,30 @@ C {JNW_TR_SKY130A/JNWTR_RPPO8.sym} 8580 -1070 3 1 {name=x139 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 8710 -1070 3 1 {name=x140 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 8790 -1070 1 0 {name=x141 }
 C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 8880 -1070 1 0 {name=x142 }
+C {devices/lab_wire.sym} 7110 -620 0 1 {name=p154 sig_type=std_logic lab=in_intermediate}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 6820 -620 0 0 {name=x54}
+C {devices/lab_wire.sym} 7030 -620 0 1 {name=p156 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 6860 -620 0 1 {name=p157 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 6940 -680 0 1 {name=p158 sig_type=std_logic lab=vdd}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 6900 -420 0 1 {name=x55 }
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C5F0.sym} 6990 -420 0 0 {name=x56 }
+C {devices/lab_wire.sym} 6940 -360 0 1 {name=p159 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 6930 -420 0 1 {name=p160 sig_type=std_logic lab=nbias}
+C {devices/lab_wire.sym} 6800 -550 0 0 {name=p161 sig_type=std_logic lab=ipShifted}
+C {devices/lab_wire.sym} 7060 -550 0 1 {name=p167 sig_type=std_logic lab=inShifted}
+C {devices/vsource.sym} 6860 -500 0 0 {name=v_lvlShft value=0 savecurrent=true}
+C {devices/vsource.sym} 7030 -500 0 0 {name=v_lvlShft1 value=0 savecurrent=true}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 6510 -620 0 1 {name=x17[7:0]}
+C {JNW_ATR_SKY130A/JNWATR_PCH_2C5F0.sym} 6580 -620 0 0 {name=x19[7:0]}
+C {devices/lab_wire.sym} 6620 -520 0 1 {name=p168 sig_type=std_logic lab=vdd}
+C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 6580 -520 0 0 {name=x58}
+C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 6430 -520 0 0 {name=x59}
+C {devices/lab_wire.sym} 6540 -690 0 1 {name=p169 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 6470 -520 0 1 {name=p170 sig_type=std_logic lab=vdd}
+C {devices/lab_wire.sym} 6400 -520 0 0 {name=p200 sig_type=std_logic lab=ip}
+C {devices/lab_wire.sym} 6540 -520 0 1 {name=p201 sig_type=std_logic lab=in}
+C {devices/lab_wire.sym} 6800 -620 0 0 {name=p202 sig_type=std_logic lab=ip_intermediate}
+C {devices/lab_wire.sym} 6470 -570 0 0 {name=p203 sig_type=std_logic lab=ip_intermediate}
+C {devices/lab_wire.sym} 6620 -570 0 1 {name=p204 sig_type=std_logic lab=in_intermediate}
+C {devices/lab_wire.sym} 6560 -620 0 0 {name=p205 sig_type=std_logic lab=pbias}
+C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 7070 -620 0 1 {name=x154}

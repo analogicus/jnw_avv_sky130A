@@ -1,0 +1,2 @@
+*Automatic generated instance fron ../../tech/scripts/genxdut TB_Vref
+XDUT vdd vss src_n snk PA PB PC PD PI1 PI2 PII1 preChrg dummy PII2 setupBias cmp_p1 cmp_p2 vref cmp  TB_Vref

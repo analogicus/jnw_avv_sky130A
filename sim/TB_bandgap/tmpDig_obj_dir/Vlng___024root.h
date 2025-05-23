@@ -19,6 +19,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         VL_IN8(clk,0,0);
         VL_IN8(reset,0,0);
         VL_IN8(cmp,0,0);
+        CData/*0:0*/ tmpDig__DOT__tmpCountRst;
         VL_IN8(tmpPulse,0,0);
         VL_OUT8(PI1,0,0);
         VL_OUT8(PI2,0,0);
@@ -75,13 +76,16 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         CData/*2:0*/ __Vdly__tmpDig__DOT__childState;
         CData/*2:0*/ __Vdly__tmpDig__DOT__afterBlank;
         CData/*0:0*/ __Vdly__tmpDig__DOT__cmp_p1_fsm;
+        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount2;
+        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount1;
         CData/*0:0*/ __VstlFirstIteration;
         CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
-        CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
-        CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;
-        CData/*0:0*/ __VactContinue;
     };
     struct {
+        CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
+        CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;
+        CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__tmpCountRst__0;
+        CData/*0:0*/ __VactContinue;
         SData/*8:0*/ tmpDig__DOT__count;
         SData/*8:0*/ __Vdly__tmpDig__DOT__count;
         IData/*31:0*/ __VactIterCount;
