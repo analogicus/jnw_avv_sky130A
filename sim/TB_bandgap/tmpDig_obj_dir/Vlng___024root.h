@@ -44,18 +44,22 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         VL_OUT8(cmp_p1,0,0);
         VL_OUT8(cmp_p2,0,0);
         VL_OUT8(PwrUp,0,0);
-        VL_OUT8(rst,0,0);
         VL_OUT8(valid,0,0);
         VL_OUT8(preChrg,0,0);
         VL_OUT8(setupBias,0,0);
         VL_OUT8(tmpCount_out1,7,0);
         VL_OUT8(tmpCount_out2,7,0);
+        VL_OUT8(tmpCount_out3,7,0);
+        VL_OUT8(tmpCount_out4,7,0);
+        VL_OUT8(tmpCountRst_out,0,0);
         CData/*2:0*/ tmpDig__DOT__afterBlank;
         CData/*2:0*/ tmpDig__DOT__childState;
         CData/*2:0*/ tmpDig__DOT__parentState;
         CData/*5:0*/ tmpDig__DOT__stateCount;
         CData/*7:0*/ tmpDig__DOT__tmpCount1;
         CData/*7:0*/ tmpDig__DOT__tmpCount2;
+        CData/*7:0*/ tmpDig__DOT__tmpCount3;
+        CData/*7:0*/ tmpDig__DOT__tmpCount4;
         CData/*0:0*/ tmpDig__DOT__Hcharged;
         CData/*0:0*/ tmpDig__DOT__Lcharged;
         CData/*0:0*/ tmpDig__DOT__intermCmp;
@@ -65,6 +69,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         CData/*0:0*/ tmpDig__DOT__CmpOutDisable_reg;
         CData/*1:0*/ tmpDig__DOT__CmpOutDisableCount;
         CData/*0:0*/ tmpDig__DOT__lastPTATcmp;
+        CData/*0:0*/ tmpDig__DOT__rst;
         CData/*0:0*/ __Vdly__PI1;
         CData/*0:0*/ __Vdly__PII1;
         CData/*5:0*/ __Vdly__tmpDig__DOT__stateCount;
@@ -75,19 +80,21 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         CData/*2:0*/ __Vdly__tmpDig__DOT__parentState;
         CData/*2:0*/ __Vdly__tmpDig__DOT__childState;
         CData/*2:0*/ __Vdly__tmpDig__DOT__afterBlank;
+    };
+    struct {
         CData/*0:0*/ __Vdly__tmpDig__DOT__cmp_p1_fsm;
+        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount4;
+        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount3;
         CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount2;
         CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount1;
         CData/*0:0*/ __VstlFirstIteration;
         CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
-    };
-    struct {
         CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
         CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;
         CData/*0:0*/ __Vtrigprevexpr___TOP__tmpDig__DOT__tmpCountRst__0;
         CData/*0:0*/ __VactContinue;
-        SData/*8:0*/ tmpDig__DOT__count;
-        SData/*8:0*/ __Vdly__tmpDig__DOT__count;
+        SData/*9:0*/ tmpDig__DOT__count;
+        SData/*9:0*/ __Vdly__tmpDig__DOT__count;
         IData/*31:0*/ __VactIterCount;
     };
     VlTriggerVec<1> __VstlTriggered;

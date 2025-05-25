@@ -27,7 +27,6 @@ adut [clk
 + cmp_p1
 + cmp_p2
 + PwrUp
-+ rst
 + valid
 + preChrg
 + setupBias
@@ -47,6 +46,23 @@ adut [clk
 + tmpCount_out2.2
 + tmpCount_out2.1
 + tmpCount_out2.0
++ tmpCount_out3.7
++ tmpCount_out3.6
++ tmpCount_out3.5
++ tmpCount_out3.4
++ tmpCount_out3.3
++ tmpCount_out3.2
++ tmpCount_out3.1
++ tmpCount_out3.0
++ tmpCount_out4.7
++ tmpCount_out4.6
++ tmpCount_out4.5
++ tmpCount_out4.4
++ tmpCount_out4.3
++ tmpCount_out4.2
++ tmpCount_out4.1
++ tmpCount_out4.0
++ tmpCountRst_out
 + ] null dut
 .model dut d_cosim simulation="../tmpDig.so" delay=10p
 
@@ -80,26 +96,42 @@ Rsvi23 snk 0 1G
 Rsvi24 cmp_p1 0 1G
 Rsvi25 cmp_p2 0 1G
 Rsvi26 PwrUp 0 1G
-Rsvi27 rst 0 1G
-Rsvi28 valid 0 1G
-Rsvi29 preChrg 0 1G
-Rsvi30 setupBias 0 1G
-Rsvi31 tmpCount_out1.7 0 1G
-Rsvi32 tmpCount_out1.6 0 1G
-Rsvi33 tmpCount_out1.5 0 1G
-Rsvi34 tmpCount_out1.4 0 1G
-Rsvi35 tmpCount_out1.3 0 1G
-Rsvi36 tmpCount_out1.2 0 1G
-Rsvi37 tmpCount_out1.1 0 1G
-Rsvi38 tmpCount_out1.0 0 1G
-Rsvi39 tmpCount_out2.7 0 1G
-Rsvi40 tmpCount_out2.6 0 1G
-Rsvi41 tmpCount_out2.5 0 1G
-Rsvi42 tmpCount_out2.4 0 1G
-Rsvi43 tmpCount_out2.3 0 1G
-Rsvi44 tmpCount_out2.2 0 1G
-Rsvi45 tmpCount_out2.1 0 1G
-Rsvi46 tmpCount_out2.0 0 1G
+Rsvi27 valid 0 1G
+Rsvi28 preChrg 0 1G
+Rsvi29 setupBias 0 1G
+Rsvi30 tmpCount_out1.7 0 1G
+Rsvi31 tmpCount_out1.6 0 1G
+Rsvi32 tmpCount_out1.5 0 1G
+Rsvi33 tmpCount_out1.4 0 1G
+Rsvi34 tmpCount_out1.3 0 1G
+Rsvi35 tmpCount_out1.2 0 1G
+Rsvi36 tmpCount_out1.1 0 1G
+Rsvi37 tmpCount_out1.0 0 1G
+Rsvi38 tmpCount_out2.7 0 1G
+Rsvi39 tmpCount_out2.6 0 1G
+Rsvi40 tmpCount_out2.5 0 1G
+Rsvi41 tmpCount_out2.4 0 1G
+Rsvi42 tmpCount_out2.3 0 1G
+Rsvi43 tmpCount_out2.2 0 1G
+Rsvi44 tmpCount_out2.1 0 1G
+Rsvi45 tmpCount_out2.0 0 1G
+Rsvi46 tmpCount_out3.7 0 1G
+Rsvi47 tmpCount_out3.6 0 1G
+Rsvi48 tmpCount_out3.5 0 1G
+Rsvi49 tmpCount_out3.4 0 1G
+Rsvi50 tmpCount_out3.3 0 1G
+Rsvi51 tmpCount_out3.2 0 1G
+Rsvi52 tmpCount_out3.1 0 1G
+Rsvi53 tmpCount_out3.0 0 1G
+Rsvi54 tmpCount_out4.7 0 1G
+Rsvi55 tmpCount_out4.6 0 1G
+Rsvi56 tmpCount_out4.5 0 1G
+Rsvi57 tmpCount_out4.4 0 1G
+Rsvi58 tmpCount_out4.3 0 1G
+Rsvi59 tmpCount_out4.2 0 1G
+Rsvi60 tmpCount_out4.1 0 1G
+Rsvi61 tmpCount_out4.0 0 1G
+Rsvi62 tmpCountRst_out 0 1G
 
 .save v(PI1)
 
@@ -147,8 +179,6 @@ Rsvi46 tmpCount_out2.0 0 1G
 
 .save v(PwrUp)
 
-.save v(rst)
-
 .save v(valid)
 
 .save v(preChrg)
@@ -178,4 +208,30 @@ E_STATE_tmpCount_out2 dec_tmpCount_out2 0 value={( 0
 + + 1*v(tmpCount_out2.0)/AVDD
 +)/1000}
 .save v(dec_tmpCount_out2)
+
+E_STATE_tmpCount_out3 dec_tmpCount_out3 0 value={( 0 
++ + 128*v(tmpCount_out3.7)/AVDD
++ + 64*v(tmpCount_out3.6)/AVDD
++ + 32*v(tmpCount_out3.5)/AVDD
++ + 16*v(tmpCount_out3.4)/AVDD
++ + 8*v(tmpCount_out3.3)/AVDD
++ + 4*v(tmpCount_out3.2)/AVDD
++ + 2*v(tmpCount_out3.1)/AVDD
++ + 1*v(tmpCount_out3.0)/AVDD
++)/1000}
+.save v(dec_tmpCount_out3)
+
+E_STATE_tmpCount_out4 dec_tmpCount_out4 0 value={( 0 
++ + 128*v(tmpCount_out4.7)/AVDD
++ + 64*v(tmpCount_out4.6)/AVDD
++ + 32*v(tmpCount_out4.5)/AVDD
++ + 16*v(tmpCount_out4.4)/AVDD
++ + 8*v(tmpCount_out4.3)/AVDD
++ + 4*v(tmpCount_out4.2)/AVDD
++ + 2*v(tmpCount_out4.1)/AVDD
++ + 1*v(tmpCount_out4.0)/AVDD
++)/1000}
+.save v(dec_tmpCount_out4)
+
+.save v(tmpCountRst_out)
 

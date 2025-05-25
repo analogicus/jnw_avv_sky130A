@@ -217,36 +217,82 @@ def plotTempDependence(yamlfile):
   plt.show()
 
 
-def plotVrefDistribution(folders, Temp=None):
-    # If no temperature is given, the func will plot the mean of Vref across all temperatures
-    vrefMean = np.array([])
-    total_points = 0
+def plotVrefDistribution(groups, Temp=None, names=None, bins=10):
+    import pandas as pd
+    import numpy as np
 
-    for folder in folders:
-        for file in os.scandir(folder):
-            if file.name.endswith(".yaml"):
-                mean = getVref(folder + "/" + file.name[:-5], temp=Temp)
-                # print(file.name, mean)
-                vrefMean = np.append(vrefMean, mean)
-                total_points += 1
+    if names is None:
+        names = [f"Group {i+1}" for i in range(len(groups))]
+    else:
+        assert len(names) == len(groups), "Length of names must match number of groups."
 
-    std = round(np.std(vrefMean), 2)
+    colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    fig, ax = plt.subplots(sharey=True, tight_layout=True, figsize=(8,5))
+    ax2 = ax.twinx()  # for density
 
-    fig,ax = plt.subplots(sharey=True,tight_layout=True,figsize=(7,5))
-    ax.hist(vrefMean, bins=10, edgecolor='black')
+    all_vrefMeans = []
+    group_vref_data = []
+    for i, group in enumerate(groups):
+        folders = group if isinstance(group, (list, tuple)) else [group]
+        vrefMean = np.array([])
+        for folder in folders:
+            for file in os.scandir(folder):
+                if file.name.endswith(".yaml"):
+                    mean = getVref(os.path.join(folder, file.name[:-5]), temp=Temp)
+                    vrefMean = np.append(vrefMean, mean)
+        group_vref_data.append(vrefMean)
+        if len(vrefMean):
+            all_vrefMeans.extend(vrefMean)
+    xmin = min(all_vrefMeans) if len(all_vrefMeans)>0 else 0
+    xmax = max(all_vrefMeans) if len(all_vrefMeans)>0 else 1
+    xrange_pad = (xmax-xmin)*0.04 + 4
+    xlim = (xmin-xrange_pad, xmax+xrange_pad)
+
+    box_coords = []
+
+    for i, vrefMean in enumerate(group_vref_data):
+        total_points = len(vrefMean)
+        if total_points == 0:
+            continue
+        std = round(np.std(vrefMean), 2)
+        color = colors[i%len(colors)]
+        # Filled histogram (counts)
+        ax.hist(
+            vrefMean, bins=bins, density=False, alpha=0.35, 
+            edgecolor=None, color=color, linewidth=2
+        )
+        # Outline
+        ax.hist(
+            vrefMean, bins=bins, density=False, histtype='step', label=names[i], 
+            fill=False, edgecolor=color, linewidth=2, alpha=1
+        )
+        # KDE (density, on right y-axis)
+        pd.Series(vrefMean).plot(
+            kind="kde", ax=ax2, color=color, linewidth=1, label="_nolegend_")
+        box_coords.append((i, color, std, total_points))
+    # Info boxes as before
+    for i, (idx, color, std, total_points) in enumerate(box_coords):
+        textstr = r'$\sigma\!=$' + f"{std} mV\nN={total_points}"
+        ax.annotate(
+            textstr, xy=(0.96, 0.96-0.13*idx),
+            xycoords='axes fraction', ha="right", va='top',
+            bbox=dict(facecolor='white', edgecolor=color, boxstyle='round,pad=0.6', linewidth=2))
     ax.set_xlabel("Voltage [mV]")
     ax.set_ylabel("Frequency")
-    ax.annotate(r'$\sigma$ = ' + str(std) + "mV", xy=(0.8, 0.9), xycoords='axes fraction',
-                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
-    ax.annotate("Points: " + str(total_points), xy=(0.8, 0.8), xycoords='axes fraction',
-                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+    ax.set_xlim(*xlim)
+    ax.legend(loc='upper left')
     if Temp is None:
-        ax.set_title("Distrobutin of Vref mean")
+        ax.set_title("Distribution of Vref mean")
     else:
-        ax.set_title("Distribution of Vref at " + Temp + "C")
-    # ax.yaxis.grid(True)  
-    # ax.xaxis.grid(False) 
+        ax.set_title(f"Distribution of Vref at {Temp}C")
+    from matplotlib.ticker import MaxNLocator
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax2.set_yticks([])       # Hides number labels
+    ax2.set_ylabel("")       # Removes axis text (label)
+    ax2.spines['right'].set_visible(False) 
+    ax2.set_ylim(bottom=0, top=ax.get_ylim()[1]*0.01)
+    ax2.set_yticks([])
+    plt.tight_layout()
     plt.show()
 
 
@@ -275,6 +321,7 @@ def plotPpmDistribution(folders):
     ax.annotate(r'$\sigma$ = ' + str(std) + " PPM", xy=(0.8, 0.9), xycoords='axes fraction',
                 bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
     plt.show()
+
 
 def sigCorr(folders, x, y):
     # Calculate the correlation coefficient
@@ -306,20 +353,14 @@ def sigCorr(folders, x, y):
         # print(file.name, x, y, "x:", x_values, "y:", y_values)
         corr = round(np.corrcoef(x_values, y_values)[0, 1], 3)
         print("Correlation coefficient between", x, "and", y, "is:", corr)
-    
 
-# plotVrefDistribution(["sim_results/MC_28_feb_tempSweep_nochp"], Temp="20")  
-# plotVrefDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"], Temp="20")  
 
-# plotPpmDistribution(["sim_results/MC_20_feb_tempSweep","sim_results/MC_21_feb_tempSweep","sim_results/MC_25_feb_tempSweep"])  
+# plotVrefDistribution(
+#     [["sim_results/MC_tempSweep_0430"],["sim_results/MC_tempSweep_0427"]], 
+#     Temp="20",
+#     names=["Temp sweep 1", "Temp sweep 2"]
+#     )
 
-# getVref("sim_results/MC_28_feb_tempSweep_nochp/tran_SchGtKttmmTtVt_1", temp="20")
-# name = "output_tran/tran_SchGtKttTtVt_20"
+# plotVrefDistribution([["a", "b"],"c"], Temp="20")
 
-# rawplot(name + ".raw",'time',"v(xdut.vn),v(xdut.vp),v(xdut.vctrl),v(vref)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
-
-# plotTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
-
-# plotTempDependence("output_tran/tran_SchGtKttmmTtVt_6")
-# plotTempDependence("output_tran/tran_SchGtKttTtVt")
-# sigCorr(["sim_results/MC_vref_1205_2"], "vref_20", "vctrl_20")
+plotTempDependence("output_tran/tran_SchGtKttmmTtVt_1")

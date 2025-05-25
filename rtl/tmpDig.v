@@ -35,17 +35,23 @@ module tmpDig (
 
     output logic PwrUp,
 
-    output logic rst,
     output logic valid,
     output logic preChrg,
     output logic setupBias,
     
     output logic [7:0] tmpCount_out1,
-    output logic [7:0] tmpCount_out2
+    output logic [7:0] tmpCount_out2,
+    output logic [7:0] tmpCount_out3,
+    output logic [7:0] tmpCount_out4,
+    output logic tmpCountRst_out
     );
 
 assign tmpCount_out2 = tmpCount2;
 assign tmpCount_out1 = tmpCount1;
+assign tmpCount_out3 = tmpCount3;
+assign tmpCount_out4 = tmpCount4;
+assign tmpCountRst_out = tmpCountRst;
+
 
 
 typedef enum logic [2:0] {
@@ -72,10 +78,12 @@ typedef enum logic [2:0] {
 
 parentState_t parentState;
 
-logic [8:0] count;
+logic [9:0] count;
 logic [5:0] stateCount;
 logic [7:0] tmpCount1;
 logic [7:0] tmpCount2;
+logic [7:0] tmpCount3;
+logic [7:0] tmpCount4;
 logic       Hcharged;
 logic       Lcharged;
 logic [6:0] setupDone;
@@ -87,6 +95,7 @@ logic       CmpOutDisable_reg;
 logic [1:0] CmpOutDisableCount;
 logic       lastPTATcmp;
 logic       tmpCountRst;
+logic       rst;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -234,7 +243,7 @@ always_ff @(posedge clk) begin
                 DIODE: begin
                     count <= count + 1; 
                     PII2 <= 1;
-                    if(count > 7) begin
+                    if(count > 4) begin
                         cmp_p1_fsm <= ~cmp_p1_fsm;
                         PII2  <= 0;
                         count <= 0;
@@ -313,27 +322,32 @@ always_ff @(posedge clk) begin
                 end
 
                 OUTPUT: begin
-                    stateCount <= stateCount + 1;
                     PB <= 1;
                     PC <= 1;
                     PD <= 1;
                     Lcharged <= 0;
                     Hcharged <= 0;
-                    if (stateCount > 10) begin
-                        parentState <= PTAT;
-                        afterBlank <= BLANKBIGDIODE;
-                        childState <= BLANKDIODE;
-                        stateCount <= 0;
-                        s_BgCtrl <= 0;
-                        s_Rdiscon_N <= 0;
+                    if (count > 3) begin
                         count <= 0;
-                        PA <= 0;
-                        PB <= 0;
-                        PC <= 0;
-                        PD <= 0;
+                        stateCount <= stateCount + 1;
+                        if (stateCount > 10) begin
+                            parentState <= PTAT;
+                            afterBlank <= BLANKBIGDIODE;
+                            childState <= BLANKDIODE;
+                            stateCount <= 0;
+                            s_BgCtrl <= 0;
+                            s_Rdiscon_N <= 0;
+                            count <= 0;
+                            PA <= 0;
+                            PB <= 0;
+                            PC <= 0;
+                            PD <= 0;
+                        end else begin
+                            childState <= BLANKBIGDIODE;
+                            afterBlank <= BIGDIODE;
+                        end
                     end else begin
-                        childState <= BLANKBIGDIODE;
-                        afterBlank <= BIGDIODE;
+                        count <= count + 1;
                     end
                 end
 
@@ -438,7 +452,7 @@ always_ff @(posedge clk) begin
             count <= count + 1;
             enable_cmp_toggle <= 1;
             tmpCountRst <= 0;
-            if (count > 400) begin
+            if (count > 1000) begin
                 parentState <= SLEEP;
                 enable_cmp_toggle <= 0;
                 s_PtatCtrl <= 0;
@@ -465,7 +479,7 @@ always_ff @(posedge clk) begin
                 afterBlank <= BIGDIODE;
                 count <= 0;
                 PwrUp <= 1;
-                if (tmpCount1 > 0 && tmpCount2 > 0) begin
+                if (tmpCount1 > 0 && tmpCount2 > 0 && tmpCount3 > 0 && tmpCount4 > 0) begin
                     tmpCountRst <= 1;
                 end 
             end else begin
@@ -570,17 +584,23 @@ always @(posedge cmp or posedge reset or posedge tmpCountRst) begin
     if (reset) begin
         tmpCount1 <= 0;
         tmpCount2 <= 0;
+        tmpCount3 <= 0;
+        tmpCount4 <= 0;
         cmp_p1_async <= 1'b1;
     end else if (enable_cmp_toggle && !CmpOutDisable_reg) begin
         cmp_p1_async <= ~cmp_p1_async;
         if (lastPTATcmp == 1) begin
             tmpCount1 <= tmpCount1 + 1;
+            tmpCount3 <= tmpCount3 + 1;
         end else begin
             tmpCount2 <= tmpCount2 + 1;
+            tmpCount4 <= tmpCount4 + 1;
         end 
     end else if (tmpCountRst) begin
         tmpCount1 <= 0;
         tmpCount2 <= 0;
+        tmpCount3 <= 0;
+        tmpCount4 <= 0;
     end
 end
 

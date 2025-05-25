@@ -67,11 +67,13 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(cmp)
 * .save v(valid)
 * .save v(rst)
-.save v(xdut.x4.snk_gate)
-.save v(xdut.x4.src_gate_n)
-.save v(xdut.x4.src_cap)
-.save v(xdut.x4.snk_cap)
-.save v(xdut.x4.Vpre)
+.save v(xdut.x3.snk_gate)
+.save v(xdut.x3.src_gate_n)
+.save v(xdut.x3.src_cap)
+.save v(xdut.x3.snk_cap)
+.save v(xdut.x3.Vpre)
+.save v(xdut.x3.vPtatCtrl)
+.save v(xdut.x3.vBgCtrl)
 * .save i(xdut.v_nbias)
 * .save i(xdut.v_pbias)
 .save i(xdut.x2.vipmos)
@@ -131,16 +133,16 @@ set fend = .raw
 * set debug = debug_
 
 
-* tran 200n 40u
 
+********** Vref **********
 
-* foreach vtemp 20
+* foreach vtemp -40
 foreach vtemp -40 -20 0 20 40 60 80 100 125
   option temp=$vtemp
-  tran 1000n 120u
+  tran 1000n 130u
   write {cicname}_$vtemp$fend
 end
-
+***************************
 
 write
 quit

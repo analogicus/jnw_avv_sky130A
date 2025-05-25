@@ -183,7 +183,7 @@ always_ff @(posedge clk) begin
                     PA <= 1;
                     PB <= 1;
                     s_BG2CMP <= 1;
-                    if (count > 4) begin
+                    if (count > 5) begin
                         intermCmp <= cmp;
                         count <= 0;
                         // s_BG2CMP <= 0;
@@ -204,7 +204,7 @@ always_ff @(posedge clk) begin
                     PA <= 1;
                     PC <= 1;
                     s_BG2CMP <= 1;
-                    if (count > 4) begin
+                    if (count > 5) begin
                         count <= 0;
                         intermCmp <= cmp;
                         // s_BG2CMP <= 0;
@@ -221,21 +221,26 @@ always_ff @(posedge clk) begin
                 end
 
                 OUTPUT: begin
-                    if (setupDone < 14) begin
-                        setupDone <= setupDone + 1;
-                        PA <= 1;
-                        state <= OUTPUT;
+                    if (count < 2) begin
+                        count <= count + 1;
                     end else begin
-                        PA <= 0;
+                        count <= 0;
                         state <= BLANKBIGDIODE;
                         afterBlank <= BIGDIODE;
-                        s_BG2CMP <= 1;
                     end
                     PB <= 1;
                     PC <= 1;
                     PD <= 1;
                     Lcharged <= 0;
                     Hcharged <= 0;
+                    if (setupDone < 14) begin
+                        setupDone <= setupDone + 1;
+                        PA <= 1;
+                        state <= OUTPUT;
+                    end else begin
+                        PA <= 0;
+                        s_BG2CMP <= 1;
+                    end
                 end
         endcase
 

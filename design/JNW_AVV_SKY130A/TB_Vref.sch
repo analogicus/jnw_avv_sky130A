@@ -44,8 +44,8 @@ N 1020 -310 1080 -310 {lab=cmp}
 N 380 -340 410 -340 {lab=vref}
 C {JNW_AVV_SKY130A/CMP_v2.sym} 750 -190 0 0 {name=x1}
 C {JNW_AVV_SKY130A/JNW_AVV.sym} 250 -310 0 0 {name=x2}
-C {JNW_AVV_SKY130A/bias.sym} 880 -630 0 0 {name=x3}
-C {JNW_AVV_SKY130A/charge_pump.sym} 70 -600 0 0 {name=x4}
+C {JNW_AVV_SKY130A/bias.sym} 880 -630 0 0 {name=x4}
+C {JNW_AVV_SKY130A/charge_pump.sym} 70 -600 0 0 {name=x3}
 C {devices/ipin.sym} -70 -710 0 0 {name=p4 lab=vdd}
 C {devices/ipin.sym} -70 -690 0 0 {name=p5 lab=vss}
 C {devices/ipin.sym} -70 -650 0 0 {name=p1 lab=src_n}

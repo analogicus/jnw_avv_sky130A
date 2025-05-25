@@ -19,15 +19,14 @@ import re
 import os
 from matplotlib.ticker import MaxNLocator
 
-# matplotlib.use('pgf')
 
 k = 1.380649e-23  # Boltzmann constant in J/K
 q = 1.602176634e-19  # Elementary charge in C
 R1 = 7535
-Rout = 4*7535+7535/3
+Rout = 8*7535
 Tclk = 50e-9  # Clock period in seconds
-vref = 1        # Do i use the calculated or the simulated vref?
-Cosc = 53.8e-15*4*7
+vref = 1.1        # Do i use the calculated or the simulated vref?
+Cosc = 53.8e-15*4*9
 Nclk = 401
 
 
@@ -171,7 +170,7 @@ def rawplot(
     if signal_groups is None:
         raise Exception("signal_groups must be specified!")
     n_subplots = len(signal_groups)
-    fig, axes = plt.subplots(n_subplots, 1, sharex=True, figsize=(6.3, plot_height*n_subplots))
+    fig, axes = plt.subplots(n_subplots, 1, sharex=True, figsize=(6.1, plot_height*n_subplots))
     fig.subplots_adjust(hspace=0.1)
     if n_subplots == 1:
         axes = [axes]
@@ -215,8 +214,8 @@ def rawplot(
     elif xname == "temperature":
         axes[-1].set_xlabel("Temperature [K]")
     plt.tight_layout()
-    # plt.show()
-    plt.savefig("plots/operationCloseup.pgf") 
+    plt.show()
+    # plt.savefig("plots/nonOverlap.pgf") 
     
     
 def plotVrefTempDependence(yamlfile):
@@ -248,14 +247,17 @@ def plotVrefTempDependence(yamlfile):
   plt.tight_layout()
   plt.show()
   
+
 def countToTemp(count):
     A = (k * np.log(8)) / (R1 * q)
     temp = (count * (Cosc * vref) / (Tclk * Nclk * A)) - 273.15
     return temp
 
-def plotSensTempDependence(path, POC=None):
-    cal_t1 = 0  # First calibration temperature (C)
-    cal_t2 = 80  # Second calibration temperature (C)
+
+def plotSensTempDependence(path, POC=None, y_estimate_temp=False):
+    cal_t1 = 40  # Calibration temperature (C)
+    cal_t2 = 0  # First calibration temperature (C)
+    cal_t3 = 80  # Second calibration temperature (C)
 
     def parse_and_calibrate(filepath):
         with open(filepath) as fi:
@@ -295,35 +297,40 @@ def plotSensTempDependence(path, POC=None):
                 c_error = calcCount(cal_t1) - temps[cal_t1]
                 temps = {k: v + c_error for k, v in temps.items()}
         elif POC == 2:
-            if cal_t1 not in temps or cal_t2 not in temps:
-                print(f"{os.path.basename(filepath)}: missing {cal_t1}C or {cal_t2}C for 2pt calibration")
+            if cal_t1 not in temps or cal_t3 not in temps:
+                print(f"{os.path.basename(filepath)}: missing {cal_t2}C or {cal_t3}C for 2pt calibration")
             else:
-                meas_1 = temps[cal_t1]
-                meas_2 = temps[cal_t2]
-                ref_1 = calcCount(cal_t1)
-                ref_2 = calcCount(cal_t2)
+                meas_1 = temps[cal_t2]
+                meas_2 = temps[cal_t3]
+                ref_1 = calcCount(cal_t2)
+                ref_2 = calcCount(cal_t3)
                 m = (ref_2 - ref_1)/(meas_2 - meas_1)
                 b = ref_1 - m*meas_1
                 temps = {k: m*v + b for k, v in temps.items()}
         return temps
 
     fig, ax = plt.subplots(figsize=(10,5))
+    def plot_single_temps(temps, label=None):
+        xvals = list(temps.keys())
+        yvals = [countToTemp(c) if y_estimate_temp else c for c in temps.values()]
+        ax.plot(xvals, yvals, marker='o', label=label)
+
     if os.path.isdir(path):
         for file in sorted(os.listdir(path)):
             if not file.endswith(".yaml"):
                 continue
             fullfile = os.path.join(path, file)
             temps = parse_and_calibrate(fullfile)
-            counters = list(temps.values())
-            est_temps = [countToTemp(c) for c in counters]
-            ax.plot(list(temps.keys()), est_temps, marker='o', label=file[10:-5])
+            plot_single_temps(temps, label=file[10:-5])
     else:
         temps = parse_and_calibrate(path)
-        counters = list(temps.values())
-        est_temps = [countToTemp(c) for c in counters]
-        ax.plot(list(temps.keys()), est_temps, marker='o')
+        plot_single_temps(temps)
+
     ax.set_title("Temperature dependence of Temperature sensor")
-    ax.set_ylabel("Estimated temperature [°C]")
+    if y_estimate_temp:
+        ax.set_ylabel("Estimated temperature [°C]")
+    else:
+        ax.set_ylabel("Average counter value")
     ax.set_xlabel("Temperature [C]")
     ax.legend()
     ax.grid()
@@ -332,10 +339,139 @@ def plotSensTempDependence(path, POC=None):
     lower_lim = desired_ticks[0] - 10
     upper_lim = desired_ticks[-1] + 10
     ax.set_xticks(desired_ticks)
-    ax.set_yticks(desired_ticks)
     ax.set_xlim(lower_lim, upper_lim)
-    ax.set_ylim(lower_lim, upper_lim)
+    if y_estimate_temp:
+        ax.set_yticks(desired_ticks)
+        ax.set_ylim(lower_lim, upper_lim)
     plt.tight_layout()
+    plt.show()
+
+
+def plotSensTempViolin(path, POC=None, y_estimate_temp=False):
+    cal_t1 = 40
+    cal_t2 = 0
+    cal_t3 = 80
+
+    def parse_and_calibrate(filepath):
+        with open(filepath) as fi:
+            obj = yaml.safe_load(fi)
+
+        tmp1 = {}
+        tmp2 = {}
+        temps = {}
+        for o in obj:
+            m1 = re.match(r"tmpcount1_(\-?\d+)", o)
+            m2 = re.match(r"tmpcount2_(\-?\d+)", o)
+            if m1:
+                temp = int(m1.group(1))
+                tmp1[temp] = float(obj[o])*1000
+            elif m2:
+                temp = int(m2.group(1))
+                tmp2[temp] = float(obj[o])*1000
+        all_temps = sorted(set(tmp1.keys()).union(tmp2.keys()))
+        for t in all_temps:
+            vals = []
+            if t in tmp1:
+                vals.append(tmp1[t])
+            if t in tmp2:
+                vals.append(tmp2[t])
+            if vals:
+                avg = sum(vals) / len(vals)
+                temps[t] = avg
+        # Calibration
+        if POC == 1:
+            if cal_t1 not in temps:
+                print(f"{os.path.basename(filepath)}: missing {cal_t1}C for 1pt calibration")
+            else:
+                c_error = calcCount(cal_t1) - temps[cal_t1]
+                temps = {k: v + c_error for k, v in temps.items()}
+        elif POC == 2:
+            if cal_t1 not in temps or cal_t3 not in temps:
+                print(f"{os.path.basename(filepath)}: missing {cal_t2}C or {cal_t3}C for 2pt calibration")
+            else:
+                meas_1 = temps[cal_t2]
+                meas_2 = temps[cal_t3]
+                ref_1 = calcCount(cal_t2)
+                ref_2 = calcCount(cal_t3)
+                m = (ref_2 - ref_1)/(meas_2 - meas_1)
+                b = ref_1 - m*meas_1
+                temps = {k: m*v + b for k, v in temps.items()}
+        return temps
+
+    # --- Gather all readings at each temperature ---
+    temp_to_vals = {}
+    if os.path.isdir(path):
+        files = [os.path.join(path, file) for file in sorted(os.listdir(path)) if file.endswith(".yaml")]
+    else:
+        files = [path]
+    
+    n_sweeps = len(files)
+    for file in files:
+        temps = parse_and_calibrate(file)
+        for temp, counter in temps.items():
+            yvalue = countToTemp(counter) if y_estimate_temp else counter
+            temp_to_vals.setdefault(temp, []).append(yvalue)
+    
+    temp_x = sorted(temp_to_vals.keys())
+    data_for_violin = [temp_to_vals[t] for t in temp_x]
+
+    # Std dev per temp (show 0 if only one sample)
+    std_devs = [np.std(arr, ddof=0) if len(arr) > 1 else 0 for arr in data_for_violin]
+    
+    if y_estimate_temp:
+        y_label = "Estimated temperature [°C]"
+        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
+        lower_lim = desired_ticks[0] - 10
+        upper_lim = desired_ticks[-1] + 10
+    else:
+        y_label = "Average counter value"
+        flat = [y for arr in data_for_violin for y in arr]
+        if flat:
+            mean = np.mean(flat)
+            spread = np.ptp(flat)
+            lower_lim = min(flat) - 0.1*spread
+            upper_lim = max(flat) + 0.1*spread
+        else:
+            lower_lim, upper_lim = 0, 1
+
+    fig, ax = plt.subplots(figsize=(10,5))
+    parts = ax.violinplot(data_for_violin, positions=temp_x, showmedians=True, widths=4)
+    
+    # Style violins
+    for pc in parts['bodies']:
+        pc.set_facecolor('C0')
+        pc.set_alpha(0.5)
+        pc.set_edgecolor("black")
+        pc.set_linewidth(1.5)
+    if 'cmedians' in parts:
+        parts['cmedians'].set_color("black")
+
+    # Annotate the standard deviation at the top of each violin
+    text_color = "black"
+    for xi, std, arr in zip(temp_x, std_devs, data_for_violin):
+        # 3% down from upper edge for visibility
+        top_y = (upper_lim - (upper_lim - lower_lim)*0.03)*0.99
+        ax.annotate(f'$\sigma$={std:.2f}', xy=(xi, top_y), ha='center', va='bottom',
+                    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=text_color, lw=1))
+
+    ax.set_title("Temperature dependence of Temperature sensor", color=text_color)
+    ax.set_xlabel("Temperature [C]", color=text_color)
+    ax.set_ylabel(y_label, color=text_color)
+    ax.set_xticks(temp_x)
+    ax.set_xlim(temp_x[0]-10, temp_x[-1]+10)
+    ax.grid(True)
+
+    if y_estimate_temp:
+        ax.set_yticks(desired_ticks)
+        ax.set_ylim(lower_lim, upper_lim)
+    else:
+        ax.set_ylim(lower_lim, upper_lim)
+
+    # Annotate sample count (number of sweeps/files) in black box above the title
+    ax.annotate("Number of simulations: " + str(n_sweeps), xy=(0.75, 0.2), xycoords='axes fraction',
+            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'))
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
     plt.show()
 
 
@@ -406,12 +542,13 @@ label_dict = {
     "v(vref)": r'$V_{ref}$',
     "v(xdut.vout)": r'$V_{out}$',
     "v(xdut.x3.vbgctrl)": r'$V_{ctrlRef}$',
+    "v(xdut.x4.vbgctrl)": r'$V_{ctrlRef}$',
     "v(xdut.x3.vptatctrl)": r'$V_{ctrlPTAT}$',
     "v(dec_tmpcount_out1)": r'$V_{count1}$',
     "v(dec_tmpcount_out2)": r'$V_{count2}$',
     "v(pa)": r'$sOut$',
-    "v(pb)": r'$sAvgCapH$',
-    "v(pc)": r'$sAvgCapL$',
+    "v(pb)": r'$sAvgCapL$',
+    "v(pc)": r'$sAvgCapH$',
     "v(pd)": r'$sRefCap$',
     "v(pi1)": r'$sBD$',
     "v(pi2)": r'$sBDC$',
@@ -420,58 +557,119 @@ label_dict = {
     "v(snk)": r'$sSnk$',
     "v(src_n)": r'$sSrc$',
     "v(cmp)": r'$V_{cmp}$',
+    "v(clk)": r'$clk$',
+    "v(xdut.x2.lcharge)": r'$V_{high}$',
+    "v(xdut.x2.hcharge)": r'$V_{low}$',
     }
 
 
-# signal_groups = [
-#     ["v(pii1)", "v(pi1)", "v(src_n)", "v(snk)"],
-#     ["v(xdut.vn)", "v(xdut.vp)", "v(xdut.x3.vptatctrl)", "v(xdut.x3.vbgctrl)"],
-# ]
-
-signal_groups = [
-    ["v(xdut.vn)", "v(xdut.vp)"],
-    ["v(xdut.x3.vbgctrl)"],
-    ["v(cmp)"],
-    ["v(pii1)", "v(pi1)","v(pb)","v(pc)","v(pd)"]
-]
-
-# y_lims = [
-#     (-0.1, 2),  # y-limits for the second group
-#     (-0.1, 1),  # y-limits for the first group
-# ]
-
-y_lims = [
-    (0.741, 0.747),
-    (0.424, 0.431),
-    (-0.1, 2),
-    (-0.1, 2),
-]
-
-colors = [
-    ["C0", "C1"],
-    ["C2"],
-    ["C3"],
-]
-
-name = "output_tran/tran_SchGtKttTtVt_20"
-# rawplot(
-#     name + ".raw",
-#     'time',
-#     signal_groups=signal_groups,
-#     ptype="same",
-#     fname=name + ".pdf",
-#     xlim=(27.3, 31.3),      
-#     ylims=y_lims,     
-#     plot_height=1.6,
-#     legend_loc=["right", "right", "right", "right"],
-#     colors=colors
-# )
 
 
+################### Finished plots ###################
+
+def plotBGSETUPsequence():
+    name = "output_tran/tran_SchGtKttTtVt_20"
+    signal_groups = [
+        ["v(pii1)", "v(pi1)", "v(src_n)", "v(snk)"],
+        ["v(xdut.vn)", "v(xdut.vp)", "v(xdut.x3.vptatctrl)", "v(xdut.x3.vbgctrl)"],
+    ]
+    y_lims = [
+    (-0.1, 2),  # y-limits for the second group
+    (-0.1, 1),  # y-limits for the first group
+    ]
+    name = "output_tran/tran_SchGtKttTtVt_20"
+    rawplot(
+        name + ".raw",
+        'time',
+        signal_groups=signal_groups,
+        ptype="same",
+        fname=name + ".pdf",
+        xlim=(0, 8),      
+        ylims=y_lims,     
+        plot_height=1.6,
+    )
+
+def plotZoomedBG():
+    signal_groups = [
+        ["v(xdut.vn)", "v(xdut.vp)"],
+        ["v(xdut.x3.vbgctrl)"],
+        ["v(cmp)"],
+        ["v(snk)", "v(src_n)"],
+        # ["v(vref)", "v(xdut.x2.hcharge)", "v(xdut.x2.lcharge)"],
+        ["v(pii1)", "v(pi1)","v(pb)","v(pc)","v(pd)"],
+            ]
+
+    y_lims = [
+        (0.739, 0.745),
+        (0.426, 0.433),
+        (-0.1, 2),
+        (-0.1, 2),
+        # (1.05, 1.1),
+        (-0.1, 2),
+    ]
+
+    colors = [
+        ["C0", "C1"],
+        ["C2"],
+        ["C3"],
+        ["C4", "C5"],
+        # [],
+    ]
+
+    name = "output_tran/tran_SchGtKttTtVt_20"
+    rawplot(
+        name + ".raw",
+        'time',
+        signal_groups=signal_groups,
+        ptype="same",
+        fname=name + ".pdf",
+        xlim=(27.6, 31.6),      
+        ylims=y_lims,     
+        plot_height=1.6,
+        legend_loc=["right", "right", "right", "right", "right"],
+        colors=colors
+    )
+
+def plotNonOverlap():
+    signal_groups = [
+        ["v(pii1)", "v(pii2)", "v(pi1)", "v(pi2)"],
+        ["v(clk)"],
+    ]
+
+    y_lims = [
+        (-0.2, 2),
+        (-0.2, 2),
+    ]
+
+    colors = [
+        ["C0", "C1", "C2", "C3"],
+        ["C4"],
+    ]
+
+    name = "output_tran/tran_SchGtKttTtVt_20"
+    rawplot(
+        name + ".raw",
+        'time',
+        signal_groups=signal_groups,
+        ptype="same",
+        fname=name + ".pdf",
+        xlim=(9, 10.3),      
+        ylims=y_lims,     
+        plot_height=1.6,
+        legend_loc=["right", "right"],
+        colors=colors
+    )
+
+######################################################
 
 
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
-plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=None)
-plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=1)
-plotSensTempDependence("sim_results/ETC_tempSweep_0523", POC=2)
+plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=None, y_estimate_temp=True)
+plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=1, y_estimate_temp=True)
+plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=2, y_estimate_temp=True)
+
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=None)
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=1)
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=2)
+
