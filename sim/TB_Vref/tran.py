@@ -4,7 +4,7 @@ import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plot import plotTempDependence, sigCorr, rawplot, calcPpm, getVref, calcVrefMaxMinDelta, plotVrefDistribution
+from plot import sigCorr, rawplot, calcPpm, getVref, calcVrefMaxMinDelta, plotVrefDistribution
 
 
 
@@ -12,7 +12,7 @@ def main(name):
 
   # rawplot(name + ".raw",'time',"v(vref),v(xdut.vn),v(xdut.vp)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
   # plotTempDependence(name + "SchGtKttTtVt")
-  plotVrefDistribution(["sim_results/MC_vref_0519_4xBgRes"], Temp="20")
+  # plotVrefDistribution(["sim_results/MC_vref_0519_4xBgRes"], Temp="20")
   sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "vctrl_20")
   sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "ipmos_20")
   # sigCorr(["sim_results/MC_vref_0514"], "vref_20", "isrc_20")

@@ -187,36 +187,54 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     plt.show()
 
 
-def plotTempDependence(yamlfile):
-  # Read result yaml file
-  with open(yamlfile + ".yaml") as fi:
-    obj = yaml.safe_load(fi)
+def plotVrefTempDependence(yamlfile):
+    # Ensure input yamlfile has .yaml if missing
+    if not yamlfile.endswith(".yaml"):
+        if os.path.exists(yamlfile + ".yaml"):
+            yamlfile = yamlfile + ".yaml"
 
-  vref = np.array([])
-  temp = np.array([])
+    # Read result yaml file
+    with open(yamlfile) as fi:
+        obj = yaml.safe_load(fi)
 
-  for key in obj:
-    if key.startswith("vref"):
-      vref = np.append(vref, obj[key])
-      temp = np.append(temp, int(key.split("_")[1]))
+    vref = []
+    temp = []
 
-  sorted_keys = np.argsort(temp)
-  sorted_temp = temp[sorted_keys]
-  sorted_vref = vref[sorted_keys]
+    for key in obj:
+        if key.startswith("vref_"):
+            try:
+                t = int(key.split("_")[1])
+                temp.append(t)
+                vref.append(obj[key])
+            except Exception as e:
+                print(f"Warning: Could not parse temperature in key '{key}': {e}")
 
-  sorted_vref = (sorted_vref - np.mean(sorted_vref))*1000
+    if not vref or not temp:
+        print("No vref entries found!")
+        return
 
-  fig,ax = plt.subplots(figsize=(10,5))
-  ax.set_xlabel("Temperature [C]")
-  ax.set_ylabel("Voltage [mV]")
-  ax.plot(sorted_temp,sorted_vref,label="Vref")
-  ax.grid()
-  ax.legend()
-  ax.set_title("Temperature dependence of Vref")
-  plt.tight_layout()
-  plt.show()
+    temp = np.array(temp)
+    vref = np.array(vref)
 
+    # Sort by increasing temperature
+    sorted_inds = np.argsort(temp)
+    sorted_temp = temp[sorted_inds]
+    sorted_vref = vref[sorted_inds]
 
+    # Center vref around the mean, convert to mV
+    centered_vref = (sorted_vref - np.mean(sorted_vref)) * 1000
+
+    fig, ax = plt.subplots(figsize=(10,5))
+    ax.set_xlabel("Temperature [C]")
+    ax.set_ylabel("Voltage [mV]")
+    ax.plot(sorted_temp, centered_vref, marker='o', label="Vref")
+    ax.grid()
+    ax.legend()
+    ax.set_title("Temperature dependence of Vref")
+    plt.tight_layout()
+    plt.show()
+  
+  
 def plotVrefDistribution(groups, Temp=None, names=None, bins=10):
     import pandas as pd
     import numpy as np
@@ -361,6 +379,9 @@ def sigCorr(folders, x, y):
 #     names=["Temp sweep 1", "Temp sweep 2"]
 #     )
 
-# plotVrefDistribution([["a", "b"],"c"], Temp="20")
 
-plotTempDependence("output_tran/tran_SchGtKttmmTtVt_1")
+name = "output_tran/tran_"
+plotVrefTempDependence("output_tran/tran_SchGtKttTtVt")
+print(calcPpm("output_tran/tran_SchGtKttTtVt"))
+print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), getVref(name + "SchGtKttmmTtVt"))
+print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), getVref(name + "SchGtKttmmTtVt_1"))

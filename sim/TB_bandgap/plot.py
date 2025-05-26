@@ -25,9 +25,9 @@ q = 1.602176634e-19  # Elementary charge in C
 R1 = 7535
 Rout = 8*7535
 Tclk = 50e-9  # Clock period in seconds
-vref = 1.1        # Do i use the calculated or the simulated vref?
+vref = 1.08        # Do i use the calculated or the simulated vref?
 Cosc = 53.8e-15*4*9
-Nclk = 401
+Nclk = 1001
 
 
 def calcIptat(temp):
@@ -44,6 +44,10 @@ def calcCount(temp):
 #     # print("Iptat at", temp, "C:", calcIptat(temp))
 #     print("Count at", temp, "C:", calcCount(temp))
 
+def countToTemp(count):
+    A = (k * np.log(8)) / (R1 * q)
+    temp = (count * (Cosc * vref) / (Tclk * Nclk * A)) - 273.15
+    return temp
 
 
     
@@ -101,7 +105,7 @@ def calcVrefMaxMinDelta(yamlfile):
     return maxVref, minVref, delta
 
 
-def plot(df,xname,yname,ptype=None,ax=None,label="", color=None):
+def plot(df, xname, yname, ptype=None, ax=None, label="", color=None):
     cmd = cm.Command()
     if(xname not in df.columns):
         cmd.error("Could not find name %s in %s" %(xname,",".join(df.columns)))
@@ -109,32 +113,32 @@ def plot(df,xname,yname,ptype=None,ax=None,label="", color=None):
     if(yname not in df.columns):
         cmd.error("Could not find name %s in %s" %(xname,",".join(df.columns)))
         exit()
-        #raise Exception("Could not find name %s in %s" %(yname,",".join(df.columns)))
-
     x = df[xname]
     y = df[yname]
-        
+
+    # --- COUNTER SCALING HERE ---
+    if yname in ["v(dec_tmpcount_out1)", "v(dec_tmpcount_out2)"]:
+        y = y * 1000
+
     if label == "":
         label = label_dict.get(yname, yname) 
 
-    #- Plot
     if("logy" in ptype):
-        ax.semilogy(x,y,label = label, color=color)
+        ax.semilogy(x, y, label=label, color=color)
     elif("ln2" in ptype):
-        ax.plot(x,np.log(y)/np.log(2),label = label, color=color)
+        ax.plot(x, np.log(y) / np.log(2), label=label, color=color)
     elif("logx" in ptype):
-        ax.semilogx(x,y,label, color=color)
+        ax.semilogx(x, y, label, color=color)
     elif("db20" in ptype):
-        ax.semilogx(x,20*np.log10(y),label="dB20("+ label +")", color=color)
+        ax.semilogx(x, 20 * np.log10(y), label="dB20("+label+")", color=color)
     else:
-        ax.plot(x,y,label = label, color=color)
+        ax.plot(x, y, label=label, color=color)
 
-    # ax.grid()
     ax.legend()
 
     if(ptype == ""):
         ax.set_ylabel(yname)
-    return (x,y)
+    return (x, y)
 
 
 def rawplot(
@@ -203,7 +207,12 @@ def rawplot(
             ax.set_ylim(*ylims[i])
         if xlim is not None:
             ax.set_xlim(*xlim)
-        ax.set_ylabel("Voltage [V]")   
+        # --- COUNTER LABEL LOGIC HERE ---
+        first_signal = signals[0]
+        if first_signal in ["v(dec_tmpcount_out1)", "v(dec_tmpcount_out2)"]:
+            ax.set_ylabel("Counter")
+        else:
+            ax.set_ylabel("Voltage [V]")   
         ax.legend(loc=legend_loc[i])
         ax.grid()
 
@@ -215,7 +224,7 @@ def rawplot(
         axes[-1].set_xlabel("Temperature [K]")
     plt.tight_layout()
     plt.show()
-    # plt.savefig("plots/nonOverlap.pgf") 
+    # plt.savefig("plots/" + fname) 
     
     
 def plotVrefTempDependence(yamlfile):
@@ -246,105 +255,293 @@ def plotVrefTempDependence(yamlfile):
   ax.set_title("Temperature dependence of Vref")
   plt.tight_layout()
   plt.show()
-  
-
-def countToTemp(count):
-    A = (k * np.log(8)) / (R1 * q)
-    temp = (count * (Cosc * vref) / (Tclk * Nclk * A)) - 273.15
-    return temp
 
 
-def plotSensTempDependence(path, POC=None, y_estimate_temp=False):
-    cal_t1 = 40  # Calibration temperature (C)
-    cal_t2 = 0  # First calibration temperature (C)
-    cal_t3 = 80  # Second calibration temperature (C)
+def iptatToTemp(iptat):
+    """Inverse of calcIptat: Given a current, estimate the temperature in Celsius."""
+    # I = (k * (T+273.15) * ln(8)) / (R1 * q)
+    # => T = [I * (R1*q)] / [k * ln(8)] - 273.15
+    return (iptat * R1 * q) / (k * np.log(8)) - 273.15
 
-    def parse_and_calibrate(filepath):
+
+def plotSensTempDependence(
+    path,
+    POC=None,
+    y_estimate_temp=False,
+    curent_or_counter="counter",
+    show_ideal=False,
+    show_inaccuracy=False,
+):
+    cal_t1 = 40
+    cal_t2 = 0
+    cal_t3 = 80
+
+    def parse_and_calibrate(filepath, mode="counter"):
         with open(filepath) as fi:
             obj = yaml.safe_load(fi)
-        # Find all entries for tmpcount1 and tmpcount2
-        tmp1 = {}
-        tmp2 = {}
+        d1 = {}
+        d2 = {}
         temps = {}
+
+        if mode == "counter":
+            pat1 = r"tmpcount1_(\-?\d+)"
+            pat2 = r"tmpcount2_(\-?\d+)"
+            scale = 1000.0
+        elif mode == "current":
+            pat1 = r"iptat_first_(\-?\d+)"
+            pat2 = r"iptat_second_(\-?\d+)"
+            scale = 1.0
+        else:
+            raise ValueError("mode must be either 'counter' or 'current'")
+
         for o in obj:
-            m1 = re.match(r"tmpcount1_(\-?\d+)", o)
-            m2 = re.match(r"tmpcount2_(\-?\d+)", o)
+            m1 = re.match(pat1, o)
+            m2 = re.match(pat2, o)
             if m1:
                 temp = int(m1.group(1))
-                tmp1[temp] = float(obj[o])*1000
+                d1[temp] = float(obj[o]) * scale
             elif m2:
                 temp = int(m2.group(1))
-                tmp2[temp] = float(obj[o])*1000
-        all_temps = sorted(set(tmp1.keys()).union(tmp2.keys()))
+                d2[temp] = float(obj[o]) * scale
+
+        all_temps = sorted(set(d1.keys()).union(d2.keys()))
         for t in all_temps:
             vals = []
-            if t in tmp1:
-                vals.append(tmp1[t])
-            if t in tmp2:
-                vals.append(tmp2[t])
+            if t in d1:
+                vals.append(d1[t])
+            if t in d2:
+                vals.append(d2[t])
             if vals:
-                if len(vals) == 2:
-                    avg = sum(vals)/2
-                else:
-                    avg = vals[0]
-                    print(f"Warning: Only one of tmpcount1 or tmpcount2 present for T={t}C in {os.path.basename(filepath)}")
+                avg = sum(vals) / len(vals)
+                if len(vals) != 2:
+                    print(f"Warning: Only one of {pat1} or {pat2} present for T={t}C in {os.path.basename(filepath)}")
                 temps[t] = avg
+
         # Calibration
-        if POC == 1:
-            if cal_t1 not in temps:
-                print(f"{os.path.basename(filepath)}: missing {cal_t1}C for 1pt calibration")
-            else:
-                c_error = calcCount(cal_t1) - temps[cal_t1]
-                temps = {k: v + c_error for k, v in temps.items()}
-        elif POC == 2:
-            if cal_t1 not in temps or cal_t3 not in temps:
-                print(f"{os.path.basename(filepath)}: missing {cal_t2}C or {cal_t3}C for 2pt calibration")
-            else:
-                meas_1 = temps[cal_t2]
-                meas_2 = temps[cal_t3]
-                ref_1 = calcCount(cal_t2)
-                ref_2 = calcCount(cal_t3)
-                m = (ref_2 - ref_1)/(meas_2 - meas_1)
-                b = ref_1 - m*meas_1
-                temps = {k: m*v + b for k, v in temps.items()}
+        def calibrate(dict_, ideal_func):
+            if POC == 1:
+                if cal_t1 not in dict_:
+                    print(f"{os.path.basename(filepath)}: missing {cal_t1}C for 1pt calibration")
+                else:
+                    delta = ideal_func(cal_t1) - dict_[cal_t1]
+                    dict_ = {k: v + delta for k, v in dict_.items()}
+            elif POC == 2:
+                if cal_t2 not in dict_ or cal_t3 not in dict_:
+                    print(f"{os.path.basename(filepath)}: missing {cal_t2}C or {cal_t3}C for 2pt calibration")
+                else:
+                    meas1, meas2 = dict_[cal_t2], dict_[cal_t3]
+                    ref1, ref2 = ideal_func(cal_t2), ideal_func(cal_t3)
+                    m = (ref2 - ref1) / (meas2 - meas1)
+                    b = ref1 - m * meas1
+                    dict_ = {k: m*v + b for k,v in dict_.items()}
+            return dict_
+
+        if mode == "counter":
+            temps = calibrate(temps, calcCount)
+        elif mode == "current":
+            temps = calibrate(temps, calcIptat)
+
         return temps
 
-    fig, ax = plt.subplots(figsize=(10,5))
-    def plot_single_temps(temps, label=None):
-        xvals = list(temps.keys())
-        yvals = [countToTemp(c) if y_estimate_temp else c for c in temps.values()]
-        ax.plot(xvals, yvals, marker='o', label=label)
+    def prepare_plot_data(mode):
+        # Collect all files/data
+        all_xvals = []
+        all_yvals = []
+        all_errors = []
+        labels = []
+        if os.path.isdir(path):
+            files = [os.path.join(path, f) for f in sorted(os.listdir(path)) if f.endswith(".yaml")]
+            for file in files:
+                temps = parse_and_calibrate(file, mode)
+                xvals = list(temps.keys())
+                if mode == "counter":
+                    if y_estimate_temp:
+                        yvals = [countToTemp(v) for v in temps.values()]
+                        ideal_y = xvals
+                    else:
+                        yvals = list(temps.values())
+                        ideal_y = [calcCount(x) for x in xvals]
+                elif mode == "current":
+                    if y_estimate_temp:
+                        yvals = [iptatToTemp(v) for v in temps.values()]
+                        ideal_y = xvals
+                    else:
+                        yvals = list(temps.values())
+                        ideal_y = [calcIptat(x) for x in xvals]
+                errors = [abs(y-y_ideal) for y,y_ideal in zip(yvals, ideal_y)]
+                all_xvals.append(xvals)
+                all_yvals.append(yvals)
+                all_errors.extend(errors)
+                labels.append(os.path.basename(file)[10:-5])
+        else:
+            temps = parse_and_calibrate(path, mode)
+            xvals = list(temps.keys())
+            if mode == "counter":
+                if y_estimate_temp:
+                    yvals = [countToTemp(v) for v in temps.values()]
+                    ideal_y = xvals
+                else:
+                    yvals = list(temps.values())
+                    ideal_y = [calcCount(x) for x in xvals]
+            elif mode == "current":
+                if y_estimate_temp:
+                    yvals = [iptatToTemp(v) for v in temps.values()]
+                    ideal_y = xvals
+                else:
+                    yvals = list(temps.values())
+                    ideal_y = [calcIptat(x) for x in xvals]
+            errors = [abs(y-y_ideal) for y,y_ideal in zip(yvals, ideal_y)]
+            all_xvals.append(xvals)
+            all_yvals.append(yvals)
+            all_errors.extend(errors)
+            labels = [None]
+        return all_xvals, all_yvals, all_errors, labels
 
-    if os.path.isdir(path):
-        for file in sorted(os.listdir(path)):
-            if not file.endswith(".yaml"):
-                continue
-            fullfile = os.path.join(path, file)
-            temps = parse_and_calibrate(fullfile)
-            plot_single_temps(temps, label=file[10:-5])
+    if curent_or_counter == "both":
+        # Prepare both datasets
+        cnt_x, cnt_y, cnt_err, cnt_labels = prepare_plot_data("counter")
+        cur_x, cur_y, cur_err, cur_labels = prepare_plot_data("current")
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, figsize=(10,9), gridspec_kw={"height_ratios":[1,1]})
+
+        # --- Counter plot
+        for xvals, yvals, label in zip(cnt_x, cnt_y, cnt_labels):
+            ax1.plot(xvals, yvals, marker='o', label=label)
+        temp_range = sorted({x for xl in cnt_x for x in xl})
+        if show_ideal and temp_range:
+            temp_range = np.array(temp_range)
+            if y_estimate_temp:
+                ax1.plot(temp_range, temp_range, 'k--', linewidth=2, label="Ideal")
+            else:
+                ax1.plot(temp_range, [calcCount(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
+        if show_inaccuracy:
+            inaccuracy = max(cnt_err) if cnt_err else 0.0
+            unit = "°C" if y_estimate_temp else "counts"
+            ax1.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
+                        xy=(0.99, 0.02), xycoords='axes fraction', ha='right', va='bottom',
+                        fontsize=11,
+                        bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="black", lw=1.2))
+        if y_estimate_temp:
+            ax1.set_ylabel("Estimated temperature [°C]")
+        else:
+            ax1.set_ylabel("Average counter value")
+        ax1.set_title("Temperature dependence of tempertaure sensor")
+        ax1.legend()
+        ax1.grid()
+
+        # --- Current plot
+        for xvals, yvals, label in zip(cur_x, cur_y, cur_labels):
+            ax2.plot(xvals, yvals, marker='o', label=label)
+        temp_range = sorted({x for xl in cur_x for x in xl})
+        if show_ideal and temp_range:
+            temp_range = np.array(temp_range)
+            if y_estimate_temp:
+                ax2.plot(temp_range, temp_range, 'k--', linewidth=2, label="Ideal")
+            else:
+                ax2.plot(temp_range, [calcIptat(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
+        if show_inaccuracy:
+            inaccuracy = max(cur_err) if cur_err else 0.0
+            unit = "°C" if y_estimate_temp else "A"
+            ax2.annotate(f"Inaccuracy = ±{inaccuracy:.2e} {unit}",
+                        xy=(0.99, 0.02), xycoords='axes fraction', ha='right', va='bottom',
+                        fontsize=11,
+                        bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="black", lw=1.2))
+        if y_estimate_temp:
+            ax2.set_ylabel("Estimated temperature [°C]")
+        else:
+            ax2.set_ylabel("PTAT current [A]")
+        ax2.set_title("Temperature dependence of PTAT current")
+        ax2.legend()
+        ax2.grid()
+
+        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
+        lower_lim = desired_ticks[0] - 10
+        upper_lim = desired_ticks[-1] + 10
+        ax2.set_xlabel("Temperature [C]")
+        ax2.set_xticks(desired_ticks)
+        ax2.set_xlim(lower_lim, upper_lim)
+        for ax in (ax1, ax2):
+            ax.set_xticks(desired_ticks)
+            ax.set_xlim(lower_lim, upper_lim)
+            if y_estimate_temp:
+                ax.set_yticks(desired_ticks)
+                ax.set_ylim(lower_lim, upper_lim)
+        plt.tight_layout()
+        plt.show()
+    elif curent_or_counter in (True, "current"):
+        # Just PTAT current
+        cur_x, cur_y, cur_err, cur_labels = prepare_plot_data("current")
+        fig, ax = plt.subplots(figsize=(10,5))
+        for xvals, yvals, label in zip(cur_x, cur_y, cur_labels):
+            ax.plot(xvals, yvals, marker='o', label=label)
+        temp_range = sorted({x for xl in cur_x for x in xl})
+        if show_ideal and temp_range:
+            temp_range = np.array(temp_range)
+            if y_estimate_temp:
+                ax.plot(temp_range, temp_range, 'k--', linewidth=2, label="Ideal")
+            else:
+                ax.plot(temp_range, [calcIptat(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
+        if show_inaccuracy:
+            inaccuracy = max(cur_err) if cur_err else 0.0
+            unit = "°C" if y_estimate_temp else "A"
+            ax.annotate(f"Inaccuracy = ±{inaccuracy:.2e} {unit}",
+                    xy=(0.99, 0.02), xycoords='axes fraction', ha='right', va='bottom',
+                    fontsize=11,
+                    bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="black", lw=1.2))
+        if y_estimate_temp:
+            ax.set_ylabel("Estimated temperature [°C]")
+        else:
+            ax.set_ylabel("PTAT current [A]")
+        ax.set_title("Temperature dependence of PTAT current")
+        ax.legend()
+        ax.grid()
+        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
+        lower_lim = desired_ticks[0] - 10
+        upper_lim = desired_ticks[-1] + 10
+        ax.set_xticks(desired_ticks)
+        ax.set_xlim(lower_lim, upper_lim)
+        if y_estimate_temp:
+            ax.set_yticks(desired_ticks)
+            ax.set_ylim(lower_lim, upper_lim)
+        plt.tight_layout()
+        plt.show()
+    elif curent_or_counter in (False, "counter"):
+        cnt_x, cnt_y, cnt_err, cnt_labels = prepare_plot_data("counter")
+        fig, ax = plt.subplots(figsize=(10,5))
+        for xvals, yvals, label in zip(cnt_x, cnt_y, cnt_labels):
+            ax.plot(xvals, yvals, marker='o', label=label)
+        temp_range = sorted({x for xl in cnt_x for x in xl})
+        if show_ideal and temp_range:
+            temp_range = np.array(temp_range)
+            if y_estimate_temp:
+                ax.plot(temp_range, temp_range, 'k--', linewidth=2, label="Ideal")
+            else:
+                ax.plot(temp_range, [calcCount(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
+        if show_inaccuracy:
+            inaccuracy = max(cnt_err) if cnt_err else 0.0
+            unit = "°C" if y_estimate_temp else "counts"
+            ax.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
+                    xy=(0.99, 0.02), xycoords='axes fraction', ha='right', va='bottom',
+                    fontsize=11,
+                    bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="black", lw=1.2))
+        if y_estimate_temp:
+            ax.set_ylabel("Estimated temperature [°C]")
+        else:
+            ax.set_ylabel("Average counter value")
+        ax.set_title("Temperature dependence of Temperature sensor (Counter)")
+        ax.legend()
+        ax.grid()
+        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
+        lower_lim = desired_ticks[0] - 10
+        upper_lim = desired_ticks[-1] + 10
+        ax.set_xticks(desired_ticks)
+        ax.set_xlim(lower_lim, upper_lim)
+        if y_estimate_temp:
+            ax.set_yticks(desired_ticks)
+            ax.set_ylim(lower_lim, upper_lim)
+        plt.tight_layout()
+        plt.show()
     else:
-        temps = parse_and_calibrate(path)
-        plot_single_temps(temps)
-
-    ax.set_title("Temperature dependence of Temperature sensor")
-    if y_estimate_temp:
-        ax.set_ylabel("Estimated temperature [°C]")
-    else:
-        ax.set_ylabel("Average counter value")
-    ax.set_xlabel("Temperature [C]")
-    ax.legend()
-    ax.grid()
-
-    desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-    lower_lim = desired_ticks[0] - 10
-    upper_lim = desired_ticks[-1] + 10
-    ax.set_xticks(desired_ticks)
-    ax.set_xlim(lower_lim, upper_lim)
-    if y_estimate_temp:
-        ax.set_yticks(desired_ticks)
-        ax.set_ylim(lower_lim, upper_lim)
-    plt.tight_layout()
-    plt.show()
+        raise ValueError("curent_or_counter should be 'counter', 'current', or 'both'.")
 
 
 def plotSensTempViolin(path, POC=None, y_estimate_temp=False):
@@ -544,8 +741,8 @@ label_dict = {
     "v(xdut.x3.vbgctrl)": r'$V_{ctrlRef}$',
     "v(xdut.x4.vbgctrl)": r'$V_{ctrlRef}$',
     "v(xdut.x3.vptatctrl)": r'$V_{ctrlPTAT}$',
-    "v(dec_tmpcount_out1)": r'$V_{count1}$',
-    "v(dec_tmpcount_out2)": r'$V_{count2}$',
+    "v(dec_tmpcount_out1)": r'$Count1$',
+    "v(dec_tmpcount_out2)": r'$Count2$',
     "v(pa)": r'$sOut$',
     "v(pb)": r'$sAvgCapL$',
     "v(pc)": r'$sAvgCapH$',
@@ -560,6 +757,8 @@ label_dict = {
     "v(clk)": r'$clk$',
     "v(xdut.x2.lcharge)": r'$V_{high}$',
     "v(xdut.x2.hcharge)": r'$V_{low}$',
+    "v(xdut.vcap)": r'$V_{cap}$',
+    "v(s_cmpoutdisable)": r'$sCmpOutDisable$',
     }
 
 
@@ -567,8 +766,10 @@ label_dict = {
 
 ################### Finished plots ###################
 
+name = "output_tran/TYP_TmpSns_20deg_PLOTTING"
+digHeight = 1.3
+
 def plotBGSETUPsequence():
-    name = "output_tran/tran_SchGtKttTtVt_20"
     signal_groups = [
         ["v(pii1)", "v(pi1)", "v(src_n)", "v(snk)"],
         ["v(xdut.vn)", "v(xdut.vp)", "v(xdut.x3.vptatctrl)", "v(xdut.x3.vbgctrl)"],
@@ -577,19 +778,20 @@ def plotBGSETUPsequence():
     (-0.1, 2),  # y-limits for the second group
     (-0.1, 1),  # y-limits for the first group
     ]
-    name = "output_tran/tran_SchGtKttTtVt_20"
     rawplot(
         name + ".raw",
         'time',
         signal_groups=signal_groups,
         ptype="same",
-        fname=name + ".pdf",
+        fname="startupSequence.pgf",
         xlim=(0, 8),      
         ylims=y_lims,     
-        plot_height=1.6,
+        plot_height=2.1,
+        legend_loc=["right", "right"],
+
     )
 
-def plotZoomedBG():
+def plotOperationCLoseup():
     signal_groups = [
         ["v(xdut.vn)", "v(xdut.vp)"],
         ["v(xdut.x3.vbgctrl)"],
@@ -597,7 +799,7 @@ def plotZoomedBG():
         ["v(snk)", "v(src_n)"],
         # ["v(vref)", "v(xdut.x2.hcharge)", "v(xdut.x2.lcharge)"],
         ["v(pii1)", "v(pi1)","v(pb)","v(pc)","v(pd)"],
-            ]
+        ]
 
     y_lims = [
         (0.739, 0.745),
@@ -616,16 +818,15 @@ def plotZoomedBG():
         # [],
     ]
 
-    name = "output_tran/tran_SchGtKttTtVt_20"
     rawplot(
         name + ".raw",
         'time',
         signal_groups=signal_groups,
         ptype="same",
-        fname=name + ".pdf",
+        fname="operationCloseup.pgf",
         xlim=(27.6, 31.6),      
         ylims=y_lims,     
-        plot_height=1.6,
+        plot_height=digHeight,
         legend_loc=["right", "right", "right", "right", "right"],
         colors=colors
     )
@@ -646,30 +847,63 @@ def plotNonOverlap():
         ["C4"],
     ]
 
-    name = "output_tran/tran_SchGtKttTtVt_20"
     rawplot(
         name + ".raw",
         'time',
         signal_groups=signal_groups,
         ptype="same",
-        fname=name + ".pdf",
-        xlim=(9, 10.3),      
+        fname= "nonOverlap.pgf",
+        xlim=(6.61, 7.55),      
         ylims=y_lims,     
-        plot_height=1.6,
+        plot_height=digHeight,
         legend_loc=["right", "right"],
         colors=colors
     )
 
+def plotTmpSns():
+    signal_groups = [
+        ["v(vref)","v(xdut.vcap)"],
+        ["v(cmp)"],
+        ["v(s_cmpoutdisable)"],
+        ["v(dec_tmpcount_out1)"],
+    ]
+
+    y_lims = [
+        (-0.1, 1.2),
+        (-0.2, 2),
+        (-0.2, 2),
+        (49,58),
+    ]
+
+    colors = [
+        ["C0", "C1"],
+        ["C2"],
+        ["C3"],
+        ["C4"],
+    ]
+
+    rawplot(
+        name + ".raw",
+        'time',
+        signal_groups=signal_groups,
+        ptype="same",
+        fname=name + ".pgf",
+        xlim=(66.6, 68.6),      
+        ylims=y_lims,     
+        plot_height=1.4,
+        legend_loc=["right", "right", "right", 'right'],
+        colors=colors
+    )
 ######################################################
 
-
+# plotBGSETUPsequence()
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
-plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=None, y_estimate_temp=True)
-plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=1, y_estimate_temp=True)
-plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0525", POC=2, y_estimate_temp=True)
+plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=2, curent_or_counter="both", y_estimate_temp=False, show_ideal=True, show_inaccuracy=True)
+# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=None, y_estimate_temp=True)
+# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=2)
 
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=None)
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=1)
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0525", POC=2)
+plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=2, y_estimate_temp=False)
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=1, y_estimate_temp=True)
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=2, y_estimate_temp=True)
 
