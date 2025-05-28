@@ -1,32 +1,36 @@
-v {xschem version=3.4.6RC file_version=1.2}
+v {xschem version=3.4.6 file_version=1.2}
+G {}
 K {type=subcircuit
 format="@name @pinlist @symname"
 template="name=x1"
 }
-T {@symname} -49.5 -6 0 0 0.3 0.3 {}
-T {@name} 135 -72 0 0 0.2 0.2 {}
+V {}
+S {}
+E {}
 L 4 -130 -60 130 -60 {}
 L 4 -130 60 130 60 {}
 L 4 -130 -60 -130 60 {}
 L 4 130 -60 130 60 {}
-B 5 -152.5 -52.5 -147.5 -47.5 {name=vdd dir=in}
 L 4 -150 -50 -130 -50 {}
-T {vdd} -125 -54 0 0 0.2 0.2 {}
-B 5 147.5 -52.5 152.5 -47.5 {name=Vcap dir=out}
 L 4 130 -50 150 -50 {}
-T {Vcap} 125 -54 0 1 0.2 0.2 {}
-B 5 -152.5 -32.5 -147.5 -27.5 {name=vss dir=in}
 L 4 -150 -30 -130 -30 {}
-T {vss} -125 -34 0 0 0.2 0.2 {}
-B 5 -152.5 -12.5 -147.5 -7.5 {name=Iptat dir=in}
 L 4 -150 -10 -130 -10 {}
-T {Iptat} -125 -14 0 0 0.2 0.2 {}
-B 5 -152.5 7.5 -147.5 12.5 {name=cmp_p1 dir=in}
 L 4 -150 10 -130 10 {}
-T {cmp_p1} -125 6 0 0 0.2 0.2 {}
-B 5 -152.5 27.5 -147.5 32.5 {name=cmp_p2 dir=in}
 L 4 -150 30 -130 30 {}
-T {cmp_p2} -125 26 0 0 0.2 0.2 {}
-B 5 -152.5 47.5 -147.5 52.5 {name=s_CapRst dir=in}
 L 4 -150 50 -130 50 {}
+B 5 -152.5 -52.5 -147.5 -47.5 {name=vdd dir=in}
+B 5 147.5 -52.5 152.5 -47.5 {name=Vcap dir=out}
+B 5 -152.5 -32.5 -147.5 -27.5 {name=vss dir=in}
+B 5 -152.5 -12.5 -147.5 -7.5 {name=Iptat dir=in}
+B 5 -152.5 7.5 -147.5 12.5 {name=s_CCOcap1 dir=in}
+B 5 -152.5 27.5 -147.5 32.5 {name=s_CCOcap2 dir=in}
+B 5 -152.5 47.5 -147.5 52.5 {name=s_CapRst dir=in}
+T {@symname} -49.5 -6 0 0 0.3 0.3 {}
+T {@name} 135 -72 0 0 0.2 0.2 {}
+T {vdd} -125 -54 0 0 0.2 0.2 {}
+T {Vcap} 125 -54 0 1 0.2 0.2 {}
+T {vss} -125 -34 0 0 0.2 0.2 {}
+T {Iptat} -125 -14 0 0 0.2 0.2 {}
+T {s_CCOcap1} -125 6 0 0 0.2 0.2 {}
+T {s_CCOcap2} -125 26 0 0 0.2 0.2 {}
 T {s_CapRst} -125 46 0 0 0.2 0.2 {}

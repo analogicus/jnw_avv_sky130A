@@ -382,6 +382,12 @@ def sigCorr(folders, x, y):
 
 name = "output_tran/tran_"
 plotVrefTempDependence("output_tran/tran_SchGtKttTtVt")
-print(calcPpm("output_tran/tran_SchGtKttTtVt"))
-print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), getVref(name + "SchGtKttmmTtVt"))
-print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), getVref(name + "SchGtKttmmTtVt_1"))
+# print(calcPpm("output_tran/tran_SchGtKttTtVt"))
+# print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), getVref(name + "SchGtKttmmTtVt"))
+# print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), getVref(name + "SchGtKttmmTtVt_1"))
+
+
+# plotVrefDistribution(
+#     [["sim_results/MC_vref_0527"]],
+#     Temp="40",
+# )

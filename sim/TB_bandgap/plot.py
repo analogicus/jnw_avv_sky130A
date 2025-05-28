@@ -50,6 +50,39 @@ def countToTemp(count):
     return temp
 
 
+def getSamplingPeriod(yamlfile, temp):
+    CLK_FREQ = 20e6  # 20 MHz
+
+    # Load yaml
+    with open(yamlfile + ".yaml") as fi:
+        obj = yaml.safe_load(fi)
+
+    # Helper function to get time value from yaml
+    def get_val(edge, order, temp):
+        key = f"caprst_{edge}_{order}_{temp}"
+        if key not in obj and isinstance(temp, int):
+            key = f"caprst_{edge}_{order}_{str(temp)}"
+        if key not in obj:
+            raise ValueError(f"{key} not in YAML!")
+        return obj[key]
+
+    # Get values (in seconds)
+    fall_first  = get_val("fall",  "first",  temp)
+    rise_first  = get_val("rise",  "first",  temp)
+    fall_second = get_val("fall",  "second", temp)
+    rise_second = get_val("rise",  "second", temp)
+
+    # Calculate differences (in seconds)
+    diff_first  = abs(rise_first  - fall_first)
+    diff_second = abs(rise_second - fall_second)
+
+    # Convert to integer clock cycles (rounded)
+    cycles_first  = round(diff_first  * CLK_FREQ)
+    cycles_second = round(diff_second * CLK_FREQ)
+    
+    print(f"Sampling period for {temp}C: {cycles_first} cycles (first), {cycles_second} cycles (second)")
+
+    return cycles_first, cycles_second
     
 
 def calcPpm(yamlfile):
@@ -732,6 +765,38 @@ def plotPpmDistribution(folders):
     plt.show()
 
 
+def sigCorr(folders, x, y):
+    # Calculate the correlation coefficient
+    x_values = np.array([])
+    y_values = np.array([])
+    
+    max = ""
+    min = ""
+    
+    for folder in folders:
+        for file in os.scandir(folder):
+            if file.name.endswith(".yaml"):
+                with open(folder + "/" + file.name) as fi:
+                    obj = yaml.safe_load(fi)
+                for key in obj:
+                    if key.startswith(x):
+                        x_values = np.append(x_values, obj[key])
+                    elif key.startswith(y):
+                        y_values = np.append(y_values, obj[key])
+                #     elif key.startswith("vctrlmax_20"):
+                #         max = obj[key]
+                #     elif key.startswith("vctrlmin_20"):
+                #         min = obj[key]
+                # if min != "" and max != "":
+                #     y_values = np.append(y_values, (max + min)/2)
+                #     min = ""
+                #     max = ""
+        
+        # print(file.name, x, y, "x:", x_values, "y:", y_values)
+        corr = round(np.corrcoef(x_values, y_values)[0, 1], 3)
+        print("Correlation coefficient between", x, "and", y, "is:", corr)
+
+
 label_dict = {
     "v(xdut.vn)": r'$V_{n}$',
     "v(xdut.vp)": r'$V_{p}$',
@@ -760,7 +825,6 @@ label_dict = {
     "v(xdut.vcap)": r'$V_{cap}$',
     "v(s_cmpoutdisable)": r'$sCmpOutDisable$',
     }
-
 
 
 
@@ -899,11 +963,21 @@ def plotTmpSns():
 # plotBGSETUPsequence()
 # plotVrefTempDependence("sim_results/MC_18_feb_tempSweep/tran_SchGtKttmmTtVt_6")
 
-plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=2, curent_or_counter="both", y_estimate_temp=False, show_ideal=True, show_inaccuracy=True)
+# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0527", POC=None, curent_or_counter="both", y_estimate_temp=False, show_ideal=True, show_inaccuracy=True)
 # plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=None, y_estimate_temp=True)
 # plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=2)
 
-plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=2, y_estimate_temp=False)
+# sigCorr(["sim_results/MC_tmpSnsSweep_0527_2"], "iptat_first", "tmpcount1")
+# sigCorr(["sim_results/MC_tmpSnsSweep_0527_2"], "iptat_second", "tmpcount2")
+
+
+getSamplingPeriod("output_tran/tran_SchGtKttmmTtVt_2", temp=-40)
+getSamplingPeriod("output_tran/tran_SchGtKttmmTtVt_2", temp=0)
+getSamplingPeriod("output_tran/tran_SchGtKttmmTtVt_2", temp=40)
+getSamplingPeriod("output_tran/tran_SchGtKttmmTtVt_2", temp=80)
+getSamplingPeriod("output_tran/tran_SchGtKttmmTtVt_2", temp=125)
+
+# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526_2", POC=2, y_estimate_temp=False)
 # plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=1, y_estimate_temp=True)
 # plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=2, y_estimate_temp=True)
 
