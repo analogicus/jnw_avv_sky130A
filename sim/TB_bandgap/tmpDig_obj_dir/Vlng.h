@@ -49,7 +49,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng VL_NOT_FINAL : public VerilatedModel {
     VL_OUT8(&s_CapRst,0,0);
     VL_OUT8(&s_PtatOut,0,0);
     VL_OUT8(&s_Rdiscon_N,0,0);
-    VL_OUT8(&s_CmpOutDisable,0,0);
+    VL_OUT8(&s_CCOcap1,0,0);
+    VL_OUT8(&s_CCOcap2,0,0);
     VL_OUT8(&src_n,0,0);
     VL_OUT8(&snk,0,0);
     VL_OUT8(&cmp_p1,0,0);
@@ -60,9 +61,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng VL_NOT_FINAL : public VerilatedModel {
     VL_OUT8(&setupBias,0,0);
     VL_OUT8(&tmpCount_out1,7,0);
     VL_OUT8(&tmpCount_out2,7,0);
-    VL_OUT8(&tmpCount_out3,7,0);
-    VL_OUT8(&tmpCount_out4,7,0);
     VL_OUT8(&tmpCountRst_out,0,0);
+    VL_OUT8(&count_out,7,0);
+    VL_OUT16(&tmpSampleCount_out,8,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

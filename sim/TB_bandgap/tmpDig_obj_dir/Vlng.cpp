@@ -30,7 +30,8 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , s_CapRst{vlSymsp->TOP.s_CapRst}
     , s_PtatOut{vlSymsp->TOP.s_PtatOut}
     , s_Rdiscon_N{vlSymsp->TOP.s_Rdiscon_N}
-    , s_CmpOutDisable{vlSymsp->TOP.s_CmpOutDisable}
+    , s_CCOcap1{vlSymsp->TOP.s_CCOcap1}
+    , s_CCOcap2{vlSymsp->TOP.s_CCOcap2}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
@@ -41,9 +42,9 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , setupBias{vlSymsp->TOP.setupBias}
     , tmpCount_out1{vlSymsp->TOP.tmpCount_out1}
     , tmpCount_out2{vlSymsp->TOP.tmpCount_out2}
-    , tmpCount_out3{vlSymsp->TOP.tmpCount_out3}
-    , tmpCount_out4{vlSymsp->TOP.tmpCount_out4}
     , tmpCountRst_out{vlSymsp->TOP.tmpCountRst_out}
+    , count_out{vlSymsp->TOP.count_out}
+    , tmpSampleCount_out{vlSymsp->TOP.tmpSampleCount_out}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

@@ -13,8 +13,8 @@ def main(name):
   # rawplot(name + ".raw",'time',"v(vref),v(xdut.vn),v(xdut.vp)",ptype="same",fname=name + ".pdf", removeFirstSamples=True)
   # plotTempDependence(name + "SchGtKttTtVt")
   # plotVrefDistribution(["sim_results/MC_vref_0519_4xBgRes"], Temp="20")
-  sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "vctrl_20")
-  sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "ipmos_20")
+  # sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "vctrl_20")
+  # sigCorr(["sim_results/MC_vref_0519_4xBgRes"], "vref_20", "ipmos_20")
   # sigCorr(["sim_results/MC_vref_0514"], "vref_20", "isrc_20")
   # plotVrefDistribution(["sim_results/MC_tempSweep_0430"], Temp="20")
 

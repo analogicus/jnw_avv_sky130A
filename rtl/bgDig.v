@@ -75,6 +75,7 @@ initial begin
     src_ctrl = 1'b0;
 end
 
+assign cmp_p2 = ~cmp_p1;
 
 always_ff @(posedge clk) begin
     if (rst) begin
@@ -110,7 +111,6 @@ always_ff @(posedge clk) begin
                     PII2 <= 1;
                     if(count > 4) begin
                         cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
                         PII2  <= 0;
                         count <= 0;
                         if (setupDone > 0) begin
@@ -250,19 +250,18 @@ always_ff @(posedge clk) begin
         end else begin
             case(state)
                 PRECHARGE: begin
-                    if (count > 14) begin
+                    if (count > 40) begin
                         state <= BLANKDIODE;
                         afterBlank <= DIODE;
                         count <= 0;
                         preChrg <= 0;
-                        cmp_p1 <= ~cmp_p1;
-                        cmp_p2 <= ~cmp_p2;
                         preChrg <= 0;
                     end
                     else begin
                         count <= count + 1;
                         preChrg <= 1;
                         setupBias <= 1;
+                        cmp_p1 <= ~cmp_p1;
                     end
                     s_BG2CMP <= 1;
                     PI2 <= 0;

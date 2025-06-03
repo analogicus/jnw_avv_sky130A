@@ -26,10 +26,8 @@ N 80 -410 120 -410 {lab=preChrg}
 N 80 -390 120 -390 {lab=vctrl}
 N 380 -230 670 -230 {lab=vn}
 N 670 -280 670 -230 {lab=vn}
-N 670 -280 760 -280 {lab=vn}
 N 380 -390 670 -390 {lab=vp}
 N 670 -390 670 -340 {lab=vp}
-N 670 -340 760 -340 {lab=vp}
 N 100 -820 140 -820 {lab=preChrg}
 N 100 -790 140 -790 {lab=src_n}
 N 100 -760 140 -760 {lab=cmp}
@@ -40,9 +38,11 @@ N 100 -720 140 -720 {lab=vdd}
 N 360 -740 380 -740 {lab=vctrl}
 N 960 -670 980 -670 {lab=nbias}
 N 960 -750 980 -750 {lab=pbias}
-N 1020 -310 1080 -310 {lab=cmp}
 N 380 -340 410 -340 {lab=vref}
-C {JNW_AVV_SKY130A/CMP_v2.sym} 750 -190 0 0 {name=x1}
+N 1020 -310 1090 -310 {lab=cmp}
+N 670 -340 760 -340 {lab=vp}
+N 670 -280 760 -280 {lab=vn}
+N 870 -210 870 -170 {lab=vss}
 C {JNW_AVV_SKY130A/JNW_AVV.sym} 250 -310 0 0 {name=x2}
 C {JNW_AVV_SKY130A/bias.sym} 880 -630 0 0 {name=x4}
 C {JNW_AVV_SKY130A/charge_pump.sym} 70 -600 0 0 {name=x3}
@@ -69,7 +69,7 @@ C {devices/lab_wire.sym} 80 -190 0 0 {name=p3 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 250 -100 0 0 {name=p6 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 250 -460 0 0 {name=p7 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 870 -410 0 0 {name=p8 sig_type=std_logic lab=vdd}
-C {devices/lab_wire.sym} 870 -210 0 0 {name=p9 sig_type=std_logic lab=vss}
+C {devices/lab_wire.sym} 870 -170 0 0 {name=p9 sig_type=std_logic lab=vss}
 C {devices/lab_wire.sym} 830 -190 0 0 {name=p10 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 800 -750 0 0 {name=p11 sig_type=std_logic lab=vdd}
 C {devices/lab_wire.sym} 240 -850 0 0 {name=p12 sig_type=std_logic lab=vdd}
@@ -99,3 +99,4 @@ C {devices/opin.sym} 890 -840 0 0 {name=p48 lab=cmp}
 C {devices/lab_wire.sym} 410 -340 0 1 {name=p49 sig_type=std_logic lab=vref}
 C {devices/lab_wire.sym} 440 -390 0 1 {name=p50 sig_type=std_logic lab=vp}
 C {devices/lab_wire.sym} 460 -230 0 1 {name=p51 sig_type=std_logic lab=vn}
+C {JNW_AVV_SKY130A/CMP_v2.sym} 750 -190 0 0 {name=x1}

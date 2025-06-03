@@ -8,6 +8,7 @@ import sys
 import math
 import re
 import os
+import glob
 from matplotlib.ticker import MaxNLocator
 
 
@@ -187,57 +188,293 @@ def rawplot(fraw,xname,yname,ptype=None,axes=None,fname=None,removeFirstSamples=
     plt.show()
 
 
-def plotVrefTempDependence(yamlfile):
-    # Ensure input yamlfile has .yaml if missing
-    if not yamlfile.endswith(".yaml"):
-        if os.path.exists(yamlfile + ".yaml"):
-            yamlfile = yamlfile + ".yaml"
+def plotVrefTempDependence(path, plot_title=None, show_legend=True, fname=None, mode=None, legend_lut=None):
+    """
+    Plot temperature dependence of Vref from yaml file or all yaml files in a directory.
 
-    # Read result yaml file
-    with open(yamlfile) as fi:
-        obj = yaml.safe_load(fi)
+    Parameters:
+        path: filename (.yaml) or folder path containing yaml files.
+        plot_title: (optional) custom string for plot title.
+        show_legend: (optional) boolean to enable/disable legend. (ignored in mode="ETC" or mode="MC")
+        fname: if not None, saves plot as PGF to plots/fname
+        mode: None (default legacy), "ETC" (Extreme Test Cases, legend made from lookup), "MC" (Monte Carlo, no legend)
+        legend_lut: dict mapping base filename to legend string for ETC mode
+    """
+    if fname is not None:
+        import matplotlib
+        matplotlib.use("pgf")
+        matplotlib.rcParams.update({
+            "pgf.texsystem": "pdflatex",
+            "font.family": "serif",
+            "text.usetex": True,
+            "pgf.rcfonts": False,
+        })
 
-    vref = []
-    temp = []
+    def process_yaml(yamlfile):
+        if not yamlfile.endswith(".yaml"):
+            if os.path.exists(yamlfile + ".yaml"):
+                yamlfile = yamlfile + ".yaml"
+        if not os.path.isfile(yamlfile):
+            print(f"File not found: {yamlfile}")
+            return None, None
+        with open(yamlfile) as fi:
+            obj = yaml.safe_load(fi)
+        vref = []
+        temp = []
+        for key in obj:
+            if key.startswith("vref_"):
+                try:
+                    t = int(key.split("_")[1])
+                    temp.append(t)
+                    vref.append(obj[key])
+                except Exception as e:
+                    print(f"Warning: Could not parse temperature in key '{key}': {e}")
+        if not vref or not temp:
+            print(f"No vref entries found in {yamlfile}!")
+            return None, None
+        temp = np.array(temp)
+        vref = np.array(vref)
+        sorted_inds = np.argsort(temp)
+        sorted_temp = temp[sorted_inds]
+        sorted_vref = vref[sorted_inds]
+        centered_vref = (sorted_vref - np.mean(sorted_vref)) * 1000
+        return sorted_temp, centered_vref
 
-    for key in obj:
-        if key.startswith("vref_"):
-            try:
-                t = int(key.split("_")[1])
-                temp.append(t)
-                vref.append(obj[key])
-            except Exception as e:
-                print(f"Warning: Could not parse temperature in key '{key}': {e}")
-
-    if not vref or not temp:
-        print("No vref entries found!")
+    files_to_plot = []
+    if os.path.isdir(path):
+        files_to_plot = sorted(glob.glob(os.path.join(path, "*.yaml")))
+        if not files_to_plot:
+            print("No .yaml files found in folder!")
+            return
+    elif os.path.isfile(path) or os.path.isfile(path + ".yaml"):
+        if path.endswith(".yaml"):
+            files_to_plot = [path]
+        else:
+            files_to_plot = [path + ".yaml"]
+    else:
+        print(f"Path not found: {path}")
         return
 
-    temp = np.array(temp)
-    vref = np.array(vref)
+    # --- MC MODE: special plot style ---
+    if mode == "MC":
+        all_temp_vrefs = []
+        all_ppms = []
+        all_temp_raw = []
+        temp_set = set()
+        for yamlfile in files_to_plot:
+            tvals, vcentered = process_yaml(yamlfile)
+            if tvals is not None and vcentered is not None:
+                all_temp_vrefs.append((tvals, vcentered))
+            # for violin: raw vref
+            with open(yamlfile) as fi:
+                obj = yaml.safe_load(fi)
+            vref = []
+            temp = []
+            for key in obj:
+                if key.startswith("vref_"):
+                    try:
+                        t = int(key.split("_")[1])
+                        temp.append(t)
+                        vref.append(obj[key])
+                        temp_set.add(t)
+                    except Exception:
+                        continue
+            if vref and temp:
+                temp = np.array(temp)
+                vref = np.array(vref)
+                sorted_inds = np.argsort(temp)
+                sorted_temp = temp[sorted_inds]
+                sorted_vref = vref[sorted_inds]
+                all_temp_raw.append(dict(zip(sorted_temp, sorted_vref*1000)))  # to mV
+            base = yamlfile[:-5] if yamlfile.endswith('.yaml') else yamlfile
+            all_ppms.append(calcPpm(base))
+        temp_x = sorted(temp_set)
 
-    # Sort by increasing temperature
-    sorted_inds = np.argsort(temp)
-    sorted_temp = temp[sorted_inds]
-    sorted_vref = vref[sorted_inds]
+        centered_temp_to_vals = {t: [] for t in temp_x}
+        for yamlfile in files_to_plot:
+            # Get ALL sorted temps and vrefs
+            with open(yamlfile) as fi:
+                obj = yaml.safe_load(fi)
+            vref = []
+            temp = []
+            for key in obj:
+                if key.startswith("vref_"):
+                    try:
+                        t = int(key.split("_")[1])
+                        temp.append(t)
+                        vref.append(obj[key])
+                    except Exception:
+                        continue
+            if not temp or not vref:
+                continue
+            temp = np.array(temp)
+            vref = np.array(vref)
+            sorted_inds = np.argsort(temp)
+            sorted_temp = temp[sorted_inds]
+            sorted_vref = vref[sorted_inds]
+            mean_vref = np.mean(sorted_vref)
+            # Distribute (centered) values into bins for each temperature
+            for t, v in zip(sorted_temp, sorted_vref):
+                centered_temp_to_vals[t].append((v - mean_vref) * 1000) # to mV
 
-    # Center vref around the mean, convert to mV
-    centered_vref = (sorted_vref - np.mean(sorted_vref)) * 1000
+        data_for_violin = [centered_temp_to_vals[t] for t in temp_x]
+        std_devs = [np.std(arr) if len(arr) > 1 else 0 for arr in data_for_violin]
+        mean_ppm = round(np.mean(all_ppms), 2) if all_ppms else 0
 
-    fig, ax = plt.subplots(figsize=(10,5))
+
+        # --- MC overlay + mean/stdev plot, violin below ---
+        height_ratio = [1.2, 1]  # Overlay plot a little taller
+        figwidth = 6
+        figheight = figwidth * (sum(height_ratio)/2.5)  # 2.5 is an aesthetic fudge factor
+        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(figwidth, figheight), gridspec_kw={'height_ratios': height_ratio})
+
+        # 1. Proper MC overlay: mean & std on top of faint overlay
+        arrs = []
+        for tvals, vcentered in all_temp_vrefs:
+            arrs.append((tvals, vcentered))
+            ax1.plot(tvals, vcentered, color="C0", alpha=1, lw=0.8, zorder=1)
+        # For mean/std, we need each sample interpolated to common temp_x:
+        all_samples_interp = np.full((len(files_to_plot), len(temp_x)), np.nan)
+        for i, (t, v) in enumerate(zip([a[0] for a in arrs], [a[1] for a in arrs])):
+            tidx = {tt: k for k, tt in enumerate(t)}
+            for j, tx in enumerate(temp_x):
+                if tx in tidx: all_samples_interp[i, j] = v[tidx[tx]]
+        mean_curve = np.nanmean(all_samples_interp, axis=0)
+        std_curve = np.nanstd(all_samples_interp, axis=0)
+        ax1.plot(temp_x, mean_curve, marker='o', color="C1", lw=2, label=r"$V_{ref}$ mean", zorder=3)
+        ax1.fill_between(temp_x, mean_curve-std_curve, mean_curve+std_curve, 
+                         color="C1", alpha=0.3, lw=0, zorder=2, label=r"$V_{ref}$ $\pm 1\sigma$")
+        ax1.set_ylabel("Voltage [mV]")
+        if plot_title is not None:
+            ax1.set_title(plot_title, pad=10)
+        ax1.grid()
+        ax1.legend(loc='center', frameon=True, bbox_to_anchor=(0.5, 0.25))
+        ax1.set_xticks(temp_x)
+        
+
+        # 2. Violin plot (style as requested)
+        parts = ax2.violinplot(data_for_violin, positions=temp_x, showmedians=True, widths=4)
+        for pc in parts['bodies']:
+            pc.set_facecolor('C0')
+            pc.set_alpha(0.4)
+            pc.set_edgecolor("black")
+            pc.set_linewidth(1)
+        if 'cmedians' in parts:
+            parts['cmedians'].set_color("black")
+
+        # axis/label layout
+        flat = [y for arr in data_for_violin for y in arr]
+        ymin = min(flat) if flat else 0
+        ymax = max(flat) if flat else 1
+        spread = ymax - ymin
+        lower_lim = ymin - 0.1*spread
+        upper_lim = ymax + 0.1*spread
+
+        for xi, std in zip(temp_x, std_devs):
+            topy = upper_lim - 0.05*spread
+            ax2.annotate(f'$\sigma$={std:.2f}', xy=(xi, topy), ha='center', va='bottom',
+                         fontsize=9,
+                         bbox=dict(boxstyle="round,pad=0.22", fc="white", ec="black", lw=0.7, alpha=1))
+        ax2.annotate(
+            f"Mean TC = {mean_ppm} ppm/$^\circ$C\nN = " + str(len(files_to_plot)), xy=(0.5, 0.3), xycoords='axes fraction',
+            ha="center", va="top", fontsize=10,
+            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5', lw=1.0)
+        )
+        ax2.set_xlabel("Temperature [C]")
+        ax2.set_ylabel("Voltage [mV]")
+        ax2.set_xticks(temp_x)
+        ax2.set_xlim(temp_x[0]-10, temp_x[-1]+10)
+        ax2.set_ylim(lower_lim, upper_lim)
+        ax2.grid(True, alpha=0.6)
+
+        plt.tight_layout()
+        if fname is not None:
+            plt.savefig("plots/" + fname)
+        else:
+            plt.show()
+        return
+
+    # --- ETC, default, or single-file mode ---
+    figwidth = 6
+    figheight = figwidth * .5
+    fig, ax = plt.subplots(figsize=(figwidth, figheight))
+    any_plotted = False
+    for yamlfile in files_to_plot:
+        temp, centered_vref = process_yaml(yamlfile)
+        if temp is None or centered_vref is None:
+            continue
+        label = None
+        if mode == "ETC":
+            base = os.path.basename(yamlfile)
+            base = base[:-5] if base.endswith(".yaml") else base
+            label = legend_lut.get(base, base)
+        elif mode == "MC":
+            label = None   # MC: no legend
+        else:
+            label = os.path.basename(yamlfile) if len(files_to_plot) > 1 else r'$V_{ref}$'
+        ax.plot(temp, centered_vref, marker='o', label=label, zorder=1)
+        ax.set_xticks(temp)
+        any_plotted = True
+
+    if not any_plotted:
+        print("No data was plotted.")
+        return
+
     ax.set_xlabel("Temperature [C]")
     ax.set_ylabel("Voltage [mV]")
-    ax.plot(sorted_temp, centered_vref, marker='o', label="Vref")
+    if plot_title:
+        ax.set_title(plot_title)
     ax.grid()
-    ax.legend()
-    ax.set_title("Temperature dependence of Vref")
+
+    if mode == "ETC":
+        handles, labels = ax.get_legend_handles_labels()
+        ncol = len(handles)
+        if ncol > 0:
+            ax.legend(
+                loc='center',
+                bbox_to_anchor=(0.5, 0.25),
+                ncol=3,
+                frameon=True
+            )
+    elif mode == "MC":
+        pass
+    elif show_legend and (len(files_to_plot) > 1 or plot_title):
+        ax.legend(loc='upper left')
+
+    annotate_ppm = False
+    if mode is None and (os.path.isfile(path) or os.path.isfile(path + ".yaml")):
+        annotate_ppm = True
+    if annotate_ppm:
+        ax.annotate(
+            r'TC = ' + str(calcPpm(path)) + r' ppm/$^\circ$C',
+            xy=(0.5, 0.05), xycoords='axes fraction',
+            ha='center', va='bottom',
+            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5')
+        )
+
     plt.tight_layout()
-    plt.show()
-  
-  
-def plotVrefDistribution(groups, Temp=None, names=None, bins=10):
+    if fname is not None:
+        plt.savefig("plots/" + fname)
+    else:
+        plt.show()
+
+
+
+def plotVrefDistribution(groups, Temp=None, names=None, bins=10, KDE=None, fname=None, title=None):
     import pandas as pd
     import numpy as np
+    import matplotlib.pyplot as plt
+
+    if fname is not None:
+        import matplotlib
+        matplotlib.use("pgf")
+        matplotlib.rcParams.update({
+            "pgf.texsystem": "pdflatex",
+            "font.family": "serif",
+            # "font.serif": ["Computer Modern"],
+            "text.usetex": True,
+            "pgf.rcfonts": False,
+        })
 
     if names is None:
         names = [f"Group {i+1}" for i in range(len(groups))]
@@ -245,73 +482,81 @@ def plotVrefDistribution(groups, Temp=None, names=None, bins=10):
         assert len(names) == len(groups), "Length of names must match number of groups."
 
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-    fig, ax = plt.subplots(sharey=True, tight_layout=True, figsize=(8,5))
+    fig, ax = plt.subplots(sharey=True, tight_layout=True, figsize=(6,3.5))
     ax2 = ax.twinx()  # for density
 
-    all_vrefMeans = []
-    group_vref_data = []
-    for i, group in enumerate(groups):
+    per_group_vrefs = []    # Will be a list of np.arrays, one per group
+
+    for gidx, group in enumerate(groups):
         folders = group if isinstance(group, (list, tuple)) else [group]
-        vrefMean = np.array([])
+        group_vrefs = []
         for folder in folders:
             for file in os.scandir(folder):
                 if file.name.endswith(".yaml"):
-                    mean = getVref(os.path.join(folder, file.name[:-5]), temp=Temp)
-                    vrefMean = np.append(vrefMean, mean)
-        group_vref_data.append(vrefMean)
-        if len(vrefMean):
-            all_vrefMeans.extend(vrefMean)
-    xmin = min(all_vrefMeans) if len(all_vrefMeans)>0 else 0
-    xmax = max(all_vrefMeans) if len(all_vrefMeans)>0 else 1
+                    mean_vref = getVref(os.path.join(folder, file.name[:-5]), temp=Temp)
+                    group_vrefs.append(mean_vref)
+        group_vrefs = np.array(group_vrefs)
+        per_group_vrefs.append(group_vrefs)
+
+    # Axis x-limits over all data for consistent overlaying
+    valid_vrefs = np.concatenate(per_group_vrefs) if per_group_vrefs else np.array([0])
+    xmin = np.min(valid_vrefs) if len(valid_vrefs) > 0 else 0
+    xmax = np.max(valid_vrefs) if len(valid_vrefs) > 0 else 1
     xrange_pad = (xmax-xmin)*0.04 + 4
     xlim = (xmin-xrange_pad, xmax+xrange_pad)
 
-    box_coords = []
-
-    for i, vrefMean in enumerate(group_vref_data):
-        total_points = len(vrefMean)
-        if total_points == 0:
+    # Now plot and annotate per group
+    for gidx, group_vrefs in enumerate(per_group_vrefs):
+        n_points = len(group_vrefs)
+        if n_points == 0:
             continue
-        std = round(np.std(vrefMean), 2)
-        color = colors[i%len(colors)]
-        # Filled histogram (counts)
+        group_mean = round(np.mean(group_vrefs), 1)
+        group_std  = round(np.std(group_vrefs), 2)
+        color = colors[gidx % len(colors)]
+        # Filled histogram
         ax.hist(
-            vrefMean, bins=bins, density=False, alpha=0.35, 
+            group_vrefs, bins=bins, density=False, alpha=0.35,
             edgecolor=None, color=color, linewidth=2
         )
         # Outline
         ax.hist(
-            vrefMean, bins=bins, density=False, histtype='step', label=names[i], 
+            group_vrefs, bins=bins, density=False, histtype='step', label=names[gidx],
             fill=False, edgecolor=color, linewidth=2, alpha=1
         )
         # KDE (density, on right y-axis)
-        pd.Series(vrefMean).plot(
-            kind="kde", ax=ax2, color=color, linewidth=1, label="_nolegend_")
-        box_coords.append((i, color, std, total_points))
-    # Info boxes as before
-    for i, (idx, color, std, total_points) in enumerate(box_coords):
-        textstr = r'$\sigma\!=$' + f"{std} mV\nN={total_points}"
+        if KDE:
+            pd.Series(group_vrefs).plot(
+                kind="kde", ax=ax2, color=color, linewidth=1, label="_nolegend_")
+        # Annotation for this group
+        textstr = (f'$\overline{{V_{{ref}}}}$={group_mean} mV'
+                   f'\n$\sigma$={group_std} mV'
+                   f"\nN={n_points}")
         ax.annotate(
-            textstr, xy=(0.96, 0.96-0.13*idx),
+            textstr, xy=(0.98, 0.96-0.28*gidx),
             xycoords='axes fraction', ha="right", va='top',
-            bbox=dict(facecolor='white', edgecolor=color, boxstyle='round,pad=0.6', linewidth=2))
+            bbox=dict(facecolor='white', alpha=1, edgecolor=color, boxstyle='round,pad=0.6', linewidth=2)
+        )
+
     ax.set_xlabel("Voltage [mV]")
     ax.set_ylabel("Frequency")
     ax.set_xlim(*xlim)
     ax.legend(loc='upper left')
-    if Temp is None:
-        ax.set_title("Distribution of Vref mean")
-    else:
-        ax.set_title(f"Distribution of Vref at {Temp}C")
+    ax.yaxis.grid(True, linestyle='--', alpha=0.7)
+    if title is not None:
+        ax.set_title(title)
+
     from matplotlib.ticker import MaxNLocator
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
     ax2.set_yticks([])       # Hides number labels
     ax2.set_ylabel("")       # Removes axis text (label)
-    ax2.spines['right'].set_visible(False) 
+    ax2.spines['right'].set_visible(False)
     ax2.set_ylim(bottom=0, top=ax.get_ylim()[1]*0.01)
     ax2.set_yticks([])
     plt.tight_layout()
-    plt.show()
+    if fname is not None:
+        plt.savefig("plots/" + fname)
+    else:
+        plt.show()
 
 
 def plotPpmDistribution(folders):
@@ -373,15 +618,146 @@ def sigCorr(folders, x, y):
         print("Correlation coefficient between", x, "and", y, "is:", corr)
 
 
+    # Setup ETC mode: legend_lut must be given or defined
+
+
+legend_lut = {
+    "tran_SchGtKttTtVt": r"$\mathrm{ttVt}$",
+    "tran_SchGtKssTtVh": r"$\mathrm{ssVh}$",
+    "tran_SchGtKssTtVl": r"$\mathrm{ssVl}$",
+    "tran_SchGtKffTtVh": r"$\mathrm{ffVh}$",
+    "tran_SchGtKffTtVl": r"$\mathrm{ffVl}$",
+    "tran_SchGtKsfTtVh": r"$\mathrm{sfVh}$",
+    "tran_SchGtKsfTtVl": r"$\mathrm{sfVl}$",
+    "tran_SchGtKfsTtVh": r"$\mathrm{fsVh}$",
+    "tran_SchGtKfsTtVl": r"$\mathrm{fsVl}$",
+}
+
+
+################ Finished plots #############
+
+def plotTypicalVrefTempDependence():
+    plotVrefTempDependence(
+        "sim_results/finalSims/ETC_finalVref/tran_SchGtKttTtVt",
+        plot_title=r'$V_{ref}$ temperature dependence in the typical corner',
+        show_legend=True,
+        fname="typicalVrefTempDepende.pgf",
+        )
+
+
+def plotETCtempDependence():
+    plotVrefTempDependence(
+        "sim_results/finalSims/ETC_finalVref",
+        # "sim_results/ETC_tempSweep_0601",
+        plot_title=r'$V_{ref}$ temperature dependence in the PVT corners',
+        show_legend=True,
+        legend_lut=legend_lut,
+        mode="ETC",
+        fname="ETCtempDependence.pgf",
+        )
+
+
+def plotMCtempDependence():
+    plotVrefTempDependence(
+        "sim_results/MC_tempSweep_0601",
+        # "sim_results/finalSims/MC_finalVref",
+        plot_title=r'$V_{ref}$ temperature dependence with mismatch',
+        show_legend=True,
+        mode="MC",
+        fname="MCtempDependence.pgf",
+        )
+
+
+def plotMCtempDependenceSmallPMOS():
+    plotVrefTempDependence(
+        # "sim_results/MC_tempSweep_0601",
+        "sim_results/finalSims/MC_finalVref",
+        plot_title=r'$V_{ref}$ temperature dependence with mismatch',
+        show_legend=True,
+        mode="MC",
+        fname="MCtempDependenceSmallPMOS.pgf",
+        )
+
+
+def plotFinalVrefDistribution():
+    plotVrefDistribution(
+        # [["sim_results/finalSims/MC_finalVref"]],
+        [["sim_results/MC_tempSweep_0601"]],
+        Temp="20",
+        names=[r'$V_{ref}$'],
+        fname="finalVrefDistribution.pgf",
+        title=r'Distrobution of $V_{ref}$ at 20$^\circ$C',
+        KDE=True,
+    )
+
+
+def plotVrefVSnoChopping():
+    plotVrefDistribution(
+        # [["sim_results/finalSims/MC_finalVref"],["sim_results/finalSims/MC_finalNoChopp_20deg"]],
+        [["sim_results/MC_tempSweep_0601"],["sim_results/finalSims/MC_finalNoChopp_20deg"]],
+        Temp="20",
+        names=[r'With chopping',r'Without chopping'],
+        fname="vrefVSnoChopping.pgf",
+        title=r'Distrobution of $V_{ref}$ with and without chopping at 20$^\circ$C',
+    )
+
+
+def plotVrefVSidealCMP():
+    plotVrefDistribution(
+        # [["sim_results/finalSims/MC_finalVref"],["sim_results/finalSims/MC_finalVref_IdealOTA"]],
+        [["sim_results/MC_tempSweep_0601"],["sim_results/finalSims/MC_finalVref_IdealOTA"]],
+        Temp="20",
+        names=['Implemented','Ideal comparator'],
+        fname="vrefVsidealCMP.pgf",
+        title=r'Distribution of $V_{ref}$ with ideal comparator vs implemented design at 20$^\circ$C',
+    )
+
+
+def plotVrefVSsmallRes():
+    plotVrefDistribution(
+        # [["sim_results/finalSims/MC_finalVref"],["sim_results/finalSims/MC_finalVref_smallerR"]],
+        [["sim_results/MC_tempSweep_0601"],["sim_results/finalSims/MC_finalVref_smallerR"]],
+        Temp="20",
+        names=[r'Implemented',r'Smaller resistor area'],
+        fname="vrefVSsmallRes.pgf",
+        title=r'Distrobution $V_{ref}$ with different resistor area at 20$^\circ$C',
+    )
+
+
+
+
+
+##############################################
+
+
+# plotMCtempDependenceSmallPMOS()
+# plotTypicalVrefTempDependence()
+# plotETCtempDependence()
+# plotMCtempDependence()
+# plotFinalVrefDistribution()
+# plotVrefVSnoChopping()
+# plotVrefVSidealCMP()
+# plotVrefVSsmallRes()
+
 # plotVrefDistribution(
 #     [["sim_results/MC_tempSweep_0430"],["sim_results/MC_tempSweep_0427"]], 
 #     Temp="20",
 #     names=["Temp sweep 1", "Temp sweep 2"]
 #     )
 
+# name = "sim_results/finalSims/ETC_finalVref/tran_"
+# print("SchGtKffTtVl ppm and mean: ", calcPpm(name + "SchGtKffTtVl"), getVref(name + "SchGtKffTtVl"))
+# print("SchGtKffTtVh ppm and mean: ", calcPpm(name + "SchGtKffTtVh"), getVref(name + "SchGtKffTtVh"))  
+# print("SchGtKssTtVl ppm and mean: ", calcPpm(name + "SchGtKssTtVl"), getVref(name + "SchGtKssTtVl"))  
+# print("SchGtKssTtVh ppm and mean: ", calcPpm(name + "SchGtKssTtVh"), getVref(name + "SchGtKssTtVh"))  
+# print("SchGtKfsTtVl ppm and mean: ", calcPpm(name + "SchGtKfsTtVl"), getVref(name + "SchGtKfsTtVl"))  
+# print("SchGtKfsTtVh ppm and mean: ", calcPpm(name + "SchGtKfsTtVh"), getVref(name + "SchGtKfsTtVh"))  
+# print("SchGtKsfTtVl ppm and mean: ", calcPpm(name + "SchGtKsfTtVl"), getVref(name + "SchGtKsfTtVl"))  
+# print("SchGtKsfTtVh ppm and mean: ", calcPpm(name + "SchGtKsfTtVh"), getVref(name + "SchGtKsfTtVh"))
+# print("SchGtKttTtVt ppm and mean: ", calcPpm(name + "SchGtKttTtVt"), getVref(name + "SchGtKttTtVt"))
+
 
 name = "output_tran/tran_"
-plotVrefTempDependence("output_tran/tran_SchGtKttTtVt")
 # print(calcPpm("output_tran/tran_SchGtKttTtVt"))
 # print("SchGtKttmmTtVt ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt"), getVref(name + "SchGtKttmmTtVt"))
 # print("SchGtKttmmTtVt_1 ppm and mean: ", calcPpm(name + "SchGtKttmmTtVt_1"), getVref(name + "SchGtKttmmTtVt_1"))
@@ -391,3 +767,14 @@ plotVrefTempDependence("output_tran/tran_SchGtKttTtVt")
 #     [["sim_results/MC_vref_0527"]],
 #     Temp="40",
 # )
+
+
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKttTtVt"))
+# # print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKssTtVl"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKssTtVh"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKffTtVl"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKffTtVh"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKfsTtVl"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKfsTtVh"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKsfTtVl"))
+# print(calcPpm("sim_results/ETC_tempSweep_0531/tran_SchGtKsfTtVh"))

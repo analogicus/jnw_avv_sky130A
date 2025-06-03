@@ -189,3 +189,5 @@ C {devices/vsource.sym} 780 -220 1 0 {name=V_intoVref1 value=0 savecurrent=false
 C {devices/vsource.sym} 680 -630 1 0 {name=V_intoVn value=0 savecurrent=true}
 C {devices/vsource.sym} 680 -790 1 0 {name=V_intoVp value=0 savecurrent=true}
 C {devices/ipin.sym} 140 -870 0 0 {name=p101 lab=s_CCOcap2}
+C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1560 -630 0 0 {name=x8 }
+C {devices/lab_wire.sym} 1560 -620 0 0 {name=p35 sig_type=std_logic lab=vss}

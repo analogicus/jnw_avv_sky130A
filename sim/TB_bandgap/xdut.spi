@@ -1,2 +1,2 @@
 *Automatic generated instance fron ../../tech/scripts/genxdut TB_bandgap
-XDUT setupBias vdd vss preChrg src_n snk PA PB PC PD vref cmp PI1 PI2 PII1 dummy PII2 s_BG2CMP cmp_p1 cmp_p2  s_BgCtrl s_PtatCtrl s_Cap2CMP s_Ref2CMP s_CapRst s_PtatOut s_Rdiscon_N tmpPulse s_CmpOutDisable PwrUp  TB_bandgap
+XDUT setupBias vdd vss preChrg src_n snk PA PB PC PD vref cmp PI1 PI2 PII1 dummy PII2 s_BG2CMP cmp_p1 cmp_p2  s_BgCtrl s_PtatCtrl s_Cap2CMP s_Ref2CMP s_CapRst s_PtatOut s_Rdiscon_N s_CCOcap1 PwrUp s_CCOcap2  TB_bandgap

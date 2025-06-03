@@ -28,12 +28,6 @@ void Vlng___024root___eval_triggers__act(Vlng___024root* vlSelf) {
                                            & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__reset__0)))) 
                                        | ((IData)(vlSelfRef.tmpDig__DOT__tmpCountRst) 
                                           & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__tmpDig__DOT__tmpCountRst__0)))));
-    vlSelfRef.__VactTriggered.set(3U, ((((IData)(vlSelfRef.clk) 
-                                         & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__clk__0))) 
-                                        | ((IData)(vlSelfRef.cmp) 
-                                           & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__cmp__0)))) 
-                                       | ((IData)(vlSelfRef.reset) 
-                                          & (~ (IData)(vlSelfRef.__Vtrigprevexpr___TOP__reset__0)))));
     vlSelfRef.__Vtrigprevexpr___TOP__clk__0 = vlSelfRef.clk;
     vlSelfRef.__Vtrigprevexpr___TOP__reset__0 = vlSelfRef.reset;
     vlSelfRef.__Vtrigprevexpr___TOP__cmp__0 = vlSelfRef.cmp;

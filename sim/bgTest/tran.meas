@@ -12,6 +12,10 @@ load {cicname}_$vtemp$fend
 meas tran CI_lo_$vtemp avg v(vn) from=310n to=390n
 meas tran CI_hi_$vtemp avg v(vn) from=210n to=290n
 * meas tran VBE_$vtemp avg v(VBE) from=400n to=500n
+
+
+
+
 end
 
 echo "MEAS_END"

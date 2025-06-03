@@ -29,11 +29,37 @@
 *-----------------------------------------------------------------
 * FORCE
 *-----------------------------------------------------------------
-VSS  VSS    0   dc 0
+VSS  vss    0   dc 0
 VDD  vdd    0   dc {AVDD}
 VRST reset  0   dc 0
-VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
+* VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
+VCLK clk    0   dc 0 pulse (0 {AVDD} {2} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
 
+
+
+***** IC 20 degrees ********
+* .ic v(xdut.vn)=0.742 v(xdut.vp)=0.742 v(vref) = 1.05
+* .IC v(xdut.vn) = 0.742
+* .IC v(xdut.vp) = 0.742 
+* .IC v(vref) = 1.05
+
+
+
+
+* Cvn xdut.vn 0 1f ic=0.742
+* Cvp xdut.vp 0 1f ic=0.742
+* Cvref vref 0 1f ic=1.05
+
+* ****** IC 125 degrees ********
+* .ic v(xdut.vn) = 0.56
+* .ic v(xdut.vp) = 0.56
+* .ic v(vref) = 1.05
+
+
+* ****** IC -40 degrees ********
+* .ic v(xdut.vn) = 0.838
+* .ic v(xdut.vp) = 0.838
+* .ic v(vref) = 1.05
 
 *-----------------------------------------------------------------
 * DUT
@@ -41,6 +67,9 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .include ../xdut.spi
 .include ../svinst.spi
 
+.ic v(xdut.vn) = 0.743416
+.ic v(vref) = 0.508093
+.ic v(xdut.vp) = 0.744467
 *----------------------------------------------------------------
 * PROBE
 *----------------------------------------------------------------
@@ -106,6 +135,7 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 
 
 
+
 #ifdef debug
      .save all
      .option savecurrents
@@ -131,6 +161,7 @@ pre_set auto_bridge_d_out =
 unset askquit
 
 optran 0 0 0 100p 1.5u 0
+* optran 0 0 0 0 0 uic
 
 
 set fend = .raw
@@ -139,16 +170,23 @@ set fend = .raw
 
 
 ********** Vref **********
-
-* foreach vtemp -40 -20 0 20 40 60 80 100 125
-foreach vtemp 20
-  option temp=$vtemp
-  tran 1000n 120u
-  write {cicname}_$vtemp$fend
-end
+* foreach vtemp -40
+* * foreach vtemp -40 20 80 125
+* * foreach vtemp -50 -40 -20 0 20 40 60 80 100 125
+*   option temp=$vtemp
+*   tran 1000n 15u
+*   wrnodev nodeTest.txt
+*   write {cicname}_$vtemp$fend
+* end
 ***************************
 
-write
+option temp=20
+tran 1n 13u uic
+* wrnodev nodetest.txt
+write {cicname}_20$fend
+
+
+
 quit
 
 

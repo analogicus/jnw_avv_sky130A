@@ -42,8 +42,8 @@ C {devices/ipin.sym} 1110 -700 0 0 {name=p79 lab=s_CCOcap2}
 C {devices/ipin.sym} 1110 -720 0 0 {name=p80 lab=s_CCOcap1}
 C {devices/ipin.sym} 1110 -760 0 0 {name=p1 lab=vss}
 C {devices/ipin.sym} 1110 -740 0 0 {name=p2 lab=Iptat}
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1430 -355 0 1 {name=x1[3:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1260 -355 0 0 {name=x2[3:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1430 -355 0 1 {name=x1[1:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 1260 -355 0 0 {name=x2[1:0]}
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1140 -380 0 0 {name=x1 }
 C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 1550 -380 0 1 {name=x2 }
 C {devices/ipin.sym} 1110 -680 0 0 {name=p3 lab=s_CapRst}

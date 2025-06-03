@@ -134,8 +134,6 @@ N 610 -1180 770 -1180 {
 lab=vpm}
 N 780 -1170 790 -1170 {
 lab=vpm}
-N 760 -350 780 -350 {
-lab=vss}
 N 540 -1790 540 -1710 {
 lab=pmosDrain}
 N 540 -1580 540 -1540 {
@@ -146,10 +144,6 @@ N 780 -1170 780 -1140 {
 lab=vpm}
 N 770 -1170 780 -1170 {
 lab=vpm}
-N 780 -640 780 -550 {
-lab=Vbe1}
-N 780 -1080 780 -720 {
-lab=#net1}
 N 1390 -1540 1460 -1540 {
 lab=outRes}
 N 780 -1540 1190 -1540 {
@@ -197,7 +191,7 @@ lab=PD}
 N 2380 -1340 2380 -1300 {
 lab=PD}
 N 2380 -1450 2380 -1420 {
-lab=#net2}
+lab=#net1}
 N 2040 -1540 2170 -1540 {
 lab=topSw}
 N 450 -1180 450 -1140 {
@@ -210,8 +204,6 @@ N 220 -1170 230 -1170 {
 lab=vnm}
 N 230 -1080 230 -550 {
 lab=Vbe2}
-N 760 -680 760 -350 {
-lab=vss}
 N 1560 -1540 1870 -1540 {
 lab=topSw}
 N 1290 -1540 1390 -1540 {
@@ -232,16 +224,12 @@ N 1670 -530 1670 -470 {
 lab=topSw}
 N 1670 -440 1670 -350 {
 lab=vss}
-N 780 -1430 780 -1410 {lab=#net3}
+N 780 -1430 780 -1410 {lab=#net2}
 N 780 -1540 780 -1490 {lab=cascDrain}
 N 540 -1540 780 -1540 {
 lab=cascDrain}
 N 230 -1540 230 -1510 {lab=cascDrain}
-N 230 -1450 230 -1410 {lab=#net4}
-N 760 -680 880 -680 {lab=vss}
-N 780 -720 900 -720 {lab=#net1}
-N 780 -640 900 -640 {lab=Vbe1}
-N 530 -620 620 -620 {lab=vss}
+N 230 -1450 230 -1410 {lab=#net3}
 N 1090 -350 1370 -350 {
 lab=vss}
 N 1370 -1230 1370 -350 {lab=vss}
@@ -249,42 +237,33 @@ N 1390 -350 1670 -350 {
 lab=vss}
 N 1000 -2010 1000 -1950 {lab=vdd}
 N 1000 -2010 1040 -2010 {lab=vdd}
-N 1000 -1760 1000 -1730 {lab=#net5}
+N 1000 -1760 1000 -1730 {lab=#net4}
 N 1000 -1700 1000 -1590 {lab=vss}
-N 940 -1700 960 -1700 {lab=#net5}
+N 940 -1700 960 -1700 {lab=#net4}
 N 790 -1700 790 -1590 {lab=vss}
 N 790 -1800 790 -1730 {lab=pcasc}
 N 850 -2010 1000 -2010 {lab=vdd}
 N 850 -1850 880 -1850 {lab=pcasc}
-N 940 -1760 1000 -1760 {lab=#net5}
-N 1000 -1820 1000 -1760 {lab=#net5}
-N 940 -1760 940 -1700 {lab=#net5}
-N 900 -1700 940 -1700 {lab=#net5}
+N 940 -1760 1000 -1760 {lab=#net4}
+N 1000 -1820 1000 -1760 {lab=#net4}
+N 940 -1760 940 -1700 {lab=#net4}
+N 900 -1700 940 -1700 {lab=#net4}
 N 850 -1850 850 -1800 {lab=pcasc}
 N 790 -1800 850 -1800 {lab=pcasc}
 N 830 -1850 850 -1850 {lab=pcasc}
 N 790 -1820 790 -1800 {lab=pcasc}
 N 540 -1680 570 -1680 {lab=vdd}
 N 450 -1680 500 -1680 {lab=pcasc}
-N 1000 -1920 1000 -1880 {lab=#net6}
+N 1000 -1920 1000 -1880 {lab=#net5}
 N 900 -1590 1000 -1590 {lab=vss}
-N 540 -1650 540 -1640 {lab=#net7}
-N 450 -1080 450 -880 {lab=#net8}
-N 610 -1080 610 -880 {lab=#net9}
-N 610 -880 650 -880 {lab=#net9}
-N 610 -800 650 -800 {lab=#net10}
-N 410 -800 450 -800 {lab=#net11}
-N 410 -880 450 -880 {lab=#net8}
+N 540 -1650 540 -1640 {lab=#net6}
 N 2410 -1540 2500 -1540 {
 lab=vref}
 N 910 -1950 960 -1950 {lab=vctrl}
 N 160 -1540 230 -1540 {lab=cascDrain}
 N -50 -1540 60 -1540 {lab=Iptat}
-N 610 -350 760 -350 {
+N 760 -350 780 -350 {
 lab=vss}
-N 530 -350 560 -350 {
-lab=vss}
-N 450 -580 450 -470 {lab=#net12}
 N 450 -370 450 -350 {lab=vss}
 N 230 -350 450 -350 {
 lab=vss}
@@ -294,28 +273,21 @@ lab=vss}
 N 610 -370 610 -350 {lab=vss}
 N 560 -350 610 -350 {
 lab=vss}
-N 610 -580 610 -470 {lab=#net13}
 N 560 -390 560 -350 {lab=vss}
 N 820 -1360 880 -1360 {lab=PI1}
 N 820 -1330 860 -1330 {lab=vdd}
-N 530 -620 530 -350 {lab=vss}
-N 500 -350 530 -350 {
+N 530 -350 560 -350 {
 lab=vss}
-N 430 -840 530 -840 {lab=vss}
-N 530 -840 530 -620 {lab=vss}
 N 80 -1740 120 -1740 {lab=PwrUp}
 N 200 -1740 260 -1740 {lab=PwrUp_N}
 N 900 -1640 900 -1590 {lab=vss}
 N 790 -1590 900 -1590 {lab=vss}
-N 900 -1700 900 -1670 {lab=#net5}
-N 830 -1700 900 -1700 {lab=#net5}
+N 900 -1700 900 -1670 {lab=#net4}
+N 830 -1700 900 -1700 {lab=#net4}
 N 790 -2010 790 -1850 {lab=vdd}
 N 850 -2010 850 -1910 {lab=vdd}
 N 790 -2010 850 -2010 {lab=vdd}
 N 850 -1880 850 -1850 {lab=pcasc}
-N 450 -800 450 -660 {lab=#net11}
-N 610 -800 610 -660 {lab=#net10}
-N 530 -840 630 -840 {lab=vss}
 N 1370 -350 1390 -350 {
 lab=vss}
 N 1390 -1190 1390 -350 {lab=vss}
@@ -327,14 +299,42 @@ N 2410 -1540 2410 -1490 {lab=vref}
 N 2410 -1590 2410 -1540 {lab=vref}
 N 2350 -1540 2410 -1540 {
 lab=vref}
-N 610 -660 640 -660 {lab=#net10}
-N 610 -580 640 -580 {lab=#net13}
-N 420 -660 450 -660 {lab=#net11}
-N 440 -620 530 -620 {lab=vss}
-N 420 -580 450 -580 {lab=#net12}
 N 1370 -1230 1410 -1230 {lab=vss}
 N 1390 -1270 1430 -1270 {lab=outRes}
 N 1390 -1190 1430 -1190 {lab=vss}
+N 780 -640 780 -550 {
+lab=Vbe1}
+N 780 -1080 780 -720 {
+lab=#net7}
+N 760 -680 760 -350 {
+lab=vss}
+N 760 -680 880 -680 {lab=vss}
+N 780 -720 900 -720 {lab=#net7}
+N 780 -640 900 -640 {lab=Vbe1}
+N 530 -620 620 -620 {lab=vss}
+N 450 -1080 450 -880 {lab=#net8}
+N 610 -1080 610 -880 {lab=#net9}
+N 610 -880 650 -880 {lab=#net9}
+N 610 -800 650 -800 {lab=#net10}
+N 410 -800 450 -800 {lab=#net11}
+N 410 -880 450 -880 {lab=#net8}
+N 530 -620 530 -350 {lab=vss}
+N 430 -840 530 -840 {lab=vss}
+N 530 -840 530 -620 {lab=vss}
+N 450 -800 450 -660 {lab=#net11}
+N 610 -800 610 -660 {lab=#net10}
+N 530 -840 630 -840 {lab=vss}
+N 610 -660 640 -660 {lab=#net10}
+N 420 -660 450 -660 {lab=#net11}
+N 440 -620 530 -620 {lab=vss}
+N 610 -350 760 -350 {
+lab=vss}
+N 500 -350 530 -350 {
+lab=vss}
+N 420 -580 450 -580 {lab=#net12}
+N 450 -580 450 -470 {lab=#net12}
+N 610 -580 640 -580 {lab=#net13}
+N 610 -580 610 -470 {lab=#net13}
 C {devices/ipin.sym} 280 -2030 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 280 -1850 0 0 {name=p2 lab=vss
 }
@@ -409,7 +409,7 @@ C {devices/lab_wire.sym} 1280 -1870 0 1 {name=p30 sig_type=std_logic lab=vss
 }
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 1870 -1210 0 0 {name=x1[5:0]}
 C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2040 -1210 0 0 {name=x2[5:0]}
-C {JNW_TR_SKY130A/JNWTR_CAPX1.sym} 2500 -1210 0 0 {name=x3[39:0]}
+C {JNW_TR_SKY130A/JNWTR_CAPX4.sym} 2500 -1210 0 0 {name=x3[9:0]}
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 500 -1820 0 0 {name=x9 }
 C {devices/vsource.sym} 540 -1610 0 0 {name=vipmos value=0 savecurrent=true}
 C {devices/vsource.sym} 780 -1110 0 0 {name=vibigdiode value=0 savecurrent=true}
@@ -495,7 +495,6 @@ C {devices/lab_wire.sym} 670 -1180 0 0 {name=p50 sig_type=std_logic lab=vpm
 }
 C {devices/vsource.sym} 780 -1460 0 0 {name=vipmos1 value=0 savecurrent=true}
 C {devices/vsource.sym} 230 -1480 0 0 {name=vipmos2 value=0 savecurrent=true}
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 610 -660 1 0 {name=x2 }
 C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 1390 -1270 1 0 {name=x4 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 960 -1950 0 0 {name=x56 }
 C {devices/lab_wire.sym} 1020 -2010 0 1 {name=p123 sig_type=std_logic lab=vdd
@@ -563,15 +562,16 @@ C {JNW_ATR_SKY130A/JNWATR_NCH_2C1F2.sym} 860 -1640 0 0 {name=x20 }
 C {devices/lab_wire.sym} 860 -1640 0 0 {name=p73 sig_type=std_logic lab=PwrUp_N}
 C {JNW_ATR_SKY130A/JNWATR_PCH_2C1F2.sym} 890 -1910 0 1 {name=x33 }
 C {devices/lab_wire.sym} 890 -1910 0 1 {name=p75 sig_type=std_logic lab=PwrUp}
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 900 -720 1 0 {name=x22 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 860 -720 1 0 {name=x8 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 820 -720 1 0 {name=x14 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 780 -720 1 0 {name=x18 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 640 -660 1 0 {name=x35 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 450 -660 3 1 {name=x10 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 420 -660 3 1 {name=x36 }
-C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 1430 -1270 1 0 {name=x37 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 610 -880 1 0 {name=x19 }
-C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 450 -880 3 1 {name=x21 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 410 -880 3 1 {name=x28 }
-C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 650 -880 1 0 {name=x34 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 610 -660 1 0 {name=x206 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 900 -720 1 0 {name=x207 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 860 -720 1 0 {name=x208 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 820 -720 1 0 {name=x209 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 780 -720 1 0 {name=x210 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 640 -660 1 0 {name=x211 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 450 -660 3 1 {name=x212 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 420 -660 3 1 {name=x213 }
+C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 610 -880 1 0 {name=x214 }
+C {JNW_TR_SKY130A/JNWTR_RPPO2.sym} 450 -880 3 1 {name=x215 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 410 -880 3 1 {name=x216 }
+C {JNW_TR_SKY130A/JNWTR_RPPO4.sym} 650 -880 1 0 {name=x217 }
+C {JNW_TR_SKY130A/JNWTR_RPPO16.sym} 1430 -1270 1 0 {name=x2 }

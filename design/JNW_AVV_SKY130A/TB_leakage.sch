@@ -5,8 +5,7 @@ V {}
 S {}
 E {}
 N 320 -590 320 -310 {lab=vss}
-N 320 -270 320 -110 {lab=vss}
-N 620 -590 660 -590 {lab=tmpPulse}
+N 320 -270 320 -90 {lab=vss}
 N 620 -610 660 -610 {lab=cmp}
 N 620 -630 660 -630 {lab=vref}
 C {JNW_AVV_SKY130A/TB_bandgap.sym} 470 -490 0 0 {name=x1}
@@ -19,4 +18,3 @@ C {devices/ipin.sym} 190 -600 0 0 {name=p4 lab=vss}
 C {devices/ipin.sym} 190 -620 0 0 {name=p5 lab=vdd}
 C {devices/opin.sym} 660 -610 0 0 {name=p2 lab=cmp}
 C {devices/opin.sym} 660 -630 0 0 {name=p3 lab=vref}
-C {devices/opin.sym} 660 -590 0 0 {name=p7 lab=tmpPulse}
