@@ -65,6 +65,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         CData/*0:0*/ tmpDig__DOT__cmp_p1_fsm;
         CData/*0:0*/ tmpDig__DOT__lastPTATcmp;
         CData/*0:0*/ tmpDig__DOT__rst;
+        CData/*0:0*/ tmpDig__DOT__goToEternalSleep;
         CData/*0:0*/ __Vdly__PI1;
         CData/*0:0*/ __Vdly__PII1;
         CData/*7:0*/ __Vdly__tmpDig__DOT__count;
@@ -74,14 +75,15 @@ class alignas(VL_CACHE_LINE_BYTES) Vlng___024root final : public VerilatedModule
         CData/*0:0*/ __Vdly__tmpDig__DOT__intermCmp;
         CData/*0:0*/ __Vdly__tmpDig__DOT__lastPTATcmp;
         CData/*0:0*/ __Vdly__tmpDig__DOT__cmp_p1_fsm;
+        CData/*0:0*/ __Vdly__tmpDig__DOT__goToEternalSleep;
         CData/*2:0*/ __Vdly__tmpDig__DOT__parentState;
         CData/*2:0*/ __Vdly__tmpDig__DOT__childState;
         CData/*2:0*/ __Vdly__tmpDig__DOT__afterBlank;
         CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount2;
-        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount1;
-        CData/*0:0*/ __VstlFirstIteration;
     };
     struct {
+        CData/*7:0*/ __Vdly__tmpDig__DOT__tmpCount1;
+        CData/*0:0*/ __VstlFirstIteration;
         CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
         CData/*0:0*/ __Vtrigprevexpr___TOP__reset__0;
         CData/*0:0*/ __Vtrigprevexpr___TOP__cmp__0;

@@ -28,8 +28,9 @@
 * FORCE
 *-----------------------------------------------------------------
 VSS  VSS  0     dc 0
-VDD  VDD  VSS  pwl 0 0 10n {AVDD}
-VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
+* VDD  VDD  VSS  pwl 0 0 10n {AVDD}
+VDD  vdd  0  dc {AVDD}
+* VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
 
 
 Vip  vip   VSS   dc 1.8

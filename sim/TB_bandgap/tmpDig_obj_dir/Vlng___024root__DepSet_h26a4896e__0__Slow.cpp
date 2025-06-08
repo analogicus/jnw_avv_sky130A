@@ -228,6 +228,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->tmpDig__DOT__lastPTATcmp = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__tmpCountRst = VL_RAND_RESET_I(1);
     vlSelf->tmpDig__DOT__rst = VL_RAND_RESET_I(1);
+    vlSelf->tmpDig__DOT__goToEternalSleep = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__tmpSampleCount = VL_RAND_RESET_I(9);
     vlSelf->__Vdly__PI1 = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__PII1 = VL_RAND_RESET_I(1);
@@ -238,6 +239,7 @@ VL_ATTR_COLD void Vlng___024root___ctor_var_reset(Vlng___024root* vlSelf) {
     vlSelf->__Vdly__tmpDig__DOT__intermCmp = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__lastPTATcmp = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__cmp_p1_fsm = VL_RAND_RESET_I(1);
+    vlSelf->__Vdly__tmpDig__DOT__goToEternalSleep = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__tmpDig__DOT__parentState = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__childState = VL_RAND_RESET_I(3);
     vlSelf->__Vdly__tmpDig__DOT__afterBlank = VL_RAND_RESET_I(3);

@@ -32,7 +32,7 @@ typical: netlist1
 	cicsim run --ignore --name ${VIEW}_typical ${TB} ${OPT} ${VIEW} Gt Ktt Tt Vt
 
 single: netlist1
-	cicsim run --ignore --name ${VIEW}_single ${TB} ${OPT} ${VIEW} Gt "Kss" Tt Vh
+	cicsim run --ignore --name ${VIEW}_single ${TB} ${OPT} ${VIEW} Gt "Ksf" Tt Vl
 
 slow: netlist
 	cicsim run --name ${VIEW}_slow ${TB} ${OPT} ${VIEW} Gt Kss "Th,Tl" Vl

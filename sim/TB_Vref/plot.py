@@ -653,7 +653,7 @@ def plotETCtempDependence():
         show_legend=True,
         legend_lut=legend_lut,
         mode="ETC",
-        fname="ETCtempDependence.pgf",
+        # fname="ETCtempDependence.pgf",
         )
 
 
@@ -664,7 +664,7 @@ def plotMCtempDependence():
         plot_title=r'$V_{ref}$ temperature dependence with mismatch',
         show_legend=True,
         mode="MC",
-        fname="MCtempDependence.pgf",
+        # fname="MCtempDependence.pgf",
         )
 
 
@@ -685,9 +685,9 @@ def plotFinalVrefDistribution():
         [["sim_results/MC_tempSweep_0601"]],
         Temp="20",
         names=[r'$V_{ref}$'],
-        fname="finalVrefDistribution.pgf",
-        title=r'Distrobution of $V_{ref}$ at 20$^\circ$C',
-        KDE=True,
+        # fname="finalVrefDistribution.pgf",
+        title=r'Distribution of $V_{ref}$ at 20$^\circ$C',
+        KDE=False,
     )
 
 
@@ -698,7 +698,7 @@ def plotVrefVSnoChopping():
         Temp="20",
         names=[r'With chopping',r'Without chopping'],
         fname="vrefVSnoChopping.pgf",
-        title=r'Distrobution of $V_{ref}$ with and without chopping at 20$^\circ$C',
+        title=r'Distribution of $V_{ref}$ with and without chopping at 20$^\circ$C',
     )
 
 
@@ -720,11 +720,8 @@ def plotVrefVSsmallRes():
         Temp="20",
         names=[r'Implemented',r'Smaller resistor area'],
         fname="vrefVSsmallRes.pgf",
-        title=r'Distrobution $V_{ref}$ with different resistor area at 20$^\circ$C',
+        title=r'Distribution $V_{ref}$ with different resistor area at 20$^\circ$C',
     )
-
-
-
 
 
 ##############################################
@@ -732,7 +729,7 @@ def plotVrefVSsmallRes():
 
 # plotMCtempDependenceSmallPMOS()
 # plotTypicalVrefTempDependence()
-# plotETCtempDependence()
+plotETCtempDependence()
 # plotMCtempDependence()
 # plotFinalVrefDistribution()
 # plotVrefVSnoChopping()

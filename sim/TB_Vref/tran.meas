@@ -7,25 +7,25 @@ echo "MEAS_START"
 set fend = .raw
 
 * foreach vtemp 20
-* foreach vtemp -40 40 125
+foreach vtemp -40 20 80 125
 * foreach vtemp -40 -20 0 20 40 60 80 100 125
-* load {cicname}_$vtemp$fend
-* * meas tran Vn_$vtemp avg v(xdut.vn) from=110u to=100u
-* * meas tran Vp_$vtemp avg v(xdut.vp) from=110u to=100u
-* meas tran Vref_$vtemp avg v(vref) from=110u to=120u
-* * meas tran Vref_$vtemp avg v(vref) from=80u to=90u
+load {cicname}_$vtemp$fend
+* meas tran Vn_$vtemp avg v(xdut.vn) from=110u to=100u
+* meas tran Vp_$vtemp avg v(xdut.vp) from=110u to=100u
+meas tran Vref_$vtemp avg v(vref) from=90u to=100u
+* meas tran Vref_$vtemp avg v(vref) from=80u to=90u
 
-* * meas tran ivdd_$vtemp avg i(vdd) from=140u to=150u
-* * meas tran iCmpTail_$vtemp avg i(v.xdut.x1.v_cmptail) from=70u to=80u
+meas tran ivdd_$vtemp avg i(vdd) from=50u to=120u
+* meas tran iCmpTail_$vtemp avg i(v.xdut.x1.v_cmptail) from=70u to=80u
 
 
-* meas tran Vctrl_$vtemp avg v(xdut.vctrl) from=70u to=100u
-* meas tran VctrlMax_$vtemp max v(xdut.vctrl) from=70u to=100u
-* meas tran VctrlMin_$vtemp min v(xdut.vctrl) from=70u to=100u
-* meas tran Isrc_$vtemp avg i(v.xdut.x3.v_isrc2) from=70u to=100u
-* meas tran Isnk_$vtemp avg i(v.xdut.x3.v_isnk2) from=70u to=100u
-* meas tran Ipmos_$vtemp avg i(v.xdut.x2.vipmos) from=70u to=100u
-* end
+meas tran Vctrl_$vtemp avg v(xdut.vctrl) from=70u to=100u
+meas tran VctrlMax_$vtemp max v(xdut.vctrl) from=70u to=100u
+meas tran VctrlMin_$vtemp min v(xdut.vctrl) from=70u to=100u
+meas tran Isrc_$vtemp avg i(v.xdut.x3.v_isrc2) from=70u to=100u
+meas tran Isnk_$vtemp avg i(v.xdut.x3.v_isnk2) from=70u to=100u
+meas tran Ipmos_$vtemp avg i(v.xdut.x2.vipmos) from=70u to=100u
+end
 
 echo "MEAS_END"
 echo {cicname}
