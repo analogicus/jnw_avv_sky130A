@@ -266,7 +266,7 @@ lab=vss}
 N 450 -350 500 -350 {
 lab=vss}
 N 500 -390 500 -350 {lab=vss}
-N 560 -350 760 -350 {
+N 610 -350 760 -350 {
 lab=vss}
 N 560 -390 560 -350 {lab=vss}
 N 820 -1360 880 -1360 {lab=PI1}
@@ -330,6 +330,9 @@ N 610 -580 610 -470 {lab=#net12}
 N 450 -580 450 -470 {lab=#net11}
 N 450 -370 450 -350 {lab=vss}
 N 230 -350 450 -350 {
+lab=vss}
+N 610 -370 610 -350 {lab=vss}
+N 560 -350 610 -350 {
 lab=vss}
 C {devices/ipin.sym} 280 -2030 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 280 -1850 0 0 {name=p2 lab=vss
