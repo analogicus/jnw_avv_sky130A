@@ -13,7 +13,7 @@
 *-----------------------------------------------------------------
 * OPTIONS
 *-----------------------------------------------------------------
-.option GMIN=1e-12 TNOM=25 
+.option GMIN=1e-12 TNOM=25 reltol=1e-2
 .option TEMP=20
 
 *-----------------------------------------------------------------
@@ -28,13 +28,17 @@
 .param T_RESET_F = {T_RESET + 1n}
 .param nbpt = 9*(8+5+2)
 
+
+
 *-----------------------------------------------------------------
 * FORCE
 *-----------------------------------------------------------------
 VSS  VSS    0   dc 0
 VDD  vdd    0   dc {AVDD}
-VRST reset  0   dc 0
+VRST reset  0   pwl 0 0 25n 0 25.1n 1.8 75n 1.8 75.1n 0
 VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
+* VCLK clk    0   dc 0 pulse (0 {AVDD} {18.8m} {TRF} {TRF} {PW_CLK} {PERIOD_CLK})
+
 
 
 *-----------------------------------------------------------------
@@ -42,6 +46,7 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 *-----------------------------------------------------------------
 .include ../xdut.spi
 .include ../svinst.spi
+* .include ../output_tran/ic/tran_schgtkttttvt_20.txt
 
 *----------------------------------------------------------------
 * PROBE
@@ -58,6 +63,14 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(pii1)
 .save v(pii2)
 .save v(vref)
+.save v(s_BG2CMP)
+.save v(s_BgCtrl)
+.save v(s_PtatCtrl)
+.save v(s_Cap2CMP)
+.save v(s_Ref2CMP)
+.save v(s_CapRst)
+.save v(s_PtatOut)
+.save v(s_Rdiscon_N)
 .save v(snk)
 .save v(src_n)
 .save v(xdut.vctrl)
@@ -65,8 +78,10 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.nbias)
 .save v(xdut.vp)
 .save v(xdut.vn)
+.save i(xdut.x7.vIptat)
 .save v(reset)
 .save v(cmp)
+.save v(tmpPulse)
 * .save v(valid)
 * .save v(rst)
 .save v(xdut.x3.snk_gate)
@@ -74,6 +89,8 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x3.src_cap)
 .save v(xdut.x3.snk_cap)
 .save v(xdut.x3.Vpre)
+.save v(xdut.x3.vPtatCtrl)
+.save v(xdut.x3.vBgCtrl)
 * .save i(xdut.v_nbias)
 * .save i(xdut.v_pbias)
 .save i(xdut.x2.vipmos)
@@ -83,6 +100,11 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x2.outRes)
 .save v(xdut.x2.vpm)
 .save v(xdut.x2.vnm)
+.save v(xdut.x2.pmosDrain)
+.save v(xdut.x2.cascDrain)
+.save v(xdut.x2.pcasc)
+.save v(xdut.OTAout)
+.save v(xdut.OTAvip)
 .save i(vdd)
 .save i(vss)
 .save v(xdut.x1.ip)
@@ -94,9 +116,27 @@ VCLK clk    0   dc 0 pulse (0 {AVDD} {T_START} {TRF} {TRF} {PW_CLK} {PERIOD_CLK}
 .save v(xdut.x1.pre_voutn)
 .save v(xdut.x1.vip)
 .save v(xdut.x1.vin)
+.save v(xdut.x1.inShifted)
+.save v(xdut.x1.ipShifted)
+.save v(xdut.x1.in_intermediate)
+.save v(xdut.x1.ip_intermediate)
+.save i(xdut.x1.vibigdiode)
 .save v(cmp_p1)
 .save v(cmp_p2)
-
+.save v(xdut.Vcap)
+.save v(xdut.vin)
+.save v(xdut.vip)
+.save v(xdut.x7.Vcap2)
+.save v(xdut.x7.Vcap1)
+.save v(xdut.x7.rstCap1)
+.save v(xdut.x7.rstCap2)
+.save v(tmpCountRst_out)
+.save v(tmpcount_out1)
+.save v(tmpcount_out2)
+.save v(tmpCount_out3)
+.save v(tmpCount_out4)
+.save v(count_out)
+.save v(tmpSampleCount_out)
 
 #ifdef debug
      .save all
@@ -126,18 +166,31 @@ optran 0 0 0 100p 1.5u 0
 
 
 set fend = .raw
-* set debug = debug_
+set icend = .txt
 
 
-* tran 200n 40u
-
-
-foreach vtemp 20
-* foreach vtemp -40 -20 0 20 40 60 80 100 125
+******* Tempsens simulation ***********
+* foreach vtemp 20
+* foreach vtemp -40 0 40 80 125
+foreach vtemp -40 20 0 -20 40 60 80 100 125
   option temp=$vtemp
-  tran 1000n 50u
+  tran 1n 120u
+*   wrnodev ic/{cicname}_$vtemp$icend
   write {cicname}_$vtemp$fend
 end
+****************************************
+
+
+
+* *********** Leakage simulation ***********
+* foreach vtemp 20
+*   option temp=$vtemp
+*   tran 1000n 18.91m
+*   write {cicname}_$vtemp$fend
+* end
+* *******************************************
+
+
 
 
 write

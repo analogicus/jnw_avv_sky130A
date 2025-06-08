@@ -1,0 +1,9 @@
+ipc_normop_-40: -8.824533e-05
+ipc_normop_125: -0.0001084175
+ipc_normop_20: -9.477928e-05
+pwrup_fall_-40: 0.0001616015
+pwrup_fall_125: 0.0001632015
+pwrup_fall_20: 0.0001614015
+pwrup_rise_-40: 8.745152e-05
+pwrup_rise_125: 8.875152e-05
+pwrup_rise_20: 8.730152e-05

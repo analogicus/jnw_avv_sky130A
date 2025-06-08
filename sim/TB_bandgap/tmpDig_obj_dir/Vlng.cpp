@@ -12,24 +12,39 @@ Vlng::Vlng(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , reset{vlSymsp->TOP.reset}
     , cmp{vlSymsp->TOP.cmp}
+    , tmpPulse{vlSymsp->TOP.tmpPulse}
     , PI1{vlSymsp->TOP.PI1}
     , PI2{vlSymsp->TOP.PI2}
-    , PII1{vlSymsp->TOP.PII1}
     , dummy{vlSymsp->TOP.dummy}
+    , PII1{vlSymsp->TOP.PII1}
     , PII2{vlSymsp->TOP.PII2}
     , PA{vlSymsp->TOP.PA}
     , PB{vlSymsp->TOP.PB}
     , PC{vlSymsp->TOP.PC}
     , PD{vlSymsp->TOP.PD}
     , s_BG2CMP{vlSymsp->TOP.s_BG2CMP}
+    , s_BgCtrl{vlSymsp->TOP.s_BgCtrl}
+    , s_PtatCtrl{vlSymsp->TOP.s_PtatCtrl}
+    , s_Cap2CMP{vlSymsp->TOP.s_Cap2CMP}
+    , s_Ref2CMP{vlSymsp->TOP.s_Ref2CMP}
+    , s_CapRst{vlSymsp->TOP.s_CapRst}
+    , s_PtatOut{vlSymsp->TOP.s_PtatOut}
+    , s_Rdiscon_N{vlSymsp->TOP.s_Rdiscon_N}
+    , s_CCOcap1{vlSymsp->TOP.s_CCOcap1}
+    , s_CCOcap2{vlSymsp->TOP.s_CCOcap2}
     , src_n{vlSymsp->TOP.src_n}
     , snk{vlSymsp->TOP.snk}
     , cmp_p1{vlSymsp->TOP.cmp_p1}
     , cmp_p2{vlSymsp->TOP.cmp_p2}
-    , rst{vlSymsp->TOP.rst}
+    , PwrUp{vlSymsp->TOP.PwrUp}
     , valid{vlSymsp->TOP.valid}
     , preChrg{vlSymsp->TOP.preChrg}
     , setupBias{vlSymsp->TOP.setupBias}
+    , tmpCount_out1{vlSymsp->TOP.tmpCount_out1}
+    , tmpCount_out2{vlSymsp->TOP.tmpCount_out2}
+    , tmpCountRst_out{vlSymsp->TOP.tmpCountRst_out}
+    , count_out{vlSymsp->TOP.count_out}
+    , tmpSampleCount_out{vlSymsp->TOP.tmpSampleCount_out}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
