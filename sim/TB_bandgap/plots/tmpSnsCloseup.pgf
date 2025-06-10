@@ -2598,16 +2598,16 @@
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetstrokeopacity{0.800000}%
 \pgfsetdash{}{0pt}%
-\pgfpathmoveto{\pgfqpoint{4.825879in}{0.965500in}}%
+\pgfpathmoveto{\pgfqpoint{4.583900in}{0.965500in}}%
 \pgfpathlineto{\pgfqpoint{5.729321in}{0.965500in}}%
 \pgfpathquadraticcurveto{\pgfqpoint{5.757098in}{0.965500in}}{\pgfqpoint{5.757098in}{0.993277in}}%
 \pgfpathlineto{\pgfqpoint{5.757098in}{1.173061in}}%
 \pgfpathquadraticcurveto{\pgfqpoint{5.757098in}{1.200839in}}{\pgfqpoint{5.729321in}{1.200839in}}%
-\pgfpathlineto{\pgfqpoint{4.825879in}{1.200839in}}%
-\pgfpathquadraticcurveto{\pgfqpoint{4.798101in}{1.200839in}}{\pgfqpoint{4.798101in}{1.173061in}}%
-\pgfpathlineto{\pgfqpoint{4.798101in}{0.993277in}}%
-\pgfpathquadraticcurveto{\pgfqpoint{4.798101in}{0.965500in}}{\pgfqpoint{4.825879in}{0.965500in}}%
-\pgfpathlineto{\pgfqpoint{4.825879in}{0.965500in}}%
+\pgfpathlineto{\pgfqpoint{4.583900in}{1.200839in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{4.556122in}{1.200839in}}{\pgfqpoint{4.556122in}{1.173061in}}%
+\pgfpathlineto{\pgfqpoint{4.556122in}{0.993277in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{4.556122in}{0.965500in}}{\pgfqpoint{4.583900in}{0.965500in}}%
+\pgfpathlineto{\pgfqpoint{4.583900in}{0.965500in}}%
 \pgfpathclose%
 \pgfusepath{stroke,fill}%
 \end{pgfscope}%
@@ -2618,16 +2618,16 @@
 \definecolor{currentstroke}{rgb}{0.549020,0.337255,0.294118}%
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetdash{}{0pt}%
-\pgfpathmoveto{\pgfqpoint{4.853657in}{1.096672in}}%
-\pgfpathlineto{\pgfqpoint{4.992546in}{1.096672in}}%
-\pgfpathlineto{\pgfqpoint{5.131435in}{1.096672in}}%
+\pgfpathmoveto{\pgfqpoint{4.611678in}{1.096672in}}%
+\pgfpathlineto{\pgfqpoint{4.750567in}{1.096672in}}%
+\pgfpathlineto{\pgfqpoint{4.889456in}{1.096672in}}%
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=5.242546in,y=1.048061in,left,base]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle Count1\)}%
+\pgftext[x=5.000567in,y=1.048061in,left,base]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle tmpCount1\)}%
 \end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%

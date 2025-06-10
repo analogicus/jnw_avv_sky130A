@@ -663,41 +663,8 @@ always @(posedge cmp or posedge reset or posedge tmpCountRst) begin
     end
 end
 
-
-
-// always @(posedge cmp or posedge reset) begin
-//     if (reset) begin
-//         s_CCOcap1 <= 0;
-//         s_CCOcap2 <= 1;
-//     end else if (s_CapRst == 0) begin
-//         s_CCOcap1 <= ~s_CCOcap1;
-//         s_CCOcap2 <= ~s_CCOcap2;
-//     end 
-// end
-
-// assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
 assign cmp_p1 = cmp_p1_fsm;
 assign cmp_p2 = ~cmp_p1;
-
-
-// Purpose: Tie CMP output high for 1-2 clk cycles after cmp goes high
-//          to avoid the glitches from chopping the CMP to toggle the always block above
-// always @(posedge clk or posedge cmp or posedge reset) begin
-//     if (reset) begin
-//         CmpOutDisable_reg <= 1'b0;
-//     end else if (s_CmpOutDisable) begin // sync clear
-//         CmpOutDisableCount <= CmpOutDisableCount + 1;
-//         if (CmpOutDisableCount > 0) begin
-//             CmpOutDisable_reg <= 1'b0;
-//             CmpOutDisableCount <= 0;
-//         end
-//     end else if (cmp && parentState == TEMPSENS) begin // async set
-//         CmpOutDisable_reg <= 1'b1;
-//     end
-// end
-
-// assign s_CmpOutDisable = CmpOutDisable_reg;
-
 
 task automatic do_precharge();
     PI1 <= 0;

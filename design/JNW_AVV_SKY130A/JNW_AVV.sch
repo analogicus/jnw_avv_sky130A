@@ -134,8 +134,6 @@ N 610 -1180 770 -1180 {
 lab=vpm}
 N 780 -1170 790 -1170 {
 lab=vpm}
-N 540 -1790 540 -1640 {
-lab=pmosDrain}
 N 540 -1580 540 -1540 {
 lab=cascDrain}
 N 230 -1540 540 -1540 {
@@ -252,8 +250,8 @@ N 850 -1850 850 -1800 {lab=pcasc}
 N 790 -1800 850 -1800 {lab=pcasc}
 N 830 -1850 850 -1850 {lab=pcasc}
 N 790 -1820 790 -1800 {lab=pcasc}
-N 430 -1670 460 -1670 {lab=vdd}
-N 340 -1670 390 -1670 {lab=pcasc}
+N 540 -1690 570 -1690 {lab=vdd}
+N 450 -1690 500 -1690 {lab=pcasc}
 N 1000 -1920 1000 -1880 {lab=#net5}
 N 900 -1590 1000 -1590 {lab=vss}
 N 2410 -1540 2500 -1540 {
@@ -334,6 +332,8 @@ lab=vss}
 N 610 -370 610 -350 {lab=vss}
 N 560 -350 610 -350 {
 lab=vss}
+N 540 -1660 540 -1640 {lab=#net13}
+N 540 -1790 540 -1720 {lab=pmosDrain}
 C {devices/ipin.sym} 280 -2030 0 0 {name=p1 lab=vdd}
 C {devices/ipin.sym} 280 -1850 0 0 {name=p2 lab=vss
 }
@@ -508,11 +508,11 @@ C {devices/lab_wire.sym} 850 -1850 0 1 {name=p125 sig_type=std_logic lab=pcasc
 
 }
 C {JNW_ATR_SKY130A/JNWATR_PCH_4C5F0.sym} 830 -1850 0 1 {name=x59 }
-C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 390 -1670 0 0 {name=x60 }
-C {devices/lab_wire.sym} 460 -1670 0 0 {name=p126 sig_type=std_logic lab=vdd
+C {JNW_ATR_SKY130A/JNWATR_PCH_4C1F2.sym} 500 -1690 0 0 {name=x60 }
+C {devices/lab_wire.sym} 570 -1690 0 0 {name=p126 sig_type=std_logic lab=vdd
 
 }
-C {devices/lab_wire.sym} 340 -1670 0 1 {name=p127 sig_type=std_logic lab=pcasc
+C {devices/lab_wire.sym} 450 -1690 0 1 {name=p127 sig_type=std_logic lab=pcasc
 
 }
 C {devices/vsource.sym} 1000 -1850 0 0 {name=vipmos4 value=0 savecurrent=true}

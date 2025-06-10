@@ -198,6 +198,7 @@ def plot(df, xname, yname, ptype=None, ax=None, label="", color=None):
         ax.set_ylabel(yname)
     return (x, y)
 
+
 def rawplot(
     fraw,
     xname,
@@ -322,7 +323,8 @@ def rawplot(
         plt.savefig("plots/" + fname)
     else:
         plt.show()  
-    
+
+  
 def plotVrefTempDependence(yamlfile):
   # Read result yaml file
   with open(yamlfile + ".yaml") as fi:
@@ -368,8 +370,10 @@ def plotSensTempDependenceMC(
     curent_or_counter="counter",
     show_ideal=False,
     show_inaccuracy=False,
-    violin=False, 
-    fname=None
+    violin=False,
+    fname=None,
+    figsize=(6, 3.3),              # NEW
+    height_ratio=None              # NEW
 ):
     cal_t1 = 40
     cal_t2 = 0
@@ -529,15 +533,16 @@ def plotSensTempDependenceMC(
             data_for_violin = [temp_to_violin[t] for t in all_temps]
             std_devs = [np.std(arr) if len(arr) > 1 else 0 for arr in data_for_violin]
 
-            height_ratio = [1.4, 1]
-            figwidth = 6
-            figheight = figwidth * (sum(height_ratio)/3)
+            if height_ratio is None:
+                height_ratio = [1.4, 1]
+            figwidth = figsize[0]
+            total_height = figsize[1]
             fig, (ax1, ax2) = plt.subplots(
-                2, 1, sharex=True, figsize=(figwidth, figheight),
+                2, 1, sharex=True, figsize=(figwidth, total_height),
                 gridspec_kw={'height_ratios': height_ratio}
             )
         else:
-            fig, ax1 = plt.subplots(figsize=(6, 3.3))
+            fig, ax1 = plt.subplots(figsize=figsize)
             ax2 = None
 
         # === Main curve plot ===
@@ -578,8 +583,7 @@ def plotSensTempDependenceMC(
         lower_lim = desired_ticks[0] - 10
         upper_lim = desired_ticks[-1] + 10
         ax1.set_xticks(desired_ticks)
-        
-        
+
         if curent_or_counter == "current":
             if (POC == 0 or POC is None):
                 ax1.set_title("Temperature dependence of PTAT current with no calibration")
@@ -607,7 +611,6 @@ def plotSensTempDependenceMC(
                 ax1.set_ylim(lower_lim, upper_lim)
                 ax1.set_xlim(lower_lim, upper_lim)
         ax1.grid()
-
 
         # Violin plot
         if violin:
@@ -662,7 +665,9 @@ def plotSensTempDependenceETC(
     show_ideal=False,
     show_inaccuracy=False,
     fname=None,
-    plot_error=False
+    plot_error=False,
+    figsize=(6, 3.3),           # NEW
+    height_ratio=None           # NEW
 ):
     cal_t1 = 40
     cal_t2 = 0
@@ -676,7 +681,6 @@ def plotSensTempDependenceETC(
             "text.usetex": True,
             "pgf.rcfonts": False,
         })
-
 
     def parse_and_calibrate(filepath, mode="counter"):
         with open(filepath) as fi:
@@ -746,7 +750,6 @@ def plotSensTempDependenceETC(
         return temps
 
     def prepare_plot_data(mode):
-        # Collect all files/data
         all_xvals = []
         all_yvals = []
         all_errors = []
@@ -808,18 +811,22 @@ def plotSensTempDependenceETC(
     upper_lim = desired_ticks[-1] + 10
 
     if curent_or_counter == "both":
-        # Prepare both datasets
         cnt_x, cnt_y, cnt_err, cnt_labels = prepare_plot_data("counter")
         cur_x, cur_y, cur_err, cur_labels = prepare_plot_data("current")
-        
+
+        n_panels = 4 if plot_error else 2
+        if height_ratio is None:
+            height_ratio = [2,1,2,1] if plot_error else [1,1]
+        figwidth = figsize[0]
+        total_height = figsize[1]
+        fig, axs = plt.subplots(
+            nrows=n_panels, sharex=True, figsize=(figwidth, total_height),
+            gridspec_kw={"height_ratios":height_ratio}
+        )
         if plot_error:
-            fig, axs = plt.subplots(
-                nrows=4, sharex=True, figsize=(6, 12),
-                gridspec_kw={"height_ratios":[2,1,2,1]}
-            )
             ax1, ax1_err, ax2, ax2_err = axs
         else:
-            fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, figsize=(6,7), gridspec_kw={"height_ratios":[1,1]})
+            ax1, ax2 = axs
 
         # --- Counter plot ---
         for xvals, yvals, label in zip(cnt_x, cnt_y, cnt_labels):
@@ -833,7 +840,8 @@ def plotSensTempDependenceETC(
                 ax1.plot(temp_range, [calcCount(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
         if show_inaccuracy:
             all_flat_err = [item for sublist in cnt_err for item in sublist]
-            inaccuracy = max(np.abs(all_flat_err)) if cnt_err else 0.0
+            # -- Changed here:
+            inaccuracy = 0.5 * (max(all_flat_err) - min(all_flat_err)) if all_flat_err else 0.0
             unit = "°C" if y_estimate_temp else "counts"
             ax1.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
                         xy=(0.8, 0.1), xycoords='axes fraction', ha='center', va='center',
@@ -845,14 +853,8 @@ def plotSensTempDependenceETC(
         if (POC == 0 or None):
             ax1.set_title("Temperature dependence of temperature sensor with no calibration")
         elif POC == 1:
-            # desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            # lower_lim = desired_ticks[0] - 10
-            # upper_lim = desired_ticks[-1] + 10
             ax1.set_title("Temperature dependence of temperature sensor with 1-point calibration")
         elif POC == 2:
-            # desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            # lower_lim = desired_ticks[0] - 10
-            # upper_lim = desired_ticks[-1] + 10
             ax1.set_title("Temperature dependence of temperature sensor with 2-point calibration")
         ax1.legend(ncol=2)
         ax1.grid()
@@ -868,7 +870,6 @@ def plotSensTempDependenceETC(
             ax1_err.grid()
             ax1_err.set_xticks(desired_ticks)
             ax1_err.set_xlim(lower_lim, upper_lim)
-            # ax1_err.legend(ncol=2)
         else:
             ax1.set_xlabel("Temperature [C]")
 
@@ -884,7 +885,8 @@ def plotSensTempDependenceETC(
                 ax2.plot(temp_range, [calcIptat(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
         if show_inaccuracy:
             all_flat_err = [item for sublist in cur_err for item in sublist]
-            inaccuracy = max(np.abs(all_flat_err)) if cur_err else 0.0
+            # -- Changed here:
+            inaccuracy = 0.5 * (max(all_flat_err) - min(all_flat_err)) if all_flat_err else 0.0
             unit = "°C" if y_estimate_temp else "A"
             ax2.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
                         xy=(0.8, 0.1), xycoords='axes fraction', ha='center', va='center',
@@ -896,16 +898,10 @@ def plotSensTempDependenceETC(
         if (POC == 0 or None):
             ax2.set_title("Temperature dependence of PTAT current with no calibration")
         elif POC == 1:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax2.set_yticks(desired_ticks)
             ax2.set_ylim(lower_lim, upper_lim)
             ax2.set_title("Temperature dependence of PTAT current with 1-point calibration")
         elif POC == 2:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax2.set_yticks(desired_ticks)
             ax2.set_ylim(lower_lim, upper_lim)
             ax2.set_title("Temperature dependence of PTAT current with 2-point calibration")
@@ -923,7 +919,6 @@ def plotSensTempDependenceETC(
             ax2_err.grid()
             ax2_err.set_xticks(desired_ticks)
             ax2_err.set_xlim(lower_lim, upper_lim)
-            # ax2_err.legend(ncol=2)
         else:
             ax2.set_xlabel("Temperature [C]")
 
@@ -933,10 +928,18 @@ def plotSensTempDependenceETC(
     elif curent_or_counter in (True, "current"):
         # Just PTAT current
         cur_x, cur_y, cur_err, cur_labels = prepare_plot_data("current")
+        n_panels = 2 if plot_error else 1
         if plot_error:
-            fig, (ax, ax_err) = plt.subplots(nrows=2, figsize=(6,5), sharex=True, gridspec_kw={"height_ratios":[2,1.2]})
+            if height_ratio is None:
+                height_ratio = [2,1.2]
+            figwidth = figsize[0]
+            total_height = figsize[1]
+            fig, (ax, ax_err) = plt.subplots(
+                nrows=2, sharex=True, figsize=(figwidth, total_height),
+                gridspec_kw={"height_ratios":height_ratio}
+            )
         else:
-            fig, ax = plt.subplots(figsize=(6,3.5))
+            fig, ax = plt.subplots(figsize=figsize)
         for xvals, yvals, label in zip(cur_x, cur_y, cur_labels):
             ax.plot(xvals, yvals, marker='o', label=label)
         temp_range = sorted({x for xl in cur_x for x in xl})
@@ -948,7 +951,7 @@ def plotSensTempDependenceETC(
                 ax.plot(temp_range, [calcIptat(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
         if show_inaccuracy:
             all_flat_err = [item for sublist in cur_err for item in sublist]
-            inaccuracy = max(np.abs(all_flat_err)) if cur_err else 0.0
+            inaccuracy = 0.5 * (max(all_flat_err) - min(all_flat_err)) if all_flat_err else 0.0
             unit = "°C" if y_estimate_temp else "A"
             ax.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
                         xy=(0.8, 0.1), xycoords='axes fraction', ha='center', va='center',
@@ -960,29 +963,18 @@ def plotSensTempDependenceETC(
         if (POC == 0 or None):
             ax.set_title("Temperature dependence of PTAT current with no calibration")
         elif POC == 1:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax.set_yticks(desired_ticks)
             ax.set_ylim(lower_lim, upper_lim)
             ax.set_title("Temperature dependence of PTAT current with 1-point calibration")
         elif POC == 2:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax.set_yticks(desired_ticks)
             ax.set_ylim(lower_lim, upper_lim)
             ax.set_title("Temperature dependence of PTAT current with 2-point calibration")
         ax.legend(ncol=2)
         ax.grid()
-        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-        lower_lim = desired_ticks[0] - 10
-        upper_lim = desired_ticks[-1] + 10
         ax.set_xticks(desired_ticks)
         ax.set_xlim(lower_lim, upper_lim)
-        
 
-        # --------- Error subplot
         if plot_error:
             for xvals, errors, label in zip(cur_x, cur_err, cur_labels):
                 ax_err.plot(xvals, errors, marker='o', label=label)
@@ -992,7 +984,6 @@ def plotSensTempDependenceETC(
             ax_err.grid()
             ax_err.set_xticks(desired_ticks)
             ax_err.set_xlim(lower_lim, upper_lim)
-            # ax_err.legend(ncol=2)
         else:
             ax.set_xlabel("Temperature [C]")
 
@@ -1003,10 +994,18 @@ def plotSensTempDependenceETC(
             plt.show()
     elif curent_or_counter in (False, "counter"):
         cnt_x, cnt_y, cnt_err, cnt_labels = prepare_plot_data("counter")
+        n_panels = 2 if plot_error else 1
         if plot_error:
-            fig, (ax, ax_err) = plt.subplots(nrows=2, figsize=(6,5), sharex=True, gridspec_kw={"height_ratios":[2,1.2]})
+            if height_ratio is None:
+                height_ratio = [2,1.2]
+            figwidth = figsize[0]
+            total_height = figsize[1]
+            fig, (ax, ax_err) = plt.subplots(
+                nrows=2, sharex=True, figsize=(figwidth, total_height),
+                gridspec_kw={"height_ratios":height_ratio}
+            )
         else:
-            fig, ax = plt.subplots(figsize=(6,3.5))
+            fig, ax = plt.subplots(figsize=figsize)
         for xvals, yvals, label in zip(cnt_x, cnt_y, cnt_labels):
             ax.plot(xvals, yvals, marker='o', label=label)
         temp_range = sorted({x for xl in cnt_x for x in xl})
@@ -1018,7 +1017,7 @@ def plotSensTempDependenceETC(
                 ax.plot(temp_range, [calcCount(t) for t in temp_range], 'k--', linewidth=2, label="Ideal")
         if show_inaccuracy:
             all_flat_err = [item for sublist in cnt_err for item in sublist]
-            inaccuracy = max(np.abs(all_flat_err)) if cnt_err else 0.0
+            inaccuracy = 0.5 * (max(all_flat_err) - min(all_flat_err)) if all_flat_err else 0.0
             unit = "°C" if y_estimate_temp else "counts"
             ax.annotate(f"Inaccuracy = ±{inaccuracy:.2f} {unit}",
                         xy=(0.8, 0.1), xycoords='axes fraction', ha='center', va='center',
@@ -1030,24 +1029,15 @@ def plotSensTempDependenceETC(
         if (POC == 0 or None):
             ax.set_title("Temperature dependence of temperature sensor with no calibration")
         elif POC == 1:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax.set_yticks(desired_ticks)
             ax.set_ylim(lower_lim, upper_lim)
             ax.set_title("Temperature dependence of temperature sensor with 1-point calibration")
         elif POC == 2:
-            desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-            lower_lim = desired_ticks[0] - 10
-            upper_lim = desired_ticks[-1] + 10
             ax.set_yticks(desired_ticks)
             ax.set_ylim(lower_lim, upper_lim)
             ax.set_title("Temperature dependence of temperature sensor with 2-point calibration")
         ax.legend(ncol=2)
         ax.grid()
-        desired_ticks = [-40, -20, 0, 20, 40, 60, 80, 100, 125]
-        lower_lim = desired_ticks[0] - 10
-        upper_lim = desired_ticks[-1] + 10
         ax.set_xticks(desired_ticks)
         ax.set_xlim(lower_lim, upper_lim)
 
@@ -1060,7 +1050,6 @@ def plotSensTempDependenceETC(
             ax_err.grid()
             ax_err.set_xticks(desired_ticks)
             ax_err.set_xlim(lower_lim, upper_lim)
-            # ax_err.legend(ncol=2)
         else:
             ax.set_xlabel("Temperature [C]")
 
@@ -1342,22 +1331,32 @@ def plotBGSETUPsequence():
     signal_groups = [
         ["v(pii1)", "v(pi1)", "v(src_n)", "v(snk)"],
         ["v(xdut.vn)", "v(xdut.vp)", "v(xdut.x3.vptatctrl)", "v(xdut.x3.vbgctrl)"],
+        ["v(cmp)"],
     ]
     y_lims = [
-    (-0.1, 2),  # y-limits for the second group
+    (-0.2, 2),  # y-limits for the second group
     (-0.1, 1),  # y-limits for the first group
+    (-0.2, 2),  # y-limits for the third group
     ]
+    
+    colors = [
+        [],
+        [],
+        ["C4"],       
+    ]
+    
     rawplot(
         name + ".raw",
         'time',
         signal_groups=signal_groups,
         ptype="same",
         fname="startupSequence.pgf",
-        xlim=(0, 8),      
+        xlim=(0, 8),    
+        colors=colors,  
         ylims=y_lims,     
-        plot_height=2.1,
-        legend_loc=["right", "right"],
-
+        plot_height=[1.2,2.1,1.2],
+        legend_loc=["right", "right", "right"],
+        backend="pgf",
     )
 
 def plotOperationCLoseup():
@@ -1371,8 +1370,8 @@ def plotOperationCLoseup():
         ]
 
     y_lims = [
-        (0.739, 0.745),
-        (0.426, 0.433),
+        (0.7385, 0.744),
+        (0.432, 0.438),
         (-0.1, 2),
         (-0.1, 2),
         # (1.05, 1.1),
@@ -1393,11 +1392,12 @@ def plotOperationCLoseup():
         signal_groups=signal_groups,
         ptype="same",
         fname="operationCloseup.pgf",
-        xlim=(27.6, 31.6),      
+        xlim=(29.2, 33.8),      
         ylims=y_lims,     
-        plot_height=digHeight,
+        plot_height=[1.5,1.5,1,1,1.2],
         legend_loc=["right", "right", "right", "right", "right"],
-        colors=colors
+        colors=colors,
+        backend="pgf",
     )
 
 def plotNonOverlap():
@@ -1462,7 +1462,8 @@ def plotTmpSnsCloseup():
         ylims=y_lims,     
         plot_height=1.4,
         legend_loc=["right", "right", "right", "right"],
-        colors=colors
+        colors=colors,
+        backend="pgf",
     )
 
 def plotTmpSnsOverview():
@@ -1502,7 +1503,6 @@ def plotTmpSnsOverview():
         backend="pgf",
     )
 
-
 def plotSleepStartup():
     name = "output_tran/TYP_sleep&startup20"
     signal_groups = [
@@ -1539,7 +1539,6 @@ def plotSleepStartup():
         backend="pgf",
     )
 
-
 def plotMCchopping():
     name = "output_tran/MC_20deg_vref"
     signal_groups = [
@@ -1572,7 +1571,7 @@ def plotMCchopping():
         fname="MCchopping.pgf",
         xlim=(70, 80),      
         ylims=y_lims,     
-        plot_height=[1.8, 1.8, 0.9, 0.9],
+        plot_height=[1.5, 1.5, 0.9, 0.9],
         legend_loc=["right", "right", "right", "right"],
         colors=colors,
         backend="pgf",
@@ -1632,6 +1631,8 @@ def plotETCTempDependenceCurrent():
         y_estimate_temp=True,
         show_ideal=True,
         # show_inaccuracy=True,
+        figsize=(6,3.5),
+        height_ratio=[1.6,1],
         fname="ETC_Curent_TempDependence_0poc.pgf",
     )
     plotSensTempDependenceETC(
@@ -1642,6 +1643,8 @@ def plotETCTempDependenceCurrent():
         show_ideal=True,
         show_inaccuracy=True,
         plot_error=False,
+        figsize=(6,3),
+        height_ratio=[1.6,1],
         fname="ETC_Curent_TempDependence_1poc.pgf",
     )
     plotSensTempDependenceETC(
@@ -1652,6 +1655,8 @@ def plotETCTempDependenceCurrent():
         show_ideal=True,
         show_inaccuracy=True,
         plot_error=True,
+        figsize=(6,4.3),
+        height_ratio=[1.6,1],
         fname="ETC_Curent_TempDependence_2poc.pgf",
     )
 
@@ -1664,7 +1669,9 @@ def plotMCTempDependenceCurrent():
         show_ideal=True,
         # show_inaccuracy=True,
         # violin=True,
-        # fname="MC_Curent_TempDependence_0poc.pgf",
+        figsize=(6,3),
+        height_ratio=[1.6,1],
+        fname="MC_Curent_TempDependence_0poc.pgf",
     )
     plotSensTempDependenceMC(
         "sim_results/MC_tmpSnsSweep_0601_part1",
@@ -1674,7 +1681,9 @@ def plotMCTempDependenceCurrent():
         show_ideal=True,
         # show_inaccuracy=True,
         # violin=True,
-        # fname="MC_Curent_TempDependence_1poc.pgf",
+        figsize=(6,3),
+        height_ratio=[1.6,1],
+        fname="MC_Curent_TempDependence_1poc.pgf",
     )
     plotSensTempDependenceMC(
         "sim_results/MC_tmpSnsSweep_0601_part1",
@@ -1684,7 +1693,9 @@ def plotMCTempDependenceCurrent():
         show_ideal=True,
         # show_inaccuracy=True,
         violin=True,
-        # fname="MC_Curent_TempDependence_2poc.pgf",
+        figsize=(6,4.3),
+        height_ratio=[1.6,1],
+        fname="MC_Curent_TempDependence_2poc.pgf",
     )
 
 def plotETCTempDependenceCounter():
@@ -1694,8 +1705,10 @@ def plotETCTempDependenceCounter():
         curent_or_counter="counter",
         y_estimate_temp=True,
         show_ideal=True,
-        show_inaccuracy=True,
-        # fname="ETC_Counter_TempDependence_0poc.pgf",
+        # show_inaccuracy=True,
+        figsize=(6,3.5),
+        height_ratio=[1.6,1],
+        fname="ETC_Counter_TempDependence_0poc.pgf",
     )
     plotSensTempDependenceETC(
         "sim_results/ETC_tmpSnsSweep_0601",
@@ -1703,8 +1716,10 @@ def plotETCTempDependenceCounter():
         curent_or_counter="counter",
         y_estimate_temp=True,
         show_ideal=True,
-        show_inaccuracy=True,
-        # fname="ETC_Counter_TempDependence_1poc.pgf",
+        # show_inaccuracy=True,
+        figsize=(6,3.5),
+        height_ratio=[1.6,1],
+        fname="ETC_Counter_TempDependence_1poc.pgf",
     )
     plotSensTempDependenceETC(
         "sim_results/ETC_tmpSnsSweep_0601",
@@ -1712,9 +1727,11 @@ def plotETCTempDependenceCounter():
         curent_or_counter="counter",
         y_estimate_temp=True,
         show_ideal=True,
-        show_inaccuracy=True,
+        # show_inaccuracy=True,
         # plot_error=True,
-        # fname="ETC_Counter_TempDependence_2poc_NoSlowPMOS.pgf",
+        figsize=(6,3.5),
+        height_ratio=[1.6,1],
+        fname="ETC_Counter_TempDependence_2poc.pgf",
     )
 
 def plotTYPTempDependenceCounter():
@@ -1726,7 +1743,9 @@ def plotTYPTempDependenceCounter():
         show_ideal=True,
         show_inaccuracy=True,
         plot_error=True,
-        # fname="TYP_TempDependenceCounter.pgf",
+        figsize=(6,3.6),
+        height_ratio=[2,1],
+        fname="TYP_TempDependenceCounter.pgf",
     )
 
 def plotMCTempDependenceCounter():
@@ -1738,7 +1757,9 @@ def plotMCTempDependenceCounter():
         show_ideal=True,
         show_inaccuracy=False,
         violin=True,
-        # fname="MC_TempDependenceCounter_0poc.pgf",
+        figsize=(6,3.9),
+        height_ratio=[1.6,1],
+        fname="MC_TempDependenceCounter_0poc.pgf",
     )
     plotSensTempDependenceMC(
         "sim_results/MC_tmpSnsSweep_0601_part1",
@@ -1748,7 +1769,9 @@ def plotMCTempDependenceCounter():
         show_ideal=True,
         show_inaccuracy=False,
         violin=True,
-        # fname="MC_TempDependenceCounter_1poc.pgf",
+        figsize=(6,3.9),
+        height_ratio=[1.6,1],
+        fname="MC_TempDependenceCounter_1poc.pgf",
     )
     plotSensTempDependenceMC(
         "sim_results/MC_tmpSnsSweep_0601_part1",
@@ -1758,61 +1781,33 @@ def plotMCTempDependenceCounter():
         show_ideal=True,
         show_inaccuracy=False,
         violin=True,
-        # fname="MC_TempDependenceCounter_2poc.pgf",
+        figsize=(6,3.9),
+        height_ratio=[1.6,1],
+        fname="MC_TempDependenceCounter_2poc.pgf",
     )
         
 ######################################################
 
-# plotETCTempDependenceCurrent()
+
+plotETCTempDependenceCurrent()
 plotMCTempDependenceCurrent()
-# plotETCTempDependenceCounter()
+plotETCTempDependenceCounter()
 plotMCTempDependenceCounter()
-# plotTYPTempDependenceCounter()
+plotTYPTempDependenceCounter()
 
+def plotETCTempDependenceCounterNoSlowPMOS():
+    plotSensTempDependenceETC(
+        "sim_results/ETC_tmpSnsSweep_0601 copy",
+        POC=2,
+        curent_or_counter="counter",
+        y_estimate_temp=True,
+        show_ideal=True,
+        # show_inaccuracy=True,
+        # plot_error=True,
+        figsize=(6,3.5),
+        height_ratio=[1.6,1],
+        fname="ETC_Counter_TempDependence_2poc_NoSlowPMOS.pgf",
+    )
+    
 
-# plotSensTempDependenceMC(
-#     "sim_results/MC_tmpSnsSweep_0601_part1",
-#     POC=0,
-#     curent_or_counter="counter",
-#     y_estimate_temp=True,
-#     show_ideal=True,
-#     show_inaccuracy=False,
-#     # fname="MC_TempDependenceCounter_0poc.pgf",
-# )
-
-# plotMCTempDependence()
-
-# plotSensTempDependenceETC(
-#     "sim_results/MC_tmpSnsSweep_0601_part1",
-#     POC=2,
-#     curent_or_counter="both",
-#     y_estimate_temp=True,
-#     show_ideal=True,
-#     show_inaccuracy=True,
-#     # fname="ETC_TempDependence.pgf",
-# )
-
-
-# plotSensTempDependence("sim_results/ETC_tmpSnsSweep_0527", POC=None, curent_or_counter="both", y_estimate_temp=False, show_ideal=True, show_inaccuracy=True)
-# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=None, y_estimate_temp=True)
-# plotSensTempDependence("sim_results/MC_tmpSnsSweep_0526", POC=2)
-
-# sigCorr(["sim_results/MC_tmpSnsSweep_0527_2"], "iptat_first", "tmpcount1")
-# sigCorr(["sim_results/MC_tmpSnsSweep_0527_2"], "iptat_second", "tmpcount2")
-
-
-# getSamplingPeriod("sim_results/MC_tmpSnsSweep_0601_part1/tran_SchGtKttmmTtVt_3", temp=-40)
-# getSamplingPeriod("sim_results/MC_tmpSnsSweep_0601_part1/tran_SchGtKttmmTtVt_3", temp=0)
-# getSamplingPeriod("sim_results/MC_tmpSnsSweep_0601_part1/tran_SchGtKttmmTtVt_3", temp=40)
-# getSamplingPeriod("sim_results/MC_tmpSnsSweep_0601_part1/tran_SchGtKttmmTtVt_3", temp=80)
-# getSamplingPeriod("sim_results/MC_tmpSnsSweep_0601_part1/tran_SchGtKttmmTtVt_3", temp=125)
-# getSamplingPeriod("sim_results/ETC_tmpSnsSweep_0601/tran_SchGtKsfTtVh", temp=-40)
-# getSamplingPeriod("sim_results/ETC_tmpSnsSweep_0601/tran_SchGtKsfTtVh", temp=0)
-# getSamplingPeriod("sim_results/ETC_tmpSnsSweep_0601/tran_SchGtKsfTtVh", temp=40)
-# getSamplingPeriod("sim_results/ETC_tmpSnsSweep_0601/tran_SchGtKsfTtVh", temp=80)
-# getSamplingPeriod("sim_results/ETC_tmpSnsSweep_0601/tran_SchGtKsfTtVh", temp=125)
-
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526_2", POC=2, y_estimate_temp=False)
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=1, y_estimate_temp=True)
-# plotSensTempViolin("sim_results/MC_tmpSnsSweep_0526", POC=2, y_estimate_temp=True)
-
+plotETCTempDependenceCounterNoSlowPMOS()

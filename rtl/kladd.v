@@ -42,19 +42,17 @@ module tmpDig (
     
     output logic [7:0] tmpCount_out1,
     output logic [7:0] tmpCount_out2,
-    output logic [7:0] tmpCount_out3,
-    output logic [7:0] tmpCount_out4,
     output logic tmpCountRst_out,
-    output logic [8:0] count_out
+    output logic [7:0] count_out,
+    output logic [8:0] tmpSampleCount_out
     );
 
 assign tmpCount_out2 = tmpCount2;
 assign tmpCount_out1 = tmpCount1;
-assign tmpCount_out3 = tmpCount3;
-assign tmpCount_out4 = tmpCount4;
 assign tmpCountRst_out = tmpCountRst;
 assign count_out = count;
 
+assign tmpSampleCount_out = tmpSampleCount;
 
 typedef enum logic [2:0] {
     PRECHARGECHILD,
@@ -80,12 +78,11 @@ typedef enum logic [2:0] {
 
 parentState_t parentState;
 
-logic [8:0] count;
+logic [7:0] count;
+logic [8:0] tmpSampleCount;
 logic [5:0] stateCount;
 logic [7:0] tmpCount1;
 logic [7:0] tmpCount2;
-logic [7:0] tmpCount3;
-logic [7:0] tmpCount4;
 logic       Hcharged;
 logic       Lcharged;
 logic [6:0] setupDone;
@@ -97,6 +94,7 @@ logic       lastPTATcmp;
 logic       tmpCountRst;
 logic       rst;
 logic       s_CCOcap2_reset;
+logic       goToEternalSleep;
 
 
 task automatic do_BLANKBIGDIODE();
@@ -134,7 +132,15 @@ task automatic do_BLANKDIODE();
     end
 endtask
 
-
+always_ff @(posedge clk or posedge reset) begin
+    if (reset) begin
+        tmpSampleCount <= 0;
+    end else if (s_CapRst == 0) begin
+        tmpSampleCount <= tmpSampleCount + 1;
+    end else begin
+        tmpSampleCount <= 0;
+    end
+end
 
 always_ff @(posedge clk or posedge reset) begin
     if(reset)
@@ -154,6 +160,7 @@ always_ff @(posedge clk) begin
 /////////////////// BGSETUP /////////////////////////
 
         if (parentState == BGSETUP) begin
+            s_CapRst <= 1;
             s_BgCtrl <= 1;
             s_Rdiscon_N <= 1;
             s_BG2CMP <= 1;
@@ -181,6 +188,16 @@ always_ff @(posedge clk) begin
                             src_n <= 0;
                             snk <= 1;
                             stateCount <= stateCount + 1;
+                        end
+                        if (count > 30) begin
+                            count <= 0;
+                            PI2  <= 0;
+                            snk <= 0;
+                            src_n <= 0;
+                            childState <= BLANKBIGDIODE;
+                            afterBlank <= BLANKDIODE;
+                        end else begin
+                            childState <= BIGDIODE;
                         end
                     end else if (count > 5) begin
                         snk <= 0;
@@ -237,6 +254,7 @@ always_ff @(posedge clk) begin
 /////////////////// BANDGAP /////////////////////////
 
         else if (parentState == BANDGAP) begin
+            s_CapRst <= 1;
             s_BgCtrl <= 1;
             s_Rdiscon_N <= 1;
             s_BG2CMP <= 1;
@@ -271,6 +289,26 @@ always_ff @(posedge clk) begin
                         end else begin
                             src_n <= 0;
                             snk <= 1;
+                        end
+                        if (count > 10) begin
+                            count <= 0;
+                            PI2  <= 0;
+                            snk <= 0;
+                            src_n <= 0;
+                            childState <= BLANKBIGDIODE;
+                            afterBlank <= BLANKDIODE;
+                        end else begin
+                            childState <= BIGDIODE;
+                        end
+                        if (count > 20) begin
+                            count <= 0;
+                            PI2  <= 0;
+                            snk <= 0;
+                            src_n <= 0;
+                            childState <= BLANKBIGDIODE;
+                            afterBlank <= BLANKDIODE;
+                        end else begin
+                            childState <= BIGDIODE;
                         end
                     end else if (count > 9) begin
                         count <= 0;
@@ -370,6 +408,7 @@ always_ff @(posedge clk) begin
 //////////////////// PTAT ///////////////////////////
 
         else if (parentState == PTAT) begin
+            s_CapRst <= 1;
             s_PtatCtrl <= 1;
             s_Rdiscon_N <= 0;
             s_BG2CMP <= 1;
@@ -456,9 +495,8 @@ always_ff @(posedge clk) begin
             s_Cap2CMP <= 1;
             s_Ref2CMP <= 1;
             enable_cmp_toggle <= 1;
-            count <= count + 1;
             tmpCountRst <= 0;
-            if (count > 500) begin
+            if (tmpSampleCount > 225) begin
                 s_BgCtrl <= 0;
                 s_Cap2CMP <= 0;
                 s_Ref2CMP <= 0;
@@ -468,7 +506,6 @@ always_ff @(posedge clk) begin
                     parentState <= SLEEP;
                     enable_cmp_toggle <= 0;
                     s_PtatCtrl <= 0;
-                    s_Rdiscon_N <= 1;
                 end else begin
                     parentState <= PTAT;
                     afterBlank <= BLANKBIGDIODE;
@@ -484,17 +521,23 @@ always_ff @(posedge clk) begin
 /////////////////// SLEEP ///////////////////////////
 
         else if (parentState == SLEEP) begin
-            count <= count + 1;
+            s_CapRst <= 1;
             PwrUp <= 0;
-            if (count > 30) begin
-                parentState <= BANDGAP;
-                childState <= BLANKBIGDIODE;
-                afterBlank <= BIGDIODE;
-                count <= 0;
-                PwrUp <= 1;
-                if (tmpCount1 > 0 && tmpCount2 > 0) begin
-                    tmpCountRst <= 1;
-                end 
+            if (goToEternalSleep == 0) begin
+                count <= count + 1;
+                if (count > 10) begin
+                    parentState <= BANDGAP;
+                    childState <= BLANKBIGDIODE;
+                    afterBlank <= BIGDIODE;
+                    count <= 0;
+                    PwrUp <= 1;
+                    goToEternalSleep <= 1;
+                    if (tmpCount1 > 0 && tmpCount2 > 0) begin
+                        tmpCountRst <= 1;
+                    end 
+                end else begin
+                    parentState <= SLEEP;
+                end
             end else begin
                 parentState <= SLEEP;
             end
@@ -503,6 +546,7 @@ always_ff @(posedge clk) begin
 ///////////////// PRECHARGE /////////////////////////
 
         else begin
+            s_CapRst <= 1;
             case(childState)
                 PRECHARGECHILD: begin
                     do_precharge();
@@ -603,26 +647,33 @@ always @(posedge cmp or posedge reset or posedge tmpCountRst) begin
         s_CCOcap2 <= 1;
         tmpCount1 <= 0;
         tmpCount2 <= 0;
-        tmpCount3 <= 0;
-        tmpCount4 <= 0;
+
     end else if (s_CapRst == 0) begin
         s_CCOcap1 <= ~s_CCOcap1;
         s_CCOcap2 <= ~s_CCOcap2;
 
         if (lastPTATcmp == 1) begin
             tmpCount1 <= tmpCount1 + 1;
-            tmpCount3 <= tmpCount3 + 1;
         end else begin
             tmpCount2 <= tmpCount2 + 1;
-            tmpCount4 <= tmpCount4 + 1;
         end 
     end else if (tmpCountRst) begin
         tmpCount1 <= 0;
         tmpCount2 <= 0;
-        tmpCount3 <= 0;
-        tmpCount4 <= 0;
     end
 end
+
+
+
+// always @(posedge cmp or posedge reset) begin
+//     if (reset) begin
+//         s_CCOcap1 <= 0;
+//         s_CCOcap2 <= 1;
+//     end else if (s_CapRst == 0) begin
+//         s_CCOcap1 <= ~s_CCOcap1;
+//         s_CCOcap2 <= ~s_CCOcap2;
+//     end 
+// end
 
 // assign cmp_p1 = enable_cmp_toggle ? cmp_p1_async : cmp_p1_fsm;
 assign cmp_p1 = cmp_p1_fsm;
@@ -683,6 +734,7 @@ task automatic do_precharge();
     lastPTATcmp <= 0;
     tmpCountRst <= 0;
     cmp_p1_fsm <= 0;
+    goToEternalSleep <= 0;
 endtask
 
 task automatic do_reset_FSM();
@@ -720,6 +772,7 @@ task automatic do_reset_FSM();
     lastPTATcmp <= 0;
     tmpCountRst <= 0;
     cmp_p1_fsm <= 0;
+    goToEternalSleep <= 0;
 endtask
 
 
